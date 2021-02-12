@@ -26,7 +26,7 @@ function ProfileIcon({currentUser,signOutPending,toggleModal, currentImage,getPr
     const signOut = async ()  => {
         await changeStatus(currentUser.id,'offline')
         await signOutPending()
-        setTimeout(function() { refreshPage(); }, 1000);
+        // setTimeout(function() { refreshPage(); }, 1000);
 
         function refreshPage() {
             window.location.reload(false);

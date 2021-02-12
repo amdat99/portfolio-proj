@@ -7,7 +7,7 @@ import { sendMessageSuccess, sendMessageFailed,fetchMessageSuccess,fetchMessageF
 export function* sendMessageAsync({payload: {message, userName, messageId, userId, image }}){
     yield console.log('ueeur',{payload: {message, userName, messageId, userId, image }})
     try{
-  const response = yield fetch('http://localhost:3000/addmessages',{
+  const response = yield fetch('https://quiet-inlet-52952.herokuapp.com/addmessages',{
         method: 'post',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({message:message , userName: userName , messageId: messageId, userId: userId ,image:image
@@ -36,8 +36,9 @@ export function* sendMessageAsync({payload: {message, userName, messageId, userI
 
 
 export function* fetchMessageAsync(){
+    
     try{
-        const response = yield fetch('http://localhost:3000/fetchmessages',{
+        const response = yield fetch('https://quiet-inlet-52952.herokuapp.com/fetchmessages',{
               method: 'post',
               headers: {'Content-Type': 'application/json'},})
         const data = yield response.json()
@@ -49,7 +50,7 @@ export function* fetchMessageAsync(){
 export function* incrementLikesAsync({payload:{messageid}}){
     try{
         yield console.log('df',{payload:{messageid}})
-    const response = yield fetch('http://localhost:3000/incrementlikes',{
+    const response = yield fetch('https://quiet-inlet-52952.herokuapp.com/incrementlikes',{
         method: 'put',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ messageid: messageid, })
@@ -66,9 +67,9 @@ export function * onSendMessagePending() {
     yield takeLatest(messagesActionTypes.SEND_MESSAGE_PENDING, sendMessageAsync);
 }
 
-export function * onSendImagePending() {
-    yield takeLatest(messagesActionTypes.SEND_IMAGE_PENDING, sendMessageAsync);
-}
+// export function * onSendImagePending() {
+//     yield takeLatest(messagesActionTypes.SEND_IMAGE_PENDING, sendMessageAsync);
+// }
 export function * onFetchMessagePending() {
     yield takeLatest(messagesActionTypes.FETCH_MESSAGE_PENDING, fetchMessageAsync);
 }

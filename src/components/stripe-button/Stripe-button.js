@@ -11,7 +11,7 @@ function StripeButton({ price,  clearCart  }) {
     const publishableKey = 'pk_test_51IBPzIJu0vryC2wBYlAbpDwAdguPArW50TXuXHXJHt8h76C3c4HAhBWrz7ujFXQ7ZMMPpGW7jGKLaFLBjABznIJ200cY63b1B1'
     
     const onToken = token => {
-      fetch('http://localhost:3000/payment',{
+      fetch('https://quiet-inlet-52952.herokuapp.com/payment',{
         method: 'post',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({

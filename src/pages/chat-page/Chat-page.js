@@ -32,7 +32,7 @@ useEffect(()=>{
 
 useEffect(()=>{
     const interval = setInterval(() => fetchMessagePending()
-   , 200000); 
+   , 5000); 
 return () =>clearInterval(interval)
 },[fetchMessagePending])
 
@@ -40,11 +40,11 @@ const handleChange = (event) => {
     setMessageData({...messageData, message:event.target.value})
 }
 
-const sendMessage = () => {
+const sendMessage =  async () => {
 
-     sendMessagePending(messageData)    
-     setMessageData({messageId: Math.random(),message:'', image:''})
-     fetchMessagePending()
+   await sendMessagePending(messageData)
+   fetchMessagePending()
+   setMessageData({userName:currentUser.displayName, userId:currentUser.id, messageId: Math.random() ,message: '', image: ''})
 }
 
 const addImageUrl = (event) => {
@@ -70,7 +70,7 @@ return(
       aria-label = 'Search name' className='chat-page-searchbox' type='search'
       placeholder='search name' onChange={onHandleSearch} />
     
-    <form  className= 'chat-page-scroller hide-scroll' onSubmit={sendMessage}>
+    <form  className= 'chat-page-scroller hide-scroll' >
        
     {filteredMessages().map(message =><MessageBox messageData = {message} key={message.messageid}
     fetchMessage = {fetchMessagePending} />
@@ -79,7 +79,7 @@ return(
     type="text-area" placeholder="Enter Message" onChange={handleChange} required />
 
     <input type="url" placeholder="addImageUrl" onChange={addImageUrl} id="chat-page-image" />
-    <button  id="chat-page-button" type ='submit'>send</button>
+    <button  id="chat-page-button" type ='button' onClick={sendMessage}>send</button>
     </form>
 
     <UsersSidebar />

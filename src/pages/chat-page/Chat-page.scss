@@ -16,6 +16,7 @@
        
      height: 450px;
      margin-top: 40px;
+     width: 60%;
      
       }
 
@@ -33,6 +34,11 @@
     z-index: 5;
     width: 55%;
     height:70px;
+    @media screen  and (max-width: 800px ) {
+       
+        width: 65%;
+        bottom: 50px;
+         }
     
 }   #chat-page-button{
      
@@ -43,6 +49,11 @@
     height:30px;
     position: absolute;
     background: black;
+    @media screen  and (max-width: 800px ) {
+       
+        width: 16%;
+        bottom:20px;
+         }
 
     &:hover{
         box-shadow: 3px 3px 3px #cdecff;
@@ -60,6 +71,11 @@
     width: 20%;
     height:20px;
     position: absolute;
+    @media screen  and (max-width: 800px ) {
+       
+        width: 35%;
+        bottom:20px;
+         }
     
 
         
