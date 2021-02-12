@@ -1,0 +1,47 @@
+#product-item-container {
+
+margin-top: 250px;
+justify-content: flex-start;
+display: flex;
+flex-direction:row;
+}
+
+#product-item-image{
+  position: relative;
+  max-width: 300px;
+  display: flex;
+  max-height: 350px;
+  margin-right: 4%;
+  
+  
+  
+       }
+     
+#product-item-overlay{
+  display: flex;
+  
+  max-width: 35%;
+  min-width: 30%;
+  max-height: 80% ;
+  height: fit-content;
+  margin-right: 60%;
+
+  }
+
+ #product-item-name{
+     right: -200px;
+     position:relative;
+     top: -150px;
+    
+  
+ }
+
+#product-item-labels{
+  margin-top: 15%;
+  
+}
+#product-item-seller{
+  position: relative;
+  top: 30px;
+  left: 35px;
+}

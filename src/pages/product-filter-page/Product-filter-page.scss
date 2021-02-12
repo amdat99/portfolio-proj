@@ -1,0 +1,50 @@
+.product-filter-page{
+  margin-top:10px;
+  margin-left: 80px;
+  margin-right: 80px;
+  display:flex;
+  flex-direction: column;
+
+
+products-filter-spacing{
+position: relative;
+top: -50px;
+right: 50px;
+}
+
+.product-filter-loading{
+  color: red;
+
+  position: fixed;
+}
+
+}#product-filter-filter-container{
+
+  margin-left: 10px;
+  width: 80px;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  color: rgb(10, 10, 10);
+  top: 80px;
+  right: 40px;
+  font-family: 'Open Sans Condensed';
+  font-size: 20px;
+  position: -webkit-sticky;
+  position: sticky;
+  padding-right: 40px;
+  
+  @media screen  and (max-width: 800px ) {
+   
+   position: fixed;
+    left: 20px;
+    top: 150px;
+    
+  }
+
+}
+.product-filter-filter-item {
+  border-bottom: 1px solid black;
+ cursor: pointer;
+ margin-right: 4px;
+}
