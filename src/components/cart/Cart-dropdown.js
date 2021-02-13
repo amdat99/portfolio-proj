@@ -23,7 +23,7 @@ function CartDropdown({cartItems, toggleCartHidden,clearCart, history}) {
             <div className = ' hide-scroll cart-items'  >  
             {   
                 cartItems.length ?
-                cartItems.map((cartItem, i) => {
+                cartItems.map((cartItem) => {
                 return <CartItem  key ={cartItem.productId} item = {cartItem} />
                 } )
                 : <span className = 'empty-message'>Your cart is empty</span>
