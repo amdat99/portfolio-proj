@@ -63,23 +63,22 @@ export const getProfileDoc = async () => {
 }
    export const setItemsDoc = async ( itemData) =>{
         
-    const verificationRef = firestore.collection('items') // verifies user to then allow to update listing
-    .where("userId", "==", itemData.userId)
+    // const verificationRef = firestore.collection('items') // verifies user to then allow to update listing
+    // .where("userId", "==", itemData.userId)
 
-    if (verificationRef.exists){  //deletes document if same product is sent 
-     const deleteRef = firestore.collection('items')
-      .where("productId" ,"==", itemData.productId )
-      deleteRef.delete().then(() => {
-      })
-    }
-    
-    const uid = Math.random().toString()
-   const collectionRef = firestore.doc(`items/${uid}${itemData.userId}}`)
-   
-   const name = itemData.name.toLowerCase();
-    const {  price, category, soldBy, picture, description,userId} = itemData; 
-    const createdAt = new Date ();
+    // if (verificationRef.exists){  //deletes document if same product is sent 
+    //  const deleteRef = firestore.collection('items')
+    //   .where("productId" ,"==", itemData.productId )
+    //   deleteRef.delete().then(() => {
+    //   })
+    // }
     const productId = itemData.productId+Math.random()
+   const collectionRef = firestore.doc(`items/${productId}${itemData.userId}}`)
+   
+
+    const {  price, category, soldBy, picture, description,userId,name} = itemData; 
+    const createdAt = new Date ();
+    
  try{
     await collectionRef.set({
       name, price, category, soldBy, picture, description, userId, 
@@ -93,8 +92,8 @@ export const getProfileDoc = async () => {
 
 export const setItemsHistoryDoc = async ( itemData) =>{
      
-  const uid = Math.random().toString()
-  const collectionRef = firestore.doc(`itemshistory/${uid}${itemData.userId}}`)
+
+  const collectionRef = firestore.doc(`itemshistory/${itemData.productId}${itemData.userId}}`)
   const name = itemData.name.toLowerCase();
   const {  price, category, soldBy, picture, description,userId} = itemData; 
   const createdAt = new Date ();
@@ -121,12 +120,40 @@ export const getItemsDoc = async ( collection) => {
          } )
 }
 
+export const getSellingItemsDoc = async (userId) => {
+  if(!userId) return
+  const collectionRef = firestore.collection('items').where('userId',"==",userId)
+  const collectionSnapShot = await collectionRef.get(); // 
+  return collectionSnapShot.docs.map(doc => doc.data())
+}
+
+export const deleteListing = async (userId,productId) => {
+  if(!userId) return
+const deleteRef=firestore.collection('items').where('productId', '==', productId).where('userId','==',userId)
+    deleteRef.get().then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
+        doc.ref.delete();
+      });
+    });
+  }
+
+// var jobskill_query = db.collection('job_skills').where('job_id','==',post.job_id);
+// jobskill_query.get().then(function(querySnapshot) {
+//   querySnapshot.forEach(function(doc) {
+//     doc.ref.delete();
+//   });
+// });
+
 export const getCategoryDoc = async ( collection, category) => {
   if(!collection) return
     const collectionRef = firestore.collection(collection)
     .where("category", "==", category)
     const collectionSnapShot = await collectionRef.get(); // 
-     return collectionSnapShot.docs.map(doc => doc.data())
+    return  collectionSnapShot.docs.map(doc => {
+        return {name: doc.data().name, price: doc.data().price, category: doc.data().category,
+          soldBy: doc.data().soldBy,picture: doc.data().picture,description: doc.data().description,createdAt: doc.data().createdAt,
+          profileId: doc.data().productId } 
+         } )
        }
 
 export const getProductDoc = async ( collection, productId) => {
@@ -135,8 +162,8 @@ export const getProductDoc = async ( collection, productId) => {
       .where("productId", "==", productId)
   
       const collectionSnapShot = await collectionRef.get(); // 
-       return collectionSnapShot.docs.map(doc => doc.data())
-        }
+      return collectionSnapShot.docs.map(doc => doc.data())
+         }
   
   export const getListedProductDoc = async ( collection, soldBy) => {
     if (!soldBy) return
@@ -145,7 +172,8 @@ export const getProductDoc = async ( collection, productId) => {
         
       const collectionSnapShot = await collectionRef.get(); // 
       return collectionSnapShot.docs.map(doc => doc.data())
-        }
+         } 
+       
 
 export const getSearchFilteredDoc = async ( collection, name) => {
   if(!name) return
@@ -154,8 +182,12 @@ export const getSearchFilteredDoc = async ( collection, name) => {
     .where("name", "<=", name + "\uf8ff");
       
     const collectionSnapShot = await collectionRef.get(); // 
-        return collectionSnapShot.docs.map(doc => doc.data())
-          }
+    return  collectionSnapShot.docs.map(doc => {
+      return {name: doc.data().name, price: doc.data().price, category: doc.data().category,
+        soldBy: doc.data().soldBy,picture: doc.data().picture,description: doc.data().description,createdAt: doc.data().createdAt,
+        profileId: doc.data().productId } 
+       } )
+     }
 
     export const uploadImageToStorage =  (profileimage,profileId) => {
       if(!profileimage || !profileId) return

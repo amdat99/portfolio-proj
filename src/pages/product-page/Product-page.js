@@ -17,7 +17,7 @@ function ProductPage({isLoaded,product}) {
 
         {  isLoaded
         ?product.map(item =>
-         <ProductItem item={item} key={item.productId} /> )
+         <ProductItem item={item} key={item.name} /> )
         
         : <h1>LOADING...</h1>
         } 

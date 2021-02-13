@@ -17,14 +17,15 @@ function CartDropdown({cartItems, toggleCartHidden,clearCart, history}) {
      
         return (
         <div className = 'cart-dropdown hide-scroll' onBlur ={toggleCartHidden} tabIndex={'0'}  > 
-            <Link className = 'dropdown-clear-cart'onClick = { clearCart }> CLEAR CART &#9746; 
-            </Link>
+       
+            <div className = 'dropdown-clear-cart'onClick = { clearCart }> CLEAR CART &#9746; 
+            </div>
 
             <div className = ' hide-scroll cart-items'  >  
             {   
                 cartItems.length ?
-                cartItems.map((cartItem) => {
-                return <CartItem  key ={cartItem.productId} item = {cartItem} />
+                cartItems.map((cartItem,i) => {
+                return <CartItem  key ={i} item = {cartItem} />
                 } )
                 : <span className = 'empty-message'>Your cart is empty</span>
             }  

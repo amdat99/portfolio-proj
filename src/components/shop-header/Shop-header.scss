@@ -9,13 +9,16 @@
     left: 120px;
     z-index: 5;
     background: white;
-
+    padding-top: 10px;
+  
     @media screen  and (max-width: 800px ) {
-       
+        
         height: 60px;
         max-width: 500px;
         left: 45px;
-        width: 90%;
+        width: 90%;  
+       
+      
       }
 
 .shopheader-dropdown{

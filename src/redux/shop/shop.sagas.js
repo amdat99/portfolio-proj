@@ -1,8 +1,8 @@
 import { takeEvery, call, put, all }  from 'redux-saga/effects'
-import { getItemsDoc ,getCategoryDoc, getProductDoc, getSearchFilteredDoc} from '../../firebase/firebase'
+import { getItemsDoc ,getCategoryDoc, getProductDoc, getSearchFilteredDoc,getSellingItemsDoc} from '../../firebase/firebase'
 
 import shopActionTypes from './shop.types';
-import { fetchItemsSuccess, fetchItemsFailed, fetchCategorySuccess, fetchProductSuccess } from './shop.actions';
+import { fetchItemsSuccess, fetchItemsFailed, fetchCategorySuccess, fetchProductSuccess, fetchSellingItemsSuccess } from './shop.actions';
 
 export function* fetchItemsAsync() {
   try{
@@ -44,6 +44,17 @@ export function* fetchFilteredItemsAsync({ payload: event}) {
     }
 
 
+    export function* fetchSellingItemsAsync({ payload: userId}) {
+console.log('sdsd',{ payload: userId});
+        try {
+            const productData = yield call(getSellingItemsDoc,userId)
+            yield put(fetchSellingItemsSuccess(productData))
+        }catch(error){
+            yield put(fetchItemsFailed(error.message))
+        }
+        }
+
+
 export function* fetchItemsPending() {
     yield takeEvery(shopActionTypes.FETCH_ITEMS_PENDING, 
    fetchItemsAsync
@@ -67,12 +78,17 @@ export function* fetchFilteredItemsPending(){
     fetchFilteredItemsAsync)
 }
 
+export function* fetchSellingItemsPending(){
+    yield takeEvery(shopActionTypes.FETCH_SELLINGITEMS_PENDING, fetchSellingItemsAsync)
+}
+
 export function* shopSagas() {
     yield all([
         call(fetchItemsPending),
         call(fetchCategoryPending),
         call(fetchProductPending),
-        call(fetchFilteredItemsPending)
+        call(fetchFilteredItemsPending),
+        call(fetchSellingItemsPending)
 
     ])
 

@@ -9,3 +9,9 @@ export const selectMessagesData = createSelector(
  (messages) => messages.messagesData? messages.messagesData : []
 
 )
+
+export const selectMessagesPending = createSelector(
+    [selectMessages],
+    (messages) =>  messages.pending 
+   
+   )

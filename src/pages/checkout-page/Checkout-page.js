@@ -27,8 +27,8 @@ function CheckoutPage({cartItems,total,currentUser,setHeaderRoute}) {
             <div className= 'checkout-header'>
     
             </div>
-                {cartItems.map(cartItem => 
-                <CheckoutItem cartItem = {cartItem} key= {cartItem.productId} / >
+                {cartItems.map((cartItem,i)=> 
+                <CheckoutItem cartItem = {cartItem} key= {i} / >
                 )}
                 <div className= 'checkout-test-checkout'>
             <div >

@@ -1,5 +1,5 @@
 .cart-dropdown {
-    width: 220px;
+    width: 200px;
     height: 240px;
     display: flex;
     flex-direction: column;
@@ -9,21 +9,20 @@
     z-index: 5;
     outline: none;
     position: absolute;
-    left: 60px;
+    left: 150px;
     top: 50px;
     overflow: scroll;
 
-    @media screen  and (max-width: 1500px ) {
+    // @media screen  and (max-width: 1500px ) {
        
-      width: 125px;
-      left: 90px;
-    }
+    //   width: 125px;
+    //   left: 170px;
+    // }
 
     @media screen  and (max-width: 800px ) {
        
-      width: 150px;
+      width: 170px;
      
-      height: 180px;
     }
   
    .empty-message {
@@ -58,9 +57,9 @@
      margin-left: 110px;
      cursor: pointer;
      width: 100px;
+
     @media screen  and (max-width: 1500px ) {
-     
-     margin-left: 50px;
+      margin-left: 5px;
     }
      
     }

@@ -16,6 +16,16 @@ export const fetchCategoryPending = (category)=> ({
     payload: category
 })
 
+export const fetchSellingItemsPending = (userId) => ({
+    type: shopActionTypes.FETCH_SELLINGITEMS_PENDING,
+    payload: userId
+})
+
+export const fetchSellingItemsSuccess = (productData) => ({
+    type: shopActionTypes.FETCH_SELLINGITEMS_SUCCESS,
+    payload: productData
+})
+
 
 export const setSearchField = (event) => ({
 		
@@ -42,5 +52,11 @@ export const fetchCategorySuccess = (itemData) => ({
 
 export const fetchItemsFailed = (errorMessage) => ({
     type: shopActionTypes.FETCH_ITEMS_FAILED,
+    payload: errorMessage
+})
+
+
+export const fetchSellingItemsFailed = (errorMessage) => ({
+    type: shopActionTypes.FETCH_SELLINGITEMS_FAILED,
     payload: errorMessage
 })

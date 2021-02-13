@@ -13,7 +13,7 @@ function ProductItem({item, incrementItem}) {
         <div id='product-item-container' >
 
    
-        <h2 id='product-item-name'>{name.toUpperCase()}</h2> 
+        <h3 id='product-item-name'>{name.toUpperCase()}</h3> 
        
         
         <img id ='product-item-image' src ={picture} alt='item' />

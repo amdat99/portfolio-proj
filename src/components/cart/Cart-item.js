@@ -1,18 +1,24 @@
 import React from 'react'
 
 import './Cart-item.scss'
-
+import { withRouter } from 'react-router-dom'
+import { fetchProductPending } from '../../redux/shop/shop.actions'
 import {connect} from 'react-redux'
 import {minusItem, addItem} from '../../redux/cart/cart.actions'
 
 
 
-function CartContent({item, decrementItem,incrementItem}) {
+function CartContent({item, decrementItem,incrementItem,fetchProductPending,history}) {
 
-    const { name, price, picture, quantity} = item;
+    console.log(item)
+
+    const { name, price, picture, quantity, profileId} = item;
     return(
         <div className = 'cart-item'>
-            <img src={picture} alt = 'item' width='80'/>
+            <img src={picture} alt = 'item' width='80' style={{cursor: 'pointer'}}
+        onClick={() => { fetchProductPending(profileId); 
+         history.push('/product') }}
+            />
          
            <div className = 'cartitem-details'>
                 <span className= 'cartitem-name'>{name}</span>
@@ -28,6 +34,7 @@ function CartContent({item, decrementItem,incrementItem}) {
 const mapDispatchToProps = (dispatch) => ({
     decrementItem: item => dispatch(minusItem(item)),
     incrementItem: item => dispatch(addItem(item)),
+    fetchProductPending: (productId) => dispatch(fetchProductPending(productId))
 })
 
-export default connect(null,mapDispatchToProps)(CartContent);
+export default withRouter(connect(null,mapDispatchToProps)(CartContent));

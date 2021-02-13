@@ -26,7 +26,7 @@ function ProfileIcon({currentUser,signOutPending,toggleModal, currentImage,getPr
     const signOut = async ()  => {
         await changeStatus(currentUser.id,'offline')
         await signOutPending()
-        // setTimeout(function() { refreshPage(); }, 1000);
+        setTimeout(function() { refreshPage(); }, 1000);
 
         function refreshPage() {
             window.location.reload(false);
@@ -37,7 +37,7 @@ return (
         <div >
         <div className='profile-icon' onMouseEnter = { dropdownToggle} onMouseLeave = { dropdownToggle}>
             <div >
-            Profile
+          
             
             <img src={currentImage} alt= '' className='profile-icon-image' 
             width= '50' height= '50' onError={(e)=>{e.target.onerror = null; e.target.src="https://cdn.pixabay.com/photo/2016/08/25/07/30/orange-1618917_960_720.png"}}

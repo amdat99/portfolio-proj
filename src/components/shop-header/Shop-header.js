@@ -28,7 +28,7 @@ const onDropdownToggle = () => {
     
         <div className="shopheader-links">
             
-            <div as= 'Link' className= 'shopheader-labels' onMouseLeave ={onDropdownToggle} 
+            <div  className= 'shopheader-labels' onMouseLeave ={onDropdownToggle} 
             onMouseEnter={onDropdownToggle}>
             <Link   to='/store'> SHOP</Link>
             { shopDropdown

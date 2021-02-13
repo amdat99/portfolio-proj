@@ -4,7 +4,7 @@ import MessageBox from '../../components/message-box/Message-box'
 import UsersSidebar from '../../components/users-sidebar/Users-sidebar'
 
 import {  selectCurrentUser } from '../../redux/user/user.selectors'
-import { selectMessagesData } from '../../redux/messages/messages.selectors'
+import { selectMessagesData, selectMessagesPending } from '../../redux/messages/messages.selectors'
 import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
 import { changeStatus } from '../../redux/user/user.actions'
@@ -13,7 +13,7 @@ import { sendMessagePending, fetchMessagePending, incrementLikesPending } from '
 
 import './Chat-page.scss'
 
-function ChatPage({currentUser, sendMessagePending,fetchMessagePending,messages, changeStatus}) {
+function ChatPage({currentUser, sendMessagePending,fetchMessagePending,messages, changeStatus, pending}) {
 
 const [searchField,setSearchField] =useState('')
 const [messageData, setMessageData] = useState({userName:'', message:'', messageId:'', userId:'', image:'',})
@@ -62,7 +62,7 @@ const filteredMessages= () =>{
     })
 }
 
-
+console.log(searchField)
 
 return(
     <div>
@@ -72,9 +72,10 @@ return(
     
     <form  className= 'chat-page-scroller hide-scroll' >
        
-    {filteredMessages().map(message =><MessageBox messageData = {message} key={message.messageid}
+    { pending?<div className= 'loader'></div>:null}
+        {filteredMessages().map(message =><MessageBox messageData = {message} key={message.messageid}
     fetchMessage = {fetchMessagePending} />
-    )}
+    ) }
     <textarea id="chat-page-send"
     type="text-area" placeholder="Enter Message" onChange={handleChange} required />
 
@@ -82,7 +83,7 @@ return(
     <button  id="chat-page-button" type ='button' onClick={sendMessage}>send</button>
     </form>
 
-    <UsersSidebar />
+    <UsersSidebar searchField = {searchField}/>
     
     </div>
     );
@@ -90,7 +91,8 @@ return(
 
 const mapStateToProps = createStructuredSelector({
     currentUser: selectCurrentUser,
-    messages: selectMessagesData
+    messages: selectMessagesData,
+    pending: selectMessagesPending
   })
 
  const mapDispatchToProps  = (dispatch) => ({

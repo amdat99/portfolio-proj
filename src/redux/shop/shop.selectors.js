@@ -35,6 +35,13 @@ export const selectCategory = createSelector(
   : []
   
 )
+
+export const selectSellingItems = createSelector(
+  [selectShop],
+  (shop) => shop.sellingItems? shop.sellingItems
+  : []
+  
+)
 export const isItemDataLoaded = createSelector(
     [selectShop],
     (shop) => !!shop.items
@@ -47,4 +54,9 @@ export const isItemDataLoaded = createSelector(
 export const isCategoryDataLoaded = createSelector(
   [selectShop],
   (shop) => !!shop.categoryItems
+)
+
+export const isSellingItemsLoaded = createSelector(
+  [selectShop],
+  (shop) => !!shop.sellingItems
 )

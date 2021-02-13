@@ -7,17 +7,19 @@ import { fetchProductPending } from '../../redux/shop/shop.actions'
 import './Items-collection.scss'
 
 function ItemsCollection({item,incrementItem,fetchProductPending,history}) {
-const {name,price,picture,productId, soldBy} = item;
+const {name,price,picture,profileId, soldBy} = item;
 
+console.log(item)
     return (
      
          <div id='item-container' >
+       
        
 
            
          <div id='item-overlay' >
          <img id ='item-image' src ={picture} alt='item' 
-         onClick={() => { fetchProductPending(productId); 
+         onClick={() => { fetchProductPending(profileId); 
          history.push('/product') } }/>
            
            

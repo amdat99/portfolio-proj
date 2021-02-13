@@ -14,18 +14,12 @@ function MessageBox({messageData, incrementLikesPending,fetchMessage}) {
         incrementLikesPending(messageData)
         fetchMessage();
 
-     
-        
-
     }
 
     const imageToggle = () =>{
         setImages(false);
-       
     }
-
-   
-    return (
+return (
 
     <div >
 {   images?

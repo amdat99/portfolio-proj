@@ -1,5 +1,6 @@
 import React,{useState,useEffect,useCallback} from 'react';
 import CartDropdown from '../../components/cart/Cart-dropdown'
+import ListedItems from '../../components/listed-items/Listed-items'
 import ProfileIconDropdown from './Profile-icon-dropdown'
 
 import {Link} from 'react-router-dom'
@@ -11,10 +12,12 @@ import {createStructuredSelector} from 'reselect'
 import { selectToggledModal } from '../../redux/modal/modal.selectors'
 import { selectCurrentUser } from '../../redux/user/user.selectors'
 import { selectCurrentImage } from '../../redux/profile/profile.selectors'
-import { uploadImageToStorage} from '../../firebase/firebase'
+import { uploadImageToStorage,deleteListing} from '../../firebase/firebase'
+import { selectSellingItems, isSellingItemsLoaded } from '../../redux/shop/shop.selectors'
+import { fetchSellingItemsPending } from '../../redux/shop/shop.actions'
 
 import './Profile.scss'
-function Profile({toggleModal,currentUser,currentImage, getProfileImage}) {
+function Profile({toggleModal,currentUser,currentImage, getProfileImage,fetchSellingItemsPending, sellingItems,isSellingItemsLoaded}) {
     
     const [uploadDropdown, setUploadDropdown] = useState(false)
 
@@ -23,12 +26,18 @@ function Profile({toggleModal,currentUser,currentImage, getProfileImage}) {
         if(currentUser) {
         getProfileImage(currentUser.profileId)
         // updateDisplayName(currentUser.id,'aamir1')
-       
-    }
+       }
     },[currentUser,getProfileImage])
 
- 
+    useEffect(()=>{
+        if (currentUser)  {
+            fetchSellingItemsPending(currentUser.id)
+            }
+    },[currentUser,fetchSellingItemsPending])
+
     
+
+
 const toggleDropdown =  () => {
     setUploadDropdown(!uploadDropdown)
 }
@@ -61,8 +70,18 @@ const toggleDropdown =  () => {
         </div>
      
         <div id='profile-cart'>
-            <CartDropdown />
-        </div> </div> 
+       <CartDropdown />
+        </div> 
+                
+        {
+            sellingItems !== [] ?
+            sellingItems.map(sellingItem =>
+            <div >
+            <ListedItems sellingItem= {sellingItem} key={sellingItem.userId} />
+            </div>
+            ): <h1 id="profile-nosell">you are selling no items</h1>}
+        
+        </div> 
          :<Link to="/signon" onClick = {toggleModal}>sign in to view profile</Link> 
       }
             <button id="profile-modal-button" onClick={toggleModal}>X</button>
@@ -73,13 +92,16 @@ const toggleDropdown =  () => {
 
 const mapDispatchToProps = (dispatch) => ({
     getProfileImage: (profileId) =>dispatch(fetchProfileImagePending(profileId)),
-    toggleModal: () => dispatch(toggleModal())
+    toggleModal: () => dispatch(toggleModal()),
+    fetchSellingItemsPending: (userId) => dispatch(fetchSellingItemsPending(userId))
 });
 
 const mapStateToProps = createStructuredSelector({
     selectToggledModal: selectToggledModal,
     currentUser: selectCurrentUser,
-    currentImage: selectCurrentImage
+    currentImage: selectCurrentImage,
+    sellingItems: selectSellingItems,
+    isSellingItemsLoaded: isSellingItemsLoaded
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(Profile);
