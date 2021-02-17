@@ -1,14 +1,16 @@
 import { takeLatest, put, all, call} from 'redux-saga/effects'
 
 import {  signInSuccess, signInFailure, signOutSuccess, signOutFailure, 
-    signUpSuccess, signUpFailure,} from './user.actions'
+    signUpSuccess, signUpFailure, getMessageFailed, sendDirectMessageFailed,getRecievedMessageSuccess, getSentMessageSuccess } from './user.actions'
+
+    import{ changeStatus} from '../profile/profile.actions'
 import userActionTypes from './user.types'
 
 
 import { nullifyProfileImage } from '../profile/profile.actions'
 import { clearAllItemsFromCart }from '../cart/cart.actions'
 
-import { auth, googleHandler, createUserProfileDoc, getCurrentUser,updateStatus  } from '../../firebase/firebase'
+import { auth, googleHandler, createUserProfileDoc, getCurrentUser,updateStatus, setMessageDoc, getRecievedMessageDoc, getSentMessageDoc } from '../../firebase/firebase'
 
 
 export function* getSnapshotFromUserAuth(userData, additionalData) {
@@ -29,7 +31,7 @@ export function* getSnapshotFromUserAuth(userData, additionalData) {
     try {
       const { user } = yield auth.signInWithPopup(googleHandler);
       yield getSnapshotFromUserAuth(user);
-      yield onChangeUserStatus()
+      
     } catch (error) {
       yield put(signInFailure(error));
     }
@@ -47,42 +49,82 @@ export function* getSnapshotFromUserAuth(userData, additionalData) {
     }
   }
 
-  export function* changeUserStatus({payload: {userId, status}}){
-    console.log('d',{payload: {userId, status}})
-    try {
-      yield call (updateStatus, userId, status)
+
+  export function * sendDirectMessageAsync({ payload: {senderId, recieverId, message, senderName, recieverName }}) {
+    console.log('dff',{payload: {senderId, recieverId, message, senderName, recieverName }} )
+    try{
+      const messageData = yield call(setMessageDoc,senderId, recieverId, message, senderName, recieverName)
+
     }catch (error) {
-      console.error('error', error.message)
+      yield put(sendDirectMessageFailed(error))
     }
   }
+
+export function* getSentMessageAsync({ payload: {userId}}){
+  console.log('dff',{payload: {userId}})
+  try{
+    const messagedata = yield getSentMessageDoc(userId)
+    yield put(getSentMessageSuccess(messagedata))
+
+  }catch (error) {
+    yield put(getMessageFailed(error))
+  }
+}
+
+export function* getRecievedMessageAsync({ payload: {profileId}}){
+  console.log('dff',{payload: {profileId}})
+  try{
+    const messagedata = yield getRecievedMessageDoc(profileId)
+    yield put(getRecievedMessageSuccess(messagedata))
+
+  }catch (error) {
+    yield put(getMessageFailed(error))
+  }
+}
+  
 
 export function* isUserAuthenticated(){
     try{
         const userData = yield getCurrentUser();
         if(!userData) return 
         yield getSnapshotFromUserAuth(userData);
-       yield updateStatus(userData.id,'online')
+       yield updateStatus(userData.profileId,'online')
     }catch(error){
         yield put(signInFailure(error))
 
     }
 }
 
+export function* onUpdateStatus(){
+  const userData = yield getCurrentUser();
+  yield call(updateStatus,userData.profileId)
+}
+
 export function* signOut(){
+  const userData = yield getCurrentUser();
+
     try{
-        yield auth.signOut()
-        yield put(signOutSuccess())
+        
+        yield auth.signOut() 
+        
+       
+        yield put(signOutSuccess()) 
+          
         yield put(clearAllItemsFromCart())
+        
         yield put(nullifyProfileImage())
     }catch(error){
         yield put(signOutFailure(error))
 
     }
   }
-    export function* signUp({ payload: { email, password, displayName } }) {
+
+
+    export function* signUp({ payload: { email, password,displayName } }) {
       try {
         const { user } = yield auth.createUserWithEmailAndPassword(email, password);
         yield put(signUpSuccess({ user, additionalData: { displayName } }));
+       
     } catch (error) {
       yield put(signUpFailure(error));
     }
@@ -90,6 +132,7 @@ export function* signOut(){
   
   export function* signInAfterSignUp({ payload: { user, additionalData } }) {
     yield getSnapshotFromUserAuth(user, additionalData);
+    
   }
 
 
@@ -117,12 +160,19 @@ export function * onSignUpSuccess() {
     yield takeLatest(userActionTypes.SIGN_UP_SUCCESS, signInAfterSignUp);
 }
 
-export function * onChangeUserStatus(){
-  yield takeLatest(userActionTypes.CHANGE_STATUS, changeUserStatus)
+
+
+export function * onSendMessagePending(){
+  yield takeLatest(userActionTypes.SEND_DIRECT_MESSAGE_PENDING, sendDirectMessageAsync)
 }
 
+export function * onGetSentMessagePending(){
+  yield takeLatest(userActionTypes.GET_SENT_MESSAGE_PENDING, getSentMessageAsync)
+}
 
-
+export function * onGetRecievedMessagePending(){
+  yield takeLatest(userActionTypes.GET_RECIEVED_MESSAGE_PENDING, getRecievedMessageAsync)
+}
 
 export function* userSagas() {
     yield all([
@@ -132,7 +182,9 @@ export function* userSagas() {
       call(onSignOutPending),
       call(onSignUpPending),
       call(onSignUpSuccess),
-      call(onChangeUserStatus)
+     call(onSendMessagePending),
+     call(onGetSentMessagePending),
+     call(onGetRecievedMessagePending)
 
     ]);
   }

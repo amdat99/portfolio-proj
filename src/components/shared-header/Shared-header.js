@@ -8,6 +8,7 @@ import {connect} from 'react-redux'
 import { selectCurrentRoute } from '../../redux/header/header.selectors';
 
 function SharedHeader({route}) {
+    
     return (
         <div>
         { route = 'shop'

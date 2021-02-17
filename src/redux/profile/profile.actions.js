@@ -39,3 +39,8 @@ export const nullifyProfileImage = () => ({
     type: profileActionTypes.NULLIFY_PROFILEIMAGE
 })
 
+
+export const changeStatus = (userData) => ({
+    type: profileActionTypes.CHANGE_STATUS,
+    payload: userData
+})

@@ -39,7 +39,7 @@ function StorePageDirectory(props) {
 
 return (
     <div className='shop-page-directory'>   
-    <h1>Tada SuperStore</h1>
+    <h1>Store</h1>
         {
             categories.map(category => {    
              

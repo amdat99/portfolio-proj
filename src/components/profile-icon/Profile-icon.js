@@ -1,13 +1,13 @@
 import React ,{useState, useEffect} from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { signOutPending, changeStatus } from '../../redux/user/user.actions';
+import { signOutPending } from '../../redux/user/user.actions';
 import { toggleModal } from '../../redux/modal/modal.actions';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
 import { selectCurrentImage } from '../../redux/profile/profile.selectors'
-import { fetchProfileImagePending} from '../../redux/profile/profile.actions'
+import { fetchProfileImagePending, changeStatus} from '../../redux/profile/profile.actions'
 import { createStructuredSelector } from 'reselect';
-
+import { updateStatus } from '../../firebase/firebase'
 import './Profile-icon.scss'
 
 function ProfileIcon({currentUser,signOutPending,toggleModal, currentImage,getProfileImage,changeStatus}) {
@@ -15,7 +15,8 @@ function ProfileIcon({currentUser,signOutPending,toggleModal, currentImage,getPr
 
     useEffect(()=>{
         if(currentUser){
-        getProfileImage(currentUser.profileId)}
+        getProfileImage(currentUser.profileId)
+        }
     },[getProfileImage, currentUser])
 
 
@@ -23,10 +24,16 @@ function ProfileIcon({currentUser,signOutPending,toggleModal, currentImage,getPr
         setProfileToggle(!profileToggle)
     }
 
+    const onUpdateStatus = () => {
+        changeStatus(currentUser.profileId,'offline');
+    } 
+
     const signOut = async ()  => {
-        await changeStatus(currentUser.id,'offline')
-        await signOutPending()
-        setTimeout(function() { refreshPage(); }, 1000);
+        
+        await onUpdateStatus()
+       
+        setTimeout(function() { signOutPending(); }, 1200);
+        setTimeout(function() { refreshPage(); }, 2000);
 
         function refreshPage() {
             window.location.reload(false);
@@ -48,7 +55,7 @@ return (
             ?<div className='profile-icon-dropdown'  >
             {
             currentUser
-            ?<div onClick= {signOut  }>SIGN OUT</div>
+            ?<div onClick= { signOut  }>SIGN OUT</div>
             :<Link to ='/signon'>SIGN IN</Link>
            } 
            <Link onClick={ toggleModal }> 
@@ -75,7 +82,7 @@ const mapDispatchToProps = (dispatch) => ({
     signOutPending: () => dispatch(signOutPending()),
     toggleModal: () => dispatch(toggleModal()),
     getProfileImage: (profileId) =>dispatch(fetchProfileImagePending(profileId)),
-    changeStatus: (userId, status) => dispatch(changeStatus({userId, status}))
+    changeStatus: (profileId, status) => dispatch(changeStatus({profileId, status}))
 });
 
 

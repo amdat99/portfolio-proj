@@ -42,7 +42,7 @@ class SignUp extends React.Component {
     //     }
     signUpPending({ displayName, email, password });
     if(error!== null){
-      alert(error.message)
+      alert(error)
     }
 };
 

@@ -12,15 +12,20 @@ const config = {
     appId: "1:452910579347:web:8a8ab4e7a2856ce18a1766",
     measurementId: "G-38WWV7HX7T"
   };
+
+  //user functions:
   export const createUserProfileDoc = async (userData, additionalData) => { // handles google and emailsignin
     if (!userData) return
-
+    const profileId = Math.random()+Math.random()
+    const profileRef = firestore.doc(`profile/${profileId}`);
+    const messageRef = firestore.doc(`messages/${profileId}`);
     const userRef = firestore.doc(`users/${userData.uid}`);
     const snapShot = await userRef.get();   
     if(!snapShot.exists){  // createes new user info 
-      const { displayName, email} = userData;
+      const { displayName, email, senderName,
+        message,} = userData;
       const createdAt = new Date();
-      const profileId = Math.random()
+      
       const status = ''
       try{
         await userRef.set({
@@ -29,6 +34,22 @@ const config = {
           createdAt,
           profileId,
           status,
+          ...additionalData
+        })
+
+        await profileRef.set({
+          displayName,
+          createdAt,
+          profileId,
+          status,
+          ...additionalData
+        })
+        await messageRef.set({
+          displayName,
+          createdAt,
+          senderName,
+          message,
+          profileId,
           ...additionalData
         })
       } catch(error){
@@ -45,37 +66,78 @@ export const updateDisplayName = async (userId,name) =>{
   return userRef.doc(userId).update({displayName:name})
 }
 
-export const updateStatus = async (userId,status) =>{
-
-  console.log(status)
-  if (!userId) return
-let userRef= firestore.collection('users')
-return userRef.doc(userId).update({status:status})
+export const updateStatus = async (profileId,status) =>{
+  console.log(profileId)
+  firestore.collection("profile").where("profileId", "==", profileId)
+  .get()
+  .then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
+          doc.ref.update({status: status})
+      });
+ })
 }
 
 export const getProfileDoc = async () => {
  
- const collectionRef = firestore.collection('users');  // get user collection data
+ const collectionRef = firestore.collection('profile');
+   // get user collection data
     const collectionSnapShot = await collectionRef.get(); // 
     return  collectionSnapShot.docs.map(doc => {
         return { profileId: doc.data().profileId , displayName: doc.data().displayName, status: doc.data().status}  
          } )
 }
+
+export const getCurrentUser =() => {  
+  return new Promise((resolve, reject) => {  // cheks to see if user is signedin 
+    const unsubscribe = auth.onAuthStateChanged(userData =>{ //if sign in state changes
+      unsubscribe();      //unsubscribe/closes session
+      resolve(userData)
+    } ,reject)
+  })
+}
+
+//messaging functions:
+
+export const setMessageDoc = async ( messageData) =>{
+  
+  const uid = Math.random()+Math.random()
+  const collectionRef = firestore.doc(`message/${uid}`)
+  const { senderId,message,senderName, recieverName, recieverId } = messageData; 
+  const createdAt = new Date ();
+  
+try{
+  await collectionRef.set({
+    message,recieverId, senderName, recieverName,createdAt,senderId
+  })
+} catch(error){
+  console.error('error creating new listing', error.message);
+}
+}
+
+export const getRecievedMessageDoc = async (recieverId) => {
+  if(!recieverId) return
+  const collectionRef = firestore.collection('message').orderBy("createdAt", "desc").where('recieverId',"==",recieverId)
+  const collectionSnapShot = await collectionRef.get(); // 
+  return  collectionSnapShot.docs.map(doc => {
+    return {senderName: doc.data().senderName, recieverName: doc.data().recieverName, message: doc.data().message, createdAt: doc.data().createdAt} 
+     } )
+}
+
+
+export const getSentMessageDoc = async (senderId) => {
+  if(!senderId) return
+  const collectionRef = firestore.collection('message').orderBy("createdAt", "desc").where('senderId',"==",senderId)
+  const collectionSnapShot = await collectionRef.get(); // 
+  return  collectionSnapShot.docs.map(doc => {
+    return {senderName: doc.data().senderName, recieverName: doc.data().recieverName, message: doc.data().message} 
+     } )
+}
+
+
+// shop functions:
    export const setItemsDoc = async ( itemData) =>{
-        
-    // const verificationRef = firestore.collection('items') // verifies user to then allow to update listing
-    // .where("userId", "==", itemData.userId)
-
-    // if (verificationRef.exists){  //deletes document if same product is sent 
-    //  const deleteRef = firestore.collection('items')
-    //   .where("productId" ,"==", itemData.productId )
-    //   deleteRef.delete().then(() => {
-    //   })
-    // }
     const productId = itemData.productId+Math.random()
-   const collectionRef = firestore.doc(`items/${productId}${itemData.userId}}`)
-   
-
+    const collectionRef = firestore.doc(`items/${productId}${itemData.userId}}`)
     const {  price, category, soldBy, picture, description,userId,name} = itemData; 
     const createdAt = new Date ();
     
@@ -137,12 +199,7 @@ const deleteRef=firestore.collection('items').where('productId', '==', productId
     });
   }
 
-// var jobskill_query = db.collection('job_skills').where('job_id','==',post.job_id);
-// jobskill_query.get().then(function(querySnapshot) {
-//   querySnapshot.forEach(function(doc) {
-//     doc.ref.delete();
-//   });
-// });
+
 
 export const getCategoryDoc = async ( collection, category) => {
   if(!collection) return
@@ -189,6 +246,7 @@ export const getSearchFilteredDoc = async ( collection, name) => {
        } )
      }
 
+  //profile picture functions: 
     export const uploadImageToStorage =  (profileimage,profileId) => {
       if(!profileimage || !profileId) return
 
@@ -224,15 +282,6 @@ export const getSearchFilteredDoc = async ( collection, name) => {
    }
     
   
-export const getCurrentUser =() => {  
-  return new Promise((resolve, reject) => {  // cheks to see if user is signedin 
-    const unsubscribe = auth.onAuthStateChanged(userData =>{ //if sign in state changes
-      unsubscribe();      //unsubscribe/closes session
-      resolve(userData)
-    } ,reject)
-  })
-}
-
   firebase.initializeApp(config);
 
   export const auth = firebase.auth() 

@@ -17,10 +17,10 @@ function SignIn({googleSignInPending, emailSignInPending, error ,currentUser}) {
     const  handleSubmit = async event => {
          event.preventDefault();
          emailSignInPending(email,password)
-        if(error !== null){
-            alert(error)
-        }
-    
+        // if(error !== null){
+        //     alert(error)
+        // }
+        
         };
 
     const handleChange = (event) => {

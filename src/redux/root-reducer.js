@@ -14,7 +14,7 @@ import profileReducer from './profile/profile.reducer'
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ['user','shop','profile','cart']
+    whitelist: ['user','shop','cart','profiles']
 }
 
 const rootReducer = combineReducers({

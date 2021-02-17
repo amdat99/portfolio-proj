@@ -57,7 +57,45 @@ export const signOutFailure = () => ({
     type: userActionTypes.SIGNOUT_FAILED
 })
 
-export const changeStatus = (userData) => ({
-    type: userActionTypes.CHANGE_STATUS,
-    payload: userData
+
+export const getProfileId = (profileId) => ({
+    type: userActionTypes.GET_PROFILE_ID,
+    payload: profileId
+})
+
+export const sendDirectMessagePending = (messageData)=> ({
+    type: userActionTypes.SEND_DIRECT_MESSAGE_PENDING,
+    payload: messageData
+})
+
+export const sendDirectMessageFailed = (error) => ({
+    type: userActionTypes.SEND_DIRECT_MESSAGE_FAILED,
+    payload: error
+
+})
+
+export const getRecievedMessagePending = (profileId) => ({
+    type: userActionTypes.GET_RECIEVED_MESSAGE_PENDING,
+    payload: profileId
+})
+
+export const getRecievedMessageSuccess = (messageData) => ({
+    type: userActionTypes.GET_RECIVED_MESSAGE_SUCCESS,
+    payload: messageData
+})
+
+export const getSentMessagePending = (userId) => ({
+    type: userActionTypes.GET_SENT_MESSAGE_PENDING,
+    payload: userId
+})
+
+export const getSentMessageSuccess = (messageData) => ({
+    type: userActionTypes.GET_SENT_MESSAGE_SUCCESS,
+    payload: messageData
+})
+
+
+export const getMessageFailed = (error) => ({
+    type: userActionTypes.GET_MESSAGE_FAILED,
+    payload: error
 })

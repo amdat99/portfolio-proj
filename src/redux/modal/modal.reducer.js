@@ -16,6 +16,11 @@ const modalReducer = (state = INITIAL_STATE, action) => {
             ...state,
         showModal: !state.showModal
         }
+case modalActionTypes.OPEN_MODAL:
+        return{
+            ...state,
+            showModal: true
+        }
         default:
             return state;
     }

@@ -7,6 +7,22 @@ export const selectCurrentUser = createSelector (
     (user) => user.currentUser
 )
 
+
+export const selectCurrentProfileId = createSelector (
+    [selectUser],
+    (user) => user.profileId
+)
+export const selectSentMessages = createSelector (
+    [selectUser],
+    (user) => user.sentMessage? user.sentMessage : []
+)
+
+export const selectRecievedMessages = createSelector (
+    [selectUser],
+    (user) => user.recievedMessage? user.recievedMessage : []
+)
+
+
 export const selectErrorMessage = createSelector(
  [selectUser],
  (user) => user.error

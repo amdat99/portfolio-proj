@@ -1,8 +1,4 @@
-import React,{useState,useEffect,useCallback} from 'react';
-import CartDropdown from '../../components/cart/Cart-dropdown'
-import ListedItems from '../../components/listed-items/Listed-items'
-import ProfileIconDropdown from './Profile-icon-dropdown'
-
+import React,{useState,useEffect,useCallback, Suspense} from 'react';
 import {Link} from 'react-router-dom'
 
 import { connect } from 'react-redux'
@@ -10,16 +6,27 @@ import { toggleModal } from '../../redux/modal/modal.actions'
 import { fetchProfileImagePending } from '../../redux/profile/profile.actions'
 import {createStructuredSelector} from 'reselect'
 import { selectToggledModal } from '../../redux/modal/modal.selectors'
-import { selectCurrentUser } from '../../redux/user/user.selectors'
+import { selectCurrentUser, selectRecievedMessages, selectSentMessages } from '../../redux/user/user.selectors'
+import { getRecievedMessagePending,getSentMessagePending} from '../../redux/user/user.actions'
 import { selectCurrentImage } from '../../redux/profile/profile.selectors'
-import { uploadImageToStorage,deleteListing} from '../../firebase/firebase'
+import { uploadImageToStorage,getRecievedMessageDoc, getSentMessageDoc} from '../../firebase/firebase'
 import { selectSellingItems, isSellingItemsLoaded } from '../../redux/shop/shop.selectors'
 import { fetchSellingItemsPending } from '../../redux/shop/shop.actions'
 
 import './Profile.scss'
-function Profile({toggleModal,currentUser,currentImage, getProfileImage,fetchSellingItemsPending, sellingItems,isSellingItemsLoaded}) {
+
+const CartDropdown = React.lazy(() => import('../../components/cart/Cart-dropdown'));
+const ListedItems = React.lazy(() => import('../../components/listed-items/Listed-items'));
+const ProfileIconDropdown = React.lazy(() => import('./Profile-icon-dropdown'));
+const ProfileMessages = React.lazy(() => import('../../components/profile-messages/Profile-messages'));
+
+function Profile({toggleModal,currentUser,currentImage, getProfileImage,fetchSellingItemsPending, sellingItems,getSentMessagePending,getRecievedMessagePending}) {
     
     const [uploadDropdown, setUploadDropdown] = useState(false)
+    const [shopToggle, setShopToggle] = useState(false)
+    const [recievedMessages, setRecievedMessages] = useState([])
+    const [sentMessages, setSentMessages] = useState([])
+ 
 
 
     useEffect(()=>{
@@ -29,26 +36,48 @@ function Profile({toggleModal,currentUser,currentImage, getProfileImage,fetchSel
        }
     },[currentUser,getProfileImage])
 
+    // useEffect(()=>{
+    //     if (currentUser)  {
+    //         fetchSellingItemsPending(currentUser.id)
+    //         getSentMessages()
+    //         const interval = setInterval(() => getSentMessages()
+    //         , 5000)
+    //      return () =>clearInterval(interval)
+    //         },[currentUser,fetchSellingItemsPending,getSentMessageDoc,getRecievedMessageDoc]
+    //     })
+
     useEffect(()=>{
         if (currentUser)  {
-            fetchSellingItemsPending(currentUser.id)
-            }
-    },[currentUser,fetchSellingItemsPending])
-
-    
+        fetchSellingItemsPending(currentUser.profileId)
+        getSentMessages()
+      const interval = setInterval(() => getSentMessages()
+      , 5000); 
+   return () =>clearInterval(interval)}
+      },[getSentMessageDoc,currentUser,fetchSellingItemsPending])
 
 
 const toggleDropdown =  () => {
     setUploadDropdown(!uploadDropdown)
 }
+
+const toggleShopFeatures = () =>{
+    setShopToggle(!shopToggle)
+}
        
- console.log(currentUser)
+const getSentMessages = async() => {
+  const request = await getSentMessageDoc(currentUser.profileId)
+  await setSentMessages(request)
  
-    return (
+}
+
+ return (
         <div className="profile-container">
- 
+         
+
       { currentUser? 
+  
       <div >
+      <button  id="profile-shop-button" onClick = {toggleShopFeatures}>Toggle Profile</button>
       <div>
       <div id="profile-image-container">
         <a href= {currentImage}  >
@@ -59,30 +88,47 @@ const toggleDropdown =  () => {
      <span onClick = {toggleDropdown} id= 'profile-image-update'>
         update Image
     </span>
+    <Suspense fallback ={<div className="loader"></div>}>
      {
         uploadDropdown?
     <div id= 'profile-image-update-dropdown'>
         <ProfileIconDropdown uploadImageToStorage = {uploadImageToStorage} currentUser={currentUser} toggleModal = {toggleModal}
          currentImag= {currentImage} getProfileImage = {getProfileImage}/>
     </div>
-    :null}
+    :null}</Suspense>
         <h1 id="profile-greeting" >Hello {currentUser.displayName}</h1>
-        </div>
-     
-        <div id='profile-cart'>
+    </div>
+<Suspense fallback ={<div className="loader"></div>}>
+     { shopToggle
+    ? <div>
+     <div id='profile-cart'>
        <CartDropdown />
-        </div> 
-                
-        {
-            sellingItems !== [] ?
+    </div> <div className="profile-selling-items hide-scroll">
+        Selling Items:  
+        {sellingItems !== [] ?
             sellingItems.map(sellingItem =>
-            <div >
+        <div > 
             <ListedItems sellingItem= {sellingItem} key={sellingItem.userId} />
-            </div>
-            ): <h1 id="profile-nosell">you are selling no items</h1>}
+        </div>
+            ): <h1 id="profile-nosell">you are selling no items</h1>}</div>
+       </div>:
+        <div className="profile-messagebox-container hide-scroll "> Your Messages:{
+            
+           sentMessages?
+         sentMessages.map(message =>
+        <div> 
+            <ProfileMessages message={message} key={message.senderId} sentMessages={sentMessages} currentUser={currentUser} recievedMessages={recievedMessages}/>
+        </div>)
+           :<h1>no messages...</h1> } </div> }
+        <div>
+
         
+        </div>
+    </Suspense>
         </div> 
          :<Link to="/signon" onClick = {toggleModal}>sign in to view profile</Link> 
+
+      
       }
             <button id="profile-modal-button" onClick={toggleModal}>X</button>
         </div>
@@ -93,7 +139,9 @@ const toggleDropdown =  () => {
 const mapDispatchToProps = (dispatch) => ({
     getProfileImage: (profileId) =>dispatch(fetchProfileImagePending(profileId)),
     toggleModal: () => dispatch(toggleModal()),
-    fetchSellingItemsPending: (userId) => dispatch(fetchSellingItemsPending(userId))
+    fetchSellingItemsPending: (userId) => dispatch(fetchSellingItemsPending(userId)),
+    getRecievedMessagePending: (profileId) => dispatch(getRecievedMessagePending(profileId)),
+    getSentMessagePending: (userId) => dispatch(getSentMessagePending(userId)),
 });
 
 const mapStateToProps = createStructuredSelector({
@@ -101,7 +149,10 @@ const mapStateToProps = createStructuredSelector({
     currentUser: selectCurrentUser,
     currentImage: selectCurrentImage,
     sellingItems: selectSellingItems,
-    isSellingItemsLoaded: isSellingItemsLoaded
+    isSellingItemsLoaded: isSellingItemsLoaded,
+    recievedMessages: selectRecievedMessages,
+    sentMessages: selectSentMessages
+
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(Profile);

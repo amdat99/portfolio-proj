@@ -1,15 +1,81 @@
-import React from 'react';
+import React, {useState,useEffect, useRef} from 'react';
 import { Link } from 'react-router-dom';
+import io from 'socket.io-client';
 
 
 import './Landing-page.scss'
+// const socket = useSocket()
 
 function LandingPage(props) {
+     
+
+
+//     const[message, setMessage] = useState('')
+//     const[id, setId] = useState()
+//     const[messages, setMessages] = useState([])
     
-    const shop = 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib'
-    const chat = 'https://images.unsplash.com/photo-1606669059257-19fc4ca49f79?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib'
+
+//     const socketRef = useRef();
+   
+//    useEffect(() => {
+//    socketRef.current = io.connect('http://localhost:3000',{ transport : ['websocket'] });
+   
+//    socketRef.current.on("id", id => {
+//     setId(id);
+//   })
+
+//   socketRef.current.on("message", (message) => {
+//     console.log("here");
+//     receivedMessage(message);
+//   })
+// }, []);
+
+// // function receivedMessage(message) {
+// //   setMessages(oldMsgs => [...oldMsgs, message]);
+// // }
+
+// // function sendMessage(e) {
+// //   e.preventDefault();
+// //   const messageObject = {
+// //     body: message,
+// //     id: id,
+// //   };
+// //   setMessage("");
+// //   socketRef.current.emit("send message", messageObject);
+// // }
+
+// // function handleChange(e) {
+// //   setMessage(e.target.value);
+// // }
+
+   
+const shop = 'https://cdn.pixabay.com/photo/2017/06/21/20/51/tshirt-2428521_960_720.jpg'
+    const chat = 'https://cdn.pixabay.com/photo/2016/02/13/12/26/aurora-1197753_960_720.jpg'
+   
+   
+   return (
+       <div > 
+       {/* <div className="test">dff
+         {messages.map ((message, i )=> {
+           if(message.id === id){
+             return(
+               <div>
+                 <span>{message.body}</span>
+               </div>
+             )
+           } return <div key ={i}>{message.body} </div>
+         })}
+   
+         <form onsubmit = {sendMessage}>
+           <textarea value ={message} onChange={handleChange} placeholder='message'>
+   
+           </textarea>
+           <button type="submit">vvvvvvvvv</button>
+         </form>
+       </div> */}
     
-    return (
+    
+    
     <div className="Landing-page-container">
    
     <div className="landing-page-box"> 
@@ -28,6 +94,7 @@ function LandingPage(props) {
      style={{ backgroundImage: `url(${chat})`}}>
      </div></div>
     </Link>   
+    </div>
     </div>
     );
 }

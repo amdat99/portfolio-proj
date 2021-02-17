@@ -12,25 +12,33 @@ import { selectProfileInfo } from '../../redux/profile/profile.selectors'
 
 import './Users-sidebar.scss'
 
-function UsersSidebar({getProfileInfo, profilesInfo, searchField}) {
+function UsersSidebar({getProfileInfo, profilesInfo, searchField,currentUser}) {
     const [profiles] = useState(profilesInfo)
 
 useEffect(()=>{
-        getProfileInfo()
-    },[getProfileInfo])
+       
+      getProfileInfo()
+     
+    },[getProfileInfo,currentUser])
 
     const filteredName= () =>{
-        return profiles.filter( profile =>{ 
+        return profilesInfo.filter( profile =>{ 
         return profile.displayName.toLowerCase().includes(searchField.toLowerCase());
         })
     }
-  
+    if(profiles)
+  console.log('jhjk',profilesInfo)
 return (
         <div className="sidebar-container hide-scroll">
-       {
-            filteredName().map((data,i) =>
+        {!currentUser
+        ? <span>signin to see users</span>
+        :null}
+       { profilesInfo?
+        filteredName().map((data,i) =>
+      
            <SidebarContent key = {i} data={data}  /> )
-       }
+          
+       :null}
         </div>
     );
 }

@@ -1,18 +1,19 @@
 #item-container {
    display: inline-block;
     max-width: 350px;
-   margin-left: 60px;
-   margin-right: 60px;
+   margin-left: 50px;
+   margin-right: 50px;
    position: relative;
    top: -160px;
    padding-right: 20px;
+   margin-top:40px;
 
    @media screen  and (max-width: 800px ) {
     left: 30px;
     margin-right: 10px;
     max-width: 300px;
-    margin-top: 50px;
-    
+   
+
   }
    &:hover{
     #item-soldBy{
@@ -22,18 +23,15 @@
    }
    
 #item-image{
-    max-height: 250px;
-    max-width:  250px;
+ 
+    max-width:  200px;
     min-height: 230px;
-    min-width:  230px;
+    min-width:  170px;
     border-bottom: 1px solid rgb(153, 149, 33);
 
     @media screen  and (max-width: 800px ) {
        
-        max-height: 220px;
-        max-width:  220px;
-        min-height: 190px;
-        min-width:  190px;
+ 
         
       }
 

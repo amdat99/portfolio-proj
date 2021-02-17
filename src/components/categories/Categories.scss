@@ -1,7 +1,21 @@
 #categories-container{
+    margin-top: 120px;
+      
+  @media screen  and (max-width: 900px ) {
     margin-top: 150px;
+
+   }
 }
 
 #categories-title{
-    margin-top: 100px;
+    margin-top: 80px;
+  position: relative;
+  top: -10px;
+
+  
+  @media screen  and (max-width: 900px ) {
+   top: 20px;
+   left: 50px;
+    
+  }
 }

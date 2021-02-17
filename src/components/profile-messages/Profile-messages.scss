@@ -1,0 +1,21 @@
+.profile-messages-container{
+    position: relative;
+    left:-20px;
+    @media screen  and (max-width: 800px ) {
+        margin-right: 20px;
+        margin-left: 40px;
+        }
+}
+.profile-messages-sent{
+    border: 1px dotted green;
+    right: -200px;
+    position: relative;
+
+
+   
+}
+
+.profile-messages-recieved{
+    margin-bottom: 5px; 
+  
+}

@@ -1,15 +1,21 @@
 .product-filter-page{
-  margin-top:10px;
-  margin-left: 80px;
-  margin-right: 80px;
-  display:flex;
-  flex-direction: column;
 
 
-products-filter-spacing{
+  .products-filter-spacing{
 position: relative;
-top: -50px;
-right: 50px;
+bottom: -100px;
+margin-bottom: 100px;
+
+@media screen  and (max-width: 800px ) {
+   
+
+   
+ }
+}
+#product-filter-title {
+  margin-bottom: 70px;
+  margin-top:50px;
+  position: relative;
 }
 
 .product-filter-loading{
@@ -26,18 +32,15 @@ right: 50px;
   display: flex;
   flex-direction: column;
   color: rgb(10, 10, 10);
-  top: 80px;
-  right: 40px;
-  font-family: 'Open Sans Condensed';
-  font-size: 20px;
-  position: -webkit-sticky;
-  position: sticky;
-  padding-right: 40px;
+  position: fixed;
+  left: 0px;
+  top: 150px;
+  
   
   @media screen  and (max-width: 800px ) {
    
    position: fixed;
-    left: 20px;
+    left: 10px;
     top: 150px;
     
   }

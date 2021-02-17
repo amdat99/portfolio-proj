@@ -20,12 +20,16 @@ function MessageBox({messageData, incrementLikesPending,fetchMessage}) {
         setImages(false);
     }
 return (
-
+    <div>
+{  images?
     <div >
-{   images?
+
+{ image ?
     <img id="message-box-image"  onError={imageToggle}
         src={image} alt= 'upload'  />
-        :null}
+     :null  }       
+
+</div>:null}
       
     <ul id="message-box-container">
  
@@ -37,6 +41,7 @@ return (
     </ul>
      
       
+    
     </div>
     );
 }

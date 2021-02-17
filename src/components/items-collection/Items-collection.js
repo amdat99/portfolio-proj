@@ -9,16 +9,10 @@ import './Items-collection.scss'
 function ItemsCollection({item,incrementItem,fetchProductPending,history}) {
 const {name,price,picture,profileId, soldBy} = item;
 
-console.log(item)
     return (
-     
-         <div id='item-container' >
-       
-       
-
-           
+      <div id='item-container' >
          <div id='item-overlay' >
-         <img id ='item-image' src ={picture} alt='item' 
+         <img id ='item-image' src ={picture} alt='item' height='210' width='180'
          onClick={() => { fetchProductPending(profileId); 
          history.push('/product') } }/>
            
@@ -32,7 +26,7 @@ console.log(item)
             </button>
             </div>  
    
-          </div>    
+        </div>    
 
     );
 }

@@ -24,7 +24,8 @@ function ProductItem({item, incrementItem}) {
           <div id='product-item-labels'>
          
         <span>{description}{lorem}</span> 
-        <h2 id='product-item-price'>£{price}</h2> 
+        <h2 id='produ
+        ct-item-price'>£{price}</h2> 
           <span  id='product-item-seller'>seller: {soldBy}</span>
            <button onClick={() => incrementItem(item)} 
            style={{position: 'relative',right: '40px'}}>

@@ -4,6 +4,9 @@ const INITIAL_STATE = {
   pending: false,
     currentUser: null,
     error: null,
+    profileId: null,
+    sentMessage: null,
+    recievedMessage: null
    
     
 }
@@ -26,6 +29,12 @@ const userReducer = (state = INITIAL_STATE, action) => {
           currentUser: action.payload,
           error: null,
         };
+      case userActionTypes.GET_PROFILE_ID:
+        return {
+          ...state,
+          profileId: action.payload,
+          error: null
+        }
       case userActionTypes.SIGNOUT_SUCCESS:
       
         return {
@@ -34,6 +43,25 @@ const userReducer = (state = INITIAL_STATE, action) => {
           pending: false,
           error: null
         };
+        case userActionTypes.GET_SENT_MESSAGE_SUCCESS:
+          return {
+            ...state,
+          pending: false,
+          error: null,
+          sentMessage:action.payload
+
+
+          }
+
+          case userActionTypes.GET_RECIEVED_MESSAGE_SUCCESS:
+            return {
+              ...state,
+            pending: false,
+            error: null,
+            recievedMessage:action.payload
+  
+  
+            }
     
       case userActionTypes.SIGNIN_FAILED:
       case userActionTypes.SIGNOUT_FAILED:

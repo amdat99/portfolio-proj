@@ -10,14 +10,14 @@ import { setHeaderRoute } from '../../redux/header/header.actions'
 import { connect } from 'react-redux'
 
 function StorePage({setHeaderRoute,match}) {
-
+ 
+  
     const [route] = useState('store')
     
     useEffect(()=>{
         setHeaderRoute(route)
      // eslint-disable-next-line   
     },[setHeaderRoute])
-
 
     return (
     <div>

@@ -1,27 +1,20 @@
 .listed-items-container{
     display: flex;
     flex-direction: column;
-    top: 0px;
-    left: 170px;
+    left: 50px;
+    margin-bottom: 14px;
     position: relative;
-    height: 130px;
+   
     font-size: 14px;
-    
-
-    
-    @media screen  and (max-width: 1000px ) {
-        top: 0px;
-       left: 140px;
-        position:relative;
-        width: 150px;
-
-           }
 }
+    
 
 .listed-item-toggle{
     color: red;
     cursor: pointer;
-    margin-bottom: 12px;
+    position: relative;
+    bottom: 5px;
+    
 
     &:hover{
         transform: scale(1.1);

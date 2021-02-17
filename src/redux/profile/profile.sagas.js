@@ -35,12 +35,13 @@ export function* uploadProfileImageAsync({ payload: {profileImage, profileId}}) 
      }
   }
   
-  export function * changeStatusAsync({ payload:{userId, status}}) {
-      try{
-          yield call(updateStatus,userId,status )
-      }catch(error){
-          console.error('error', error.message)
-      }
+  export function* changeUserStatus({payload: {profileId, status}}){
+    console.log('d',{payload: {profileId, status}})
+    try {
+      yield call (updateStatus, profileId, status)
+    }catch (error) {
+      console.error('error', error.message)
+    }
   }
 
   export function * onFetchProfileImagePending() {
@@ -51,9 +52,14 @@ export function* uploadProfileImageAsync({ payload: {profileImage, profileId}}) 
         yield takeLatest(profileActionTypes.FETCH_PROFILEINFO_PENDING,  fetchProfileInfoAsync);
     }
 
+    export function * onChangeUserStatus(){
+        yield takeLatest(profileActionTypes.CHANGE_STATUS, changeUserStatus)
+      }
+
 export function * profileSagas() {
     yield all([
         call(onFetchProfileImagePending),
-        call(onFetchProfileInfoPending)
+        call(onFetchProfileInfoPending),
+        call(onChangeUserStatus)
 ])
 }

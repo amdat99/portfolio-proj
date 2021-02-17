@@ -13,7 +13,7 @@ import './Product-filter-page.scss'
 
 
 function ProductsFilterPage({
-  collections,setHeaderRoute}) {
+  collections,setHeaderRoute, isloaded}) {
     const [route] = useState('store')
     const [filteredCollections, setFilteredCollections] = useState(collections)
     
@@ -50,11 +50,11 @@ function ProductsFilterPage({
             }
         }
 
-   console.log(collections)
+ 
 return (
-    <div className="products-filter-page">  
+    <div className="product-filter-page">  
     <SharedHeader />
-        <h1>Products</h1>
+        
   
       <div id="product-filter-filter-container">
       <span className= 'product-filter-filter-item' params= 'electronics' onClick={()=>filterCollections('electronics')}> electronics</span>  
@@ -64,14 +64,16 @@ return (
       <span className= 'product-filter-filter-item' params= 'general' onClick={()=>filterCollections('general')}> general</span>  
         <span  onClick={() => filterCollections()}> reset</span>
       </div>
-
-    <div className= "products-filter-spacing">
-    {!collections === []
-    ? <h1>cant find your product</h1>
-    
-     : filteredCollections.map(( item, i ) => (
+<h1 style={{opacity:'0'}}id="product-filter-title">''</h1>
+    <div id= "products-filter-spacing">
+    {!isloaded
+    ? <h1>Seacrh listed items</h1>
+        
+     :  <div className= 'products-filter-spacing'>
+        {filteredCollections.map(( item, i ) => (
         <ItemsCollection key={i} item={item}/>
-      ))
+      ))}
+      </div>
    
     }
     </div>
