@@ -7,13 +7,15 @@ import {connect} from 'react-redux'
 
 import { selectItems, isItemDataLoaded, selectErrorMessage } from '../../redux/shop/shop.selectors'
 
+
 import { setHeaderRoute } from '../../redux/header/header.actions'
+
 
 import './Product-filter-page.scss'
 
 
 function ProductsFilterPage({
-  collections,setHeaderRoute, isloaded}) {
+  collections,setHeaderRoute, isloaded, }) {
     const [route] = useState('store')
     const [filteredCollections, setFilteredCollections] = useState(collections)
     
@@ -71,7 +73,7 @@ return (
         
      :  <div className= 'products-filter-spacing'>
         {filteredCollections.map(( item, i ) => (
-        <ItemsCollection key={i} item={item}/>
+        <ItemsCollection key={i} item={item} />
       ))}
       </div>
    
@@ -83,7 +85,7 @@ return (
 }
     const mapDispatchToProps = (dispatch) => ({
     setHeaderRoute: (route) => dispatch(setHeaderRoute(route)),
-   
+
  }) 
 
  const mapStateToProps = (createStructuredSelector)({
@@ -91,6 +93,7 @@ return (
      isloaded: isItemDataLoaded,
      error: selectErrorMessage
      })
+
 
   
 export default connect(mapStateToProps,mapDispatchToProps)(ProductsFilterPage);

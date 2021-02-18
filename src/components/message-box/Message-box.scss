@@ -1,66 +1,39 @@
 
-#message-box-container{
-   
-    width: 100%;
-    display: flex;
-    justify-content: flex-start;
-    word-break: all;
 
-    @media screen  and (max-width: 800px ) {
-       
-        position: relative;
-        left: -50px;
-           }
-    
-}
 
 #message-box-name{
     color: black;
+    @media screen  and (max-width: 800px ) {
+     left: -40px;
+        position: relative;
+           }
   
 }
-#message-box-message{
-    background: rgb(205, 236, 255);
-    margin-left: 5%;
-    border-radius: 20px;
-    box-shadow: 2px 2px 2px 2px grey;
-    display:flex;
-    padding-right:10px;
-   padding-left: 5px;
-   word-break: break-all;
 
-   @media screen  and (max-width: 800px ) {
-    
-       }
-   
-&:hover{
-        transform: scale(1.1);
-        box-shadow: 4px 4px 8px 0; 
- 
-    
-    #message-box-date{
-        display: flex;
-        flex-direction: column;
-        position: relative;
-      }
-    }
+#message-box-date{
+display: flex;
+flex-direction: column;
+position: relative;
 }
-
+    
 #message-box-image{
  max-width: 30px;
 max-height: 25px;
-top: -10px;
+top: -20px;
 position: relative;
 right: 35%;
 margin: 0;
 padding: 0;
+@media screen  and (max-width: 800px ) {
+    right: -20px;
+    position: relative;
+       }
     
 &:hover{
        
         max-height: 200px;
         max-width: 500px;
-}
-
-}
+}}
 
 #message-box-date{
     display: flex;
@@ -71,16 +44,20 @@ padding: 0;
     margin-left: 7%;
 
     @media screen  and (max-width: 800px ) {
-        right: -20px;
+        left: -20px;
         position: relative;
            }
-   
 }
-
 #message-box-button{
     display: flex;
     justify-content: flex-start;
     position: relative;
     cursor: pointer;
 
+}
+
+#message-box-likes{
+    position: relative;
+    font-size:12px;
+    top: 22px;
 }

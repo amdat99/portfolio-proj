@@ -3,11 +3,8 @@ import React, {useState} from 'react'
 
 import { withRouter } from 'react-router-dom'
 
-import {connect} from 'react-redux'
-import { fetchProductPending } from '../../redux/shop/shop.actions'
+
 import { deleteListing} from '../../firebase/firebase'
-
-
 
 import './Listed-items.scss'
 function ListedItems({sellingItem, history,fetchProductPending}) {
@@ -48,10 +45,7 @@ function ListedItems({sellingItem, history,fetchProductPending}) {
     );
 }
 
-const mapDispatchToProps = (dispatch) => ({
-   
-    fetchProductPending: (productId) => dispatch(fetchProductPending(productId)),
-})
+
 
     
-export default withRouter(connect(null,mapDispatchToProps)(ListedItems));
+export default withRouter(React.memo(ListedItems));

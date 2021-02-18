@@ -21,7 +21,9 @@
 
     @media screen  and (max-width: 1000px ) {
        
-      width: 170px;
+      height: 220px;
+      width: 140px;
+      left: 110px;
      
     }
   
@@ -59,7 +61,9 @@
      width: 100px;
 
     @media screen  and (max-width: 1500px ) {
-      margin-left: 5px;
+      margin-left: 0px;
+      position: relative;
+      top: 10px;
     }
      
     }

@@ -33,13 +33,22 @@ justify-content: flex-end;
 }
 
 .profile-icon-image{
-    border: 1px solid rgba(0, 0, 0, 0.337);
+    border: 1px solid rgba(199, 135, 135, 0.337);
     border-radius: 30px;
-    cursor: pointer;
+  
 
     &:hover{
         transform: scale(1.1);
         opacity: 0.85;
     }
 
+}
+
+#profile-icon-title{
+    cursor: pointer;
+
+    &:hover{
+        transform: scale(1.1);
+        opacity:0.85;
+    }
 }

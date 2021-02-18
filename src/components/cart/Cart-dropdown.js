@@ -7,11 +7,13 @@ import { withRouter, Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { selectCartItems} from '../../redux/cart/cart.selectors'
 import {toggleCartHidden,clearAllItemsFromCart}  from '../../redux/cart/cart.actions'
+import { fetchProductPending } from '../../redux/shop/shop.actions'
+import {minusItem, addItem} from '../../redux/cart/cart.actions'
 import CartItem from './Cart-item'
 
 
 import './Cart.scss'
-function CartDropdown({cartItems, toggleCartHidden,clearCart, history}) {
+function CartDropdown({cartItems, toggleCartHidden,clearCart, history, incrementItem, decrementItem,fetchProductPending}) {
     
 
      
@@ -25,7 +27,7 @@ function CartDropdown({cartItems, toggleCartHidden,clearCart, history}) {
             {   
                 cartItems.length ?
                 cartItems.map((cartItem,i) => {
-                return <CartItem  key ={i} item = {cartItem} />
+                return <CartItem  key ={i} item = {cartItem} incrementItem={incrementItem} decrementItem={decrementItem} fetchProductPending= {fetchProductPending}/>
                 } )
                 : <span className = 'empty-message'>Your cart is empty</span>
             }  
@@ -51,7 +53,10 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     toggleCartHidden: () => dispatch(toggleCartHidden()),
-    clearCart: items => dispatch(clearAllItemsFromCart(items))
+    clearCart: items => dispatch(clearAllItemsFromCart(items)),
+    decrementItem: item => dispatch(minusItem(item)),
+    incrementItem: item => dispatch(addItem(item)),
+    fetchProductPending: (productId) => dispatch(fetchProductPending(productId))
 })
 
 

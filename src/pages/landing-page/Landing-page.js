@@ -50,7 +50,7 @@ function LandingPage(props) {
 
    
 const shop = 'https://cdn.pixabay.com/photo/2017/06/21/20/51/tshirt-2428521_960_720.jpg'
-    const chat = 'https://cdn.pixabay.com/photo/2016/02/13/12/26/aurora-1197753_960_720.jpg'
+    const chat = 'https://firebasestorage.googleapis.com/v0/b/tada-proj.appspot.com/o/images%2Fprofile1.041490457294241?alt=media&token=ad802569-4766-419e-87ad-6ef6aa65b685'
    
    
    return (

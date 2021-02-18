@@ -10,8 +10,8 @@ import { selectCurrentUser, selectRecievedMessages, selectSentMessages } from '.
 import { getRecievedMessagePending,getSentMessagePending} from '../../redux/user/user.actions'
 import { selectCurrentImage } from '../../redux/profile/profile.selectors'
 import { uploadImageToStorage,getRecievedMessageDoc, getSentMessageDoc} from '../../firebase/firebase'
-import { selectSellingItems, isSellingItemsLoaded } from '../../redux/shop/shop.selectors'
-import { fetchSellingItemsPending } from '../../redux/shop/shop.actions'
+import { selectSellingItems, isSellingItemsLoaded,  } from '../../redux/shop/shop.selectors'
+import { fetchSellingItemsPending, fetchProductPending } from '../../redux/shop/shop.actions'
 
 import './Profile.scss'
 
@@ -20,7 +20,8 @@ const ListedItems = React.lazy(() => import('../../components/listed-items/Liste
 const ProfileIconDropdown = React.lazy(() => import('./Profile-icon-dropdown'));
 const ProfileMessages = React.lazy(() => import('../../components/profile-messages/Profile-messages'));
 
-function Profile({toggleModal,currentUser,currentImage, getProfileImage,fetchSellingItemsPending, sellingItems,getSentMessagePending,getRecievedMessagePending}) {
+function Profile({toggleModal,currentUser,currentImage, getProfileImage,fetchSellingItemsPending, sellingItems,getSentMessagePending,getRecievedMessagePending,
+    fetchProductPending}) {
     
     const [uploadDropdown, setUploadDropdown] = useState(false)
     const [shopToggle, setShopToggle] = useState(false)
@@ -36,15 +37,6 @@ function Profile({toggleModal,currentUser,currentImage, getProfileImage,fetchSel
        }
     },[currentUser,getProfileImage])
 
-    // useEffect(()=>{
-    //     if (currentUser)  {
-    //         fetchSellingItemsPending(currentUser.id)
-    //         getSentMessages()
-    //         const interval = setInterval(() => getSentMessages()
-    //         , 5000)
-    //      return () =>clearInterval(interval)
-    //         },[currentUser,fetchSellingItemsPending,getSentMessageDoc,getRecievedMessageDoc]
-    //     })
 
     useEffect(()=>{
         if (currentUser)  {
@@ -73,8 +65,7 @@ const getSentMessages = async() => {
  return (
         <div className="profile-container">
          
-
-      { currentUser? 
+    { currentUser? 
   
       <div >
       <button  id="profile-shop-button" onClick = {toggleShopFeatures}>Toggle Profile</button>
@@ -88,14 +79,15 @@ const getSentMessages = async() => {
      <span onClick = {toggleDropdown} id= 'profile-image-update'>
         update Image
     </span>
-    <Suspense fallback ={<div className="loader"></div>}>
+<Suspense fallback ={<div className="loader"></div>}>
      {
         uploadDropdown?
     <div id= 'profile-image-update-dropdown'>
         <ProfileIconDropdown uploadImageToStorage = {uploadImageToStorage} currentUser={currentUser} toggleModal = {toggleModal}
          currentImag= {currentImage} getProfileImage = {getProfileImage}/>
     </div>
-    :null}</Suspense>
+    :null}
+</Suspense>
         <h1 id="profile-greeting" >Hello {currentUser.displayName}</h1>
     </div>
 <Suspense fallback ={<div className="loader"></div>}>
@@ -108,23 +100,22 @@ const getSentMessages = async() => {
         {sellingItems !== [] ?
             sellingItems.map(sellingItem =>
         <div > 
-            <ListedItems sellingItem= {sellingItem} key={sellingItem.userId} />
+        <ListedItems sellingItem= {sellingItem} key={sellingItem.userId} fetchProductPending={fetchProductPending} />
         </div>
             ): <h1 id="profile-nosell">you are selling no items</h1>}</div>
-       </div>:
-        <div className="profile-messagebox-container hide-scroll "> Your Messages:{
+        </div>:
+        <div className="profile-messagebox-container hide-scroll ">  {
             
-           sentMessages?
-         sentMessages.map(message =>
-        <div> 
-            <ProfileMessages message={message} key={message.senderId} sentMessages={sentMessages} currentUser={currentUser} recievedMessages={recievedMessages}/>
-        </div>)
+            currentUser?
+        <div> <span style={{position: 'relative', right: '-10px'}}>messages:</span>
+        <ProfileMessages  sentMessages={sentMessages} currentUser={currentUser} recievedMessages={recievedMessages}/>
+        </div>
            :<h1>no messages...</h1> } </div> }
         <div>
 
         
         </div>
-    </Suspense>
+</Suspense>
         </div> 
          :<Link to="/signon" onClick = {toggleModal}>sign in to view profile</Link> 
 
@@ -142,6 +133,7 @@ const mapDispatchToProps = (dispatch) => ({
     fetchSellingItemsPending: (userId) => dispatch(fetchSellingItemsPending(userId)),
     getRecievedMessagePending: (profileId) => dispatch(getRecievedMessagePending(profileId)),
     getSentMessagePending: (userId) => dispatch(getSentMessagePending(userId)),
+    fetchProductPending: (productId) => dispatch(fetchProductPending(productId)),
 });
 
 const mapStateToProps = createStructuredSelector({

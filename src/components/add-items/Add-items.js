@@ -19,7 +19,7 @@ const AddItems = ({currentUser, error}) => {
 
   useEffect(() =>{
       if(currentUser !== null){
-        setItemData({soldBy: currentUser.displayName, userId: currentUser.id, productId: Math.random()})
+        setItemData({soldBy: currentUser.displayName, userId: currentUser.profileId, productId: Math.random()})
        
     } 
     },[currentUser])
@@ -37,7 +37,7 @@ const AddItems = ({currentUser, error}) => {
         alert('there was an error', error.message)
       }else{
         setItemData( {name: '', price: '', description: '', category: '', picture: '', 
-        soldBy: currentUser.displayName, userId:currentUser.id, productId:Math.random()})
+        soldBy: currentUser.displayName, userId:currentUser.profileId, productId:Math.random()})
         setImageToggle(false)
         setSubmitToggle(false)
       alert('your listing was successfully updated')
@@ -126,7 +126,7 @@ const categories = ['electronics','clothes','shoes','food','general']
       </form>
           {imageToggle
          ? <div>
-      <img onError ={verifyImage}src={picture} alt='item' width='500' height='300'  /> 
+      <img onError ={verifyImage}src={picture} alt='item' width='220' height='240'  /> 
      </div>
       :null
           }
@@ -134,10 +134,6 @@ const categories = ['electronics','clothes','shoes','food','general']
   );
 }
 
-
-// const mapDispatchToProps = dispatch => ({
-//     addItemPending: itemInfo => dispatch(signUpPending(itemInfo))
-// });
 
 const mapStateToProps = createStructuredSelector({
   error: selectErrorMessage,

@@ -14,13 +14,6 @@ import { isCategoryDataLoaded,selectCategory } from '../../redux/shop/shop.selec
 function Categories({match,isLoaded,categoryItems,fetchCategoryPending}) {
 
 
-    // useEffect(()=>{
-
-    //     if (match.url !==  '/category/shoes' || '/category/clothes' || '/category/electronis' || '/category/food' || '/category/general' ){
-    //       return  history.push('/store')
-    //     }
-    // },[categoryItems])
-
     useEffect(()=>{
 
 
@@ -67,7 +60,7 @@ function Categories({match,isLoaded,categoryItems,fetchCategoryPending}) {
         { isLoaded
     ?<div id='categories-container'>
         {categoryItems.map((item, i) => (
-            <ItemsCollection key={i} item={item} className='collection-item' />
+            <ItemsCollection key={i} item={item} className='collection-item'/>
           ))}
         </div>
         :null
@@ -84,8 +77,6 @@ const mapStateToProps = (createStructuredSelector)({
   
 const mapDispatchToProps = (dispatch) => ({
     fetchCategoryPending: (category) => dispatch(fetchCategoryPending(category)),
-
-
- }) 
+}) 
 
 export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Categories));

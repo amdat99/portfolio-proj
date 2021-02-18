@@ -1,18 +1,21 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom'
-
-import {connect} from 'react-redux'
-import {addItem} from '../../redux/cart/cart.actions'
 import { fetchProductPending } from '../../redux/shop/shop.actions'
+import { addItem } from '../../redux/cart/cart.actions'
+import { connect } from 'react-redux'
+
+import { LazyLoadImage, trackWindowScroll  } from 'react-lazy-load-image-component';
+
 import './Items-collection.scss'
 
-function ItemsCollection({item,incrementItem,fetchProductPending,history}) {
+function ItemsCollection({item,incrementItem,fetchProductPending,history, scrollPosition }) {
 const {name,price,picture,profileId, soldBy} = item;
 
     return (
       <div id='item-container' >
          <div id='item-overlay' >
-         <img id ='item-image' src ={picture} alt='item' height='210' width='180'
+         <LazyLoadImage id ='item-image' src ={picture} alt={'item'} height={'220'} width={'200'}
+        scrollPosition={scrollPosition} effect="blur"
          onClick={() => { fetchProductPending(profileId); 
          history.push('/product') } }/>
            
@@ -32,8 +35,11 @@ const {name,price,picture,profileId, soldBy} = item;
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    incrementItem: item => dispatch(addItem(item)),
-    fetchProductPending: (productId) => dispatch(fetchProductPending(productId)),
-})
+  incrementItem: item => dispatch(addItem(item)),
+  fetchProductPending: (productId) => dispatch(fetchProductPending(productId)),
+ 
+}) 
+
+
 
 export default withRouter(connect(null,mapDispatchToProps)(ItemsCollection));

@@ -16,9 +16,9 @@ export const fetchCategoryPending = (category)=> ({
     payload: category
 })
 
-export const fetchSellingItemsPending = (userId) => ({
+export const fetchSellingItemsPending = (profileId) => ({
     type: shopActionTypes.FETCH_SELLINGITEMS_PENDING,
-    payload: userId
+    payload: profileId
 })
 
 export const fetchSellingItemsSuccess = (productData) => ({

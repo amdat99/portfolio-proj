@@ -17,11 +17,18 @@
        
      height: 580px;
      margin-top: 60px;
-     width: 60%;
+     width: 65%;
+
      
       }
 
-    
+      @media screen  and (max-width: 490px ) {
+       
+        width: 61%;
+   
+        
+         }
+         
     .chat-page-searchbox {
         width: 200px;display: flex;
         justify-content:center;
@@ -37,7 +44,7 @@
     height:70px;
     @media screen  and (max-width: 800px ) {
        
-        width: 65%;
+        width: 55%;
         bottom: 50px;
          }
     
@@ -52,7 +59,7 @@
     background: black;
     @media screen  and (max-width: 800px ) {
        
-        width: 16%;
+        width: 19%;
         bottom:20px;
          }
 
@@ -74,7 +81,7 @@
     position: absolute;
     @media screen  and (max-width: 800px ) {
        
-        width: 35%;
+        width: 25%;
         bottom:20px;
          }
     

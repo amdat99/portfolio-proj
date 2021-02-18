@@ -1,6 +1,5 @@
 import React from 'react';
-import {connect} from 'react-redux'
-import {addItem} from '../../redux/cart/cart.actions'
+
 
 import './Product-item.scss'
 
@@ -24,21 +23,19 @@ function ProductItem({item, incrementItem}) {
           <div id='product-item-labels'>
          
         <span>{description}{lorem}</span> 
-        <h2 id='produ
-        ct-item-price'>£{price}</h2> 
+        <h2 id='product-item-price'>£{price}</h2> 
           <span  id='product-item-seller'>seller: {soldBy}</span>
-           <button onClick={() => incrementItem(item)} 
+        
+           </div>   
+           <button onClick={() => incrementItem(item)} className = 'product-item-button'
            style={{position: 'relative',right: '40px'}}>
                    Add to cart    
            </button>
-           </div>
            </div>  
           
           </div> 
     );
 }
-const mapDispatchToProps = (dispatch) => ({
-    incrementItem: item => dispatch(addItem(item)),
-})
 
-export default connect(null,mapDispatchToProps)(ProductItem);
+
+export default React.memo(ProductItem);

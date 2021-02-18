@@ -1,6 +1,4 @@
 import React,{useState} from 'react';
-import { connect } from 'react-redux'
-import { toggleModal } from '../../redux/modal/modal.actions'
 import DirectMessagingBox from '../direct-messaging-box/Direct-messaging-box';
 
 function SidebarContent({data, toggleModal}) {
@@ -10,10 +8,15 @@ function SidebarContent({data, toggleModal}) {
     const toggleDropdown = () => {
         setMessageDropdown(!messageDropdown)
     }
+
+    console.log(data.profileId)
     return (
         <div onMouseEnter = {toggleDropdown} onMouseLeave ={toggleDropdown}>
         <div >
-            <img  src = {`https://firebasestorage.googleapis.com/v0/b/tada-proj.appspot.com/o/images%2Fprofile${data.profileId}?alt=media&token=ce847e64-0b8b-410e-b7f7-2ed82765f377`} alt = 'profile icon' 
+            <img  src = {`https://firebasestorage.googleapis.com/v0/b/aamir-project-492ef.appspot.com/o/images%2Fprofile${data.profileId}?alt=media&token=94b04bbc-92dd-4bb4-b142-89293d3cae97`} 
+          
+            
+            alt = 'profile icon' 
             width="60"  height="60" className = 'sidebar-images' onError={(e)=>{e.target.onerror = null; e.target.src="https://cdn.pixabay.com/photo/2016/08/25/07/30/orange-1618917_960_720.png"}} /> 
             { data.status === 'online' ?
                 <span className = 'sidebar-online'>Signed in</span>
@@ -34,8 +37,5 @@ function SidebarContent({data, toggleModal}) {
         </div>
     );
 }
-const mapDispatchToProps = (dispatch) => ({
-    toggleModal: () => dispatch(toggleModal())
-    // fetchProductPending: (productId) => dispatch(fetchProductPending(productId)),
-})
-export default connect(null, mapDispatchToProps)(SidebarContent);
+
+export default React.memo(SidebarContent);

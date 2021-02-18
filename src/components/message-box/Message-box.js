@@ -1,23 +1,25 @@
 import React ,{useState} from 'react';
 
-import { connect } from 'react-redux'
-// import { createStructuredSelector } from 'reselect'
-import {  incrementLikesPending } from '../../redux/messages/messages.actions'
+
 
 import './Message-box.scss'
 
 function MessageBox({messageData, incrementLikesPending,fetchMessage}) {
     const {name,message,date,likes,image} = messageData;
     const [images, setImages] = useState(true)
+    const [canLike, setCanLike] = useState(true)
     
-    const incrementLikes = () =>{
-        incrementLikesPending(messageData)
+    const incrementLikes = async () =>{
+       await incrementLikesPending(messageData)
         fetchMessage();
 
-    }
-
+}
     const imageToggle = () =>{
         setImages(false);
+    }
+
+    const toggleLike = () => {
+        setCanLike(false);
     }
 return (
     <div>
@@ -32,23 +34,19 @@ return (
 </div>:null}
       
     <ul id="message-box-container">
- 
-        <span>{name}:   </span>
-    <span id='message-box-button' onClick={incrementLikes}>+</span>   
-        <span id="message-box-message">  {message} {likes}</span> 
-        <span id="message-box-date">at {date}</span> 
-       
-    </ul>
+        <span> {name}: </span>   
      
-      
-    
-    </div>
+        <span id="message-box-message">  {message}</span>   
+        <span id='message-box-likes'>{likes}</span>
+        {  canLike ? 
+        <span id='message-box-button' onClick={()=>{incrementLikes(); toggleLike()}}> +</span> 
+        :<span id='message-box-button'>  +</span> 
+         }
+        <span id="message-box-date">at {date.toLocaleString()}</span> 
+    </ul>
+     </div>
     );
 }
 
-const mapDispatchToProps  = (dispatch) => ({
- 
-    incrementLikesPending: (messageData) => dispatch(incrementLikesPending(messageData))
- })
 
- export default connect(null,mapDispatchToProps)(MessageBox);
+export default React.memo(MessageBox);

@@ -44,10 +44,10 @@ export function* fetchFilteredItemsAsync({ payload: event}) {
     }
 
 
-    export function* fetchSellingItemsAsync({ payload: userId}) {
-console.log('sdsd',{ payload: userId});
+    export function* fetchSellingItemsAsync({ payload: profileId}) {
+console.log('sdsd',{ payload: profileId});
         try {
-            const productData = yield call(getSellingItemsDoc,userId)
+            const productData = yield call(getSellingItemsDoc,profileId)
             yield put(fetchSellingItemsSuccess(productData))
         }catch(error){
             yield put(fetchItemsFailed(error.message))

@@ -11,6 +11,7 @@ import { selectProfileInfo } from '../../redux/profile/profile.selectors'
 import { openModal } from '../../redux/modal/modal.actions'
 
 import {setMessageDoc} from '../../firebase/firebase'
+import './Direct-messaging-box.scss'
 
 function DirectMessagingBox({currentUser, profilesInfo, getProfileInfo, profileId, displayName, sendDirectMessagePending, openModal,toggleModal}) {
     const [messageData, setMessageData] = useState({message:'',senderName:'', senderId:'', recieverName:'', recieverId:'',})
@@ -27,19 +28,13 @@ function DirectMessagingBox({currentUser, profilesInfo, getProfileInfo, profileI
         }
     },[currentUser] )
 
-  
-    
-   const onMessage = (event) => {
+  const onMessage = (event) => {
     setMessageData({...messageData, message:event.target.value})
     console.log(messageData)
     }
 
-    
-    const {message,senderName,senderId,recieverId,recieverName} = messageData
-
-    
-        
-const onSend =  async () => {
+    const onSend =  async (event) => {
+        event.preventDefault();
         if (currentUser.profileId !== profileId) {
     setMessageDoc(messageData)
 
@@ -49,11 +44,11 @@ const onSend =  async () => {
  }
 
     return (
-        <div>
-        
-        <textarea onFocus = {openModal} onChange={onMessage} placeholder='type message'  required ></textarea>
-        <button onClick= {onSend} type="button">send</button>
-      
+        <div className='direct-messaging-container'>
+        <form onSubmit={onSend}>
+        <textarea id ='direct-messaging-input' onFocus = {openModal} onChange={onMessage} placeholder='type message'  required ></textarea>
+        <button id='direct-messaging-button' type="submit">send</button>
+        </form>
         </div>
     );
 }

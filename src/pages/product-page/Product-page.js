@@ -1,7 +1,7 @@
 import React,{Suspense} from 'react';
 
 import ShopHeader from '../../components/shop-header/Shop-header'
-// import ProductItem from '../../components/product-item/Product-item'
+import { addItem} from '../../redux/cart/cart.actions'
 
 
 import { createStructuredSelector } from 'reselect';
@@ -11,7 +11,7 @@ import { selectProduct, isProductDataLoaded } from '../../redux/shop/shop.select
 
 const ProductItem = React.lazy(() => import('../../components/product-item/Product-item'))
 
-function ProductPage({isLoaded,product}) {
+function ProductPage({isLoaded,product, incrementItem}) {
 
     return (
         <div className="product-page-container">
@@ -20,7 +20,7 @@ function ProductPage({isLoaded,product}) {
         <Suspense fallback ={<div className="loader"></div>}>
         {  isLoaded
         ?product.map(item =>
-         <ProductItem item={item} key={item.name} /> )
+         <ProductItem item={item} key={item.name} incrementItem={incrementItem}/> )
         
         : <h1>LOADING...</h1>
         } 
@@ -35,4 +35,8 @@ const mapStateToProps = (createStructuredSelector)({
     isLoaded: isProductDataLoaded
 })
 
- export default connect(mapStateToProps)(ProductPage);
+const mapDispatchToProps = (dispatch) => ({
+    incrementItem: item => dispatch(addItem(item)),
+})
+
+ export default connect(mapStateToProps,mapDispatchToProps)(ProductPage);

@@ -7,12 +7,13 @@ import { createStructuredSelector } from 'reselect'
 import { fetchProfileInfoPending } from '../../redux/profile/profile.actions'
 import { selectCurrentUser } from '../../redux/user/user.selectors'
 import { selectProfileInfo } from '../../redux/profile/profile.selectors'
+import { toggleModal } from '../../redux/modal/modal.actions'
 
 
 
 import './Users-sidebar.scss'
 
-function UsersSidebar({getProfileInfo, profilesInfo, searchField,currentUser}) {
+function UsersSidebar({getProfileInfo, profilesInfo, searchField,currentUser,toggleModal}) {
     const [profiles] = useState(profilesInfo)
 
 useEffect(()=>{
@@ -36,7 +37,7 @@ return (
        { profilesInfo?
         filteredName().map((data,i) =>
       
-           <SidebarContent key = {i} data={data}  /> )
+           <SidebarContent key = {i} data={data} toggleModal = {toggleModal}/> )
           
        :null}
         </div>
@@ -44,6 +45,7 @@ return (
 }
     const mapDispatchToProps = (dispatch) => ({
         getProfileInfo: () =>dispatch(fetchProfileInfoPending()),
+        toggleModal: () => dispatch(toggleModal())
         });
     
     const mapStateToProps = createStructuredSelector({

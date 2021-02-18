@@ -4,13 +4,13 @@ import 'firebase/auth'
 import 'firebase/storage'; 
 
 const config = {
-    apiKey: "AIzaSyCV-jxf099VUNmHcvk7J5FR5rzWr1za-Gc",
-    authDomain: "tada-proj.firebaseapp.com",
-    projectId: "tada-proj",
-    storageBucket: "tada-proj.appspot.com",
-    messagingSenderId: "452910579347",
-    appId: "1:452910579347:web:8a8ab4e7a2856ce18a1766",
-    measurementId: "G-38WWV7HX7T"
+  apiKey: "AIzaSyCCUAnG030Pik83ErdX3DyHBqypx0qTM1A",
+  authDomain: "aamir-project-492ef.firebaseapp.com",
+  projectId: "aamir-project-492ef",
+  storageBucket: "aamir-project-492ef.appspot.com",
+  messagingSenderId: "926729331205",
+  appId: "1:926729331205:web:623421273d59ce346ff26c",
+  measurementId: "G-KGV9XG51P2"
   };
 
   //user functions:
@@ -103,7 +103,7 @@ export const setMessageDoc = async ( messageData) =>{
   const uid = Math.random()+Math.random()
   const collectionRef = firestore.doc(`message/${uid}`)
   const { senderId,message,senderName, recieverName, recieverId } = messageData; 
-  const createdAt = new Date ();
+  const createdAt = new Date().toDateString()
   
 try{
   await collectionRef.set({
@@ -119,7 +119,8 @@ export const getRecievedMessageDoc = async (recieverId) => {
   const collectionRef = firestore.collection('message').orderBy("createdAt", "desc").where('recieverId',"==",recieverId)
   const collectionSnapShot = await collectionRef.get(); // 
   return  collectionSnapShot.docs.map(doc => {
-    return {senderName: doc.data().senderName, recieverName: doc.data().recieverName, message: doc.data().message, createdAt: doc.data().createdAt} 
+    return {senderName: doc.data().senderName, recieverName: doc.data().recieverName, message: doc.data().message, createdAt:doc.data().createdAt,
+      senderId: doc.data().senderId,dateFilter: Date.parse(doc.data().createdAt) } 
      } )
 }
 
@@ -129,7 +130,8 @@ export const getSentMessageDoc = async (senderId) => {
   const collectionRef = firestore.collection('message').orderBy("createdAt", "desc").where('senderId',"==",senderId)
   const collectionSnapShot = await collectionRef.get(); // 
   return  collectionSnapShot.docs.map(doc => {
-    return {senderName: doc.data().senderName, recieverName: doc.data().recieverName, message: doc.data().message} 
+    return { message: doc.data().message, createdAt: doc.data().createdAt,
+    senderId: doc.data().senderId ,dateFilter: Date.parse(doc.data().createdAt,),recieverName: doc.data().recieverName} 
      } )
 }
 
@@ -138,7 +140,8 @@ export const getSentMessageDoc = async (senderId) => {
    export const setItemsDoc = async ( itemData) =>{
     const productId = itemData.productId+Math.random()
     const collectionRef = firestore.doc(`items/${productId}${itemData.userId}}`)
-    const {  price, category, soldBy, picture, description,userId,name} = itemData; 
+    const {  price, category, soldBy, picture, description,userId} = itemData; 
+    const name = itemData.name.toLowerCase()
     const createdAt = new Date ();
     
  try{
@@ -182,9 +185,9 @@ export const getItemsDoc = async ( collection) => {
          } )
 }
 
-export const getSellingItemsDoc = async (userId) => {
-  if(!userId) return
-  const collectionRef = firestore.collection('items').where('userId',"==",userId)
+export const getSellingItemsDoc = async (profileId) => {
+  if(!profileId) return
+  const collectionRef = firestore.collection('items').where('userId',"==",profileId)
   const collectionSnapShot = await collectionRef.get(); // 
   return collectionSnapShot.docs.map(doc => doc.data())
 }

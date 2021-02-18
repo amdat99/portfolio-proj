@@ -41,4 +41,4 @@ const handleImage = (event) => {
     );
 }
 
-export default ProfileIconDropdown;
+export default React.memo(ProfileIconDropdown);

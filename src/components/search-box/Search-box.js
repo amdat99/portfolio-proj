@@ -16,7 +16,7 @@ const SearchBox = ({ search,  }) => {
       aria-label = 'Search Producs'
       className=' search-box '
       type='search'
-      placeholder='signin to search query'
+      placeholder='search fields not supported by firestore'
       onChange={search}
      />
 

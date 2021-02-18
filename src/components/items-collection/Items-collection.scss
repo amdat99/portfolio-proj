@@ -28,7 +28,7 @@
     min-height: 230px;
     min-width:  170px;
     border-bottom: 1px solid rgb(153, 149, 33);
-
+    overflow: hidden;
     @media screen  and (max-width: 800px ) {
        
  
@@ -41,6 +41,7 @@
     border-right:rgb(153, 149, 33);
     border-top:rgb(153, 149, 33);
     transform: scale(1.1);
+  
     
  
     }

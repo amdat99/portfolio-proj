@@ -92,7 +92,11 @@ input{
   box-shadow: 2px 2px 2px 2px grey;
   display:flex;
   padding-right:10px;
- padding-left: 5px;
+ padding-left: 10px;
+ padding-top:6px;
+ height:fit-content;
+
+
  word-break: break-all;
 
  @media screen  and (max-width: 800px ) {

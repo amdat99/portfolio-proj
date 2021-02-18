@@ -56,13 +56,13 @@ return (
             {
             currentUser
             ?<div onClick= { signOut  }>SIGN OUT</div>
-            :<Link to ='/signon'>SIGN IN</Link>
+            :<Link id='profile-icon-title' to ='/signon'>SIGN IN</Link>
            } 
-           <Link onClick={ toggleModal }> 
+           <Link onClick={ toggleModal } id='profile-icon-title'> 
            PROFILE
            </Link>
-           <Link to="/store">STORE</Link>
-           <Link to='/chatapp'>CHATAPP</Link>
+           <Link to="/store" id='profile-icon-title' >STORE</Link>
+           <Link to='/chatapp' id='profile-icon-title' >CHATAPP</Link>
             </div>
             :null}
             </div>
