@@ -50,12 +50,11 @@ const handleChange = (event) => {
 
 const sendMessage =  async (event) => {
     event.preventDefault();
-    if(messageData.image){
-     await toggleShowImage()}
-    sendMessagePending(messageData)
    
-   setMessageData({userName:currentUser.displayName, userId:currentUser.id, messageId: Math.random() ,message: '', image: ''})
-   fetchMessagePending()
+    if(messageData.image){
+      toggleShowImage()}
+      sendMessagePending(messageData)
+    setMessageData({userName:currentUser.displayName, userId:currentUser.id, messageId: Math.random() ,message: '', image: ''})
    setImageToggle(false)
    
 }
@@ -67,7 +66,7 @@ const addImageUrl =  (event) => {
 }
 
 const onHandleSearch = (event) => {
-    setSearchField(event.target.value)
+  setMessageData({...messageData, image:event.target.value})
 }
 
 const filteredMessages= () =>{
@@ -105,19 +104,21 @@ return(
       placeholder='search name' onChange={onHandleSearch} />
     
     <form  className= 'chat-page-scroller hide-scroll' onSubmit={sendMessage} >
-       
-    { pending?
+     { pending?
     <div className= 'loader'></div>:null}
-        {
-            filteredMessages().map(message =>
-       <MessageBox messageData = {message} key={message.messageid}
+    { messages?
+        filteredMessages().map(message =>
+      <MessageBox messageData = {message} key={message.messageid}
         fetchMessage = {fetchMessagePending} incrementLikesPending = {incrementLikesPending}/> 
-    ) }
+    ) :null}
       <textarea id="chat-page-send" value ={messageData.message}
-    type="text-area" placeholder="Enter Message" onChange={handleChange} required />
+      type="text-area" placeholder="Enter Message" onChange={handleChange} required />
+
 
       <input type="url" placeholder="addImageUrl" onChange={addImageUrl} id="chat-page-image" value ={messageData.image} />
+      {currentUser?
       <button  id="chat-page-button" type ='submit'>send</button>
+     :null }
     </form>
            
       <UsersSidebar searchField = {searchField}/>

@@ -107,7 +107,8 @@ const getSentMessages = async() => {
         <div className="profile-messagebox-container hide-scroll ">  {
             
             currentUser?
-        <div> <span style={{position: 'relative', right: '-10px'}}>messages:</span>
+        <div> 
+            <span style={{position: 'relative', right: '-10px'}}>messages:</span>
         <ProfileMessages  sentMessages={sentMessages} currentUser={currentUser} recievedMessages={recievedMessages}/>
         </div>
            :<h1>no messages...</h1> } </div> }

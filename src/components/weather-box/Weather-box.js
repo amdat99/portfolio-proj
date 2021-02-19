@@ -4,15 +4,17 @@ import './Weather-box.scss'
 
 function WeatherBox(props) {
  const [location, setLocation]= useState('')
- const [locationKey, setLocationKey] = useState ('')
- const [locationData, setLocationData] = useState ([])
+ const [locationKey, setLocationKey] = useState (null)
+ const [locationData, setLocationData] = useState (null)
  const [weatherToggle, setWeatherToggle] = useState(false)
 
 
 
 
-  const  onSendLocation =() =>{
-        fetch('http://localhost:4000/weathering',{
+  const  onSendLocation = async () =>{
+         setLocationData(null)
+         setLocationKey(null)
+        fetch('https://quiet-inlet-52952.herokuapp.com/weathering',{
          method: 'post',
          headers: {'Content-Type': 'application/json'},
          body: JSON.stringify({
@@ -22,14 +24,15 @@ function WeatherBox(props) {
         .then(res => res.json())
         .then(data=> {
          if(data) {
-          setLocationKey(data)
+          setLocationKey(data.Key)
           fetchWeatherData()
+          console.log(locationKey)
        
          }
           })}
           
         const  fetchWeatherData =() =>{
-            fetch('http://localhost:4000/weatherdata',{
+            fetch('https://quiet-inlet-52952.herokuapp.com/weatherdata',{
              method: 'post',
              headers: {'Content-Type': 'application/json'},
              body: JSON.stringify({
@@ -40,9 +43,14 @@ function WeatherBox(props) {
             .then(data=> {
              if(data) {
               setLocationData(data)
-              console.log(locationData)
+
+              
              }
               })}
+
+              if(locationData){
+                  console.log(locationData)
+              }
             
         
   const onChange = (event) => {
@@ -67,15 +75,15 @@ return (
         <div className='weather-container'>
         {locationData?
          <div>
-        <div>{locationData}it is sunny</div>
-        <span>tempweather</span> 
+        <div>{locationData.WeatherText}</div>
+        <span>{locationData.Temperature.Metric.Value} °C</span> 
         
         </div>
         :null}
         <form onSubmit={onSubmit}>
             <input type="text" placeholder="type location" onChange={onChange}/>
             <button id="weather-button" type="submit">Send</button>
-            <span >won't work if over 50 reqs a day</span>
+            <span id='weather-warning-text'>won't work if over 50 reqs a day</span>
         </form>
             </div>:null}
         </div>
