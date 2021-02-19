@@ -13,7 +13,7 @@ function CartContent({item, decrementItem,incrementItem,fetchProductPending,hist
     const { name, price, picture, quantity, profileId} = item;
     return(
         <div className = 'cart-item'>
-            <img src={picture} alt = 'item' width='75' style={{cursor: 'pointer'}}
+            <img src={`${picture}?100x75`} alt = 'item' width='75' style={{cursor: 'pointer'}}
         onClick={() => { fetchProductPending(profileId); 
          history.push('/product') }}
             />

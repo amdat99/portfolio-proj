@@ -39,7 +39,6 @@ function StorePageDirectory(props) {
 
 return (
     <div className='shop-page-directory'>   
-    <h1>Store</h1>
         {
             categories.map(category => {    
              

@@ -72,7 +72,7 @@ const getSentMessages = async() => {
       <div>
       <div id="profile-image-container">
         <a href= {currentImage}  >
-        <img src={currentImage } alt="profile" width= '60' height= '60'
+        <img src={`${currentImage}size=60x60`} alt="profile" width= '60' height= '60'
         onError={(e)=>{e.target.onerror = null; e.target.src="https://cdn.pixabay.com/photo/2016/08/25/07/30/orange-1618917_960_720.png"}}  />
         </a>
     </div>    

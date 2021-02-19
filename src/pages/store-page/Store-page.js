@@ -23,7 +23,7 @@ function StorePage({setHeaderRoute,match}) {
     <div>
     
     <SharedHeader  />
-     <h1>Store</h1>
+     <h1 style={{marginTop: '100px'}}>Store</h1>
     <StorePageDirectory />
 
 

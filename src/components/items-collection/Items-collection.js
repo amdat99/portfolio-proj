@@ -10,11 +10,11 @@ import './Items-collection.scss'
 
 function ItemsCollection({item,incrementItem,fetchProductPending,history, scrollPosition }) {
 const {name,price,picture,profileId, soldBy} = item;
-
+console.log(item)
     return (
       <div id='item-container' >
          <div id='item-overlay' >
-         <LazyLoadImage id ='item-image' src ={picture} alt={'item'} height={'220'} width={'200'}
+         <LazyLoadImage id ='item-image' src ={`${picture}?size=220x200`} alt={'item'} height={'220'} width={'200'}
         scrollPosition={scrollPosition} effect="blur"
          onClick={() => { fetchProductPending(profileId); 
          history.push('/product') } }/>

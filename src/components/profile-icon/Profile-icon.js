@@ -46,7 +46,7 @@ return (
             <div >
           
             
-            <img src={currentImage} alt= '' className='profile-icon-image' 
+            <img src={`${currentImage}?size=50x50`} alt= '' className='profile-icon-image' 
             width= '50' height= '50' onError={(e)=>{e.target.onerror = null; e.target.src="https://cdn.pixabay.com/photo/2016/08/25/07/30/orange-1618917_960_720.png"}}
             />
             </div>

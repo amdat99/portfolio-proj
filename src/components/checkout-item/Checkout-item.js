@@ -10,14 +10,16 @@ import './Checkout-item.scss';
 const CheckoutItem = ( {cartItem, clearItem, decrementItem,incrementItem,fetchProductPending, history} ) => {
     const {name,quantity,price, picture,productId} = cartItem
 
-    
+ 
 return (
+
+
   
   <div className='checkout-item'>
     <div className='checkout-item-image-container'>
-      <img className='checkout-item-img' src={picture} alt='item' 
-         onClick={() => { fetchProductPending(productId); 
-         history.push('/product') } }
+      <img className='checkout-item-img' src={`${picture}size=180x150`} alt='item' 
+        //  onClick={() => { fetchProductPending(productId); 
+        //  history.push('/product') } }
       />
     </div>
           <div className='checkout-item-labels'>

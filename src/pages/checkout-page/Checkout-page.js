@@ -20,7 +20,7 @@ function CheckoutPage({cartItems,total,currentUser,setHeaderRoute}) {
         setHeaderRoute(route)
      // eslint-disable-next-line   
     },[setHeaderRoute])
-
+console.log(cartItems)
     return (
         <div className='checkout-page'>
         <ShopHeader />
@@ -39,9 +39,9 @@ function CheckoutPage({cartItems,total,currentUser,setHeaderRoute}) {
               </div>:
               <Link className ='checkout-signin'  to='/signon'>please signin to make a purchase</Link>  }
             
-                *To test please use the following card details to pay:<br/>
+                To test please use the following card details to pay:<br/>
                 4242 4242 4242 4242 - Exp: 01/22 - CVV: 123 <br/>
-                *Test user: email: john@gmail.com password: 123123 
+                Test user: email: john@gmail.com password: 123456 
            </div>
             </div>
     );

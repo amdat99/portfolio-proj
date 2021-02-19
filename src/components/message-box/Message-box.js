@@ -37,10 +37,11 @@ return (
     }
         <span id="message-box-date">at {date.toLocaleString()}</span> 
     </ul>  
-    {   image ?
+        
+    {  images? image ?
         <LazyLoadImage id="message-box-image"  onError={imageToggle}
-        src={image} alt= 'upload' scrollPosition={scrollPosition} effect="blur" />
-     :null  }
+        src={image} alt= 'upload' scrollPosition={scrollPosition} effect="blur" onError={imageToggle}/>
+     :null : null  }
      </div>
     :null}
      </div>

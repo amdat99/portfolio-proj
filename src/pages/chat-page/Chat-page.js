@@ -51,8 +51,8 @@ const handleChange = (event) => {
 const sendMessage =  async (event) => {
     event.preventDefault();
    
-    if(messageData.image){
-      toggleShowImage()}
+
+      toggleShowImage()
       sendMessagePending(messageData)
     setMessageData({userName:currentUser.displayName, userId:currentUser.id, messageId: Math.random() ,message: '', image: ''})
    setImageToggle(false)
@@ -111,11 +111,11 @@ return(
       <MessageBox messageData = {message} key={message.messageid}
         fetchMessage = {fetchMessagePending} incrementLikesPending = {incrementLikesPending}/> 
     ) :null}
-      <textarea id="chat-page-send" value ={messageData.message}
+      <textarea id="chat-page-send" value ={messageData.message} aria-label = 'add message'
       type="text-area" placeholder="Enter Message" onChange={handleChange} required />
 
 
-      <input type="url" placeholder="addImageUrl" onChange={addImageUrl} id="chat-page-image" value ={messageData.image} />
+      <input type="url" placeholder="addImageUrl" onChange={addImageUrl} id="chat-page-image" value ={messageData.image} aria-label="Add Image URl"/>
       {currentUser?
       <button  id="chat-page-button" type ='submit'>send</button>
      :null }
