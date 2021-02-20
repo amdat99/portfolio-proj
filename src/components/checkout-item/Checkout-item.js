@@ -8,7 +8,7 @@ import { fetchProductPending } from '../../redux/shop/shop.actions'
 import './Checkout-item.scss';
 
 const CheckoutItem = ( {cartItem, clearItem, decrementItem,incrementItem,fetchProductPending, history} ) => {
-    const {name,quantity,price, picture,productId} = cartItem
+    const {name,quantity,price, picture} = cartItem
 
  
 return (

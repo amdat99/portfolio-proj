@@ -41,11 +41,9 @@ function WeatherBox(props) {
             })
             .then(res => res.json())
             .then(data=> {
-             if(data) {
-              setLocationData(data)
-
-              
-             }
+             
+              setLocationData(data)   
+              setLocationKey(null)
               })}
 
               if(locationData){

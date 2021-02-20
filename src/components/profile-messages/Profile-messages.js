@@ -5,71 +5,55 @@ import './Profile-messages.scss'
 
 
 
-  function ProfileMessages({message, currentUser}) {
+  function ProfileMessages({ currentUser}) {
       const [recievedMessages, setRecievedMessages]= useState([])
       const [sentMessages, setSentMessages]= useState([])
        
 
-      
-useEffect(()=>{
+    useEffect(()=>{
           getRecievedMessages()
         const interval = setInterval(() => getRecievedMessages()
         , 5000); 
      return () =>clearInterval(interval)
-        },[getRecievedMessageDoc])
-
+        },[getRecievedMessageDoc,recievedMessages])
+        //eslint-disable
+        
         useEffect(()=>{
             getSentMessages()
           const interval = setInterval(() => getSentMessages()
           , 5000); 
        return () =>clearInterval(interval)
-          },[getSentMessageDoc])
+          },[getSentMessageDoc,sentMessages])
+          //eslint-disable
     
-    // useEffect(()=>{
-    //           if(recievedMessages && sentMessages){
-    //               setCombinedMessages(...recievedMessages,...sentMessages)
-    //               console.log('fdffd',combinedmessages)
-    //           }
-    //       },[recievedMessages,sentMessages,combinedmessages])
-    
+
     const getRecievedMessages = async() => {
         const request = await getRecievedMessageDoc(currentUser.profileId)
         setRecievedMessages(request)}
 
     const getSentMessages = async() => {
-    const request = await getSentMessageDoc(currentUser.profileId)
-    setSentMessages(request)
-    
-    
-}
+        const request = await getSentMessageDoc(currentUser.profileId)
+        setSentMessages(request)}
   
     return (
 
         <div className = 'profile-messages-container' >
-    
-
-        {
-            recievedMessages.map( sentMessage =>
-            
-        <ul id="message-box-container" >
-            <span>{sentMessage.senderName}:</span>
-            <span id="message-box-message">  {sentMessage.message}  </span> 
-            <span id='profile-messages-recieved-date'>{sentMessage.createdAt}</span>
+        
+        {recievedMessages.map((sentMessage,i) =>
+         <ul key={i} id="message-box-container" >
+            <span> {sentMessage.senderName}:</span>
+            <span  id="message-box-message">  {sentMessage.message}  </span> 
+            <span  id='profile-messages-recieved-date'>{sentMessage.createdAt}</span>
         </ul>)}
              
-            {sentMessages.map( message =>
-             <ul id="message-box-container" >
-            <span id='profile-messages-sent'   >  {message.message} </span> 
-            <span id='profile-messages-sent-date' >to {message.recieverName} {message.createdAt} </span> 
+        {sentMessages.map(( message,i) =>
+        <ul key={i} id="message-box-container" > 
+            <span  id='profile-messages-sent'   >  {message.message} </span> 
+            <span   id='profile-messages-sent-date' >to {message.recieverName} {message.createdAt} </span> 
             <span ></span> 
             
         </ul>)}
-        
-        
-     
         )
-        
-            
         </div>
     );
 }

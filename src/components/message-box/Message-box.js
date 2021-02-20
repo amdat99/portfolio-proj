@@ -35,12 +35,13 @@ return (
         <span id='message-box-button' onClick={()=>{incrementLikes(); toggleLike()}}> +</span> 
         :<span id='message-box-button'>  +</span> 
     }
-        <span id="message-box-date">at {date.toLocaleString()}</span> 
+        <span id="message-box-date">at {date.toString("MMMM yyyy")}</span> 
     </ul>  
         
     {  images? image ?
         <LazyLoadImage id="message-box-image"  onError={imageToggle}
-        src={image} alt= 'upload' scrollPosition={scrollPosition} effect="blur" onError={imageToggle}/>
+        src={image} alt= 'upload' scrollPosition={scrollPosition} effect="blur" />
+        //eslint-disable
      :null : null  }
      </div>
     :null}

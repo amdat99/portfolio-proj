@@ -1,7 +1,7 @@
 import React from 'react'
 
 // import CustomButton from '../custom-button/CustomButton'
-import { withRouter, Link } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 // import ScrollToBottom from 'react-scroll-to-bottom';
 
 import { connect } from 'react-redux';

@@ -3,7 +3,6 @@ import { takeLatest, put, all, call} from 'redux-saga/effects'
 import {  signInSuccess, signInFailure, signOutSuccess, signOutFailure, 
     signUpSuccess, signUpFailure, getMessageFailed, sendDirectMessageFailed,getRecievedMessageSuccess, getSentMessageSuccess } from './user.actions'
 
-    import{ changeStatus} from '../profile/profile.actions'
 import userActionTypes from './user.types'
 
 
@@ -51,9 +50,8 @@ export function* getSnapshotFromUserAuth(userData, additionalData) {
 
 
   export function * sendDirectMessageAsync({ payload: {senderId, recieverId, message, senderName, recieverName }}) {
-    console.log('dff',{payload: {senderId, recieverId, message, senderName, recieverName }} )
     try{
-      const messageData = yield call(setMessageDoc,senderId, recieverId, message, senderName, recieverName)
+     yield call(setMessageDoc,senderId, recieverId, message, senderName, recieverName)
 
     }catch (error) {
       yield put(sendDirectMessageFailed(error))
@@ -61,7 +59,6 @@ export function* getSnapshotFromUserAuth(userData, additionalData) {
   }
 
 export function* getSentMessageAsync({ payload: {userId}}){
-  console.log('dff',{payload: {userId}})
   try{
     const messagedata = yield getSentMessageDoc(userId)
     yield put(getSentMessageSuccess(messagedata))
@@ -101,20 +98,13 @@ export function* onUpdateStatus(){
 }
 
 export function* signOut(){
-  const userData = yield getCurrentUser();
-
-    try{
-        
-        yield auth.signOut() 
-        
-       
-        yield put(signOutSuccess()) 
-          
-        yield put(clearAllItemsFromCart())
-        
-        yield put(nullifyProfileImage())
+try{
+      yield auth.signOut() 
+      yield put(signOutSuccess()) 
+      yield put(clearAllItemsFromCart())
+      yield put(nullifyProfileImage())
     }catch(error){
-        yield put(signOutFailure(error))
+      yield put(signOutFailure(error))
 
     }
   }

@@ -35,6 +35,7 @@ margin-left: 50px;
   height: fit-content;
   margin-right: 65%;
   top:-120px;
+  text-align: justify;
 
   @media screen  and (max-width: 800px ) {
     margin-top: 20px;
@@ -59,7 +60,7 @@ margin-left: 50px;
      @media screen  and (max-width: 800px ) {
     font-size: 20px;
     min-width: 200px;
-    top: 110px;
+    top: 100px;
     left: 8%;
   
   }
@@ -75,14 +76,13 @@ margin-left: 50px;
   min-width: 80px;
   min-height: 30px;
   position: relative;
-  left: -100px;
-  top: 5px;
+  top: -100%;
   
   
   @media screen  and (max-width: 800px ) {
     position: absolute;
-    left: 200px;
-    
+    left: 10px;
+    top:10px;
 }
 }
 
@@ -90,21 +90,25 @@ margin-left: 50px;
   min-width: 80px;
   min-height: 30px;
   position: relative;
-  left: -40px;
+  right: 90px;
+
   @media screen  and (max-width: 800px ) {
     position: absolute;
-    top: -240px;
-    left: -185px;
+    top: 0px;
+    right: 70px;
+    
   
 }
 
 }
 
 #product-item-price{
+
   @media screen  and (max-width: 800px ) {
     position: absolute;
-    top: -20px;
+    top: -14px;
     left: 125px;
+    font-size: 21px;
   }
 
 }

@@ -24,9 +24,10 @@ function DirectMessagingBox({currentUser, profilesInfo, getProfileInfo, profileI
 
     useEffect(()=>{
         if(currentUser){
-            setMessageData({senderName:currentUser.displayName, senderId:currentUser.profileId, recieverId:profileId, recieverName: displayName })
+        setMessageData({senderName:currentUser.displayName, senderId:currentUser.profileId, 
+                            recieverId:profileId, recieverName: displayName })
         }
-    },[currentUser] )
+    },[currentUser,displayName,profileId] )
 
   const onMessage = (event) => {
     setMessageData({...messageData, message:event.target.value})
@@ -36,12 +37,11 @@ function DirectMessagingBox({currentUser, profilesInfo, getProfileInfo, profileI
     const onSend =  async (event) => {
         event.preventDefault();
         if (currentUser.profileId !== profileId) {
-    setMessageDoc(messageData)
-
-    // await sendDirectMessagePending(messageData)
-    setMessageData({senderName:currentUser.displayName, senderId:currentUser.profileId, recieverId: profileId ,message: '', recieverName: displayName})
+        setMessageDoc(messageData)
+        setMessageData({senderName:currentUser.displayName, senderId:currentUser.profileId, 
+                        recieverId: profileId ,message: '', recieverName: displayName})
         }else(alert('dont send yourself a message please'))
- }
+        }
 
     return (
         <div className='direct-messaging-container'>

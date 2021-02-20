@@ -25,7 +25,7 @@ export const fetchProfileInfoSuccess = (profileInfo) => ({
 
 
 export const fetchProfileImageSuccess = (profileImageData) => ({
-    type: profileActionTypes. FETCH_PROFILEIMAGE_SUCCESS,
+    type: profileActionTypes.FETCH_PROFILEIMAGE_SUCCESS,
     payload: profileImageData
 
 })

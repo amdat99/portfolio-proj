@@ -21,7 +21,7 @@ const WeatherBox = React.lazy(() => import('../../components/weather-box/Weather
 
 function ChatPage({currentUser, sendMessagePending,fetchMessagePending,messages, changeStatus, pending, incrementLikesPending}) {
 
-const [searchField,setSearchField] =useState('')
+const [searchField] =useState('')
 const [messageData, setMessageData] = useState({userName:'', message:'', messageId:'', userId:'', image:'',})
 const [imageToggle, setImageToggle] = useState(false)
  
@@ -124,7 +124,7 @@ return(
       <UsersSidebar searchField = {searchField}/>
       <WeatherBox />
     {imageToggle?
-      <img src ={messageData.image}  onError={verifyImage}/>
+      <img src ={messageData.image}  onError={verifyImage} alt="verify" width="5" height="5"/>
         :null}
   </Suspense>
     </div>
@@ -140,7 +140,6 @@ const mapStateToProps = createStructuredSelector({
  const mapDispatchToProps  = (dispatch) => ({
     sendMessagePending: messageData => dispatch(sendMessagePending(messageData)),
     fetchMessagePending: () => dispatch(fetchMessagePending()),
-    incrementLikesPending: (messageId) => dispatch(incrementLikesPending(messageId)),
     changeStatus: (profileId, status) => dispatch(changeStatus({profileId, status})),
     incrementLikesPending: (messageData) => dispatch(incrementLikesPending(messageData))
  })

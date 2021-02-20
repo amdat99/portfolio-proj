@@ -7,7 +7,6 @@ import { selectCurrentUser } from '../../redux/user/user.selectors';
 import { selectCurrentImage } from '../../redux/profile/profile.selectors'
 import { fetchProfileImagePending, changeStatus} from '../../redux/profile/profile.actions'
 import { createStructuredSelector } from 'reselect';
-import { updateStatus } from '../../firebase/firebase'
 import './Profile-icon.scss'
 
 function ProfileIcon({currentUser,signOutPending,toggleModal, currentImage,getProfileImage,changeStatus}) {

@@ -25,8 +25,7 @@ function ProductItem({item, incrementItem}) {
         <span>{description}{lorem}</span> 
         <h2 id='product-item-price'>£{price}</h2> 
           <span  id='product-item-seller'>seller: {soldBy}</span>
-             <button onClick={() => incrementItem(item)} className = 'product-item-button'
-           style={{position: 'relative',right: '40px'}}>
+             <button onClick={() => incrementItem(item)} className = 'product-item-button'>
                    Add to cart    
            </button>
            </div>   

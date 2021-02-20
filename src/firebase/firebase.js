@@ -59,11 +59,20 @@ const config = {
     return userRef;
   }
 
-export const updateDisplayName = async (userId,name) =>{
+export const updateDisplayName = async (profileId,name) =>{
   
-    if (!userId) return
-  let userRef= firestore.collection('users')
-  return userRef.doc(userId).update({displayName:name})
+    if (!profileId) return
+  firestore.collection("profile").where("profileId", "==", profileId)
+  .get()
+  .then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
+          doc.ref.update({displayName: name})
+      });
+ })
+}
+ 
+ export const updateDisplayNameforUsers = async (userId,name) =>{
+ firestore.collection('users').doc(userId).update({displayName: name})
 }
 
 export const updateStatus = async (profileId,status) =>{
@@ -75,9 +84,10 @@ export const updateStatus = async (profileId,status) =>{
           doc.ref.update({status: status})
       });
  })
+ 
 }
 
-export const getProfileDoc = async () => {
+export const getProfileDoc = async (profileId) => {
  
  const collectionRef = firestore.collection('profile');
    // get user collection data
@@ -86,6 +96,16 @@ export const getProfileDoc = async () => {
         return { profileId: doc.data().profileId , displayName: doc.data().displayName, status: doc.data().status}  
          } )
 }
+
+export const getProfileName = async (profileId) => {
+ 
+  const collectionRef = firestore.collection('profile').where("profileId", "==", profileId);
+    // get user collection data
+     const collectionSnapShot = await collectionRef.get(); // 
+     return  collectionSnapShot.docs.map(doc => {
+         return { displayName: doc.data().displayName, }  
+          } )
+ }
 
 export const getCurrentUser =() => {  
   return new Promise((resolve, reject) => {  // cheks to see if user is signedin 

@@ -16,3 +16,9 @@ export const selectProfileInfo = createSelector(
    
    )
 
+   export const selectProfileName = createSelector(
+    [selectProfileImage],
+    (profile) => profile.profileInfo.displayName? profile.profileInfo.displayName : []
+   
+   )
+
