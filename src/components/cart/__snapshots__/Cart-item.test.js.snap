@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`expect to render cartItem component 1`] = `
+<div
+  className="cart-item"
+>
+  <Link
+    to="/product"
+  >
+    <img
+      alt="item"
+      className="imagetest"
+      onClick={[Function]}
+      src="www.picture.com?100x75"
+      style={
+        Object {
+          "cursor": "pointer",
+        }
+      }
+      width="75"
+    />
+  </Link>
+  <div
+    className="cartitem-details"
+  >
+    <span
+      className="cartitem-name"
+    >
+      ball
+    </span>
+    <div
+      className="cartitem-name"
+    >
+      5
+      x£
+      10
+    </div>
+    <div
+      className="cartitem-remove"
+    >
+      <span
+        className="cartitem-remove-span "
+        onClick={[Function]}
+      >
+        remove 
+      </span>
+      <span
+        className="cartitem-remove-span "
+        onClick={[Function]}
+      >
+        add
+      </span>
+    </div>
+  </div>
+</div>
+`;

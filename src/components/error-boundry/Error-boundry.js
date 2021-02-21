@@ -21,7 +21,7 @@ class ErrorBoundary extends React.Component {
       if (this.state.hasError) {
                 return (
                 <div className='error-container'>
-                    <img  src ='https://i.imgur.com/A040Lxr.png'/ width='300' height='300'>
+                    <img  src ='https://i.imgur.com/A040Lxr.png' width='300' height='300' />
                         <span> the page got lost sorry </span>
                 </div>)
             }

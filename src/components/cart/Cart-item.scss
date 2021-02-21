@@ -11,7 +11,7 @@
     flex-direction: row;
     padding-right: 10px;
 
-    .cartitem-remove-span{
+    .cartitem-add-span{
       position: relative;
       left: 27px;
       margin-right: 7px;
@@ -19,6 +19,15 @@
       left: 10px;
        
       }
+
+      .cartitem-add-span{
+        position: relative;
+        left: 27px;
+        margin-right: 7px;
+        @media screen  and (max-width: 1000px ) {
+        left: 10px;
+         
+        }
       
      
 }
@@ -39,5 +48,5 @@
       font-size: 13px;
       max-width: 120px;
     }
-  }
+  }}
   

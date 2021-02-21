@@ -57,6 +57,7 @@ function Profile({toggleModal,currentUser,currentImage, getProfileImage,fetchSel
         }
     
     const fetchProfileName = async () => {
+        <span id="profile-update-name" type="button" onClick={()=> {onUpdateName(); toggleModal()}}>update name</span>
         const request = await getProfileName(currentUser.profileId)
         setDisplayNameData(request)
    }
