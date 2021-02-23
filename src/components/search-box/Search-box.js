@@ -24,7 +24,6 @@ const SearchBox = ({ search,  }) => {
 );
 }
 const  mapDispatchToProps = (dispatch) => ({
-    // search: (event)=> dispatch(setSearchField(event.target, event))
     search: (event)=> dispatch(setSearchField(event.target.value))
 })
 

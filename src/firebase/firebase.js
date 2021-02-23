@@ -160,8 +160,8 @@ export const getSentMessageDoc = async (senderId) => {
    export const setItemsDoc = async ( itemData) =>{
     const productId = itemData.productId+Math.random()
     const collectionRef = firestore.doc(`items/${productId}${itemData.userId}}`)
-    const {  price, category, soldBy, picture, description,userId} = itemData; 
-    const name = itemData.name.toLowerCase()
+    const {  price, category, soldBy, picture, description,userId,name} = itemData; 
+    
     const createdAt = new Date ();
     
  try{
@@ -175,24 +175,24 @@ export const getSentMessageDoc = async (senderId) => {
 
 }
 
-export const setItemsHistoryDoc = async ( itemData) =>{
+// export const setItemsHistoryDoc = async ( itemData) =>{
      
 
-  const collectionRef = firestore.doc(`itemshistory/${itemData.productId}${itemData.userId}}`)
-  const name = itemData.name.toLowerCase();
-  const {  price, category, soldBy, picture, description,userId,name} = itemData; 
-  const createdAt = new Date ();
-  const productId = itemData.productId+Math.random()
-try{
-  await collectionRef.set({
-    name, price, category, soldBy, picture, description, userId, 
-    createdAt,productId,
-  })
-} catch(error){
-  console.error('error creating new listing', error.message);
-}
+//   const collectionRef = firestore.doc(`itemshistory/${itemData.productId}${itemData.userId}}`)
+//   const name = itemData.name.toLowerCase();
+//   const {  price, category, soldBy, picture, description,userId,name} = itemData; 
+//   const createdAt = new Date ();
+//   const productId = itemData.productId+Math.random()
+// try{
+//   await collectionRef.set({
+//     name, price, category, soldBy, picture, description, userId, 
+//     createdAt,productId,
+//   })
+// } catch(error){
+//   console.error('error creating new listing', error.message);
+// }
 
-}
+// }
 
 export const getItemsDoc = async ( collection) => {
   if(!collection) return
