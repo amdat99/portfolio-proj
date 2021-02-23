@@ -11,9 +11,11 @@ import { connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect'
 import { changeStatus } from '../../redux/profile/profile.actions'
 import { sendMessagePending, fetchMessagePending, incrementLikesPending } from '../../redux/messages/messages.actions'
+import { Link } from 'react-router-dom'
 
 
 import './Chat-page.scss'
+
 
 const MessageBox = React.lazy(() => import('../../components/message-box/Message-box'))
 const UsersSidebar = React.lazy(() => import('../../components/users-sidebar/Users-sidebar'))
@@ -21,7 +23,7 @@ const WeatherBox = React.lazy(() => import('../../components/weather-box/Weather
 
 function ChatPage({currentUser, sendMessagePending,fetchMessagePending,messages, changeStatus, pending, incrementLikesPending}) {
 
-const [searchField] =useState('')
+const [searchField, setSearchField] =useState('')
 const [messageData, setMessageData] = useState({userName:'', message:'', messageId:'', userId:'', image:'',})
 const [imageToggle, setImageToggle] = useState(false)
  
@@ -34,7 +36,6 @@ useEffect(()=>{
     if(currentUser !== null){
     setMessageData({userName:currentUser.displayName, userId:currentUser.id, messageId: Math.random()})
     changeStatus(currentUser.profileId,'online')}
-    console.log(currentUser)
     },[currentUser,changeStatus, sendMessagePending])
 
     
@@ -50,23 +51,20 @@ const handleChange = (event) => {
 
 const sendMessage =  async (event) => {
     event.preventDefault();
-   
-
       toggleShowImage()
       sendMessagePending(messageData)
-    setMessageData({userName:currentUser.displayName, userId:currentUser.id, messageId: Math.random() ,message: '', image: ''})
-   setImageToggle(false)
+     setMessageData({userName:currentUser.displayName, userId:currentUser.id, messageId: Math.random() ,message: '', image: ''})
+      setImageToggle(false)
    
 }
 
 const addImageUrl =  (event) => {
-  
     setMessageData({...messageData, image:event.target.value})
-    console.log('okl',messageData.image)
+   
 }
 
 const onHandleSearch = (event) => {
-  setMessageData({...messageData, image:event.target.value})
+  setSearchField(event.target.value)
 }
 
 const filteredMessages= () =>{
@@ -80,10 +78,11 @@ const verifyImage = () =>{
     setMessageData({ image:''})
     setImageToggle(false)
 }
-  const toggleShowImage =()=>{
+  
+const toggleShowImage =()=>{
     setImageToggle(!imageToggle)
 
-    const xhr = new XMLHttpRequest();   //verify image size 
+  const xhr = new XMLHttpRequest();   //verify url image size 
       xhr.open("GET", messageData.image, true);
       xhr.responseType = "image/png";
       xhr.onreadystatechange = function() {
@@ -118,7 +117,7 @@ return(
       <input type="url" placeholder="addImageUrl" onChange={addImageUrl} id="chat-page-image" value ={messageData.image} aria-label="Add Image URl"/>
       {currentUser?
       <button  id="chat-page-button" type ='submit'>send</button>
-     :null }
+     :<Link to='/signon' id="chat-page-signin"> sign in to message and see users</Link> }
     </form>
            
       <UsersSidebar searchField = {searchField}/>

@@ -19,6 +19,17 @@
         right: -100px;
         width:50%;
         border: 1px solid  hsla(191, 46%, 43%, 0.802);
+        
+        @media screen  and (max-width: 800px ) {
+            right: -50px;
+         
+             }
+
+             @media screen  and (max-width: 600px ) {
+                height: 180px;
+                width: 60%;
+             
+                 }
 
         &:hover{
             transition: transform 1s cubic-bezier(0.25, 0.45, 0.45, 0.95);
@@ -55,13 +66,14 @@
     background-repeat:  no-repeat;
     opacity: 0;
     margin-bottom: 150px;
+    @media screen  and (max-width: 600px ) {
+        height: 160px;
+     
+     
+         }
 
     
-
-   
-
-
-  &:hover{
+&:hover{
     cursor: pointer;
     opacity: 0.7;
  
@@ -88,4 +100,31 @@
    
 }
 
+.landing-page-text{
+    position: absolute;
+    left: 65%;
+    top:75px;
+    max-width: 300px;
+    text-align: justify;
+    height: fit-content;
+    margin-right: 20px;
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+    
+    
+    @media screen  and (max-width: 800px ) {
+        
+        font-size:15px;
+        top:100px;
+     
+         }
+
+         @media screen  and (max-width: 600px ) {
+            text-align: justify;
+            font-size:14px;
+            top:500px;
+            left:12%;
+         
+             }
+}
 

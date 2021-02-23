@@ -1,4 +1,4 @@
-import { takeEvery, call, put, all }  from 'redux-saga/effects'
+import { takeLatest, call, put, all }  from 'redux-saga/effects'
 import { getItemsDoc ,getCategoryDoc, getProductDoc, getSearchFilteredDoc,getSellingItemsDoc} from '../../firebase/firebase'
 
 import shopActionTypes from './shop.types';
@@ -9,7 +9,7 @@ export function* fetchItemsAsync() {
     const itemData =  yield call (getItemsDoc,'items')  // passes in firestore collection name 
     yield put(fetchItemsSuccess(itemData))
 }catch(error){
-    yield put(fetchItemsFailed(error.message))
+    yield put(fetchItemsFailed(error))
 
    }
 }
@@ -19,7 +19,7 @@ export function* fetchCategoriesAsync({payload: category}) {
                                                                     // and passes in category name
 yield put(fetchCategorySuccess(itemData))
  }catch(error){
-     yield put(fetchItemsFailed(error.message))
+     yield put(fetchItemsFailed(error))
  }
  }
 
@@ -29,7 +29,7 @@ export function* fetchProductAsync({ payload: productId}) {
         const productData = yield call(getProductDoc,'items',productId)
         yield put(fetchProductSuccess(productData))
     }catch(error){
-        yield put(fetchItemsFailed(error.message))
+        yield put(fetchItemsFailed(error))
     }
     }
 
@@ -39,7 +39,7 @@ export function* fetchFilteredItemsAsync({ payload: event}) {
         const itemData = yield call(getSearchFilteredDoc,'items',event)
         yield put(fetchItemsSuccess(itemData))
     }catch(error){
-        yield put(fetchItemsFailed(error.message))
+        yield put(fetchItemsFailed(error))
     }
     }
 
@@ -50,36 +50,36 @@ console.log('sdsd',{ payload: profileId});
             const productData = yield call(getSellingItemsDoc,profileId)
             yield put(fetchSellingItemsSuccess(productData))
         }catch(error){
-            yield put(fetchItemsFailed(error.message))
+            yield put(fetchItemsFailed(error))
         }
         }
 
 
 export function* fetchItemsPending() {
-    yield takeEvery(shopActionTypes.FETCH_ITEMS_PENDING, 
+    yield takeLatest(shopActionTypes.FETCH_ITEMS_PENDING, 
    fetchItemsAsync
     )
 }
 
 export function* fetchCategoryPending() {
-    yield takeEvery(shopActionTypes.FETCH_CATEGORY_PENDING, 
+    yield takeLatest(shopActionTypes.FETCH_CATEGORY_PENDING, 
         fetchCategoriesAsync
     )
 }
 
 
 export function* fetchProductPending(){
-    yield takeEvery(shopActionTypes.FETCH_PRODUCT_PENDING, 
+    yield takeLatest(shopActionTypes.FETCH_PRODUCT_PENDING, 
         fetchProductAsync)
 }
 
 export function* fetchFilteredItemsPending(){
-    yield takeEvery(shopActionTypes.FETCH_FILTEREDITEMS_PENDING,
+    yield takeLatest(shopActionTypes.FETCH_FILTEREDITEMS_PENDING,
     fetchFilteredItemsAsync)
 }
 
 export function* fetchSellingItemsPending(){
-    yield takeEvery(shopActionTypes.FETCH_SELLINGITEMS_PENDING, fetchSellingItemsAsync)
+    yield takeLatest(shopActionTypes.FETCH_SELLINGITEMS_PENDING, fetchSellingItemsAsync)
 }
 
 export function* shopSagas() {

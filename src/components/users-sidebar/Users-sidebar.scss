@@ -89,3 +89,22 @@
            }
   
 }
+.sidebar-notice{
+  cursor: pointer;
+  font-size: 15px;
+  position: relative;
+  left: 0px; 
+  max-width: 60px;
+
+  @media screen  and (max-width: 800px ) {
+
+    top: -90px;
+   
+        }
+
+  
+  &:hover{
+      transform: scale(1.1);
+      opacity: 0.9;
+  }
+}

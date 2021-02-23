@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`expect to render cartButton component 1`] = `
+<div
+  className="cart-button-container"
+  onClick={[MockFunction]}
+>
+  <span>
+     CART 
+  </span>
+  <span
+    className="cart-button-icon"
+  >
+    💰
+  </span>
+  <span
+    className="cart-button-count"
+  >
+    1
+  </span>
+</div>
+`;

@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`expect to render cartItem component 1`] = `
+<div
+  className="product-page-container"
+>
+  <Connect(ShopHeader) />
+  <Suspense
+    fallback={
+      <div
+        className="loader"
+      />
+    }
+  >
+    <h1>
+      LOADING...
+    </h1>
+  </Suspense>
+</div>
+`;

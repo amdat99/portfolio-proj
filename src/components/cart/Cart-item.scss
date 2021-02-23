@@ -10,11 +10,11 @@
     display: flex;
     flex-direction: row;
     padding-right: 10px;
+    margin-left: 5px;
+    
 
-    .cartitem-add-span{
-      position: relative;
-      left: 27px;
-      margin-right: 7px;
+    .cartitem-remove-span{
+      left: 5px;
       @media screen  and (max-width: 1000px ) {
       left: 10px;
        
@@ -22,10 +22,10 @@
 
       .cartitem-add-span{
         position: relative;
-        left: 27px;
-        margin-right: 7px;
+        margin-left: 5px;
+       
         @media screen  and (max-width: 1000px ) {
-        left: 10px;
+        left: 15px;
          
         }
       

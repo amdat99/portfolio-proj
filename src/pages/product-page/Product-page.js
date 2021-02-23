@@ -11,7 +11,7 @@ import { selectProduct, isProductDataLoaded } from '../../redux/shop/shop.select
 
 const ProductItem = React.lazy(() => import('../../components/product-item/Product-item'))
 
-function ProductPage({isLoaded,product, incrementItem}) {
+export function ProductPage({isLoaded,product, incrementItem}) {
 
     return (
         <div className="product-page-container">

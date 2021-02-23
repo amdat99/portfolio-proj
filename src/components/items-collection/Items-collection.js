@@ -4,7 +4,7 @@ import { fetchProductPending } from '../../redux/shop/shop.actions'
 import { addItem } from '../../redux/cart/cart.actions'
 import { connect } from 'react-redux'
 
-import { LazyLoadImage, trackWindowScroll  } from 'react-lazy-load-image-component';
+import { LazyLoadImage  } from 'react-lazy-load-image-component';
 
 import './Items-collection.scss'
 

@@ -1,0 +1,151 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`expect to render additems component 1`] = `
+<div>
+  <form
+    className="sign-on-container"
+    onSubmit={[Function]}
+  >
+    <h1>
+      List your Item
+    </h1>
+    <input
+      className="sign-on-input"
+      label="name"
+      name="name"
+      onChange={[Function]}
+      placeholder="Enter the item name:"
+      required={true}
+      type="text"
+      value=""
+    />
+    <input
+      className="sign-on-input"
+      label="Price"
+      name="price"
+      onChange={[Function]}
+      placeholder="Enter the price"
+      required={true}
+      type="number"
+      value=""
+    />
+    <textarea
+      className="sign-on-input add-items-description"
+      label="description"
+      name="description"
+      onChange={[Function]}
+      placeholder="Add your description"
+      required={true}
+      type="text"
+      value=""
+    />
+    <p>
+      Choose category
+    </p>
+    <div
+      className="additems-categories"
+      key="0"
+    >
+       
+      electronics
+      <input
+        className=""
+        label="category"
+        name="category"
+        onChange={[Function]}
+        required={true}
+        type="radio"
+        value="electronics"
+      />
+       
+    </div>
+    <div
+      className="additems-categories"
+      key="1"
+    >
+       
+      clothes
+      <input
+        className=""
+        label="category"
+        name="category"
+        onChange={[Function]}
+        required={true}
+        type="radio"
+        value="clothes"
+      />
+       
+    </div>
+    <div
+      className="additems-categories"
+      key="2"
+    >
+       
+      shoes
+      <input
+        className=""
+        label="category"
+        name="category"
+        onChange={[Function]}
+        required={true}
+        type="radio"
+        value="shoes"
+      />
+       
+    </div>
+    <div
+      className="additems-categories"
+      key="3"
+    >
+       
+      food
+      <input
+        className=""
+        label="category"
+        name="category"
+        onChange={[Function]}
+        required={true}
+        type="radio"
+        value="food"
+      />
+       
+    </div>
+    <div
+      className="additems-categories"
+      key="4"
+    >
+       
+      general
+      <input
+        className=""
+        label="category"
+        name="category"
+        onChange={[Function]}
+        required={true}
+        type="radio"
+        value="general"
+      />
+       
+    </div>
+    <input
+      className="sign-on-input"
+      label="picture"
+      name="picture"
+      onChange={[Function]}
+      placeholder="enter a imageUrl"
+      required={true}
+      type="url"
+      value=""
+    />
+    <button
+      onClick={[Function]}
+      type="button"
+    >
+      VerifyImage
+    </button>
+    <a>
+       Sign in to List Items
+    </a>
+  </form>
+</div>
+`;

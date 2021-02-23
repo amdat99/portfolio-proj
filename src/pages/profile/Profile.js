@@ -10,7 +10,7 @@ import { selectToggledModal } from '../../redux/modal/modal.selectors'
 import { selectCurrentUser, selectRecievedMessages, selectSentMessages } from '../../redux/user/user.selectors'
 import { getRecievedMessagePending,getSentMessagePending} from '../../redux/user/user.actions'
 import { selectCurrentImage } from '../../redux/profile/profile.selectors'
-import { uploadImageToStorage,getRecievedMessageDoc, getSentMessageDoc, updateDisplayName,updateDisplayNameforUsers,getProfileName} from '../../firebase/firebase'
+import { uploadImageToStorage, getSentMessageDoc, updateDisplayName,updateDisplayNameforUsers,getProfileName} from '../../firebase/firebase'
 import { selectSellingItems, isSellingItemsLoaded,  } from '../../redux/shop/shop.selectors'
 import { fetchSellingItemsPending, fetchProductPending } from '../../redux/shop/shop.actions'
 
@@ -34,23 +34,32 @@ function Profile({toggleModal,currentUser,currentImage, getProfileImage,fetchSel
     useEffect(()=>{
         if(currentUser) {
         getProfileImage(currentUser.profileId)
-        fetchProfileName()
+       
        }
-    },[currentUser,getProfileImage])
+    },[currentUser,getProfileImage,])
     //eslint-disable
 
+    useEffect(()=>{
+        fetchProfileName()
+    },[getProfileName])
+    //eslint-disable
 
     useEffect(()=>{
         if (currentUser)  {
-        fetchSellingItemsPending(currentUser.profileId)
+        
         getSentMessages()
         
         const interval = setInterval(() => getSentMessages()
          , 5000); 
          return () =>clearInterval(interval)
-        }
-      },[getSentMessageDoc,currentUser,fetchSellingItemsPending,sentMessages])
-      //eslint-disable
+        }  //eslint-disable
+      },[getSentMessageDoc,currentUser,sentMessages])
+    
+
+        useEffect(()=>{
+          fetchSellingItemsPending(currentUser.profileId)  
+        },[fetchSellingItemsPending,currentUser])
+        //eslint-disable
 
     const toggleDropdown =  () => {
         setUploadDropdown(!uploadDropdown)
@@ -106,13 +115,15 @@ function Profile({toggleModal,currentUser,currentImage, getProfileImage,fetchSel
          currentImag= {currentImage} getProfileImage = {getProfileImage}/>
     </div>
     :null}
-</Suspense>
+</Suspense><form onSubmit={()=> {onUpdateName(); toggleModal()}}>
         { displayNameData? 
         displayNameData.map(name =>
-        <input id="profile-greeting" type='text' placeholder={'Hello ' + name.displayName }  onChange={onNameChange} aria-label="change displa name" label='name' />
+        
+        <input id="profile-greeting" type='text'  placeholder={'Hello ' + name.displayName }  onChange={onNameChange} required aria-label="change displa name" label='name' />
         ):null}
-            <span id="profile-update-name" type="button" onClick={()=> {onUpdateName(); toggleModal()}}>update name</span>
-    </div>
+            <button id="profile-update-name" type="submit" >update name</button>
+        </form> 
+   </div>
 <Suspense fallback ={<div className="loader"></div>}>
      { shopToggle
 ?   <div>

@@ -13,20 +13,31 @@ function LandingPage(props) {
     <div className="Landing-page-container">
    
     <div className="landing-page-box"> 
-    <Link to='/store' >
-        <h1 className = 'landing-page-title'>Enter The Store</h1></Link>
-    <div className="landing-page-links"
+        <Link to='/store' >
+            <h1 className = 'landing-page-title'>Enter The Store</h1>
+        <div className="landing-page-links"
         style={{ backgroundImage: `url(${shop})`}}>
-    </div> 
+        </div> 
+        </Link>
     </div>    
     
-   <Link to='/chatapp'>
-    <div className="landing-page-box">
-        <h1 className= 'landing-page-title'>Enter the Chatapp</h1>
-    <div className="landing-page-links" 
-     style={{ backgroundImage: `url(${chat})`}}>
-     </div></div>
-    </Link>   
+ 
+    <div className="landing-page-box">  
+        <Link to='/chatapp'>
+            <h1 className= 'landing-page-title'>Enter the Chatapp</h1> 
+         <div className="landing-page-links" 
+         style={{ backgroundImage: `url(${chat})`}}>
+        </div>
+        </Link> 
+    </div>
+    </div>
+
+    <div className="landing-page-text-contaier" >
+        <p className="landing-page-text"> I have created a featured store application where users can buy and sell items aswell as a
+        chatapp which allows users to send messages and images. The chatapp also features direct messaging done through user profiles. 
+        State management is handled throughout with redux and redux sagas for requests. The backend for the store is handled with firestore.
+        The chatapp uses postgres with an express server providing connectivity with Knex. Stripe and accuweather Api's are also called in the server and implemented in the front-end. 
+        Some testing done with jest and enzyme. Application is a Pogressive web-app.Redux-logger kept as a dependency to show state management.</p>
     </div>
     </div>
     );

@@ -10,7 +10,7 @@ import { selectErrorMessage } from '../../redux/shop/shop.selectors'
 
 import './add-items.scss'
 
-const AddItems = ({currentUser, error}) => {
+export const AddItems = ({currentUser, error}) => {
   
   const[ itemData, setItemData] = 
     useState({ name: '', price: '', description: '', category: '', soldBy: '', picture: '', userId:'',productId: '',})
@@ -119,10 +119,10 @@ const categories = ['electronics','clothes','shoes','food','general']
         { currentUser 
         ? <div>
         {submitToggle
-        ?<button  type='submit'>ADD ITEM</button>
+        ?<button className='add-item-submit' type='submit'>ADD ITEM</button>
         :  <button  type = 'button' onClick ={() => alert('verify image to sumbit item')}>ADD ITEM</button>
        }</div> 
-       : <Link to='signon'> Sign in to List Items</Link>  }
+       : <Link to ='/signon'> Sign in to List Items</Link>  }
       </form>
           {imageToggle
          ? <div>

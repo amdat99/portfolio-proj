@@ -17,7 +17,7 @@ exports[`expect to render cartItem component 1`] = `
           "cursor": "pointer",
         }
       }
-      width="75"
+      width="60"
     />
   </Link>
   <div
@@ -39,14 +39,22 @@ exports[`expect to render cartItem component 1`] = `
       className="cartitem-remove"
     >
       <span
-        className="cartitem-remove-span "
+        className="cartitem-remove-span"
         onClick={[Function]}
       >
-        remove 
+         
+        remove   
+          
       </span>
       <span
-        className="cartitem-remove-span "
+        className="cartitem-add-span"
         onClick={[Function]}
+        style={
+          Object {
+            "left": "5px",
+            "position": "relative",
+          }
+        }
       >
         add
       </span>

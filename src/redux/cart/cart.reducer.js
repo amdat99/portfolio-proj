@@ -40,7 +40,6 @@ const cartReducer = (state = INITIAL_STATE, action) => {
           
         }
         
-        
         case cartActionTypes.VERIFY_PURCHASE:
           return {
             ...state,

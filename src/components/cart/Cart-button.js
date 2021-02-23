@@ -8,7 +8,7 @@ import { createStructuredSelector} from 'reselect'
 
 import './Cart.scss'
 
-function CartButton({toggleCartHidden, itemCount}) {
+export function CartButton({toggleCartHidden, itemCount}) {
     return (
         <div className = 'cart-button-container'   onClick={toggleCartHidden} 
         >   

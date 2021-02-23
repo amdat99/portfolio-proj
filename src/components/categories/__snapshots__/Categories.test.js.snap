@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`expect to render cartItem component 1`] = `
+<div>
+  <Connect(ShopHeader) />
+  <div>
+    <h1
+      id="categories-title"
+    >
+       
+    </h1>
+    <h1>
+      loading...
+    </h1>
+  </div>
+</div>
+`;

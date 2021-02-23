@@ -8,6 +8,7 @@ import { fetchProfileInfoPending } from '../../redux/profile/profile.actions'
 import { selectCurrentUser } from '../../redux/user/user.selectors'
 import { selectProfileInfo } from '../../redux/profile/profile.selectors'
 import { toggleModal } from '../../redux/modal/modal.actions'
+import { Link } from 'react-router-dom'
 
 
 
@@ -28,12 +29,9 @@ useEffect(()=>{
         })
     }
     if(profiles)
-  console.log('jhjk',profilesInfo)
 return (
         <div className="sidebar-container hide-scroll">
-        {!currentUser
-        ? <span>signin to see users</span>
-        :null}
+       
        { profilesInfo?
         filteredName().map((data,i) =>
       

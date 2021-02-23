@@ -15,7 +15,7 @@ import './Profile-messages.scss'
         const interval = setInterval(() => getRecievedMessages()
         , 5000); 
      return () =>clearInterval(interval)
-        },[getRecievedMessageDoc,recievedMessages])
+        },[recievedMessages])
         //eslint-disable
         
         useEffect(()=>{
@@ -23,7 +23,7 @@ import './Profile-messages.scss'
           const interval = setInterval(() => getSentMessages()
           , 5000); 
        return () =>clearInterval(interval)
-          },[getSentMessageDoc,sentMessages])
+          },[sentMessages])
           //eslint-disable
     
 

@@ -13,7 +13,7 @@ function SidebarContent({data, toggleModal}) {
     return (
         <div onMouseEnter = {toggleDropdown} onMouseLeave ={toggleDropdown}>
         <div >
-            <img  src = {`https://firebasestorage.googleapis.com/v0/b/aamir-project-492ef.appspot.com/o/images%2Fprofile${data.profileId}?alt=media&token=94b04bbc-92dd-4bb4-b142-89293d3cae97`} 
+            <img  src = {`https://firebasestorage.googleapis.com/v0/b/tada-proj.appspot.com/o/images%2Fprofile${data.profileId}?alt=media&token=ad802569-4766-419e-87ad-6ef6aa65b685`} 
           
             
             alt = 'profile icon' 

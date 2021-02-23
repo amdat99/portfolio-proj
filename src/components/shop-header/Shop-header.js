@@ -15,7 +15,7 @@ import {  fetchCategoryPending} from '../../redux/shop/shop.actions'
 
 import './Shop-header.scss'
 
-function ShopHeader({hidden,fetchCategoryPending}) {
+export function ShopHeader({hidden,fetchCategoryPending}) {
 
 const [shopDropdown, setShopDropdown] = useState(false)
 const [categories] = useState(['electronics','clothes','shoes','food','general'])
@@ -28,7 +28,7 @@ const onDropdownToggle = () => {
     
         <div className="shopheader-links">
             
-            <div  className= 'shopheader-labels' onMouseLeave ={onDropdownToggle} 
+            <div  className= 'shopheader-labels' id ='shopheader-hover' onMouseLeave ={onDropdownToggle} 
             onMouseEnter={onDropdownToggle}>
             <Link   to='/store'> SHOP</Link>
             { shopDropdown
@@ -45,7 +45,7 @@ const onDropdownToggle = () => {
             </div>
             
             <div as= 'Link' className= 'shopheader-labels'><Link  to='/listitems'> SEll ITEMS </Link></div> 
-            <div as= 'Link' className= 'shopheader-labels'><Link  to='/contact'> CONTACT US</Link></div>
+            {/* <div as= 'Link' className= 'shopheader-labels'><Link  to='/contact'> CONTACT US</Link></div> */}
             <CartButton />
        {hidden ? null
         : <CartDropdown />

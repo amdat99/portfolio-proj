@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React,{useEffect,useState} from 'react';
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { isCategoryDataLoaded,selectCategory } from '../../redux/shop/shop.selectors'
@@ -11,61 +11,36 @@ import { isCategoryDataLoaded,selectCategory } from '../../redux/shop/shop.selec
  import {  fetchCategoryPending} from '../../redux/shop/shop.actions'
 
  import './Categories.scss'
-function Categories({match,isLoaded,categoryItems,fetchCategoryPending}) {
-
-
-    useEffect(()=>{
-
-
-    if( match.url === '/category/shoes' ){
-        fetchCategoryPending('shoes')}
-           
-    },[match.url,fetchCategoryPending])
-
-    useEffect(()=>{
-        if( match.url === '/category/clothes' ){
-            fetchCategoryPending('clothes')}
-          
-    },[fetchCategoryPending,match.url])
-
-    useEffect(()=>{
-        if( match.url === '/category/food' ){
-            fetchCategoryPending('food')}
-       
-    },[fetchCategoryPending,match.url])
-
-    useEffect(()=>{
-        if( match.url === '/category/electronics' ){
-            fetchCategoryPending('electronics')}
+    export function Categories({match,isLoaded,categoryItems,fetchCategoryPending}) {
     
-    },[fetchCategoryPending,match.url])
+    const [categoryList]=useState(['clothes','shoes','electronics','food','general'])
+
 
     useEffect(()=>{
-        if( match.url === '/category/general' ){
-            fetchCategoryPending('general')}
-    },[fetchCategoryPending,match.url])
-
-    
-    
-    if(isLoaded){
-    console.log(match.params.categoryId)
-    }
-
+    categoryList.map( category =>{
+    if( match.url === '/category/'+category ){
+       return fetchCategoryPending(category)} 
+       })
+    },[match,fetchCategoryPending,categoryList])
+     
     return (
-
-        <div>
+    <div>
         <ShopHeader />
-
-    <h1 id="categories-title"> {match.params.categoryId}</h1>
+        
+  
+        <div>
+        <h1 id="categories-title"> {match.params.categoryId}</h1>
         { isLoaded
     ?<div id='categories-container'>
         {categoryItems.map((item, i) => (
             <ItemsCollection key={i} item={item} className='collection-item'/>
           ))}
-        </div>
-        :null
+    </div>
+        :<h1>loading...</h1>
         }  
-        </div>
+        </div>      
+        
+    </div>
     );
 }
 

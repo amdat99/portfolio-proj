@@ -72,6 +72,17 @@
     }
 }}
 
+.shopheader-label{
+   
+    padding: 10px 15px;
+    cursor: pointer;
+    &:hover{
+        transform: scale(1.1);
+        cursor: pointer;
+        opacity: 0.8;
+    }
+}
+
 .shopheader-title{
     &:hover{
         transform: scale(1.1);

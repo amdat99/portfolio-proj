@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`expect to render cartDropdowncomponent 1`] = `
+<div
+  className="shopheader-container"
+>
+  <div
+    className="shopheader-links"
+  >
+    <div
+      className="shopheader-labels"
+      id="shopheader-hover"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <Link
+        to="/store"
+      >
+         SHOP
+      </Link>
+    </div>
+    <div
+      as="Link"
+      className="shopheader-labels"
+    >
+      <Link
+        to="/listitems"
+      >
+         SEll ITEMS 
+      </Link>
+    </div>
+    <div
+      as="Link"
+      className="shopheader-labels"
+    >
+      <Link
+        to="/contact"
+      >
+         CONTACT US
+      </Link>
+    </div>
+    <Connect(CartButton) />
+    <Connect(CartDropdown) />
+  </div>
+  <Link
+    to="/products"
+  >
+    <Connect(SearchBox) />
+  </Link>
+</div>
+`;
