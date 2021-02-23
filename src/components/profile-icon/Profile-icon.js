@@ -57,9 +57,11 @@ return (
             ?<div onClick= { signOut  }>SIGN OUT</div>
             :<Link id='profile-icon-title' to ='/signon'>SIGN IN</Link>
            } 
+           { currentUser?
            <Link onClick={ toggleModal } id='profile-icon-title'> 
            PROFILE
            </Link>
+           :null}
            <Link to="/store" id='profile-icon-title' >STORE</Link>
            <Link to='/chatapp' id='profile-icon-title' >CHATAPP</Link>
             </div>
