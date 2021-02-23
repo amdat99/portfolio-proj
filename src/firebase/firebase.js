@@ -180,7 +180,7 @@ export const setItemsHistoryDoc = async ( itemData) =>{
 
   const collectionRef = firestore.doc(`itemshistory/${itemData.productId}${itemData.userId}}`)
   const name = itemData.name.toLowerCase();
-  const {  price, category, soldBy, picture, description,userId} = itemData; 
+  const {  price, category, soldBy, picture, description,userId,name} = itemData; 
   const createdAt = new Date ();
   const productId = itemData.productId+Math.random()
 try{
