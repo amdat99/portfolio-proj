@@ -15,6 +15,7 @@ function WeatherBox(props) {
          setLocationData(null)
          setLocationKey(null)
         fetch('https://quiet-inlet-52952.herokuapp.com/weathering',{
+        // fetch('http://localhost:4000/weathering',{
          method: 'post',
          headers: {'Content-Type': 'application/json'},
          body: JSON.stringify({
@@ -33,6 +34,7 @@ function WeatherBox(props) {
           
         const  fetchWeatherData =() =>{
             fetch('https://quiet-inlet-52952.herokuapp.com/weatherdata',{
+                // fetch('http://localhost:4000/weatherdata',{
              method: 'post',
              headers: {'Content-Type': 'application/json'},
              body: JSON.stringify({
