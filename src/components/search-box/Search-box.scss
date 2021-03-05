@@ -6,18 +6,18 @@
     line-height: 10px;
     margin-bottom: 0px;
     margin-top: 0px;
-    right: -20px;
+    right: 55%;
     position: relative;
     top:20px;
     min-width: 100px;
     z-index: 1;
 
-    @media screen  and (max-width: 850px ) {
-        max-width: 200px;
+    @media screen  and (max-width: 870px ) {
+        max-width: 230px;
         top: 60px;
         position: relative;
         margin-bottom: 90px;
-        left: -100px;
+        left: -130px;
         
         
       }

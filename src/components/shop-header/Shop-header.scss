@@ -1,13 +1,13 @@
 .shopheader-container{
     height: 60px;
-    width: 70%;
+    width: 80%;
     display: flex;
     justify-content: space-between;
     margin-bottom: 50px;
     position: fixed;
     top: 0;
     left: 120px;
-    z-index: 5;
+    z-index: 3;
     background: white;
     padding-top: 10px;
   
@@ -36,6 +36,7 @@
    @media screen  and (max-width: 800px ) {
        
     left: 10px;
+   padding:20px;
   }
    
 

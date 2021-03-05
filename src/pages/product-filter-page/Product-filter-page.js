@@ -69,7 +69,7 @@ return (
 <h1 style={{opacity:'0'}}id="product-filter-title">''</h1>
     <div id= "products-filter-spacing">
     {!isloaded
-    ? <h1>Seacrh listed items</h1>
+    ? <h1 className = 'product-filter-searchtitle'>Seacrh listed items</h1>
         
      :  <div className= 'products-filter-spacing'>
         {filteredCollections.map(( item, i ) => (

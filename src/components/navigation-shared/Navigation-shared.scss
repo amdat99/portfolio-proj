@@ -3,7 +3,12 @@
     position: fixed;
     top: 0;
     padding-top: 10px;
+    background:white;
     
+    @media screen  and (max-width: 800px ) {
+      padding-top: 0px;
+      
+    }
 }
 
 
