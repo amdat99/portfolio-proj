@@ -14,7 +14,7 @@ function WeatherBox(props) {
   const  onSendLocation = async () =>{
         await setLocationData(null)
          await setLocationKey(null)
-        await fetch('https://quiet-inlet-52952.herokuapp.com/weathering',{
+        await fetch('https://aamirproject-api.herokuapp.com/weathering',{
         // fetch('http://localhost:4000/weathering',{
          method: 'post',
          headers: {'Content-Type': 'application/json'},
@@ -33,8 +33,9 @@ function WeatherBox(props) {
          }
           })}
           
-        const  fetchWeatherData =() =>{
-            fetch('https://quiet-inlet-52952.herokuapp.com/weatherdata',{
+        const  fetchWeatherData = async () =>{  
+            await setLocation('')
+            fetch('https://aamirproject-api.herokuapp.com/weatherdata',{
                 // fetch('http://localhost:4000/weatherdata',{
              method: 'post',
              headers: {'Content-Type': 'application/json'},
@@ -45,8 +46,8 @@ function WeatherBox(props) {
             .then(res => res.json())
             .then(data=> {
              
-              setLocationData(data)   
-              setLocationKey(null)
+               setLocationData(data)   
+    
               })}
 
               if(locationData){
@@ -82,9 +83,13 @@ return (
         </form> 
         {locationData?
          <div>
+        {/* {locationData.map(data=> */}
+        <div>
          
         <div>{locationData.WeatherText}</div>
         <span>{locationData.Temperature.Metric.Value} °C</span> 
+        </div>
+        {/* )} */}
         
         </div>
         :null}
