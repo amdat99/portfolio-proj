@@ -6,7 +6,7 @@ import { sendMessageSuccess, sendMessageFailed,fetchMessageSuccess,fetchMessageF
 
 export function* sendMessageAsync({payload: {message, userName, messageId, userId, image }}){
     try{
-  const response = yield fetch('https://aamirproject-api.herokuapp.com/addmessages',{
+  const response = yield fetch('https://quiet-inlet-52952.herokuapp.com/addmessages',{
     // const response = yield fetch('http://localhost:4000/addmessages',{
         method: 'post',
         headers: {'Content-Type': 'application/json'},
@@ -24,7 +24,7 @@ export function* sendMessageAsync({payload: {message, userName, messageId, userI
 export function* fetchMessageAsync(){
     
     try{
-        const response = yield fetch('https://aamirproject-api.herokuapp.com/fetchmessages',{
+        const response = yield fetch('https://quiet-inlet-52952.herokuapp.com/fetchmessages',{
             // const response = yield fetch('http://localhost:4000/fetchmessages',{
               method: 'post',
               headers: {'Content-Type': 'application/json'},})
@@ -37,7 +37,7 @@ export function* fetchMessageAsync(){
 export function* incrementLikesAsync({payload:{messageid}}){
     try{
         
-    const response = yield fetch('https://aamirproject-api.herokuapp.com/incrementlikes',{
+    const response = yield fetch('https://quiet-inlet-52952.herokuapp.com/incrementlikes',{
         // const response = yield fetch('http://localhost:4000/incrementlikes',{
 
         method: 'put',

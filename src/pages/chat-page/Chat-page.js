@@ -67,11 +67,11 @@ const onHandleSearch = (event) => {
   setSearchField(event.target.value)
 }
 
-const filteredMessages= () =>{
-    return messages.filter( message =>{ 
-    return message.name.toLowerCase().includes(searchField.toLowerCase());
-    })
-}
+// const filteredMessages= () =>{
+//     return messages.filter( message =>{ 
+//     return message.name.toLowerCase().includes(searchField.toLowerCase());
+//     })
+// }
 
 
 const verifyImage = () =>{
@@ -106,7 +106,7 @@ return(
      { pending?
     <div className= 'loader'></div>:null}
     { messages?
-        filteredMessages().map(message =>
+        messages.map(message =>
       <MessageBox messageData = {message} key={message.messageid}
         fetchMessage = {fetchMessagePending} incrementLikesPending = {incrementLikesPending}/> 
     ) :null}
