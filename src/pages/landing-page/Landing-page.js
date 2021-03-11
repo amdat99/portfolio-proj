@@ -33,7 +33,14 @@ function LandingPage(props) {
     </div>
 
     <div className="landing-page-text-contaier" >
-        <p className="landing-page-text"> I have created a featured store application where users can buy and sell items aswell as a
+   
+        
+        <p className="landing-page-text"> 
+        <a className = "landing-page-cv" href='https://drive.google.com/file/d/1z_376bSQJU7L9ihEX8qMxCzHvRnbbtNc/view?usp=sharing'>CV</a>
+        <a className="landing-page-github" href='https://github.com/amdat99?tab=repositories'>Github</a>
+        <br></br>
+        <br></br>
+        I have created a featured store application where users can buy and sell items aswell as a
         chatapp which allows users to send messages and images. The chatapp also features direct messaging done through user profiles. 
         State management is handled throughout with redux and redux sagas for requests. The backend for the store is handled with firestore.
         The chatapp uses postgres with an express server providing connectivity with Knex. Stripe and accuweather Api's are also called in the server and implemented in the front-end. 
