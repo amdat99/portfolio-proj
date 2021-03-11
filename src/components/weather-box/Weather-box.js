@@ -12,7 +12,7 @@ function WeatherBox(props) {
 
 
   const  onSendLocation = async () =>{
-      await setLocationKey(null)
+        
          setLocationData(null)
          fetch('https://quiet-inlet-52952.herokuapp.com/weathering',{
         // fetch('http://localhost:4000/weathering',{
@@ -26,7 +26,9 @@ function WeatherBox(props) {
         .then(data=> {
          if(data) {
            setLocationKey(data.Key)
-            fetchWeatherData()
+            
+            setTimeout(function(){ fetchWeatherData() }, 1000);
+
             
           
        
@@ -46,7 +48,9 @@ function WeatherBox(props) {
             .then(res => res.json())
             .then(data=> {
              
-               setLocationData(data)   
+               setLocationData(data) 
+               setLocationKey(null)
+              
               
     
               })}
