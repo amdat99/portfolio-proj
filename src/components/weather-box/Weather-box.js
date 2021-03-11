@@ -12,9 +12,9 @@ function WeatherBox(props) {
 
 
   const  onSendLocation = async () =>{
-        await setLocationData(null)
-         await setLocationKey(null)
-        await fetch('https://quiet-inlet-52952.herokuapp.com/weathering',{
+      await setLocationKey(null)
+         setLocationData(null)
+         fetch('https://quiet-inlet-52952.herokuapp.com/weathering',{
         // fetch('http://localhost:4000/weathering',{
          method: 'post',
          headers: {'Content-Type': 'application/json'},
@@ -47,6 +47,7 @@ function WeatherBox(props) {
             .then(data=> {
              
                setLocationData(data)   
+              
     
               })}
 
@@ -77,13 +78,13 @@ return (
         <div className='weather-container'>
        
         <form onSubmit={onSubmit}>
-            <input type="text" placeholder="type location" onChange={onChange}/>
+       
+            <input type="text" placeholder="type location" onChange={onChange}  value={location}/>
             <button id="weather-button" type="submit">Send</button>
-            <span id='weather-warning-text'>won't work if over 50 reqs a day</span>
         </form> 
         {locationData?
          <div>
-        {/* {locationData.map(data=> */}
+       
         <div>
          
         <div>{locationData.WeatherText}</div>
