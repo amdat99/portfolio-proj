@@ -41,10 +41,10 @@ function LandingPage(props) {
         <br></br>
         <br></br>
         I have created a featured store application where users can buy and sell items aswell as a
-        chatapp which allows users to send messages and images. The chatapp also features direct messaging done through user profiles. 
+        chatapp which allows users to send messages and images. The chatapp also features direct messaging done through user profiles where users can also upload profile images. 
         State management is handled throughout with redux and redux sagas for requests. The backend for the store is handled with firestore.
         The chatapp uses postgres with an express server providing connectivity with Knex. Stripe and accuweather Api's are also called in the server and implemented in the front-end. 
-        Some testing done with jest and enzyme. Application is a Pogressive web-app.Redux-logger kept as a dependency to show state management.</p>
+        Some testing done with jest and enzyme. Application is a Pogressive web-app. Redux-logger kept as a dependency to show state management.</p>
     </div>
     </div>
     );
