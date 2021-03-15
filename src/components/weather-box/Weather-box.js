@@ -11,9 +11,10 @@ function WeatherBox(props) {
 
 
 
-  const  onSendLocation = async () =>{
+  const  onSendLocation =  () =>{
         
-         setLocationData(null)
+          setLocationKey(null)
+          setLocationData(null)
          fetch('https://quiet-inlet-52952.herokuapp.com/weathering',{
         // fetch('http://localhost:4000/weathering',{
          method: 'post',
@@ -24,19 +25,13 @@ function WeatherBox(props) {
         })
         .then(res => res.json())
         .then(data=> {
-         if(data) {
-           setLocationKey(data.Key)
-            
-            setTimeout(function(){ fetchWeatherData() }, 1000);
-
-            
-          
-       
-         }
-          })}
+        setLocationKey(data.Key)
+   })
+    fetchWeatherData()
+    }
           
         const  fetchWeatherData = async () =>{  
-            await setLocation('')
+        
             fetch('https://quiet-inlet-52952.herokuapp.com/weatherdata',{
                 // fetch('http://localhost:4000/weatherdata',{
              method: 'post',
@@ -47,13 +42,10 @@ function WeatherBox(props) {
             })
             .then(res => res.json())
             .then(data=> {
-             
+                setLocation('')
                setLocationData(data) 
-               setLocationKey(null)
-              
-              
-    
-              })}
+               
+               })}
 
               if(locationData){
                   console.log(locationData)
