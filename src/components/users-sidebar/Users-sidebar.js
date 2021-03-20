@@ -28,14 +28,20 @@ useEffect(()=>{
         return profile.displayName.toLowerCase().includes(searchField.toLowerCase());
         })
     }
-    if(profiles)
+   
 return (
         <div className="sidebar-container hide-scroll">
        
+       {currentUser? null : 
+       <div className="sidebar-test-profile">
+        <h2>Test Profile</h2>
+        <span>email: john@gmail.com password: 123456 </span>
+       </div>
+        }
        { profilesInfo?
         filteredName().map((data,i) =>
       
-           <SidebarContent key = {i} data={data} toggleModal = {toggleModal}/> )
+           <SidebarContent key = {i} data={data} toggleModal = {toggleModal} currentUser = {currentUser}/> )
           
        :null}
         </div>
