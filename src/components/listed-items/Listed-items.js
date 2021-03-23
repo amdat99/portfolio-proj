@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom'
 import { deleteListing} from '../../firebase/firebase'
 
 import './Listed-items.scss'
-function ListedItems({sellingItem, history,fetchProductPending}) {
+function ListedItems({sellingItem, history,fetchProductPending, toggleModal}) {
     const [delistDropdown, setDelistDropdown,] = useState(false)
     
     const { name, price, picture,productId,userId } = sellingItem;
@@ -18,6 +18,7 @@ function ListedItems({sellingItem, history,fetchProductPending}) {
 
     const delistItem = () => {
         deleteListing(userId,productId)
+        toggleModal()
     }
         return (
         <div  className="listed-items-container"  > 

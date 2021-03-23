@@ -46,6 +46,29 @@ margin-bottom: 100px;
     
   }
 
+  #product-filter-reset-container{
+
+    margin-left: 10px;
+    width: 80px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    color: rgb(10, 10, 10);
+    position: fixed;
+    left: 0px;
+    top: 150px;
+    
+    
+    @media screen  and (max-width: 800px ) {
+     
+     position: fixed;
+      left: 10px;
+      top: 150px;
+      font-size:14px;
+      
+    }
+  }
+
 }
 .product-filter-filter-item {
   border-bottom: 1px solid black;

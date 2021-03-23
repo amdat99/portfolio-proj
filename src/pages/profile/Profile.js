@@ -21,7 +21,7 @@ const ListedItems = React.lazy(() => import('../../components/listed-items/Liste
 const ProfileIconDropdown = React.lazy(() => import('./Profile-icon-dropdown'));
 const ProfileMessages = React.lazy(() => import('../../components/profile-messages/Profile-messages'));
 
-function Profile({toggleModal,currentUser,currentImage, getProfileImage,fetchSellingItemsPending, sellingItems,getSentMessagePending,getRecievedMessagePending,
+function Profile({toggleModal,currentUser,currentImage, getProfileImage,fetchSellingItemsPending, sellingItems,getRecievedMessagePending,
     fetchProductPending,profileName}) {
     
     const [uploadDropdown, setUploadDropdown] = useState(false)
@@ -134,7 +134,7 @@ function Profile({toggleModal,currentUser,currentImage, getProfileImage,fetchSel
         {sellingItems.length ?
             sellingItems.map(sellingItem =>
     <div > 
-        <ListedItems sellingItem= {sellingItem} key={sellingItem.userId} fetchProductPending={fetchProductPending} />
+        <ListedItems sellingItem= {sellingItem} key={sellingItem.userId} fetchProductPending={fetchProductPending} toggleModal={toggleModal} />
      </div>
     ): <h1 id="profile-nosell">you are selling no items</h1>}</div>
     </div>:

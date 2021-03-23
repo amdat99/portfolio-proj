@@ -17,7 +17,7 @@ import './Product-filter-page.scss'
 function ProductsFilterPage({
   collections,setHeaderRoute, isloaded, }) {
     const [route] = useState('store')
-    const [filteredCollections, setFilteredCollections] = useState(collections)
+    const [filteredCollections, setFilteredCollections] = useState([])
     
 
 
@@ -47,10 +47,16 @@ function ProductsFilterPage({
           case 'general':
               return setFilteredCollections(collections.filter( collection => {
                 return collection.category.includes('general')}))
+
+  
          default:
               return setFilteredCollections(collections)
             }
         }
+
+      const resetCollections = () => {
+        setFilteredCollections(collections)
+      }
 
  
 return (
@@ -64,8 +70,9 @@ return (
       <span className= 'product-filter-filter-item' params= 'shoes' onClick={()=>filterCollections('shoes')}> shoes</span>  
       <span className= 'product-filter-filter-item' params= 'food' onClick={()=>filterCollections('food')}> food</span>  
       <span className= 'product-filter-filter-item' params= 'general' onClick={()=>filterCollections('general')}> general</span>  
-        <span  onClick={() => filterCollections()}> reset</span>
-      </div>
+     
+      </div> 
+      <div id="product-filter-filter-container" style={{top:'133px', borderBottom: '1px solid black', cursor: 'pointer'}}  onClick={resetCollections}> reset</div>  
 <h1 style={{opacity:'0'}}id="product-filter-title">''</h1>
     <div id= "products-filter-spacing">
     {!isloaded
