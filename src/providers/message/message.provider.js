@@ -1,60 +1,61 @@
-import React,{createContext, useState, useEffect} from 'react';
+import React, { createContext, useState, useEffect } from "react";
 
 export const MessageContext = createContext({
-   
-    messageInfo: [],
-    sendMessageInfo: () => {},
-    loading: null
-})
+  messageInfo: [],
+  sendMessageInfo: () => {},
+  loading: null,
+});
 
-const MessageProvider = ({children}) =>{
+const MessageProvider = ({ children }) => {
+  const [messageInfo, setMessageInfo] = useState([]);
 
-    const [messageInfo, setMessageInfo] = useState([])
-  
-console.log(messageInfo)
+  console.log(messageInfo);
 
+  useEffect(() => {
+    //local storage persistance useEffect
 
-useEffect(() => {  //local storage persistance useEffect
-        
-    const data = localStorage.getItem("messages")
+    const data = localStorage.getItem("messages");
     if (data || data !== undefined) {
-        setMessageInfo(JSON.parse(data))
+      setMessageInfo(JSON.parse(data));
     }
-}, [])
-useEffect(() => {
+  }, []);
+  useEffect(() => {
     if (messageInfo) {
-        localStorage.setItem("messages", JSON.stringify(messageInfo))
+      localStorage.setItem("messages", JSON.stringify(messageInfo));
     }
-})
+  });
 
+  // useEffect (() =>{
 
-    // useEffect (() =>{
+  //     fetch('http://localhost:4000/postmessage',{
+  //         method: 'post',
+  //         headers: {'Content-Type': 'application/json'},
+  //         body: JSON.stringify({
+  //           message:this.state.postmessage ,
+  //             name: this.state.currentuser,
+  //         })
+  //        })
+  //        .then(response => response.json())
+  //        .then(data=> {
+  //         this.setState({ postmessage: data})
+  //         this.setState({ currentuser: data})
+  //     })
 
-    //     fetch('http://localhost:4000/postmessage',{
-    //         method: 'post',
-    //         headers: {'Content-Type': 'application/json'},
-    //         body: JSON.stringify({
-    //           message:this.state.postmessage ,
-    //             name: this.state.currentuser,
-    //         })
-    //        })
-    //        .then(response => response.json())
-    //        .then(data=> {
-    //         this.setState({ postmessage: data})
-    //         this.setState({ currentuser: data})
-    //     })
+  // },[messageInfo])
 
-    // },[messageInfo])
+  const sendMessageInfo = (messageData) =>
+    console.log(sendMessageInfo(messageData));
 
-    const sendMessageInfo = (messageData) => console.log(sendMessageInfo(messageData))
+  return (
+    <MessageContext.Provider
+      value={{
+        messageInfo,
+        sendMessageInfo,
+      }}
+    >
+      {children}
+    </MessageContext.Provider>
+  );
+};
 
-    return(
-        <MessageContext.Provider
-        value={{
-         messageInfo,
-         sendMessageInfo
-    }}>{children}</MessageContext.Provider>
-    )
-}
-
-export default MessageProvider
+export default MessageProvider;

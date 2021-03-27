@@ -1,45 +1,50 @@
-import React from 'react';
+import React from "react";
 
-import { shallow,render,mount } from 'enzyme';
-import {createSerializer} from 'enzyme-to-json';
-import toJson from 'enzyme-to-json';
+import { shallow, render, mount } from "enzyme";
+import { createSerializer } from "enzyme-to-json";
+import toJson from "enzyme-to-json";
 
-import {AddItems} from './Add-items'
+import { AddItems } from "./Add-items";
 
-expect.addSnapshotSerializer(createSerializer({mode: 'deep'}));
+expect.addSnapshotSerializer(createSerializer({ mode: "deep" }));
 // describe('cart item', () => {
-      
-        let mockhandleSubmit = jest.fn();
-        let wrapper
-        let wrapper2
-    
-        const mockOnChange = jest.fn();
 
+let mockhandleSubmit = jest.fn();
+let wrapper;
+let wrapper2;
 
-        
-  beforeEach(() => {
+const mockOnChange = jest.fn();
 
-   const mockProps = {
-            itemData:{ name: 'ball', price: 4, description: 'good', category: 'general', soldBy: 'john', picture: 'picyire', userId:'123',productId: 123},
-            handleSubmit: mockhandleSubmit,
-            submitToggle: true
-            
-          }; 
-          
-           wrapper = toJson(shallow(<AddItems  {...mockProps} />))
-           wrapper2 = shallow(<AddItems {...mockProps} />)
-        })
+beforeEach(() => {
+  const mockProps = {
+    itemData: {
+      name: "ball",
+      price: 4,
+      description: "good",
+      category: "general",
+      soldBy: "john",
+      picture: "picyire",
+      userId: "123",
+      productId: 123,
+    },
+    handleSubmit: mockhandleSubmit,
+    submitToggle: true,
+  };
 
-        afterEach(() => {
-            jest.clearAllMocks();
-        });
-        
-    it('expect to render additems component', () => {
-    expect(wrapper).toMatchSnapshot();
-    })
+  wrapper = toJson(shallow(<AddItems {...mockProps} />));
+  wrapper2 = shallow(<AddItems {...mockProps} />);
+});
 
-    // it('expect to render additems component', () => {
+afterEach(() => {
+  jest.clearAllMocks();
+});
 
-    //     wrapper2.find('.sign-on-container').simulate('submit');
-    //     expect(mockhandleSubmit).toHaveBeenCalled()
-    // })
+it("expect to render additems component", () => {
+  expect(wrapper).toMatchSnapshot();
+});
+
+// it('expect to render additems component', () => {
+
+//     wrapper2.find('.sign-on-container').simulate('submit');
+//     expect(mockhandleSubmit).toHaveBeenCalled()
+// })

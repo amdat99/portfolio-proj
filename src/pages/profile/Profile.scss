@@ -1,229 +1,205 @@
-.profile-container{
-    width: 40%;
-    min-width: 500px;
-    height: 58%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    position: fixed;
-    align-items: center;
-    top: -100px;
-    padding-top:10px;
-    border: 1px  solid rgba(59, 142, 160, 0.802);
-    margin-top: 13%;
-    margin-left: 15%;
-    background: white;
-    opacity: 0.98;
-    border-radius:50px;
-   
-    
-    @media screen  and (max-width: 1500px ) {
-         top: 70px;
- 
-        }
-     
-    @media screen  and (max-width: 1000px ) {
-       left: -60px;
-        top: 140px;
-        min-width: 300px;
-       }
+.profile-container {
+  width: 40%;
+  min-width: 500px;
+  height: 58%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: fixed;
+  align-items: center;
+  top: -100px;
+  padding-top: 10px;
+  border: 1px solid rgba(59, 142, 160, 0.802);
+  margin-top: 13%;
+  margin-left: 15%;
+  background: white;
+  opacity: 0.98;
+  border-radius: 50px;
 
-       @media screen  and (max-width: 490px ) {
-        min-width:100px;
-        width: 280px;
-        left: -60px;
-    }
-    
+  @media screen and (max-width: 1500px) {
+    top: 70px;
+  }
 
-    #profile-modal-button{
-       position: absolute;
-       top: 10px;
-       right: 30px;
-       @media screen  and (max-width: 800px ) {
-        top: 10px;
- 
-           }
+  @media screen and (max-width: 1000px) {
+    left: -60px;
+    top: 140px;
+    min-width: 300px;
+  }
 
-       &:hover{
-           transform: scale(1.1);
-           opacity: 0.9;
-       }
+  @media screen and (max-width: 490px) {
+    min-width: 100px;
+    width: 280px;
+    left: -60px;
+  }
+
+  #profile-modal-button {
+    position: absolute;
+    top: 10px;
+    right: 30px;
+    @media screen and (max-width: 800px) {
+      top: 10px;
     }
 
-
-}    #profile-greeting{
-        position: absolute;
-        top: 10px;
-        left: 150px;
-        font-size: 20px;
-        max-width: 140px;
-        outline: none;
-        border: none;
-        @media screen  and (max-width: 1400px ) {
-            top: 10px;
-            left: 110px;
-     
-               }
+    &:hover {
+      transform: scale(1.1);
+      opacity: 0.9;
     }
-.profile-messagebox-container{
-    position: relative;
-    left: 0px;
-    top: 35px;
-    overflow: scroll;
-    max-height: 400px;
-    min-width: 400px;
-    border-radius: 25px;
-    background: whitesmoke;
-    
-    @media screen  and (max-width: 1000px ) {
+  }
+}
+#profile-greeting {
+  position: absolute;
+  top: 10px;
+  left: 150px;
+  font-size: 20px;
+  max-width: 140px;
+  outline: none;
+  border: none;
+  @media screen and (max-width: 1400px) {
+    top: 10px;
+    left: 110px;
+  }
+}
+.profile-messagebox-container {
+  position: relative;
+  left: 0px;
+  top: 35px;
+  overflow: scroll;
+  max-height: 400px;
+  min-width: 400px;
+  border-radius: 25px;
+  background: whitesmoke;
 
-        min-width: 295px;
-        height: 350px;
-        top: 40px;
-    }
+  @media screen and (max-width: 1000px) {
+    min-width: 295px;
+    height: 350px;
+    top: 40px;
+  }
 
-    @media screen  and (max-width: 490px ) {
-        
+  @media screen and (max-width: 490px) {
     min-width: 100px;
     width: 275px;
     left: 0px;
     height: 350px;
-    }
+  }
 }
-  #profile-shop-button{
-    position: absolute;
-    top: 10px;
-    right: 60px;
-    font-size: 16px;
-    max-width: 170px;
-    max-height: 20px;
-    @media screen  and (max-width:1000px ) {
-        right: 50px;
-        top: 70px;
- 
-           }
-}
-
-    #profile-image-container{
-
-       display: flex;
-       justify-content: flex-start;
-        width: fit-content;
-        height: fit-content;
-        border-radius: 10px;
-        overflow: hidden;
-        top: 10px;
-        left: 30px;
-        position: absolute;
-       
-&:hover{
-            transform: scale(1.1);
-        }
-    }
-    #profile-image-update{
-        top: 70px;
-        left: 30px;
-        font-size:11px;
-       
-        position: absolute;
-
-        &:hover{
-            transform: scale(1.3);
-           cursor: pointer;
-        }
-
-    }
-
-#profile-image-update-dropdown{
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    top: 85px;
-    left: -100px;
-   position: absolute;
-   width: 100px;
-   z-index: 8;
-   
+#profile-shop-button {
+  position: absolute;
+  top: 10px;
+  right: 60px;
+  font-size: 16px;
+  max-width: 170px;
+  max-height: 20px;
+  @media screen and (max-width: 1000px) {
+    right: 50px;
+    top: 70px;
+  }
 }
 
-#profile-cart{
-    position: absolute;
-    left: -80px;
-    top: 100px;
+#profile-image-container {
+  display: flex;
+  justify-content: flex-start;
+  width: fit-content;
+  height: fit-content;
+  border-radius: 10px;
+  overflow: hidden;
+  top: 10px;
+  left: 30px;
+  position: absolute;
 
-    
-    // @media screen  and (max-width: 1700px ) {
-    // top: -50px;
-    // position: relative;
-    // left: -300px;
-    //    }
-
-       @media screen  and (max-width: 1000px ) {
-        top: 20%;
-       
-        left: -100px;
-           }
-    
+  &:hover {
+    transform: scale(1.1);
+  }
 }
-#profile-nosell{
-    position: relative;
-    top: 10px;
-    font-size:18px;
-    right: -10px;
-    max-width: 80px;
+#profile-image-update {
+  top: 70px;
+  left: 30px;
+  font-size: 11px;
 
-    @media screen  and (max-width: 1000px ) {
-            font-size: 13px;
-            right: -50px;
-        }
-    
-}
+  position: absolute;
 
-.profile-selling-items{
-  
-    position: relative;
-    left: 205px;
-    top: 20px;
-    overflow: scroll;
-    max-height: 400px;
-    min-width: 200px;
-    
-
-       @media screen  and (max-width: 1000px ) {
-        top: 60px;
-       left: 110px;
-        position:relative;
-        width: 150px;
-        }
-
-        @media screen  and (max-width: 490px ) {
-     
-        top: 40px;
-        max-height: 300px;
-               }
-    
-}
-
-#profile-update-name{
-    font-size:12px;
+  &:hover {
+    transform: scale(1.3);
     cursor: pointer;
-    position: absolute;
-    left: 25%;
-    top:30px;
-    background: none;
-    color: black;
-    
-    
+  }
+}
 
-    
-    @media screen  and (max-width: 1000px ) {
-     
-       left: 115px;
-           }
+#profile-image-update-dropdown {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 85px;
+  left: -100px;
+  position: absolute;
+  width: 100px;
+  z-index: 8;
+}
 
-    &:hover{
-        transform: scale(1.1);
-        opacity:0.9;
-    }
+#profile-cart {
+  position: absolute;
+  left: -80px;
+  top: 100px;
 
+  // @media screen  and (max-width: 1700px ) {
+  // top: -50px;
+  // position: relative;
+  // left: -300px;
+  //    }
+
+  @media screen and (max-width: 1000px) {
+    top: 20%;
+
+    left: -100px;
+  }
+}
+#profile-nosell {
+  position: relative;
+  top: 10px;
+  font-size: 18px;
+  right: -10px;
+  max-width: 80px;
+
+  @media screen and (max-width: 1000px) {
+    font-size: 13px;
+    right: -50px;
+  }
+}
+
+.profile-selling-items {
+  position: relative;
+  left: 205px;
+  top: 20px;
+  overflow: scroll;
+  max-height: 400px;
+  min-width: 200px;
+
+  @media screen and (max-width: 1000px) {
+    top: 60px;
+    left: 110px;
+    position: relative;
+    width: 150px;
+  }
+
+  @media screen and (max-width: 490px) {
+    top: 40px;
+    max-height: 300px;
+  }
+}
+
+#profile-update-name {
+  font-size: 12px;
+  cursor: pointer;
+  position: absolute;
+  left: 25%;
+  top: 30px;
+  background: none;
+  color: black;
+
+  @media screen and (max-width: 1000px) {
+    left: 115px;
+  }
+
+  &:hover {
+    transform: scale(1.1);
+    opacity: 0.9;
+  }
 }

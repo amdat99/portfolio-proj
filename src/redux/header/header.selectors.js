@@ -1,8 +1,8 @@
-import { createSelector } from 'reselect'
+import { createSelector } from "reselect";
 
 const selectRoute = (state) => state.header;
 
-export const selectCurrentRoute = createSelector (
-    [selectRoute],
-    (header) => header.route
-)
+export const selectCurrentRoute = createSelector(
+  [selectRoute],
+  (header) => header.route
+);

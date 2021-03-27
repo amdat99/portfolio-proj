@@ -1,11 +1,13 @@
-import { createSelector } from 'reselect'
+import { createSelector } from "reselect";
 
-
-const selectModal  = (state) => state.modal;
-
+const selectModal = (state) => state.modal;
 
 export const selectToggledModal = createSelector(
- [selectModal],
- (modal) => modal.showModal 
+  [selectModal],
+  (modal) => modal.showModal
+);
 
-)
+export const selectToggledChatModal = createSelector(
+  [selectModal],
+  (modal) => modal.showChatModal
+);

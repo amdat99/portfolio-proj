@@ -1,146 +1,233 @@
-import React,{useEffect,useState,Suspense} from 'react';
+import React, { useEffect, useState, Suspense } from "react";
+
+import { selectCurrentUser } from "../../redux/user/user.selectors";
+import {
+  selectMessagesData,
+  selectMessagesPending,
+} from "../../redux/messages/messages.selectors";
+
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+
+import {
+  changeStatus,
+  fetchProfileInfoPending,
+} from "../../redux/profile/profile.actions";
+
+import {
+  sendMessagePending,
+  fetchMessagePending,
+  incrementLikesPending,
+} from "../../redux/messages/messages.actions";
+import { toggleChatModal} from "../../redux/modal/modal.actions"
+import { Link } from "react-router-dom";
+
+import "./Chat-page.scss";
 
 
-// import MessageBox from '../../components/message-box/Message-box'
-// import UsersSidebar from '../../components/users-sidebar/Users-sidebar'
+const MessageBox = React.lazy(() =>
+  import("../../components/message-box/Message-box")
+);
+const UsersSidebar = React.lazy(() =>
+  import("../../components/users-sidebar/Users-sidebar")
+);
+const WeatherBox = React.lazy(() =>
+  import("../../components/weather-box/Weather-box")
+);
 
+function ChatPage({
+  currentUser,
+  sendMessagePending,
+  fetchMessagePending,
+  messages,
+  changeStatus,
+  pending,
+  incrementLikesPending,
+  getProfileInfo,
+  toggleChatModal
+}) {
+  const [searchField, setSearchField] = useState("");
+  const [messageData, setMessageData] = useState({
+    userName: "",
+    message: "",
+    messageId: "",
+    userId: "",
+    image: "",
+  });
+  const [imageToggle, setImageToggle] = useState(false);
+  const [render, setRender] = useState("");
 
-import {  selectCurrentUser } from '../../redux/user/user.selectors'
-import { selectMessagesData, selectMessagesPending } from '../../redux/messages/messages.selectors'
-import { connect } from 'react-redux'
-import { createStructuredSelector } from 'reselect'
-import { changeStatus } from '../../redux/profile/profile.actions'
-import { sendMessagePending, fetchMessagePending, incrementLikesPending } from '../../redux/messages/messages.actions'
-import { Link } from 'react-router-dom'
+  useEffect(() => {
+    setRender("render");
+    getProfileInfo();
+    fetchMessagePending();
+  }, [fetchMessagePending, getProfileInfo, render]);
 
+  useEffect(() => {
+    if (currentUser !== null) {
+      setMessageData({
+        userName: currentUser.displayName,
+        userId: currentUser.id,
+        messageId: Math.random(),
+      });
+    }
+  }, [currentUser, changeStatus, getProfileInfo]);
 
-import './Chat-page.scss'
+  useEffect(() => {
+    if (currentUser) {
+      changeStatus(currentUser.profileId, "online");
+    }
+  }, [currentUser, changeStatus]);
 
+  useEffect(() => {
+    const interval = setInterval(() => fetchMessagePending(), 4000);
+    return () => clearInterval(interval);
+  }, [fetchMessagePending]);
 
-const MessageBox = React.lazy(() => import('../../components/message-box/Message-box'))
-const UsersSidebar = React.lazy(() => import('../../components/users-sidebar/Users-sidebar'))
-const WeatherBox = React.lazy(() => import('../../components/weather-box/Weather-box'))
+  const handleChange = (event) => {
+    setMessageData({ ...messageData, message: event.target.value });
+  };
 
-function ChatPage({currentUser, sendMessagePending,fetchMessagePending,messages, changeStatus, pending, incrementLikesPending}) {
-
-const [searchField, setSearchField] =useState('')
-const [messageData, setMessageData] = useState({userName:'', message:'', messageId:'', userId:'', image:'',})
-const [imageToggle, setImageToggle] = useState(false)
- 
-useEffect(()=>{
-    fetchMessagePending()
-    
-},[fetchMessagePending])
-
-useEffect(()=>{
-    if(currentUser !== null){
-    setMessageData({userName:currentUser.displayName, userId:currentUser.id, messageId: Math.random()})
-    changeStatus(currentUser.profileId,'online')}
-    },[currentUser,changeStatus, sendMessagePending])
-
-    
-useEffect(()=>{
-    const interval = setInterval(() => fetchMessagePending()
-   , 4000); 
-return () =>clearInterval(interval)
-},[fetchMessagePending])
-
-const handleChange = (event) => {
-    setMessageData({...messageData, message:event.target.value})
-}
-
-const sendMessage =  async (event) => {
+  const sendMessage = async (event) => {
     event.preventDefault();
-      toggleShowImage()
-      sendMessagePending(messageData)
-     setMessageData({userName:currentUser.displayName, userId:currentUser.id, messageId: Math.random() ,message: '', image: ''})
-      setImageToggle(false)
-   
-}
+    toggleShowImage();
+    sendMessagePending(messageData);
+    setMessageData({
+      userName: currentUser.displayName,
+      userId: currentUser.id,
+      messageId: Math.random(),
+      message: "",
+      image: "",
+    });
+    setImageToggle(false);
+  };
 
-const addImageUrl =  (event) => {
-    setMessageData({...messageData, image:event.target.value})
-   
-}
+  const addImageUrl = (event) => {
+    setMessageData({ ...messageData, image: event.target.value });
+  };
 
-const onHandleSearch = (event) => {
-  setSearchField(event.target.value)
-}
+  const onHandleSearch = (event) => {
+    setSearchField(event.target.value);
+  };
 
-const filteredMessages= () =>{
-    return messages.filter( message =>{ 
-    return message.name.toLowerCase().includes(searchField.toLowerCase());
-    })
-}
+  const filteredMessages = () => {
+    return messages.filter((message) => {
+      return message.name.toLowerCase().includes(searchField.toLowerCase());
+    });
+  };
 
+  const verifyImage = () => {
+    setMessageData({ image: "" });
+    setImageToggle(false);
+  };
 
-const verifyImage = () =>{
-    setMessageData({ image:''})
-    setImageToggle(false)
-}
-  
-const toggleShowImage =()=>{
-    setImageToggle(!imageToggle)
+  const toggleShowImage = () => {
+    setImageToggle(!imageToggle);
 
-  const xhr = new XMLHttpRequest();   //verify url image size 
-      xhr.open("GET", messageData.image, true);
-      xhr.responseType = "image/png";
-      xhr.onreadystatechange = function() {
-      if(this.readyState === this.DONE ) {
-       const size = this.response.byteLength ;
-       if (size > 2242880 ){
-         alert("use an image under 2mb")
-       }
-       }
-};
-xhr.send(null);
- }
-return(
+    const xhr = new XMLHttpRequest(); //verify url image size
+    xhr.open("GET", messageData.image, true);
+    xhr.responseType = "image/png";
+    xhr.onreadystatechange = function () {
+      if (this.readyState === this.DONE) {
+        const size = this.response.byteLength;
+        if (size > 2242880) {
+          alert("use an image under 2mb");
+        }
+      }
+    };
+    xhr.send(null);
+  };
+  return (
     <div>
-  <Suspense fallback ={<div className="loader"></div>}>
-    <input
-      aria-label = 'Search name' className='chat-page-searchbox' type='search'
-      placeholder='search name' onChange={onHandleSearch} />
-    
-    <form  className= 'chat-page-scroller hide-scroll' onSubmit={sendMessage} >
-     { pending?
-    <div className= 'loader'></div>:null}
-    { messages?
-        filteredMessages().map(message =>
-      <MessageBox messageData = {message} key={message.messageid}
-        fetchMessage = {fetchMessagePending} incrementLikesPending = {incrementLikesPending}/> 
-    ) :null}
-      <textarea id="chat-page-send" value ={messageData.message} aria-label = 'add message'
-      type="text-area" placeholder="Enter Message" onChange={handleChange} required />
+ 
+      <Suspense fallback={<div className="loader"></div>}>
+        {/* <ChatRoom /> */}
+        <Link to ='/chatroom' className="chat-page-roomlink">
+          Chat Rooms{" "}
+        </Link>
+        <input
+          aria-label="Search name"
+          className="chat-page-searchbox"
+          type="search"
+          placeholder="search name"
+          onChange={onHandleSearch}
+        />
 
+        <form className="chat-page-scroller hide-scroll" onSubmit={sendMessage}>
+          {pending ? <div className="loader"></div> : null}
+          {messages
+            ? filteredMessages().map((message) => (
+                <MessageBox
+                  messageData={message}
+                  key={message.messageid}
+                  fetchMessage={fetchMessagePending}
+                  incrementLikesPending={incrementLikesPending}
+                />
+              ))
+            : null}
+          <textarea
+            id="chat-page-send"
+            value={messageData.message}
+            aria-label="add message"
+            type="text-area"
+            placeholder="Enter Message"
+            onChange={handleChange}
+            required
+          />
 
-      <input type="url" placeholder="addImageUrl" onChange={addImageUrl} id="chat-page-image" value ={messageData.image} aria-label="Add Image URl"/>
-      {currentUser?
-      <button  id="chat-page-button" type ='submit'>send</button>
-     :<Link to='/signon' id="chat-page-signin"> sign in to message and see users</Link> }
-    </form>
-           
-      <UsersSidebar searchField = {searchField}/>
-      <WeatherBox />
-    {imageToggle?
-      <img src ={messageData.image}  onError={verifyImage} alt="verify" width="5" height="5"/>
-        :null}
-  </Suspense>
+          <input
+            type="url"
+            placeholder="addImageUrl"
+            onChange={addImageUrl}
+            id="chat-page-image"
+            value={messageData.image}
+            aria-label="Add Image URl"
+          />
+          {currentUser ? (
+            <button id="chat-page-button" type="submit">
+              send
+            </button>
+          ) : (
+            <Link to="/signon" id="chat-page-signin">
+              {" "}
+              sign in to message and see users
+            </Link>
+          )}
+        </form>
+        {currentUser ? (
+          <UsersSidebar searchField={searchField} render={render} />
+        ) : null}
+        <WeatherBox />
+        {imageToggle ? (
+          <img
+            src={messageData.image}
+            onError={verifyImage}
+            alt="verify"
+            width="5"
+            height="5"
+          />
+        ) : null}
+      </Suspense>
     </div>
-    );
+  );
 }
 
 const mapStateToProps = createStructuredSelector({
-    currentUser: selectCurrentUser,
-    messages: selectMessagesData,
-    pending: selectMessagesPending
-  })
+  currentUser: selectCurrentUser,
+  messages: selectMessagesData,
+  pending: selectMessagesPending,
+});
 
- const mapDispatchToProps  = (dispatch) => ({
-    sendMessagePending: messageData => dispatch(sendMessagePending(messageData)),
-    fetchMessagePending: () => dispatch(fetchMessagePending()),
-    changeStatus: (profileId, status) => dispatch(changeStatus({profileId, status})),
-    incrementLikesPending: (messageData) => dispatch(incrementLikesPending(messageData))
- })
+const mapDispatchToProps = (dispatch) => ({
+  sendMessagePending: (messageData) =>
+    dispatch(sendMessagePending(messageData)),
+  fetchMessagePending: () => dispatch(fetchMessagePending()),
+  changeStatus: (profileId, status) =>
+    dispatch(changeStatus({ profileId, status })),
+  incrementLikesPending: (messageData) =>
+    dispatch(incrementLikesPending(messageData)),
+  getProfileInfo: () => dispatch(fetchProfileInfoPending()),
+  toggleChatModal: () => dispatch(toggleChatModal())
+});
 
-  export default connect(mapStateToProps,mapDispatchToProps)(ChatPage);
+export default connect(mapStateToProps, mapDispatchToProps)(ChatPage);

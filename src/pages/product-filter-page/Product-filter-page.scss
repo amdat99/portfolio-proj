@@ -1,31 +1,25 @@
-.product-filter-page{
+.product-filter-page {
+  .products-filter-spacing {
+    position: relative;
+    bottom: -100px;
+    margin-bottom: 100px;
 
+    @media screen and (max-width: 800px) {
+    }
+  }
+  #product-filter-title {
+    margin-bottom: 70px;
+    margin-top: 50px;
+    position: relative;
+  }
 
-  .products-filter-spacing{
-position: relative;
-bottom: -100px;
-margin-bottom: 100px;
+  .product-filter-loading {
+    color: red;
 
-@media screen  and (max-width: 800px ) {
-   
-
-   
- }
+    position: fixed;
+  }
 }
-#product-filter-title {
-  margin-bottom: 70px;
-  margin-top:50px;
-  position: relative;
-}
-
-.product-filter-loading{
-  color: red;
-
-  position: fixed;
-}
-
-}#product-filter-filter-container{
-
+#product-filter-filter-container {
   margin-left: 10px;
   width: 80px;
   height: fit-content;
@@ -35,19 +29,15 @@ margin-bottom: 100px;
   position: fixed;
   left: 0px;
   top: 150px;
-  
-  
-  @media screen  and (max-width: 800px ) {
-   
-   position: fixed;
+
+  @media screen and (max-width: 800px) {
+    position: fixed;
     left: 10px;
     top: 150px;
-    font-size:14px;
-    
+    font-size: 14px;
   }
 
-  #product-filter-reset-container{
-
+  #product-filter-reset-container {
     margin-left: 10px;
     width: 80px;
     height: fit-content;
@@ -57,31 +47,25 @@ margin-bottom: 100px;
     position: fixed;
     left: 0px;
     top: 150px;
-    
-    
-    @media screen  and (max-width: 800px ) {
-     
-     position: fixed;
+
+    @media screen and (max-width: 800px) {
+      position: fixed;
       left: 10px;
       top: 150px;
-      font-size:14px;
-      
+      font-size: 14px;
     }
   }
-
 }
 .product-filter-filter-item {
   border-bottom: 1px solid black;
- cursor: pointer;
- margin-right: 4px;
+  cursor: pointer;
+  margin-right: 4px;
 }
 
-.product-filter-searchtitle{
-  font-size:20px;
+.product-filter-searchtitle {
+  font-size: 20px;
 
-    
-  @media screen  and (max-width: 800px ) {
-   
-font-size:15px;
-     }
+  @media screen and (max-width: 800px) {
+    font-size: 15px;
+  }
 }

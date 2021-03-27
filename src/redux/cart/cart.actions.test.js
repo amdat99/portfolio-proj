@@ -1,23 +1,23 @@
-import CartActionTypes from './cart.types';
+import CartActionTypes from "./cart.types";
 import {
   toggleCartHidden,
   addItem,
   minusItem,
   clearItemFromCart,
   clearAllItemsFromCart,
-  onPurchase
-} from './cart.actions';
+  onPurchase,
+} from "./cart.actions";
 
-describe('toggleCartHidden action', () => {
-  it('expect togglearthidden action to be run', () => {
+describe("toggleCartHidden action", () => {
+  it("expect togglearthidden action to be run", () => {
     expect(toggleCartHidden().type).toEqual(CartActionTypes.TOGGLE_CART_HIDDEN);
   });
 });
 
-describe('addItem action', () => {
-  it('expect addItem to be run', () => {
+describe("addItem action", () => {
+  it("expect addItem to be run", () => {
     const mockItem = {
-      profileId: 1
+      profileId: 1,
     };
 
     const action = addItem(mockItem);
@@ -27,10 +27,10 @@ describe('addItem action', () => {
   });
 });
 
-describe('minus action', () => {
-  it('expect minusItem to be called', () => {
+describe("minus action", () => {
+  it("expect minusItem to be called", () => {
     const mockItem = {
-        profileId: 1
+      profileId: 1,
     };
 
     const action = minusItem(mockItem);
@@ -40,10 +40,10 @@ describe('minus action', () => {
   });
 });
 
-describe('clearItemFromCart action', () => {
-  it('expect clearItemFromCart action to be run', () => {
+describe("clearItemFromCart action", () => {
+  it("expect clearItemFromCart action to be run", () => {
     const mockItem = {
-        profileId: 1
+      profileId: 1,
     };
 
     const action = clearItemFromCart(mockItem);
@@ -53,14 +53,16 @@ describe('clearItemFromCart action', () => {
   });
 });
 
-describe('clearCart action', () => {
-  it('expect clearAllItemsFromCart to be run', () => {
-    expect(clearAllItemsFromCart().type).toEqual(CartActionTypes.CLEAR_ITEM_ALL_FROM_CART);
+describe("clearCart action", () => {
+  it("expect clearAllItemsFromCart to be run", () => {
+    expect(clearAllItemsFromCart().type).toEqual(
+      CartActionTypes.CLEAR_ITEM_ALL_FROM_CART
+    );
   });
 });
 
-describe('onPurchase action', () => {
-    it('expect onPurchase to be run', () => {
-      expect(onPurchase().type).toEqual(CartActionTypes.VERIFY_PURCHASE);
-    });
+describe("onPurchase action", () => {
+  it("expect onPurchase to be run", () => {
+    expect(onPurchase().type).toEqual(CartActionTypes.VERIFY_PURCHASE);
   });
+});

@@ -1,24 +1,19 @@
-import { createSelector } from 'reselect'
+import { createSelector } from "reselect";
 
-
-const selectProfileImage  = (state) => state.profile;
-
+const selectProfileImage = (state) => state.profile;
 
 export const selectCurrentImage = createSelector(
- [selectProfileImage],
- (profile) => profile.profileImage? profile.profileImage : []
-
-)
+  [selectProfileImage],
+  (profile) => (profile.profileImage ? profile.profileImage : [])
+);
 
 export const selectProfileInfo = createSelector(
-    [selectProfileImage],
-    (profile) => profile.profileInfo? profile.profileInfo : []
-   
-   )
+  [selectProfileImage],
+  (profile) => (profile.profileInfo ? profile.profileInfo : [])
+);
 
-   export const selectProfileName = createSelector(
-    [selectProfileImage],
-    (profile) => profile.profileInfo.displayName? profile.profileInfo.displayName : []
-   
-   )
-
+export const selectProfileName = createSelector(
+  [selectProfileImage],
+  (profile) =>
+    profile.profileInfo.displayName ? profile.profileInfo.displayName : []
+);

@@ -1,15 +1,13 @@
-#directory-page-title{
+#directory-page-title {
+  position: absolute;
+  height: 150px;
+  padding-right: 1000px;
+  margin-left: 100px;
+  border-bottom: 1px solid black;
+  z-index: 2;
+
+  @media screen and (max-width: 800px) {
+    right: 100px;
     position: absolute;
-    height: 150px;
-    padding-right: 1000px;
-    margin-left: 100px;
-    border-bottom: 1px solid black;
-    z-index: 2;
-
-    @media screen  and (max-width: 800px ) {
-       
-       right: 100px;
-       position : absolute;
-      }
-
+  }
 }

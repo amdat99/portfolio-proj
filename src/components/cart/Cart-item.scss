@@ -1,52 +1,43 @@
 .cart-item {
-    width: 100%;
-    display: flex;
-    height: 80px;
-    margin-bottom: 15px;
-    
+  width: 100%;
+  display: flex;
+  height: 80px;
+  margin-bottom: 15px;
 
-    .cartitem-remove{
+  .cartitem-remove {
     font-size: 9px;
     display: flex;
     flex-direction: row;
     padding-right: 10px;
     margin-left: 5px;
-    
 
-    .cartitem-remove-span{
+    .cartitem-remove-span {
       left: 5px;
-      @media screen  and (max-width: 1000px ) {
-      left: 10px;
-       
+      @media screen and (max-width: 1000px) {
+        left: 10px;
       }
 
-      .cartitem-add-span{
+      .cartitem-add-span {
         position: relative;
         margin-left: 5px;
-       
-        @media screen  and (max-width: 1000px ) {
-        left: 15px;
-         
+
+        @media screen and (max-width: 1000px) {
+          left: 15px;
         }
-      
-     
-}
-  cursor: pointer;
-    left: -30px;
-  }
+      }
+      cursor: pointer;
+      left: -30px;
+    }
     .cartitem-details {
       width: 70%;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-   
-   
- 
     }
 
-    .cartitem-name{
+    .cartitem-name {
       font-size: 13px;
       max-width: 120px;
     }
-  }}
-  
+  }
+}

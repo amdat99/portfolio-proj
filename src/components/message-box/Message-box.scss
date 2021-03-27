@@ -1,63 +1,58 @@
-
-
-
-#message-box-name{
-    color: black;
-    @media screen  and (max-width: 800px ) {
-     left: -40px;
-        position: relative;
-           }
-  
+#message-box-name {
+  color: black;
+  @media screen and (max-width: 800px) {
+    left: -40px;
+    position: relative;
+  }
 }
 
-#message-box-date{
-display: flex;
-flex-direction: column;
-position: relative;
+#message-box-date {
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
-    
-#message-box-image{
- max-width: 30px;
-max-height: 25px;
-top: -20px;
-position: relative;
 
-padding-left: 100px;
-padding: 0;
-@media screen  and (max-width: 800px ) {
+#message-box-image {
+  max-width: 30px;
+  max-height: 25px;
+  top: -20px;
+  position: relative;
+
+  padding-left: 100px;
+  padding: 0;
+  @media screen and (max-width: 800px) {
     right: -20px;
     position: relative;
-       }
-    
-&:hover{
-       
-        max-height: 200px;
-        max-width: 500px;
-}}
+  }
 
-#message-box-date{
-    display: flex;
-   justify-content: flex-end;
-    max-width: 50px;
-    font-size: 10px;
-    color: grey;
-    margin-left: 7%;
-
-    @media screen  and (max-width: 800px ) {
-        left: -20px;
-        position: relative;
-           }
-}
-#message-box-button{
-    display: flex;
-    justify-content: flex-start;
-    position: relative;
-    cursor: pointer;
-
+  &:hover {
+    max-height: 200px;
+    max-width: 500px;
+  }
 }
 
-#message-box-likes{
+#message-box-date {
+  display: flex;
+  justify-content: flex-end;
+  max-width: 50px;
+  font-size: 10px;
+  color: grey;
+  margin-left: 7%;
+
+  @media screen and (max-width: 800px) {
+    left: -20px;
     position: relative;
-    font-size:12px;
-    top: 22px;
+  }
+}
+#message-box-button {
+  display: flex;
+  justify-content: flex-start;
+  position: relative;
+  cursor: pointer;
+}
+
+#message-box-likes {
+  position: relative;
+  font-size: 12px;
+  top: 22px;
 }

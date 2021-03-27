@@ -1,61 +1,55 @@
-.profile-messages-container{
-    position: relative;
-    left:-20px;
-    display: flex;
-    flex-direction: column;
-    @media screen  and (max-width: 800px ) {
-        left: -75px;
-        margin-right: 50px;
-        margin-left: 40px;
-        
-        }
-}.profile-messages-recieved{
-    margin-bottom: 5px; 
-  
+.profile-messages-container {
+  position: relative;
+  left: -20px;
+  display: flex;
+  flex-direction: column;
+  @media screen and (max-width: 800px) {
+    left: -75px;
+    margin-right: 50px;
+    margin-left: 40px;
+  }
 }
-#profile-messages-sent{
-    
-    right: -260px;
-    position: relative;
-    bottom:270px;
-    background: rgb(53, 160, 62);
-    margin-left: 5%;
-    border-radius: 20px;
-    box-shadow: 2px 2px 2px 2px grey;
-    display:flex;
-    padding-right:10px;
-   padding-left: 5px;
-   word-break: break-all;
-   flex-direction: column;
-   margin-bottom: 5px;
+.profile-messages-recieved {
+  margin-bottom: 5px;
+}
+#profile-messages-sent {
+  right: -260px;
+  position: relative;
+  bottom: 270px;
+  background: rgb(53, 160, 62);
+  margin-left: 5%;
+  border-radius: 20px;
+  box-shadow: 2px 2px 2px 2px grey;
+  display: flex;
+  padding-right: 10px;
+  padding-left: 5px;
+  word-break: break-all;
+  flex-direction: column;
+  margin-bottom: 5px;
 
-   @media screen  and (max-width: 1000px ) {
-      
- right: -170px;
-    }
+  @media screen and (max-width: 1000px) {
+    right: -170px;
+  }
 }
 
-#profile-messages-sent-date{
-    font-size: 12px;
-    right: -180px;
-    position: relative;
-    bottom:245px;
+#profile-messages-sent-date {
+  font-size: 12px;
+  right: -180px;
+  position: relative;
+  bottom: 245px;
 
-    @media screen  and (max-width: 1000px ) {
-      
-        right: -80px;
-        }
+  @media screen and (max-width: 1000px) {
+    right: -80px;
+  }
 }
 
+#profile-messages-recieved-date {
+  font-size: 12px;
+  right: 50px;
+  position: relative;
+  top: 32px;
 
-#profile-messages-recieved-date{
-    font-size: 12px;
-    right: 50px;
-    position: relative;
-    top:32px;
-
-    @media screen  and (max-width: 1000px ) {
-      
-        right: 55px;
-        }
+  @media screen and (max-width: 1000px) {
+    right: 55px;
+  }
 }

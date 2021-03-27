@@ -2,19 +2,18 @@
   text-align: center;
 }
 
-body{
-
-  @media screen  and (max-width: 800px ) {
+body {
+  @media screen and (max-width: 800px) {
     padding: none;
   }
 }
 
-a{
+a {
   text-decoration: none;
   color: black;
- }
+}
 
-a:hover{
+a:hover {
   cursor: pointer;
 }
 
@@ -22,27 +21,24 @@ a:hover{
   display: none;
 }
 
-button{
-  
+button {
   color: white;
   height: 25px;
- font-size: 13px;
- background: black;
- border: none;
- 
+  font-size: 13px;
+  background: black;
+  border: none;
 }
-button:hover{
+button:hover {
   transform: scale(1.1);
   color: goldenrod;
   cursor: pointer;
   font-weight: bold;
-  border: 2px 2px 2px 2px goldenrod
+  border: 2px 2px 2px 2px goldenrod;
 }
 
-input{
+input {
   outline: none;
-  border : 1px solid rgba(0, 0, 0, 0.179);
-  
+  border: 1px solid rgba(0, 0, 0, 0.179);
 }
 
 .loader {
@@ -52,59 +48,58 @@ input{
   width: 20px;
   height: 20px;
   animation: spin 2s linear infinite;
-  position:fixed;
+  position: fixed;
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
-.test{
+.test {
   z-index: 99;
-  width:500px;
+  width: 500px;
   height: 500px;
-  margin-top:100px;
+  margin-top: 100px;
   position: fixed;
   top: 500px;
   right: 500px;
 }
 
-#message-box-container{
-   
+#message-box-container {
   width: 100%;
   display: flex;
   justify-content: flex-start;
   word-break: all;
 
-  @media screen  and (max-width: 800px ) {
-     
-      position: relative;
-      left: -50px;
-         }
-  
+  @media screen and (max-width: 800px) {
+    position: relative;
+    left: -50px;
+  }
 }
 
-#message-box-message{
+#message-box-message {
   background: rgb(205, 236, 255);
   margin-left: 5%;
   border-radius: 20px;
   box-shadow: 2px 2px 2px 2px grey;
-  display:flex;
-  padding-right:10px;
- padding-left: 10px;
- padding-top:6px;
- height:fit-content;
+  display: flex;
+  padding-right: 10px;
+  padding-left: 10px;
+  padding-top: 6px;
+  height: fit-content;
 
+  word-break: break-all;
 
- word-break: break-all;
+  @media screen and (max-width: 800px) {
+  }
+}
 
- @media screen  and (max-width: 800px ) {
-  
-     }
-    }
- 
-#message-box-message:hover{
-      transform: scale(1.1);
-      box-shadow: 4px 4px 8px 0; 
+#message-box-message:hover {
+  transform: scale(1.1);
+  box-shadow: 4px 4px 8px 0;
 }
