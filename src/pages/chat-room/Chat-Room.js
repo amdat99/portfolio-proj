@@ -25,15 +25,14 @@ function ChatRoom({ currentUser }) {
 
   useEffect(() => {
     fetchRooms();
-    if(room === undefined){
-    setRoom(rooms[0]);
-    }
+
+   
     if (currentUser) {
       setName(currentUser.displayName);
     }
 
     
-  }, [currentUser, room]);
+  }, [currentUser, room,name]);
 
   useEffect(() => {
     if (room) initiateSocket(room);
@@ -56,9 +55,9 @@ function ChatRoom({ currentUser }) {
       .then((res) => res.json())
       .then((data) => {
         setRooms(data);
-        if (room === "") {
+        if(room === undefined){
           setRoom(rooms[0]);
-        }
+          }
       });
   };
 
