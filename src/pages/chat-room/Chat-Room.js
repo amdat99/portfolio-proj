@@ -70,7 +70,8 @@ function ChatRoom({ currentUser }) {
   const addRoom = () => {
     if (createRoom) {
       sendRoom();
-      setCreateRoom("");
+      fetchRooms();
+      setCreateRoom('');
     }
   };
   const sendRoom = async () => {
