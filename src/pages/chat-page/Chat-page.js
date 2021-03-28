@@ -19,11 +19,10 @@ import {
   fetchMessagePending,
   incrementLikesPending,
 } from "../../redux/messages/messages.actions";
-import { toggleChatModal} from "../../redux/modal/modal.actions"
+import { toggleChatModal } from "../../redux/modal/modal.actions";
 import { Link } from "react-router-dom";
 
 import "./Chat-page.scss";
-
 
 const MessageBox = React.lazy(() =>
   import("../../components/message-box/Message-box")
@@ -44,7 +43,7 @@ function ChatPage({
   pending,
   incrementLikesPending,
   getProfileInfo,
-  toggleChatModal
+  toggleChatModal,
 }) {
   const [searchField, setSearchField] = useState("");
   const [messageData, setMessageData] = useState({
@@ -139,10 +138,9 @@ function ChatPage({
   };
   return (
     <div>
- 
       <Suspense fallback={<div className="loader"></div>}>
         {/* <ChatRoom /> */}
-        <Link to ='/chatroom' className="chat-page-roomlink">
+        <Link to="/chatroom" className="chat-page-roomlink" style = {{marginLeft: '55px'}}>
           Chat Rooms{" "}
         </Link>
         <input
@@ -227,7 +225,7 @@ const mapDispatchToProps = (dispatch) => ({
   incrementLikesPending: (messageData) =>
     dispatch(incrementLikesPending(messageData)),
   getProfileInfo: () => dispatch(fetchProfileInfoPending()),
-  toggleChatModal: () => dispatch(toggleChatModal())
+  toggleChatModal: () => dispatch(toggleChatModal()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatPage);

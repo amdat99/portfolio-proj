@@ -1,6 +1,6 @@
 import React from "react";
 
-import './Chat-room-content.scss'
+import "./Chat-room-content.scss";
 
 function ChatRoomContent({
   rooms,
@@ -11,32 +11,41 @@ function ChatRoomContent({
   message,
   setRoom,
   room,
-  sendMessage
+  sendMessage,
 }) {
   return (
     <div className="chat-content-container">
-      {'Select Room: '}
-      {rooms? 
-      rooms.map((room, i) => (
-        <button
-          onClick={() => {
-            setRoom(room);
-          }}
-          key={i}
-        >
-          {room}
-        </button>
-      )):null}
+      <h4 id="chat-content-title">Select Room : </h4>
+      {rooms
+        ? rooms.map((room, i) => (
+            <button
+              id="chat-content-room"
+              onClick={() => {
+                setRoom(room);
+              }}
+              key={i}
+            >
+              {room}
+            </button>
+          ))
+        : null}
 
-      <input type="text" onChange={getRoomInput} placeholder="create room" />
-      <button onClick={addRoom}>create room</button>
+      <div id="chat-content-createroom">
+        <input type="text" onChange={getRoomInput} placeholder="create room" />
+        <button onClick={addRoom}>create room</button>
+      </div>
 
-      <textarea type="text" onChange={handleInput}  />
+      <div className="chat-content-messages">
+        {chat
+          ? chat.map((messages, i) => (
+              <span id="chat-content-message" key={i}>
+                {messages}
+              </span>
+            ))
+          : null}
+      </div>
+      <textarea type="text" onChange={handleInput} />
       <button onClick={() => sendMessage(room, message)}>Send</button>
-      {chat?
-      chat.map((messages, i) => (
-        <p key={i}>{messages}</p>
-      )):null}
     </div>
   );
 }

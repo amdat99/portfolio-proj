@@ -61,7 +61,8 @@ function LandingPage({ currentUser, changeStatus }) {
           <br></br>I have created a featured store application where users can
           buy and sell items aswell as a chatapp which allows users to send
           messages and images. The chatapp also features direct messaging done
-          through user profiles where users can also upload profile images.
+          through user profiles where users can also upload profile images. There 
+          are also live chatroom utilisng Web Sockets achieved withthrough socket-io.
           State management is handled throughout with redux and redux sagas for
           requests. The backend for the store is handled with firestore. The
           chatapp uses postgres with an express server providing connectivity

@@ -15,7 +15,7 @@ export function* sendMessageAsync({
 }) {
   try {
     const response = yield fetch(
-      "https://quiet-inlet-52952.herokuapp.com/addmessages",
+      "https://aamirproject-api.herokuapp.com/addmessages",
       {
         // const response = yield fetch('http://localhost:4000/addmessages',{
         method: "post",
@@ -45,7 +45,7 @@ export function* sendMessageAsync({
 export function* fetchMessageAsync() {
   try {
     const response = yield fetch(
-      "https://quiet-inlet-52952.herokuapp.com/fetchmessages",
+      "https://aamirproject-api.herokuapp.com/fetchmessages",
       {
         // const response = yield fetch('http://localhost:4000/fetchmessages',{
         method: "post",
@@ -62,7 +62,7 @@ export function* fetchMessageAsync() {
 export function* incrementLikesAsync({ payload: { messageid } }) {
   try {
     const response = yield fetch(
-      "https://quiet-inlet-52952.herokuapp.com/incrementlikes",
+      "https://aamirproject-api.herokuapp.com/incrementlikes",
       {
         // const response = yield fetch('http://localhost:4000/incrementlikes',{
 
