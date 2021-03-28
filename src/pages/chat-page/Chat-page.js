@@ -141,7 +141,7 @@ function ChatPage({
       <Suspense fallback={<div className="loader"></div>}>
         {/* <ChatRoom /> */}
         <Link to="/chatroom" className="chat-page-roomlink" style = {{marginLeft: '55px'}}>
-          Chat Rooms{" "}
+          Chat Rooms{"  "}
         </Link>
         <input
           aria-label="Search name"
