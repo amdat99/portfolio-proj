@@ -32,11 +32,13 @@ function ChatRoom({ currentUser }) {
     }
 
     
-  }, [currentUser, room,name]);
+  }, [currentUser, room,name,onName]);
 
   useEffect(() => {
     if (room) initiateSocket(room);
-    
+    if(room === undefined){
+      setRoom(rooms[0]);
+      }
 
     enterChat((err, data) => {
       if (err) return;
@@ -45,7 +47,7 @@ function ChatRoom({ currentUser }) {
     return () => {
       disconnectSocket();
     };
-  }, [room]);
+  });
 
   const fetchRooms = () => {
     fetch("https://aamirproject-api.herokuapp.com/fetchrooms", {
