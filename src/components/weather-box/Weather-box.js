@@ -9,7 +9,7 @@ function WeatherBox(props) {
 
   const onSendLocation = async () => {
     await setLocationData(null);
-    await fetch("https://quiet-inlet-52952.herokuapp.com/weathering", {
+    await fetch("https://aamirproject-api.herokuapp.com/weathering", {
       // fetch('http://localhost:4000/weathering',{
       method: "post",
       headers: { "Content-Type": "application/json" },
@@ -29,7 +29,7 @@ function WeatherBox(props) {
       return onSendLocation();
     }
 
-    await fetch("https://quiet-inlet-52952.herokuapp.com/weatherdata", {
+    await fetch("https://aamirproject-api.herokuapp.com/weatherdata", {
       // fetch('http://localhost:4000/weatherdata',{
       method: "post",
       headers: { "Content-Type": "application/json" },
