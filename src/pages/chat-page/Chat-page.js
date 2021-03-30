@@ -192,9 +192,9 @@ function ChatPage({
             </Link>
           )}
         </form>
-        {currentUser ? (
+       
           <UsersSidebar searchField={searchField} render={render} />
-        ) : null}
+       
         <WeatherBox />
         {imageToggle ? (
           <img

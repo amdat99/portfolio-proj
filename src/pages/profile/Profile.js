@@ -99,6 +99,7 @@ function Profile({
   };
   
  
+  
 
   const fetchProfileName = async () => {
     <span
@@ -136,8 +137,8 @@ function Profile({
   return (
     <div className="profile-container">
       { selectMessageBox
-     ? <DirectMessagingBox />
-     : null }
+     ? <DirectMessagingBox  receiverInfo = {receiverInfo}/>
+   :null}
       {currentUser ? (
         <div>
           <button id="profile-shop-button" onClick={toggleShopFeatures}>

@@ -34,13 +34,13 @@ function UsersSidebar({
 
   return (
     <div className="sidebar-container hide-scroll">
-      {currentUser ? null : (
+    
         <div className="sidebar-test-profile">
-          <h2>Test Profile</h2>
-          <span>email: john@gmail.com password: 123456 </span>
-          <span>{render}</span>
+          <h4>Test Profile</h4>
+          <span id="sidebar-test">email: john@gmail.com password: 123456 </span>
+    
         </div>
-      )}
+
       {profilesInfo
         ? filteredName().map((data, i) => (
             <SidebarContent

@@ -40,8 +40,8 @@ function DirectMessagingBox({
       setMessageData({
         senderName: currentUser.displayName,
         senderId: currentUser.profileId,
-        recieverId: profileId,
-        recieverName: displayName,
+        recieverId: recieverInfo.profileId,
+        recieverName: recieverInfo.displayName,
       });
     }
   }, [currentUser, displayName, profileId]);

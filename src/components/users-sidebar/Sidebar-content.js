@@ -28,7 +28,7 @@ function SidebarContent({ data, openModal, currentUser, getReceiverInfo, toggleM
 
   return (
     <div onMouseEnter={toggleDropdown} onMouseLeave={toggleDropdown}>
-      {currentUser ? (
+     
         <div>
           
           <img
@@ -71,7 +71,7 @@ function SidebarContent({ data, openModal, currentUser, getReceiverInfo, toggleM
             </div>
           ) : null}
         </div>
-      ) : null}
+      
     </div>
   );
 }
