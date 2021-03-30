@@ -2,11 +2,11 @@ import React, { useState, useEffect, Suspense } from "react";
 import { Link } from "react-router-dom";
 
 import { connect } from "react-redux";
-import { toggleModal } from "../../redux/modal/modal.actions";
+import { toggleModal, toggleMessageBox } from "../../redux/modal/modal.actions";
 import { fetchProfileImagePending } from "../../redux/profile/profile.actions";
 // import { selectProfileName } from '../../redux/profile/profile.selectors'
 import { createStructuredSelector } from "reselect";
-import { selectToggledModal } from "../../redux/modal/modal.selectors";
+import { selectToggledModal, selectMessageBox } from "../../redux/modal/modal.selectors";
 import {
   selectCurrentUser,
   selectRecievedMessages,
@@ -16,7 +16,7 @@ import {
   getRecievedMessagePending,
   getSentMessagePending,
 } from "../../redux/user/user.actions";
-import { selectCurrentImage } from "../../redux/profile/profile.selectors";
+import { selectCurrentImage, selectReceiverInfo } from "../../redux/profile/profile.selectors";
 import {
   uploadImageToStorage,
   getSentMessageDoc,
@@ -32,6 +32,8 @@ import {
   fetchSellingItemsPending,
   fetchProductPending,
 } from "../../redux/shop/shop.actions";
+
+import DirectMessagingBox from "../../components/direct-messaging-box/Direct-messaging-box";
 
 import "./Profile.scss";
 
@@ -53,9 +55,11 @@ function Profile({
   getProfileImage,
   fetchSellingItemsPending,
   sellingItems,
-  getRecievedMessagePending,
+  selectMessageBox,
   fetchProductPending,
+  toggleMessageBox,
   profileName,
+  receiverInfo
 }) {
   const [uploadDropdown, setUploadDropdown] = useState(false);
   const [shopToggle, setShopToggle] = useState(false);
@@ -93,6 +97,8 @@ function Profile({
   const toggleDropdown = () => {
     setUploadDropdown(!uploadDropdown);
   };
+  
+ 
 
   const fetchProfileName = async () => {
     <span
@@ -129,6 +135,9 @@ function Profile({
 
   return (
     <div className="profile-container">
+      { selectMessageBox
+     ? <DirectMessagingBox />
+     : null }
       {currentUser ? (
         <div>
           <button id="profile-shop-button" onClick={toggleShopFeatures}>
@@ -240,7 +249,7 @@ function Profile({
           sign in to view profile
         </Link>
       )}
-      <button id="profile-modal-button" onClick={toggleModal}>
+      <button id="profile-modal-button" onClick={()=>{toggleModal(); toggleMessageBox() }}>
         X
       </button>
     </div>
@@ -256,6 +265,8 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(getRecievedMessagePending(profileId)),
   getSentMessagePending: (userId) => dispatch(getSentMessagePending(userId)),
   fetchProductPending: (productId) => dispatch(fetchProductPending(productId)),
+  toggleMessageBox: () => dispatch(toggleMessageBox()),
+  
 });
 
 const mapStateToProps = createStructuredSelector({
@@ -266,6 +277,8 @@ const mapStateToProps = createStructuredSelector({
   isSellingItemsLoaded: isSellingItemsLoaded,
   recievedMessages: selectRecievedMessages,
   sentMessages: selectSentMessages,
+  receiverInfo: selectReceiverInfo,
+  selectMessageBox: selectMessageBox
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

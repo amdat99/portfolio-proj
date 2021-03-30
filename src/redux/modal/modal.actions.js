@@ -15,3 +15,7 @@ export const toggleChatModal = () => ({
 export const openChatModal = () => ({
   type: modalActionTypes.OPEN_CHAT_MODAL,
 });
+
+export const toggleMessageBox = () => ({
+  type: modalActionTypes.TOGGLE_MESSAGE_BOX,
+})

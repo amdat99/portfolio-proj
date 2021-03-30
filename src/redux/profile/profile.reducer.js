@@ -5,6 +5,7 @@ const INITIAL_STATE = {
   profileInfo: null,
   error: null,
   pending: false,
+  receiverInfo: null,
 };
 const profileReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -38,7 +39,11 @@ const profileReducer = (state = INITIAL_STATE, action) => {
         ...state,
         profileImage: null,
       };
-
+      case profileActionTypes.GET_RECEIVER_INFO:
+      return {
+        ...state,
+        receiverInfo: action.payload
+      };
     default:
       return state;
   }

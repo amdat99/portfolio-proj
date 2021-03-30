@@ -11,6 +11,8 @@ import { selectCurrentUser } from "../../redux/user/user.selectors";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
+import './Chat-room.scss'
+
 let socket;
 
 function ChatRoom({ currentUser }) {
@@ -98,7 +100,7 @@ function ChatRoom({ currentUser }) {
   return (
     <div className="chatroom-container">
       {!name ? (
-        <div>
+        <div id="chatroom-input">
           <input
             type="text"
             onChange={(e) => setOnName(e.target.value)}

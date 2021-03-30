@@ -6,7 +6,7 @@ import { createStructuredSelector } from "reselect";
 import { fetchProfileInfoPending } from "../../redux/profile/profile.actions";
 import { sendDirectMessagePending } from "../../redux/user/user.actions";
 import { selectCurrentUser } from "../../redux/user/user.selectors";
-import { selectProfileInfo } from "../../redux/profile/profile.selectors";
+import { selectProfileInfo, selectReceiverInfo } from "../../redux/profile/profile.selectors";
 import { openModal } from "../../redux/modal/modal.actions";
 
 import { setMessageDoc } from "../../firebase/firebase";
@@ -20,7 +20,7 @@ function DirectMessagingBox({
   displayName,
   sendDirectMessagePending,
   openModal,
-  toggleModal,
+  recieverInfo
 }) {
   const [messageData, setMessageData] = useState({
     message: "",
@@ -29,6 +29,7 @@ function DirectMessagingBox({
     recieverName: "",
     recieverId: "",
   });
+
 
   useEffect(() => {
     getProfileInfo();
@@ -50,6 +51,7 @@ function DirectMessagingBox({
     console.log(messageData);
   };
 
+  console.log(recieverInfo)
   const onSend = async (event) => {
     event.preventDefault();
     if (currentUser.profileId !== profileId) {
@@ -93,6 +95,7 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = createStructuredSelector({
   profilesInfo: selectProfileInfo,
   currentUser: selectCurrentUser,
+  recieverInfo: selectReceiverInfo
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DirectMessagingBox);

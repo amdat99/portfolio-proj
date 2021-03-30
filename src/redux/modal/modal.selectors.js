@@ -11,3 +11,8 @@ export const selectToggledChatModal = createSelector(
   [selectModal],
   (modal) => modal.showChatModal
 );
+
+export const selectMessageBox = createSelector(
+  [selectModal],
+  (modal) => modal.showMessageBox
+);

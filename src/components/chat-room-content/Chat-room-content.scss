@@ -12,7 +12,7 @@
   height: fit-content;
   width: 60%;
   word-break: break-all;
-  max-height: 600px;
+  max-height: 540px;
   overflow-y: scroll;
 
   @media screen and (max-width: 1300px) {
@@ -60,4 +60,12 @@
   display: flex;
   margin-left: 20px;
   margin-bottom: 5px;
+}
+
+#chat-content-send{
+  position: relative;
+  bottom: -15px;
+  left: -170px;
+  min-width: 100px;
+  
 }

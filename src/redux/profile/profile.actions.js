@@ -36,3 +36,8 @@ export const changeStatus = (userData) => ({
   type: profileActionTypes.CHANGE_STATUS,
   payload: userData,
 });
+
+export const getReceiverInfo = (profileData) => ({
+  type: profileActionTypes.GET_RECEIVER_INFO,
+  payload: profileData,
+})

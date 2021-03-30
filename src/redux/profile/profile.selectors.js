@@ -17,3 +17,8 @@ export const selectProfileName = createSelector(
   (profile) =>
     profile.profileInfo.displayName ? profile.profileInfo.displayName : []
 );
+
+export const selectReceiverInfo = createSelector(
+  [selectProfileImage],
+  (profile) =>  profile.recieverInfo ? profile.recieverInfo : []
+);

@@ -6,7 +6,8 @@ import { createStructuredSelector } from "reselect";
 
 import { selectCurrentUser } from "../../redux/user/user.selectors";
 import { selectProfileInfo } from "../../redux/profile/profile.selectors";
-import { toggleModal } from "../../redux/modal/modal.actions";
+import { getReceiverInfo } from "../../redux/profile/profile.actions"
+import { toggleMessageBox, openModal} from "../../redux/modal/modal.actions";
 
 import "./Users-sidebar.scss";
 
@@ -15,8 +16,10 @@ function UsersSidebar({
   profilesInfo,
   searchField,
   currentUser,
-  toggleModal,
   render,
+  getReceiverInfo,
+  openModal,
+  toggleMessageBox
 }) {
   const [profiles] = useState(profilesInfo);
 
@@ -43,8 +46,10 @@ function UsersSidebar({
             <SidebarContent
               key={i}
               data={data}
-              toggleModal={toggleModal}
+              openModal={openModal}
               currentUser={currentUser}
+              getReceiverInfo= {getReceiverInfo}
+              toggleMessageBox = {toggleMessageBox}
             />
           ))
         : null}
@@ -52,7 +57,9 @@ function UsersSidebar({
   );
 }
 const mapDispatchToProps = (dispatch) => ({
-  toggleModal: () => dispatch(toggleModal()),
+  openModal: () => dispatch(openModal()),
+  getReceiverInfo: (profileData) => dispatch(getReceiverInfo(profileData)),
+  toggleMessageBox: () => dispatch(toggleMessageBox())
 });
 
 const mapStateToProps = createStructuredSelector({

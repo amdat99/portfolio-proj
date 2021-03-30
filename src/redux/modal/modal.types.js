@@ -3,6 +3,7 @@ const modalActionTypes = {
   OPEN_MODAL: "OPEN_MODAL",
   TOGGLE_CHAT_MODAL: "TOGGLE_CHAT_MODAL",
   OPEN_CHAT_MODAL: "OPEN_CHAT_MODAL",
+  TOGGLE_MESSAGE_BOX: "TOGGLE_MESSAGE_BOX",
 };
 
 export default modalActionTypes;

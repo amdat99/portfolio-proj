@@ -3,6 +3,7 @@ import modalActionTypes from "./modal.types";
 const INITIAL_STATE = {
   showModal: false,
   showChatModal: false,
+  showMessageBox: false,
 };
 const modalReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -26,6 +27,11 @@ const modalReducer = (state = INITIAL_STATE, action) => {
         ...state,
         showChatModal: !state.showChatModal,
       };
+      case modalActionTypes.TOGGLE_MESSAGE_BOX:
+        return {
+          ...state,
+          showMessageBox: !state.showMessageBox,
+        };
     default:
       return state;
   }
