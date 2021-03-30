@@ -7,6 +7,8 @@ import {
   sendMessage,
 } from "../../sockets/sockets";
 
+import {Link} from 'react-router-dom'
+
 import { selectCurrentUser } from "../../redux/user/user.selectors";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
@@ -99,6 +101,7 @@ function ChatRoom({ currentUser }) {
 
   return (
     <div className="chatroom-container">
+      <Link to ='chatapp' id='chatroom-link' >ChatApp</Link>
       {!name ? (
         <div id="chatroom-input">
           <input
