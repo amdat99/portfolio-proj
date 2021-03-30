@@ -54,9 +54,11 @@ function SidebarContent({ data, openModal, currentUser, getReceiverInfo, toggleM
               <div>
                 
                   
-         
+
                 <div>
+                { currentUser ? 
                <span onClick={()=>{sendProfileInfo(); openModal()}}>Send Message</span>
+                :<span onClick={()=> alert('sign in to send a message')}>send Message</span>}
             
                </div>
 {/*           
