@@ -54,6 +54,7 @@ function ChatPage({
     image: "",
   });
   const [imageToggle, setImageToggle] = useState(false);
+  const [nameInput, setNameInput] = useState('')
   const [render, setRender] = useState("");
 
   useEffect(() => {
@@ -66,9 +67,11 @@ function ChatPage({
     if (currentUser !== null) {
       setMessageData({
         userName: currentUser.displayName,
-        userId: currentUser.id,
+        userId: currentUser.profileId,
         messageId: Math.random(),
       });
+    } else {
+      setMessageData({userName: '', userId: Math.random(), messageId: Math.random()});
     }
   }, [currentUser, changeStatus, getProfileInfo]);
 
@@ -90,14 +93,26 @@ function ChatPage({
   const sendMessage = async (event) => {
     event.preventDefault();
     toggleShowImage();
-    sendMessagePending(messageData);
+    sendMessagePending(messageData); 
+    if(currentUser){
     setMessageData({
+     
       userName: currentUser.displayName,
       userId: currentUser.id,
       messageId: Math.random(),
       message: "",
       image: "",
     });
+  } else{
+    setMessageData({
+     
+      userName: nameInput,
+      userId: Math.random(),
+      messageId: Math.random(),
+      message: "",
+      image: "",
+    });
+  }
     setImageToggle(false);
   };
 
@@ -136,6 +151,14 @@ function ChatPage({
     };
     xhr.send(null);
   };
+
+  const onNameInput =  async (e) => {
+    await setNameInput(e.target.value)
+    setMessageData({...messageData,userName: nameInput})
+
+  }
+
+  console.log(nameInput)
   return (
     <div>
       <Suspense fallback={<div className="loader"></div>}>
@@ -186,10 +209,18 @@ function ChatPage({
               send
             </button>
           ) : (
-            <Link to="/signon" id="chat-page-signin">
-              {" "}
-              sign in to message and see users
-            </Link>
+            <div>
+            <input type="text" onChange ={onNameInput} placeholder="enter username" style ={{position: 'absolute', top: '100px'}}  />
+            { nameInput?
+            <button id="chat-page-button" type="submit" style={{ left: '100px' }}>
+              send
+            </button>
+: null}
+</div>
+            // <Link to="/signon" id="chat-page-signin">
+            //   {" "}
+            //   sign in to message and see users
+            // </Link>
           )}
         </form>
        

@@ -19,7 +19,7 @@ function SidebarContent({ data, openModal, currentUser, getReceiverInfo, toggleM
   
     await getReceiverInfo(profileInfo)
     toggleMessageBox()
-    setProfileInfo({recieverId:'', recieverName:'',})
+
   }
 
   const toggleSendMessage = () => {

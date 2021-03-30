@@ -1,24 +1,24 @@
 import { createSelector } from "reselect";
 
-const selectProfileImage = (state) => state.profile;
+const selectProfile = (state) => state.profile;
 
 export const selectCurrentImage = createSelector(
-  [selectProfileImage],
+  [selectProfile],
   (profile) => (profile.profileImage ? profile.profileImage : [])
 );
 
 export const selectProfileInfo = createSelector(
-  [selectProfileImage],
+  [selectProfile],
   (profile) => (profile.profileInfo ? profile.profileInfo : [])
 );
 
 export const selectProfileName = createSelector(
-  [selectProfileImage],
+  [selectProfile],
   (profile) =>
     profile.profileInfo.displayName ? profile.profileInfo.displayName : []
 );
 
 export const selectReceiverInfo = createSelector(
-  [selectProfileImage],
+  [selectProfile],
   (profile) =>  profile.recieverInfo ? profile.recieverInfo : []
 );

@@ -5,7 +5,7 @@ const INITIAL_STATE = {
   profileInfo: null,
   error: null,
   pending: false,
-  receiverInfo: null,
+  receiverInfo: 'name',
 };
 const profileReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -42,7 +42,7 @@ const profileReducer = (state = INITIAL_STATE, action) => {
       case profileActionTypes.GET_RECEIVER_INFO:
       return {
         ...state,
-        receiverInfo: action.payload
+        receiverInfo: action.payload,
       };
     default:
       return state;
