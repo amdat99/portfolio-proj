@@ -11,21 +11,26 @@
 #direct-messaging-button {
   position: relative;
   top: 20px;
-  right: 100px;
+  left: 50px;
+ 
 
-  @media screen and (max-width: 490px) {
-    right: 70px;
+  @media screen and (max-width: 800px) {
+    position: relative;
+    left: -20px;
     z-index: 99;
   }
 }
 
 #direct-messaging-input {
+  position: relative;
   height: 60px;
-  @media screen and (max-width: 490px) {
-    width: 58px;
-    height: 170px;
+  right: -150px;
+  @media screen and (max-width: 800px) {
+    right: -80px;
+    
     position: relative;
     z-index: 99;
-    right: 7px;
+   
+   
   }
 }

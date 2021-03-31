@@ -137,10 +137,7 @@ function Profile({
 
   return (
     <div className="profile-container">
-      <span>{selectReceiverInfo}</span>
-      { selectMessageBox
-     ? <DirectMessagingBox  />
-   :null}
+ 
       {currentUser ? (
         <div>
           <button id="profile-shop-button" onClick={toggleShopFeatures}>
@@ -168,13 +165,13 @@ function Profile({
             <Suspense fallback={<div className="loader"></div>}>
               {uploadDropdown ? (
                 <div id="profile-image-update-dropdown">
-                  {/* <ProfileIconDropdown
+                  <ProfileIconDropdown
                     uploadImageToStorage={uploadImageToStorage}
                     currentUser={currentUser}
                     toggleModal={toggleModal}
                     currentImag={currentImage}
                     getProfileImage={getProfileImage}
-                  /> */}
+                  />
                 </div>
               ) : null}
             </Suspense>
@@ -225,8 +222,13 @@ function Profile({
                   )}
                 </div>
               </div>
-            ) : (
+            ) : ( <div>  
+              { selectMessageBox
+           ? <DirectMessagingBox  />
+              :null}
               <div className="profile-messagebox-container hide-scroll ">
+                
+    
                 {" "}
                 {currentUser ? (
                   <div>
@@ -242,7 +244,7 @@ function Profile({
                 ) : (
                   <h1>no messages...</h1>
                 )}{" "}
-              </div>
+              </div></div>
             )}
             <div></div>
           </Suspense>

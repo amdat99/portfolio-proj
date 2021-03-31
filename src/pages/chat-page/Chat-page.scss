@@ -38,6 +38,11 @@
   position: relative;
   bottom: -20px;
 
+  @media screen and (max-width: 490px) {
+   left: -50px;
+   font-size: 13px;
+  }
+
   &:hover {
     transform: scale(1.1);
     opacity: 0.9;

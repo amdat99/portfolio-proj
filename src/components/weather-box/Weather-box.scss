@@ -9,6 +9,12 @@
   max-width: 180px;
   max-height: 180px;
   z-index: 10;
+
+  @media screen and (max-width: 490px) {
+    font-size: 13px;
+    right: 25%;
+    
+  }
 }
 
 #weather-title {
@@ -16,6 +22,10 @@
   position: absolute;
   top: 0px;
   cursor: pointer;
+
+  @media screen and (max-width: 490px) {
+    font-size: 13px;
+  }
 }
 
 #weather-subtitle {

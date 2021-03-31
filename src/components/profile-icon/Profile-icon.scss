@@ -27,6 +27,11 @@
   position: fixed;
   z-index: -1;
   position: relative;
+
+  @media screen and (max-width: 800px) {
+   right: -20px;
+   z-index: -1;
+  }
 }
 
 .profile-icon-image {
