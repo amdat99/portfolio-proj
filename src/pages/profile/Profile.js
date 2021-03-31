@@ -59,7 +59,7 @@ function Profile({
   fetchProductPending,
   toggleMessageBox,
   profileName,
-  selectReceiverInfo
+
 }) {
   const [uploadDropdown, setUploadDropdown] = useState(false);
   const [shopToggle, setShopToggle] = useState(false);
@@ -99,7 +99,7 @@ function Profile({
   };
   
  
-  console.log('r',selectReceiverInfo)
+
   
 
   const fetchProfileName = async () => {
@@ -139,7 +139,7 @@ function Profile({
     <div className="profile-container">
       <span>{selectReceiverInfo}ddddd</span>
       { selectMessageBox
-     ? <DirectMessagingBox  receiverInfo = {selectReceiverInfo}/>
+     ? <DirectMessagingBox  />
    :null}
       {currentUser ? (
         <div>
@@ -280,7 +280,6 @@ const mapStateToProps = createStructuredSelector({
   isSellingItemsLoaded: isSellingItemsLoaded,
   recievedMessages: selectRecievedMessages,
   sentMessages: selectSentMessages,
-  selectReceiverInfo: selectReceiverInfo,
   selectMessageBox: selectMessageBox
 });
 

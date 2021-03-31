@@ -1,5 +1,11 @@
 .direct-messaging-container {
   z-index: 999;
+  position: relative;
+  top: 480px;
+
+  @media screen and (max-width: 800px) {
+    top: 440px;
+  }
 }
 
 #direct-messaging-button {

@@ -20,5 +20,5 @@ export const selectProfileName = createSelector(
 
 export const selectReceiverInfo = createSelector(
   [selectProfile],
-  (profile) =>  profile.recieverInfo ? profile.recieverInfo : []
+  (profile) =>  profile.receiverInfo ? profile.receiverInfo : []
 );

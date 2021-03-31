@@ -30,9 +30,9 @@ function SidebarContent({ data, openModal, currentUser, getReceiverInfo, toggleM
     <div onMouseEnter={toggleDropdown} onMouseLeave={toggleDropdown}>
      
         <div>
-        
+
           <img
-            src={`https://firebasestorage.googleapis.com/v0/b/tada-proj.appspot.com/o/images%2Fprofile${data.profileId}?alt=media&token=e4485410-0836-4e25-b5e0-754eed7aec02`}
+            src={`        https://firebasestorage.googleapis.com/v0/b/aamir-project-492ef.appspot.com/o/images%2Fprofile${data.profileId}?alt=media&token=b54a3d9a-0bac-44b8-9035-717aa90cb4e6`}
             alt="profile icon"
             width="60"
             height="60"
@@ -58,7 +58,7 @@ function SidebarContent({ data, openModal, currentUser, getReceiverInfo, toggleM
                 <div>
                 { currentUser ? 
                <span onClick={()=>{sendProfileInfo(); openModal()}}>Send Message</span>
-                :<span onClick={()=> alert('sign in to send a message')}>send Message</span>}
+                :<span style={{cursor: 'pointer'}} onClick={()=> alert('sign in to send a message')}>send Message</span>}
             
                </div>
 {/*           

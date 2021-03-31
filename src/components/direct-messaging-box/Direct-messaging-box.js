@@ -36,22 +36,22 @@ function DirectMessagingBox({
   }, [getProfileInfo]);
 
   useEffect(() => {
-    if (currentUser) {
+    if (currentUser && recieverInfo) {
       setMessageData({
         senderName: currentUser.displayName,
         senderId: currentUser.profileId,
-        recieverId: recieverInfo.profileId,
-        recieverName: recieverInfo.displayName,
+        recieverId: recieverInfo.recieverId,
+        recieverName: recieverInfo.recieverName,
       });
     }
-  }, [currentUser, displayName, profileId]);
+  }, [currentUser, recieverInfo]);
 
   const onMessage = (event) => {
     setMessageData({ ...messageData, message: event.target.value });
-    console.log(messageData);
+    
   };
 
-  console.log(recieverInfo)
+
   const onSend = async (event) => {
     event.preventDefault();
     if (currentUser.profileId !== profileId) {

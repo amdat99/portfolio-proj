@@ -5,7 +5,7 @@ const INITIAL_STATE = {
   profileInfo: null,
   error: null,
   pending: false,
-  receiverInfo: 'name',
+  receiverInfo: null,
 };
 const profileReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
