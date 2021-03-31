@@ -32,6 +32,12 @@ const modalReducer = (state = INITIAL_STATE, action) => {
           ...state,
           showMessageBox: !state.showMessageBox,
         };
+
+        case modalActionTypes.OPEN_MESSAGE_BOX:
+        return {
+          ...state,
+          showMessageBox: true,
+        };
     default:
       return state;
   }

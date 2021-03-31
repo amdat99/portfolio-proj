@@ -10,15 +10,20 @@ function ProfileMessages({ currentUser }) {
   const [recievedMessages, setRecievedMessages] = useState([]);
   const [sentMessages, setSentMessages] = useState([]);
 
+    useEffect(() =>{
+      getSentMessages();
+      getRecievedMessages();
+    },[])
+
   useEffect(() => {
-    getRecievedMessages();
+  
     const interval = setInterval(() => getRecievedMessages(), 5000);
     return () => clearInterval(interval);
   }, [recievedMessages]);
   //eslint-disable
 
   useEffect(() => {
-    getSentMessages();
+  
     const interval = setInterval(() => getSentMessages(), 5000);
     return () => clearInterval(interval);
   }, [sentMessages]);

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import DirectMessagingBox from "../direct-messaging-box/Direct-messaging-box";
 
-function SidebarContent({ data, openModal, currentUser, getReceiverInfo, toggleMessageBox }) {
+function SidebarContent({ data, openModal, currentUser, getReceiverInfo, openMessageBox }) {
   const [messageDropdown, setMessageDropdown] = useState(false);
   const [sendMessage, setSendMessage] = useState(true)
   const [profileInfo, setProfileInfo] = useState({recieverId:'' ,recieverName:''})
@@ -18,7 +18,7 @@ function SidebarContent({ data, openModal, currentUser, getReceiverInfo, toggleM
   const sendProfileInfo = async () => {
   
     await getReceiverInfo(profileInfo)
-    toggleMessageBox()
+    openMessageBox()
 
   }
 

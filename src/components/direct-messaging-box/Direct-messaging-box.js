@@ -54,7 +54,7 @@ function DirectMessagingBox({
 
   const onSend = async (event) => {
     event.preventDefault();
-    if (currentUser.profileId !== profileId) {
+    if (currentUser.profileId !== recieverInfo.recieverId) {
       setMessageDoc(messageData);
       setMessageData({
         senderName: currentUser.displayName,

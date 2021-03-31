@@ -82,7 +82,7 @@ function Profile({
 
   useEffect(() => {
     if (currentUser) {
-      getSentMessages();
+      
 
       const interval = setInterval(() => getSentMessages(), 5000);
       return () => clearInterval(interval);
@@ -137,7 +137,7 @@ function Profile({
 
   return (
     <div className="profile-container">
-      <span>{selectReceiverInfo}ddddd</span>
+      <span>{selectReceiverInfo}</span>
       { selectMessageBox
      ? <DirectMessagingBox  />
    :null}
@@ -168,13 +168,13 @@ function Profile({
             <Suspense fallback={<div className="loader"></div>}>
               {uploadDropdown ? (
                 <div id="profile-image-update-dropdown">
-                  <ProfileIconDropdown
+                  {/* <ProfileIconDropdown
                     uploadImageToStorage={uploadImageToStorage}
                     currentUser={currentUser}
                     toggleModal={toggleModal}
                     currentImag={currentImage}
                     getProfileImage={getProfileImage}
-                  />
+                  /> */}
                 </div>
               ) : null}
             </Suspense>
