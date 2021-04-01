@@ -41,9 +41,9 @@ export const AddItems = ({ currentUser, error }) => {
     // =>
     setItemsDoc(itemData);
 
-    if (error) {
-      alert("there was an error", error.message);
-    } else {
+    // if (error) {
+    //   alert("there was an error", error.message);
+    // } else {
       setItemData({
         name: "",
         price: "",
@@ -57,7 +57,7 @@ export const AddItems = ({ currentUser, error }) => {
       setImageToggle(false);
       setSubmitToggle(false);
       alert("your listing was successfully updated");
-    }
+    
   };
 
   const handleChange = (event) => {
