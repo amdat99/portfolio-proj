@@ -73,7 +73,7 @@ function DirectMessagingBox({
           id="direct-messaging-input"
           onFocus={openModal}
           onChange={onMessage}
-          placeholder="type message"
+          placeholder= {"type message to "+ recieverInfo.recieverName }
           required
         ></textarea>
         <button id="direct-messaging-button" type="submit">
