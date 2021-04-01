@@ -56,6 +56,7 @@ function ChatPage({
   const [imageToggle, setImageToggle] = useState(false);
   const [nameInput, setNameInput] = useState('')
   const [render, setRender] = useState("");
+  const [onName, setOnName] = useState('')
 
   useEffect(() => {
     setRender("render");
@@ -152,8 +153,8 @@ function ChatPage({
     xhr.send(null);
   };
 
-  const onNameInput =  async (e) => {
-    await setNameInput(e.target.value)
+  const onNameInput =  async () => {
+    await setNameInput(onName)
     setMessageData({...messageData,userName: nameInput})
 
   }
@@ -210,13 +211,20 @@ function ChatPage({
             </button>
           ) : (
             <div>
-            <input type="text" onChange ={onNameInput} placeholder="enter username" style ={{position: 'absolute', top: '100px'}}  />
+            
+        
             { nameInput?
+            <div>
+             <button id="chat-page-changename" onClick={()=> setNameInput('')}>Change Name</button>
             <button id="chat-page-button" type="submit" style={{ left: '100px' }}>
               send
             </button>
-: null}
-</div>
+            </div>
+            : <div>
+            <input type="text" onChange ={(e)=> setOnName(e.target.value)} placeholder="enter username" id='chat-page-userinput' />
+            <button id='chat-page-inputbutton' onClick={onNameInput}>Enter Name</button>   
+            </div>}
+          </div>
             // <Link to="/signon" id="chat-page-signin">
             //   {" "}
             //   sign in to message and see users

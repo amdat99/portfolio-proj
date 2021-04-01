@@ -55,7 +55,7 @@
   z-index: 5;
   width: 55%;
   height: 70px;
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 1000px) {
     width: 55%;
     bottom: 50px;
   }
@@ -95,7 +95,7 @@
 }
 
 #chat-page-image {
-  margin-left: 30%;
+  margin-left: 35%;
   bottom: 12px;
   z-index: 5;
   width: 20%;
@@ -104,6 +104,7 @@
   @media screen and (max-width: 800px) {
     width: 25%;
     bottom: 20px;
+    margin-left: 30%;
   }
 }
 
@@ -120,4 +121,38 @@
   border: 1px solid black;
   z-index: 999;
   position: relative;
+}
+#chat-page-userinput{
+
+ left: 135px;
+  bottom: 13px;
+  z-index: 5;
+  width: 200px;
+  height: 23px;
+  position: absolute;
+
+  @media screen and (max-width: 1000px) {
+    bottom: 22px;
+    width: 120px;
+    left: 70px;
+  }
+}
+#chat-page-inputbutton{
+  position: absolute;
+  bottom: 15px;
+  left: 340px;
+  height: 27px;
+
+  @media screen and (max-width: 1000px) {
+    height: 19px;
+    bottom: 5px;
+    left: 90px;
+  }
+}
+
+#chat-page-changename{
+  position: relative;
+  top: -490px;
+  left: 35%;
+  height: 20px;
 }
