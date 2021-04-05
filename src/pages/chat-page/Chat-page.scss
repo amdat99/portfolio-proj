@@ -39,8 +39,8 @@
   bottom: -20px;
 
   @media screen and (max-width: 490px) {
-   left: -50px;
-   font-size: 13px;
+    left: -50px;
+    font-size: 13px;
   }
 
   &:hover {
@@ -71,7 +71,7 @@
   @media screen and (max-width: 800px) {
     width: 19%;
     bottom: 20px;
-    margin-left:0%;
+    margin-left: 0%;
   }
 
   &:hover {
@@ -122,9 +122,12 @@
   z-index: 999;
   position: relative;
 }
-#chat-page-userinput{
 
- left: 135px;
+.chat-page-vidhide {
+  display: none;
+}
+#chat-page-userinput {
+  left: 135px;
   bottom: 13px;
   z-index: 5;
   width: 200px;
@@ -137,7 +140,7 @@
     left: 70px;
   }
 }
-#chat-page-inputbutton{
+#chat-page-inputbutton {
   position: absolute;
   bottom: 15px;
   left: 340px;
@@ -150,7 +153,7 @@
   }
 }
 
-#chat-page-changename{
+#chat-page-changename {
   position: relative;
   top: -490px;
   left: 35%;

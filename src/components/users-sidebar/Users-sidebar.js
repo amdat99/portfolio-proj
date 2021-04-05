@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import SidebarContent from "./Sidebar-content";
 
 import { connect } from "react-redux";
@@ -6,8 +6,8 @@ import { createStructuredSelector } from "reselect";
 
 import { selectCurrentUser } from "../../redux/user/user.selectors";
 import { selectProfileInfo } from "../../redux/profile/profile.selectors";
-import { getReceiverInfo } from "../../redux/profile/profile.actions"
-import { openMessageBox, openModal} from "../../redux/modal/modal.actions";
+import { getReceiverInfo } from "../../redux/profile/profile.actions";
+import { openMessageBox, openModal } from "../../redux/modal/modal.actions";
 
 import "./Users-sidebar.scss";
 
@@ -19,9 +19,9 @@ function UsersSidebar({
   render,
   getReceiverInfo,
   openModal,
-  openMessageBox
+  openMessageBox,
 }) {
-  const [profiles] = useState(profilesInfo);
+  // const [profiles] = useState(profilesInfo);
 
   const filteredName = () => {
     console.log("p", profilesInfo);
@@ -34,12 +34,10 @@ function UsersSidebar({
 
   return (
     <div className="sidebar-container hide-scroll">
-    
-        <div className="sidebar-test-profile">
-          <h4>Test Profile</h4>
-          <span id="sidebar-test">email: john@gmail.com password: 123456 </span>
-    
-        </div>
+      <div className="sidebar-test-profile">
+        <h4>Test Profile</h4>
+        <span id="sidebar-test">email: john@gmail.com password: 123456 </span>
+      </div>
 
       {profilesInfo
         ? filteredName().map((data, i) => (
@@ -48,8 +46,8 @@ function UsersSidebar({
               data={data}
               openModal={openModal}
               currentUser={currentUser}
-              getReceiverInfo= {getReceiverInfo}
-              openMessageBox = {openMessageBox}
+              getReceiverInfo={getReceiverInfo}
+              openMessageBox={openMessageBox}
             />
           ))
         : null}
@@ -59,7 +57,7 @@ function UsersSidebar({
 const mapDispatchToProps = (dispatch) => ({
   openModal: () => dispatch(openModal()),
   getReceiverInfo: (profileData) => dispatch(getReceiverInfo(profileData)),
-  openMessageBox: () => dispatch(openMessageBox())
+  openMessageBox: () => dispatch(openMessageBox()),
 });
 
 const mapStateToProps = createStructuredSelector({

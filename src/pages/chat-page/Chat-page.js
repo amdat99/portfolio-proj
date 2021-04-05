@@ -1,5 +1,11 @@
 import React, { useEffect, useState, Suspense } from "react";
 
+import {
+  initiateSocket,
+  enterCall,
+  disconnectSocket,
+  sendId,
+} from "../../sockets/sockets";
 import { selectCurrentUser } from "../../redux/user/user.selectors";
 import {
   selectMessagesData,
@@ -14,13 +20,20 @@ import {
   fetchProfileInfoPending,
 } from "../../redux/profile/profile.actions";
 
+import { selectProfileInfo } from "../../redux/profile/profile.selectors";
 import {
   sendMessagePending,
   fetchMessagePending,
   incrementLikesPending,
 } from "../../redux/messages/messages.actions";
-import { toggleChatModal } from "../../redux/modal/modal.actions";
+import {
+  toggleChatModal,
+  toggleVideoBox,
+} from "../../redux/modal/modal.actions";
+import { selectVideoBox } from "../../redux/modal/modal.selectors";
 import { Link } from "react-router-dom";
+
+import VideoChat from "../video-chat/Video-chat";
 
 import "./Chat-page.scss";
 
@@ -43,7 +56,9 @@ function ChatPage({
   pending,
   incrementLikesPending,
   getProfileInfo,
-  toggleChatModal,
+  profileInfo,
+  videoBox,
+  toggleVideoBox,
 }) {
   const [searchField, setSearchField] = useState("");
   const [messageData, setMessageData] = useState({
@@ -54,9 +69,35 @@ function ChatPage({
     image: "",
   });
   const [imageToggle, setImageToggle] = useState(false);
-  const [nameInput, setNameInput] = useState('')
+  const [nameInput, setNameInput] = useState("");
   const [render, setRender] = useState("");
-  const [onName, setOnName] = useState('')
+  const [onName, setOnName] = useState("");
+  const [receivedData, setReceivedData] = useState(null);
+  const [videoData, setVideoData] = useState({
+    videoId: "",
+    senderId: "",
+    receiverId: "",
+    sender: "",
+    receiver: "",
+    receiverJoined: "",
+  });
+  const [room] = useState(555);
+  const [toggleCallLog, setToggleCallLog] = useState(false);
+
+  useEffect(() => {
+    getCallerInfo(currentUser.profileId);
+  }, []);
+
+  useEffect(() => {
+    enterCall((err, data) => {
+      if (err) return;
+
+      if (data === currentUser.profileId) {
+        getCallerInfo(currentUser.profileId);
+        console.log("getting incoming call data");
+      }
+    });
+  });
 
   useEffect(() => {
     setRender("render");
@@ -72,7 +113,11 @@ function ChatPage({
         messageId: Math.random(),
       });
     } else {
-      setMessageData({userName: '', userId: Math.random(), messageId: Math.random()});
+      setMessageData({
+        userName: "",
+        userId: Math.random(),
+        messageId: Math.random(),
+      });
     }
   }, [currentUser, changeStatus, getProfileInfo]);
 
@@ -94,26 +139,24 @@ function ChatPage({
   const sendMessage = async (event) => {
     event.preventDefault();
     toggleShowImage();
-    sendMessagePending(messageData); 
-    if(currentUser){
-    setMessageData({
-     
-      userName: currentUser.displayName,
-      userId: currentUser.id,
-      messageId: Math.random(),
-      message: "",
-      image: "",
-    });
-  } else{
-    setMessageData({
-     
-      userName: nameInput,
-      userId: Math.random(),
-      messageId: Math.random(),
-      message: "",
-      image: "",
-    });
-  }
+    sendMessagePending(messageData);
+    if (currentUser) {
+      setMessageData({
+        userName: currentUser.displayName,
+        userId: currentUser.id,
+        messageId: Math.random(),
+        message: "",
+        image: "",
+      });
+    } else {
+      setMessageData({
+        userName: nameInput,
+        userId: Math.random(),
+        messageId: Math.random(),
+        message: "",
+        image: "",
+      });
+    }
     setImageToggle(false);
   };
 
@@ -153,19 +196,56 @@ function ChatPage({
     xhr.send(null);
   };
 
-  const onNameInput =  async () => {
-    await setNameInput(onName)
-    setMessageData({...messageData,userName: nameInput})
+  const onNameInput = async () => {
+    await setNameInput(onName);
+    setMessageData({ ...messageData, userName: nameInput });
+  };
 
-  }
+  const getCallerInfo = async (userId) => {
+    // await fetch("https://aamirproject-api.herokuapp.com/weathering", {
 
-  console.log(nameInput)
+    await fetch("http://localhost:4000/fetchcallinfo", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        userId: userId.toString(),
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setReceivedData(data);
+      });
+  };
+
+  console.log(nameInput);
   return (
     <div>
       <Suspense fallback={<div className="loader"></div>}>
         {/* <ChatRoom /> */}
-        <Link to="/chatroom" className="chat-page-roomlink" style = {{marginLeft: '55px'}}>
+        <div className={videoBox ? "chat-page-vidshow" : "chat-page-vidhide"}>
+          <VideoChat
+            currentUser={currentUser}
+            profileInfo={profileInfo}
+            receivedData={receivedData}
+            videoBox={videoBox}
+            getCallerInfo={getCallerInfo}
+            videoData={videoData}
+          />
+        </div>
+        <Link
+          to="/chatroom"
+          className="chat-page-roomlink"
+          style={{ marginLeft: "55px" }}
+        >
           Chat Rooms{"  "}
+        </Link>
+
+        <Link
+          onClick={toggleVideoBox}
+          className="chat-page-roomlink"
+          style={{ marginLeft: "75px" }}
+        >
+          VideoChat{"  "}
         </Link>
         <input
           aria-label="Search name"
@@ -211,29 +291,45 @@ function ChatPage({
             </button>
           ) : (
             <div>
-            
-        
-            { nameInput?
-            <div>
-             <button id="chat-page-changename" onClick={()=> setNameInput('')}>Change Name</button>
-            <button id="chat-page-button" type="submit" style={{ left: '100px' }}>
-              send
-            </button>
+              {nameInput ? (
+                <div>
+                  <button
+                    id="chat-page-changename"
+                    onClick={() => setNameInput("")}
+                  >
+                    Change Name
+                  </button>
+                  <button
+                    id="chat-page-button"
+                    type="submit"
+                    style={{ left: "100px" }}
+                  >
+                    send
+                  </button>
+                </div>
+              ) : (
+                <div>
+                  <input
+                    type="text"
+                    onChange={(e) => setOnName(e.target.value)}
+                    placeholder="enter username"
+                    id="chat-page-userinput"
+                  />
+                  <button id="chat-page-inputbutton" onClick={onNameInput}>
+                    Enter Name
+                  </button>
+                </div>
+              )}
             </div>
-            : <div>
-            <input type="text" onChange ={(e)=> setOnName(e.target.value)} placeholder="enter username" id='chat-page-userinput' />
-            <button id='chat-page-inputbutton' onClick={onNameInput}>Enter Name</button>   
-            </div>}
-          </div>
             // <Link to="/signon" id="chat-page-signin">
             //   {" "}
             //   sign in to message and see users
             // </Link>
           )}
         </form>
-       
-          <UsersSidebar searchField={searchField} render={render} />
-       
+
+        <UsersSidebar searchField={searchField} render={render} />
+
         <WeatherBox />
         {imageToggle ? (
           <img
@@ -253,6 +349,8 @@ const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
   messages: selectMessagesData,
   pending: selectMessagesPending,
+  profileInfo: selectProfileInfo,
+  videoBox: selectVideoBox,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -265,6 +363,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(incrementLikesPending(messageData)),
   getProfileInfo: () => dispatch(fetchProfileInfoPending()),
   toggleChatModal: () => dispatch(toggleChatModal()),
+  toggleVideoBox: () => dispatch(toggleVideoBox()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatPage);

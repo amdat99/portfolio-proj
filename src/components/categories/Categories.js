@@ -28,6 +28,7 @@ export function Categories({
   ]);
 
   useEffect(() => {
+    //eslint-disable-next-line
     categoryList.map((category) => {
       if (match.url === "/category/" + category) {
         return fetchCategoryPending(category);

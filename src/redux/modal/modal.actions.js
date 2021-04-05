@@ -18,8 +18,16 @@ export const openChatModal = () => ({
 
 export const toggleMessageBox = () => ({
   type: modalActionTypes.TOGGLE_MESSAGE_BOX,
-})
+});
 
 export const openMessageBox = () => ({
   type: modalActionTypes.OPEN_MESSAGE_BOX,
-})
+});
+
+export const openVideoBox = () => ({
+  type: modalActionTypes.OPEN_VIDEO_BOX,
+});
+
+export const toggleVideoBox = () => ({
+  type: modalActionTypes.TOGGLE_VIDEO_BOX,
+});

@@ -6,7 +6,10 @@ import { toggleModal, toggleMessageBox } from "../../redux/modal/modal.actions";
 import { fetchProfileImagePending } from "../../redux/profile/profile.actions";
 // import { selectProfileName } from '../../redux/profile/profile.selectors'
 import { createStructuredSelector } from "reselect";
-import { selectToggledModal, selectMessageBox } from "../../redux/modal/modal.selectors";
+import {
+  selectToggledModal,
+  selectMessageBox,
+} from "../../redux/modal/modal.selectors";
 import {
   selectCurrentUser,
   selectRecievedMessages,
@@ -16,7 +19,10 @@ import {
   getRecievedMessagePending,
   getSentMessagePending,
 } from "../../redux/user/user.actions";
-import { selectCurrentImage, selectReceiverInfo } from "../../redux/profile/profile.selectors";
+import {
+  selectCurrentImage,
+  // selectReceiverInfo,
+} from "../../redux/profile/profile.selectors";
 import {
   uploadImageToStorage,
   getSentMessageDoc,
@@ -59,7 +65,6 @@ function Profile({
   fetchProductPending,
   toggleMessageBox,
   profileName,
-
 }) {
   const [uploadDropdown, setUploadDropdown] = useState(false);
   const [shopToggle, setShopToggle] = useState(false);
@@ -72,35 +77,30 @@ function Profile({
     if (currentUser) {
       getProfileImage(currentUser.profileId);
     }
+    //eslint-disable-next-line
   }, [currentUser, getProfileImage]);
-  //eslint-disable
 
   useEffect(() => {
     fetchProfileName();
+    //eslint-disable-next-line
   }, [getProfileName]);
-  //eslint-disable
 
   useEffect(() => {
     if (currentUser) {
-      
-
       const interval = setInterval(() => getSentMessages(), 5000);
       return () => clearInterval(interval);
-    } //eslint-disable
+    }
+    //eslint-disable-next-line
   }, [getSentMessageDoc, currentUser, sentMessages]);
 
   useEffect(() => {
     fetchSellingItemsPending(currentUser.profileId);
+    //eslint-disable-next-line
   }, [fetchSellingItemsPending, currentUser]);
-  //eslint-disable
 
   const toggleDropdown = () => {
     setUploadDropdown(!uploadDropdown);
   };
-  
- 
-
-  
 
   const fetchProfileName = async () => {
     <span
@@ -137,7 +137,6 @@ function Profile({
 
   return (
     <div className="profile-container">
- 
       {currentUser ? (
         <div>
           <button id="profile-shop-button" onClick={toggleShopFeatures}>
@@ -222,29 +221,27 @@ function Profile({
                   )}
                 </div>
               </div>
-            ) : ( <div>  
-              { selectMessageBox
-           ? <DirectMessagingBox  />
-              :null}
-              <div className="profile-messagebox-container hide-scroll ">
-                
-    
-                {" "}
-                {currentUser ? (
-                  <div>
-                    <span style={{ position: "relative", right: "-10px" }}>
-                      messages:
-                    </span>
-                    <ProfileMessages
-                      sentMessages={sentMessages}
-                      currentUser={currentUser}
-                      recievedMessages={recievedMessages}
-                    />
-                  </div>
-                ) : (
-                  <h1>no messages...</h1>
-                )}{" "}
-              </div></div>
+            ) : (
+              <div>
+                {selectMessageBox ? <DirectMessagingBox /> : null}
+                <div className="profile-messagebox-container hide-scroll ">
+                  {" "}
+                  {currentUser ? (
+                    <div>
+                      <span style={{ position: "relative", right: "-10px" }}>
+                        messages:
+                      </span>
+                      <ProfileMessages
+                        sentMessages={sentMessages}
+                        currentUser={currentUser}
+                        recievedMessages={recievedMessages}
+                      />
+                    </div>
+                  ) : (
+                    <h1>no messages...</h1>
+                  )}{" "}
+                </div>
+              </div>
             )}
             <div></div>
           </Suspense>
@@ -254,7 +251,13 @@ function Profile({
           sign in to view profile
         </Link>
       )}
-      <button id="profile-modal-button" onClick={()=>{toggleModal(); toggleMessageBox() }}>
+      <button
+        id="profile-modal-button"
+        onClick={() => {
+          toggleModal();
+          toggleMessageBox();
+        }}
+      >
         X
       </button>
     </div>
@@ -271,7 +274,6 @@ const mapDispatchToProps = (dispatch) => ({
   getSentMessagePending: (userId) => dispatch(getSentMessagePending(userId)),
   fetchProductPending: (productId) => dispatch(fetchProductPending(productId)),
   toggleMessageBox: () => dispatch(toggleMessageBox()),
-  
 });
 
 const mapStateToProps = createStructuredSelector({
@@ -282,7 +284,7 @@ const mapStateToProps = createStructuredSelector({
   isSellingItemsLoaded: isSellingItemsLoaded,
   recievedMessages: selectRecievedMessages,
   sentMessages: selectSentMessages,
-  selectMessageBox: selectMessageBox
+  selectMessageBox: selectMessageBox,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

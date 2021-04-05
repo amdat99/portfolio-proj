@@ -39,7 +39,7 @@ const profileReducer = (state = INITIAL_STATE, action) => {
         ...state,
         profileImage: null,
       };
-      case profileActionTypes.GET_RECEIVER_INFO:
+    case profileActionTypes.GET_RECEIVER_INFO:
       return {
         ...state,
         receiverInfo: action.payload,

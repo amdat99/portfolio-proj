@@ -10,7 +10,7 @@ const config = {
   storageBucket: "aamir-project-492ef.appspot.com",
   messagingSenderId: "926729331205",
   appId: "1:926729331205:web:623421273d59ce346ff26c",
-  measurementId: "G-KGV9XG51P2"
+  measurementId: "G-KGV9XG51P2",
 };
 
 //user functions:
@@ -166,13 +166,9 @@ export const getRecievedMessageDoc = async (recieverId) => {
       message: doc.data().message,
       createdAt: doc.data().createdAt,
       senderId: doc.data().senderId,
- 
     };
   });
- 
-
 };
-
 
 export const getSentMessageDoc = async (senderId) => {
   if (!senderId) return;

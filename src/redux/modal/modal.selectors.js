@@ -16,3 +16,8 @@ export const selectMessageBox = createSelector(
   [selectModal],
   (modal) => modal.showMessageBox
 );
+
+export const selectVideoBox = createSelector(
+  [selectModal],
+  (modal) => modal.showVideoBox
+);

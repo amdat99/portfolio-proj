@@ -5,15 +5,17 @@ import { Link } from "react-router-dom";
 import ProfileIcon from "../profile-icon/Profile-icon";
 
 import ChatRoom from "../../pages/chat-room/Chat-Room";
+import VideoChat from "../../pages/video-chat/Video-chat";
 
 import { Route } from "react-router-dom";
 
 import "./Navigation-shared.scss";
 
-function NavigationShared({}) {
+function NavigationShared() {
   return (
     <div>
       <Route path="/chatroom" component={ChatRoom} />
+      <Route path="/video" component={VideoChat} />
 
       <div className="nav-shared-container">
         <div className="nav-shared-logo">

@@ -4,18 +4,18 @@ import {
   initiateSocket,
   disconnectSocket,
   enterChat,
+  enterSDP,
   sendMessage,
+  sendSDP,
 } from "../../sockets/sockets";
 
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 
 import { selectCurrentUser } from "../../redux/user/user.selectors";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
-import './Chat-room.scss'
-
-let socket;
+import "./Chat-room.scss";
 
 function ChatRoom({ currentUser }) {
   const [createRoom, setCreateRoom] = useState("");
@@ -26,32 +26,35 @@ function ChatRoom({ currentUser }) {
   const [chatHistory, setChatHistory] = useState([]);
   const [name, setName] = useState("");
   const [onName, setOnName] = useState("");
+  const [test, setTest] = useState(null);
 
   useEffect(() => {
     fetchRooms();
 
-   
     if (currentUser) {
       setName(currentUser.displayName);
-    }
-
-    
-  }, [currentUser, room,name,onName]);
+    } //eslint-disable-next-line
+  }, [currentUser, room, name, onName]);
 
   useEffect(() => {
     if (room) initiateSocket(room);
-    if(room === undefined){
+    if (room === undefined) {
       setRoom(rooms[0]);
-      }
+    }
 
     enterChat((err, data) => {
       if (err) return;
       setChat((existingdata) => [data, ...existingdata]);
     });
+
+    enterSDP((err, data) => {
+      if (err) return;
+      setTest(data);
+    });
     return () => {
       disconnectSocket();
     };
-  });
+  }, [rooms, room, test]);
 
   const fetchRooms = () => {
     fetch("https://aamirproject-api.herokuapp.com/fetchrooms", {
@@ -61,21 +64,25 @@ function ChatRoom({ currentUser }) {
       .then((res) => res.json())
       .then((data) => {
         setRooms(data);
-        if(room === undefined){
+        if (room === undefined) {
           setRoom(rooms[0]);
-          }
+        }
       });
   };
+  console.log(test);
 
   const addName = () => {
     setName(onName);
   };
 
-  const addRoom = () => {
+  const addRoom = async () => {
     if (createRoom) {
-      sendRoom();
-      fetchRooms();
-      setCreateRoom('');
+      await sendRoom();
+      await fetchRooms();
+      await setCreateRoom("");
+      setTimeout(function () {
+        window.location.reload();
+      }, 1000);
     }
   };
   const sendRoom = async () => {
@@ -101,7 +108,9 @@ function ChatRoom({ currentUser }) {
 
   return (
     <div className="chatroom-container">
-      <Link to ='chatapp' id='chatroom-link' >ChatApp</Link>
+      <Link to="chatapp" id="chatroom-link">
+        ChatApp
+      </Link>
       {!name ? (
         <div id="chatroom-input">
           <input
@@ -113,6 +122,7 @@ function ChatRoom({ currentUser }) {
         </div>
       ) : (
         <div>
+          <button onClick={() => sendSDP("helllo", 1)}>lkk</button>
           <span>room: {room}</span>
           <ChatRoomContent
             rooms={rooms}

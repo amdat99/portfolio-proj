@@ -10,24 +10,23 @@ function ProfileMessages({ currentUser }) {
   const [recievedMessages, setRecievedMessages] = useState([]);
   const [sentMessages, setSentMessages] = useState([]);
 
-    useEffect(() =>{
-      getSentMessages();
-      getRecievedMessages();
-    },[])
+  useEffect(() => {
+    getSentMessages();
+    getRecievedMessages();
+    //eslint-disable-next-line
+  }, []);
 
   useEffect(() => {
-  
     const interval = setInterval(() => getRecievedMessages(), 5000);
     return () => clearInterval(interval);
+    //eslint-disable-next-line
   }, [recievedMessages]);
-  //eslint-disable
 
   useEffect(() => {
-  
     const interval = setInterval(() => getSentMessages(), 5000);
     return () => clearInterval(interval);
+    //eslint-disable-next-line
   }, [sentMessages]);
-  //eslint-disable
 
   const getRecievedMessages = async () => {
     const request = await getRecievedMessageDoc(currentUser.profileId);

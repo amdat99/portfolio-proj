@@ -27,17 +27,27 @@ const modalReducer = (state = INITIAL_STATE, action) => {
         ...state,
         showChatModal: !state.showChatModal,
       };
-      case modalActionTypes.TOGGLE_MESSAGE_BOX:
-        return {
-          ...state,
-          showMessageBox: !state.showMessageBox,
-        };
+    case modalActionTypes.TOGGLE_MESSAGE_BOX:
+      return {
+        ...state,
+        showMessageBox: !state.showMessageBox,
+      };
 
-        case modalActionTypes.OPEN_MESSAGE_BOX:
-        return {
-          ...state,
-          showMessageBox: true,
-        };
+    case modalActionTypes.OPEN_MESSAGE_BOX:
+      return {
+        ...state,
+        showMessageBox: true,
+      };
+    case modalActionTypes.OPEN_VIDEO_BOX:
+      return {
+        ...state,
+        showVideoBox: true,
+      };
+    case modalActionTypes.TOGGLE_VIDEO_BOX:
+      return {
+        ...state,
+        showVideoBox: !state.showVideoBox,
+      };
     default:
       return state;
   }

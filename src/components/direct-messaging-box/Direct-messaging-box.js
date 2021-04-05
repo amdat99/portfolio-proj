@@ -6,7 +6,10 @@ import { createStructuredSelector } from "reselect";
 import { fetchProfileInfoPending } from "../../redux/profile/profile.actions";
 import { sendDirectMessagePending } from "../../redux/user/user.actions";
 import { selectCurrentUser } from "../../redux/user/user.selectors";
-import { selectProfileInfo, selectReceiverInfo } from "../../redux/profile/profile.selectors";
+import {
+  selectProfileInfo,
+  selectReceiverInfo,
+} from "../../redux/profile/profile.selectors";
 import { openModal } from "../../redux/modal/modal.actions";
 
 import { setMessageDoc } from "../../firebase/firebase";
@@ -20,7 +23,7 @@ function DirectMessagingBox({
   displayName,
   sendDirectMessagePending,
   openModal,
-  recieverInfo
+  recieverInfo,
 }) {
   const [messageData, setMessageData] = useState({
     message: "",
@@ -29,7 +32,6 @@ function DirectMessagingBox({
     recieverName: "",
     recieverId: "",
   });
-
 
   useEffect(() => {
     getProfileInfo();
@@ -48,9 +50,7 @@ function DirectMessagingBox({
 
   const onMessage = (event) => {
     setMessageData({ ...messageData, message: event.target.value });
-    
   };
-
 
   const onSend = async (event) => {
     event.preventDefault();
@@ -73,7 +73,7 @@ function DirectMessagingBox({
           id="direct-messaging-input"
           onFocus={openModal}
           onChange={onMessage}
-          placeholder= {"type message to "+ recieverInfo.recieverName }
+          placeholder={"type message to " + recieverInfo.recieverName}
           required
         ></textarea>
         <button id="direct-messaging-button" type="submit">
@@ -95,7 +95,7 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = createStructuredSelector({
   profilesInfo: selectProfileInfo,
   currentUser: selectCurrentUser,
-  recieverInfo: selectReceiverInfo
+  recieverInfo: selectReceiverInfo,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DirectMessagingBox);

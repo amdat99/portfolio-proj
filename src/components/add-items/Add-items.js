@@ -44,20 +44,19 @@ export const AddItems = ({ currentUser, error }) => {
     // if (error) {
     //   alert("there was an error", error.message);
     // } else {
-      setItemData({
-        name: "",
-        price: "",
-        description: "",
-        category: "",
-        picture: "",
-        soldBy: currentUser.displayName,
-        userId: currentUser.profileId,
-        productId: Math.random(),
-      });
-      setImageToggle(false);
-      setSubmitToggle(false);
-      alert("your listing was successfully updated");
-    
+    setItemData({
+      name: "",
+      price: "",
+      description: "",
+      category: "",
+      picture: "",
+      soldBy: currentUser.displayName,
+      userId: currentUser.profileId,
+      productId: Math.random(),
+    });
+    setImageToggle(false);
+    setSubmitToggle(false);
+    alert("your listing was successfully updated");
   };
 
   const handleChange = (event) => {

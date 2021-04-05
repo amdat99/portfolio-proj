@@ -40,4 +40,4 @@ export const changeStatus = (userData) => ({
 export const getReceiverInfo = (profileData) => ({
   type: profileActionTypes.GET_RECEIVER_INFO,
   payload: profileData,
-})
+});
