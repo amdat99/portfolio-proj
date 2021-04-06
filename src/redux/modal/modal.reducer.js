@@ -4,6 +4,7 @@ const INITIAL_STATE = {
   showModal: false,
   showChatModal: false,
   showMessageBox: false,
+  successMessage: false,
 };
 const modalReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -48,6 +49,11 @@ const modalReducer = (state = INITIAL_STATE, action) => {
         ...state,
         showVideoBox: !state.showVideoBox,
       };
+      case modalActionTypes.TOGGLE_SUCCESS_BOX:
+        return {
+          ...state,
+          showVideoBox: !state.successMessage,
+        };
     default:
       return state;
   }

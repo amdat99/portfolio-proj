@@ -1,3 +1,5 @@
+import { closeVideoBox } from './Video-chat'
+
 export const sendVideoData = async (videoData) => {
   const {
     receiver,
@@ -7,6 +9,10 @@ export const sendVideoData = async (videoData) => {
     senderId,
     videoId,
   } = videoData;
+
+  if(!receiverId){
+    return alert('connection error try again')
+  }
   await fetch("https://aamirproject-api.herokuapp.com/addvideoinfo", {
 
   // await fetch("http://localhost:4000/addvideoinfo", {

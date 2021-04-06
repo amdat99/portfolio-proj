@@ -30,8 +30,9 @@ import {
   toggleChatModal,
   toggleVideoBox,
   openVideoBox,
+  toggleSucBox
 } from "../../redux/modal/modal.actions";
-import { selectVideoBox } from "../../redux/modal/modal.selectors";
+import { selectVideoBox, selectSucBox } from "../../redux/modal/modal.selectors";
 import { Link } from "react-router-dom";
 
 import VideoChat from "../video-chat/Video-chat";
@@ -39,6 +40,8 @@ import VideoChatLog from "../../components/video-chat-log/Video-chat-log"
 import { setMissedCall, sendVideoData } from "../video-chat/Video-chat-requests"
 
 import "./Chat-page.scss";
+
+
 
 const MessageBox = React.lazy(() =>
   import("../../components/message-box/Message-box")
@@ -49,6 +52,7 @@ const UsersSidebar = React.lazy(() =>
 const WeatherBox = React.lazy(() =>
   import("../../components/weather-box/Weather-box")
 );
+
 
 function ChatPage({
   currentUser,
@@ -63,7 +67,9 @@ function ChatPage({
   videoBox,
   toggleVideoBox,
   openVideoBox,
-  receiverInfo
+  receiverInfo,
+  successMessage,
+  toggleSucBox
 }) {
   const [searchField, setSearchField] = useState("");
   const [messageData, setMessageData] = useState({
@@ -89,7 +95,7 @@ function ChatPage({
   const [room, setRoom] = useState(555);
   const [toggleCallLog, setToggleCallLog] = useState(false);
   const [timer, setTimer] = useState(0)
-  
+  const [onConnect, setOnConnect] = useState(false);
 
 
   useEffect(() => {
@@ -261,14 +267,27 @@ const  answerCall = async (videoId) => {
     openVideoBox();
   };
 
+
+
   const beginCall = async () => {
+  
     if(receiverInfo){
-      sendVideoData(videoData);
+      try{
+    
+      if(videoData.receiverId === ''){
+        await setVideoData({...videoData, receiverId: receiverInfo.recieverId, receiver: receiverInfo.recieverName})
+      }
+      sendVideoData(videoData).catch(err =>console.log("error",err))
+   
       setRoom(videoData.videoId)
        sendProfile(receiverInfo.recieverId);
-
-
+      }catch(err){
+      console.log("error",err)
     }
+   
+    }
+     
+    
   }
    console.log(receiverInfo)
   const uploadInfo = () => {
@@ -304,6 +323,10 @@ let today = new Date()
         {/* <ChatRoom /> */}
         <div className={videoBox ? "chat-page-vidshow" : "chat-page-vidhide"}>
           { currentUser && receivedData ? 
+          <div>
+            {successMessage?
+            <span>connection success</span>
+            : null}
           <VideoChat
             currentUser={currentUser}
             profileInfo={profileInfo}
@@ -312,7 +335,9 @@ let today = new Date()
             getCallerInfo={getCallerInfo}
             videoData={videoData}
             changeCallerStatus = {changeCallerStatus}
+            toggleVideoBox={toggleVideoBox}
           />
+          </div>
           : <span>sign in to video call </span>}
     
        
@@ -464,7 +489,8 @@ const mapStateToProps = createStructuredSelector({
   pending: selectMessagesPending,
   profileInfo: selectProfileInfo,
   videoBox: selectVideoBox,
-  receiverInfo: selectReceiverInfo
+  receiverInfo: selectReceiverInfo,
+  successMessage: selectSucBox
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -478,7 +504,15 @@ const mapDispatchToProps = (dispatch) => ({
   getProfileInfo: () => dispatch(fetchProfileInfoPending()),
   toggleChatModal: () => dispatch(toggleChatModal()),
   toggleVideoBox: () => dispatch(toggleVideoBox()),
-  openVideoBox : () => dispatch(openVideoBox())
+  openVideoBox : () => dispatch(openVideoBox()),
+  toggleSucBox: () => dispatch(toggleSucBox()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatPage);
+
+
+export const onVidConnet = () => {
+  toggleSucBox();
+  setTimeout(function(){  toggleSucBox()}, 3000);
+
+}

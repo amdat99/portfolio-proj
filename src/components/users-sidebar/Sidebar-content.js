@@ -43,7 +43,6 @@ function SidebarContent({
     await getReceiverInfo(profileInfo);
     beginCall();
     openVideoBox()
-    setTimeout(function(){ beginCall() }, 1000);
 
   }
 

@@ -21,3 +21,9 @@ export const selectVideoBox = createSelector(
   [selectModal],
   (modal) => modal.showVideoBox
 );
+
+
+export const selectSucBox = createSelector(
+  [selectModal],
+  (modal) => modal.successMessage
+);

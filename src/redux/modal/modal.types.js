@@ -7,6 +7,7 @@ const modalActionTypes = {
   OPEN_MESSAGE_BOX: "OPEN_MESSAGE_BOX",
   OPEN_VIDEO_BOX: "OPEN_VIDEO_BOX",
   TOGGLE_VIDEO_BOX: "TOGGLE_VIDEO_BOX",
+  TOGGLE_SUCCESS_BOX: "TOGGLE_SUCCESS_BOX",
 };
 
 export default modalActionTypes;

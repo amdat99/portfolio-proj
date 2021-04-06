@@ -247,3 +247,8 @@ const mapStateToProps = createStructuredSelector({
   receiverInfo: selectReceiverInfo,
 });
 export default connect(mapStateToProps)(VideoChat);
+
+
+export const closeVideoBox = () => {
+  this.props.toggleVideoBox()
+}

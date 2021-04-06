@@ -31,3 +31,8 @@ export const openVideoBox = () => ({
 export const toggleVideoBox = () => ({
   type: modalActionTypes.TOGGLE_VIDEO_BOX,
 });
+
+export const toggleSucBox = () => ({
+  type: modalActionTypes.TOGGLE_SUCCESS_BOX,
+});
+
