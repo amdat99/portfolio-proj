@@ -19,6 +19,7 @@
 .sidebar-test-profile {
   max-width: 150px;
   position: relative;
+  z-index: -1;
 
   @media screen and (max-width: 800px) {
     margin-right: 30px;
@@ -102,12 +103,13 @@
 
 #sidebar-test {
   position: relative;
-  bottom: 20px;
+  bottom: 25px;
+
 }
 
 #send-message-span {
-  cursor: pointer;
-  font-size: 13px;
-  position: relative;
-  right: 20px;
+ display: flex;
+ flex-direction: column;
+ cursor: pointer;
+ font-size: 15px;
 }

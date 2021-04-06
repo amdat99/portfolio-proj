@@ -122,7 +122,7 @@ function ChatRoom({ currentUser }) {
         </div>
       ) : (
         <div>
-          <button onClick={() => sendSDP("helllo", 1)}>lkk</button>
+         
           <span>room: {room}</span>
           <ChatRoomContent
             rooms={rooms}

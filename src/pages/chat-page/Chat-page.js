@@ -1,10 +1,10 @@
 import React, { useEffect, useState, Suspense } from "react";
 
 import {
-  initiateSocket,
   enterCall,
-  disconnectSocket,
   sendId,
+  sendProfile
+
 } from "../../sockets/sockets";
 import { selectCurrentUser } from "../../redux/user/user.selectors";
 import {
@@ -20,7 +20,7 @@ import {
   fetchProfileInfoPending,
 } from "../../redux/profile/profile.actions";
 
-import { selectProfileInfo } from "../../redux/profile/profile.selectors";
+import { selectProfileInfo, selectReceiverInfo } from "../../redux/profile/profile.selectors";
 import {
   sendMessagePending,
   fetchMessagePending,
@@ -29,11 +29,14 @@ import {
 import {
   toggleChatModal,
   toggleVideoBox,
+  openVideoBox,
 } from "../../redux/modal/modal.actions";
 import { selectVideoBox } from "../../redux/modal/modal.selectors";
 import { Link } from "react-router-dom";
 
 import VideoChat from "../video-chat/Video-chat";
+import VideoChatLog from "../../components/video-chat-log/Video-chat-log"
+import { setMissedCall, sendVideoData } from "../video-chat/Video-chat-requests"
 
 import "./Chat-page.scss";
 
@@ -59,6 +62,8 @@ function ChatPage({
   profileInfo,
   videoBox,
   toggleVideoBox,
+  openVideoBox,
+  receiverInfo
 }) {
   const [searchField, setSearchField] = useState("");
   const [messageData, setMessageData] = useState({
@@ -81,12 +86,30 @@ function ChatPage({
     receiver: "",
     receiverJoined: "",
   });
-  const [room] = useState(555);
+  const [room, setRoom] = useState(555);
   const [toggleCallLog, setToggleCallLog] = useState(false);
+  const [timer, setTimer] = useState(0)
+  
+
 
   useEffect(() => {
+    if(currentUser){
     getCallerInfo(currentUser.profileId);
-  }, []);
+    }
+  }, [currentUser]);
+
+  useEffect(() => {
+    if(currentUser && receiverInfo)
+    setVideoData({
+      videoId: (Math.random() * Math.random()) / Math.random(),
+      senderId: currentUser.profileId,
+      sender: currentUser.displayName,
+      receiverId: receiverInfo.recieverId,
+      receiver: receiverInfo.recieverName,
+      receiverJoined: "no",
+    })
+    
+    },[currentUser,receiverInfo.recieverId,setVideoData])
 
   useEffect(() => {
     enterCall((err, data) => {
@@ -97,6 +120,9 @@ function ChatPage({
         console.log("getting incoming call data");
       }
     });
+
+   
+    
   });
 
   useEffect(() => {
@@ -202,9 +228,9 @@ function ChatPage({
   };
 
   const getCallerInfo = async (userId) => {
-    // await fetch("https://aamirproject-api.herokuapp.com/weathering", {
+    await fetch("https://aamirproject-api.herokuapp.com/fetchcallinfo", {
 
-    await fetch("http://localhost:4000/fetchcallinfo", {
+    // await fetch("http://localhost:4000/fetchcallinfo", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -217,12 +243,67 @@ function ChatPage({
       });
   };
 
-  console.log(nameInput);
+  const changeCallerStatus = () => {
+    setMissedCall()
+    .then((data) =>
+    setReceivedData(data))
+  }
+
+  const onToggleCallLog = () => {
+    setToggleCallLog(!toggleCallLog)
+
+  }
+
+const  answerCall = async (videoId) => {
+   setRoom(videoId)
+    console.log("rrom", room);
+    sendId(videoId);
+    openVideoBox();
+  };
+
+  const beginCall = async () => {
+    if(receiverInfo){
+      sendVideoData(videoData);
+      setRoom(videoData.videoId)
+       sendProfile(receiverInfo.recieverId);
+
+
+    }
+  }
+   console.log(receiverInfo)
+  const uploadInfo = () => {
+    sendVideoData(videoData);
+    setRoom(videoData.videoId)
+     sendProfile(receiverInfo.recieverId);
+  }
+
+  const putVideoData = () => {
+   
+    if(currentUser && receiverInfo){
+      setVideoData({
+        videoId: (Math.random() * Math.random()) / Math.random(),
+        senderId: currentUser.profileId,
+        sender: currentUser.displayName,
+        receiverId: receiverInfo.recieverId,
+        receiver: receiverInfo.recieverName,
+        receiverJoined: "no",
+      })
+    }
+  
+  };
+
+  // const incrementTimer = (status) => {
+  //   while (data === 'calling' )
+  // }
+
+let today = new Date()
+ 
   return (
     <div>
       <Suspense fallback={<div className="loader"></div>}>
         {/* <ChatRoom /> */}
         <div className={videoBox ? "chat-page-vidshow" : "chat-page-vidhide"}>
+          { currentUser && receivedData ? 
           <VideoChat
             currentUser={currentUser}
             profileInfo={profileInfo}
@@ -230,12 +311,17 @@ function ChatPage({
             videoBox={videoBox}
             getCallerInfo={getCallerInfo}
             videoData={videoData}
+            changeCallerStatus = {changeCallerStatus}
           />
+          : <span>sign in to video call </span>}
+    
+       
         </div>
+        <div>
         <Link
           to="/chatroom"
           className="chat-page-roomlink"
-          style={{ marginLeft: "55px" }}
+         
         >
           Chat Rooms{"  "}
         </Link>
@@ -243,10 +329,18 @@ function ChatPage({
         <Link
           onClick={toggleVideoBox}
           className="chat-page-roomlink"
-          style={{ marginLeft: "75px" }}
+          
         >
           VideoChat{"  "}
         </Link>
+        <Link
+         className="chat-page-roomlink"
+          onClick={onToggleCallLog}
+          
+        >
+          Chat log{"  "}
+        </Link>
+        </div>
         <input
           aria-label="Search name"
           className="chat-page-searchbox"
@@ -254,7 +348,26 @@ function ChatPage({
           placeholder="search name"
           onChange={onHandleSearch}
         />
-
+      { 
+      receivedData?
+      receivedData.map( data =>
+        <div key = {data.videoid}>
+          {toggleCallLog?
+          <VideoChatLog  data = {data} openVideoBox  ={openVideoBox} beginCall = {beginCall}/>
+            :null}
+          {data.senderstatus === 'calling'
+          
+          ?<div className="vid-container">
+            <span>{data.sender} is connected </span>
+          <button onClick={()=>answerCall(data.videoid)}>Join Call</button>
+          {/* <span onMouseEnter ={}>x</span> */}
+          <div className="vid-animation"> {today.getHours() + ":" + today.getMinutes()}</div>
+          </div>
+          : null}
+         </div>
+      )
+      :<span>You haven't been called yet</span>}
+    
         <form className="chat-page-scroller hide-scroll" onSubmit={sendMessage}>
           {pending ? <div className="loader"></div> : null}
           {messages
@@ -328,7 +441,7 @@ function ChatPage({
           )}
         </form>
 
-        <UsersSidebar searchField={searchField} render={render} />
+        <UsersSidebar searchField={searchField} render={render} beginCall = {beginCall} />
 
         <WeatherBox />
         {imageToggle ? (
@@ -351,6 +464,7 @@ const mapStateToProps = createStructuredSelector({
   pending: selectMessagesPending,
   profileInfo: selectProfileInfo,
   videoBox: selectVideoBox,
+  receiverInfo: selectReceiverInfo
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -364,6 +478,7 @@ const mapDispatchToProps = (dispatch) => ({
   getProfileInfo: () => dispatch(fetchProfileInfoPending()),
   toggleChatModal: () => dispatch(toggleChatModal()),
   toggleVideoBox: () => dispatch(toggleVideoBox()),
+  openVideoBox : () => dispatch(openVideoBox())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatPage);

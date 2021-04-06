@@ -46,7 +46,7 @@ function MessageBox({
             ) : (
               <span id="message-box-button"> +</span>
             )}
-            <span id="message-box-date">at {date.toString("MMMM yyyy")}</span>
+            <span id="message-box-date">at {date.slice(0, 10)}</span>
           </ul>
 
           {images ? (

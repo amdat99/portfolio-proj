@@ -31,16 +31,16 @@
 
 .chat-page-roomlink {
   width: 200px;
-  display: flex;
   justify-content: center;
-  margin-right: 90px;
+  left: -230px;
   margin-left: 10px;
   position: relative;
   bottom: -20px;
 
-  @media screen and (max-width: 490px) {
+  @media screen and (max-width: 800px) {
     left: -50px;
     font-size: 13px;
+    left: -100px;
   }
 
   &:hover {
@@ -158,4 +158,30 @@
   top: -490px;
   left: 35%;
   height: 20px;
+}
+
+.vid-container{
+display: flex;
+justify-content: center;
+
+
+
+}
+
+.vid-animation{
+  position: relative;
+  top: 30px;
+  right: 130px;
+  min-width: 100px;
+  max-width: 200px;
+  max-height: 2px;
+  background-color: rgb(9, 8, 8);
+  position: relative;
+  animation: myfirst 5s linear 2s infinite
+}
+
+@keyframes myfirst {
+
+  50%  {background-color:rgba(72, 199, 125, 0.659);}
+
 }

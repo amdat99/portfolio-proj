@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 
+
 function SidebarContent({
   data,
   openModal,
   currentUser,
   getReceiverInfo,
   openMessageBox,
+  openVideoBox,
+  beginCall,
+  
 }) {
   const [messageDropdown, setMessageDropdown] = useState(false);
   const [profileInfo, setProfileInfo] = useState({
@@ -27,11 +31,21 @@ function SidebarContent({
   const sendProfileInfo = async () => {
     await getReceiverInfo(profileInfo);
     openMessageBox();
+
   };
 
-  // const toggleSendMessage = () => {
-  //   setSendMessage(!sendMessage);
-  // };
+  const startVideoCall = async () => {
+
+    if(profileInfo.recieverId === currentUser.profileId ){
+      return alert('dont call yourself please')
+    }
+
+    await getReceiverInfo(profileInfo);
+    beginCall();
+    openVideoBox()
+    setTimeout(function(){ beginCall() }, 1000);
+
+  }
 
   return (
     <div onMouseEnter={toggleDropdown} onMouseLeave={toggleDropdown}>
@@ -71,18 +85,15 @@ function SidebarContent({
                         Send Message
                       </span>
                       <span
-                        id="send-message-span"
-                        onClick={() => {
-                          sendProfileInfo();
-                          openModal();
-                        }}
-                      >
-                        Send Message
+                          style={{cursor: "pointer"}}
+                        onClick={startVideoCall}
+                      > video call
                       </span>
                     </div>
                   ) : (
                     <span
-                      style={{ cursor: "pointer" }}
+                
+                      style={{cursor: "pointer"}}
                       onClick={() =>
                         alert("sign in to send a message or videocall")
                       }

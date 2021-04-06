@@ -6,6 +6,7 @@ import {
   sendVideoData,
   getCallerInfo,
   fetchcallinfo,
+  setMissedCall
 } from "./Video-chat-requests";
 import {
   initiateSocket,
@@ -24,105 +25,13 @@ import { initiateVidSocket } from "../../sockets/video-sockets";
 import { selectCurrentUser } from "../../redux/user/user.selectors";
 import { selectReceiverInfo } from "../../redux/profile/profile.selectors";
 
-// useEffect(() => {
-//     initiateStream()
-//     lc.current = new RTCPeerConnection(connectionConfig)
 
-//     lc.current.onicecandidate = (e) =>{
-//         if(e.candidate){
-//             sendCandidate(e.candidate)
-//             console.log(JSON.stringify(e.candidate))
-//         }
-//     }
-
-//     lc.current.oniceconnectionstatechange = (e) =>{
-//         console.log(e)
-//     }
-
-//     lc.current.onaddstream = (e) =>{
-//         remoteVideoRef.current.srcObject = e.stream
-//     }
-
-// },[lc])
-// // useEffect(() => {
-// //     setRoom(555)
-// // },[])
-
-// // useEffect(() => {
-// //   if(currentUser)
-// //     getCallerInfo(currentUser.profileId)
-// // },[])
-
-// // useEffect(() => {
-// //     if (room) initiateVidSocket(room);
-
-// // })
-
-// useEffect(() => {
-//   if (currentUser && recieverInfo) {
-//     setVideoData({
-//       videoId: (Math.random() * Math.random()) / Math.random(),
-//       senderId: currentUser.profileId,
-//       sender: currentUser.displayName,
-//       receiverId: 1.1103407964620353,
-//       receiver: "john",
-//       receiverJoined: "no",
-//     });
-//   }
-
-// }, [currentUser, recieverInfo,]);
-
-// // useEffect(() => {
-
-// //     if(onCall === 123){
-// //         getCallerInfo(currentUser.profileId)
-
-// //            setOnCall('')
-
-// //     }
-// // },[onCall,room, recievedData])
-
-// // useEffect(() => {
-// //     if(room === videoData.videoId){
-// //       sendSDP(SDP)
-// //     }
-// // },[room])
-
-// // useEffect(() => {
-// //     if(remoteSDP){
-// //         setRemoteDescription(remoteSDP)
-// //     }
-// // },[remoteSDP])
-
-// // useEffect(() => {
-// //     if(remoteCandidate){
-// //         addIceCandidate(remoteCandidate)
-// //     }
-// // },[remoteCandidate])
-
-//         <br />
-//         <button onClick={setRemoteDescription}>Set Remote Desc</button>
-//         <button onClick={addCandidate}>Add Candidate</button>
-//             {/* <button onClick={startCall }>Begin Call</button> */}
-//             {/* <VideoChatContent setVideoData ={setVideoData} addIceCandidate={addIceCandidate} createAnswer ={createAnswer}
-//             setRemoteDescription={setRemoteDescription} createOffer ={createOffer} videoData ={videoData} /> */}
-
-//         </div>
-//     );
-// }
-
-// const mapStateToProps = createStructuredSelector({
-//     currentUser: selectCurrentUser,
-//     recieverInfo: selectReceiverInfo,
-// })
-
-// export default connect(mapStateToProps)(VideoChat);
 
 class VideoChat extends React.Component {
   constructor(props) {
     super(props);
 
-    // https://reactjs.org/docs/refs-and-the-dom.html
+    this.componentCleanup = this.componentCleanup.bind(this);
     this.localVideoref = React.createRef();
     this.remoteVideoref = React.createRef();
     this.socket = null;
@@ -142,6 +51,11 @@ class VideoChat extends React.Component {
     this.remoteCandidate = [];
   }
 
+  componentCleanup() { // this will hold the cleanup code
+  
+    sendProfile(this.props.videoData.receiverId)  
+    setMissedCall(this.props.videoData.videoId)
+}
   componentDidMount = () => {
     const {
       currentUser,
@@ -149,24 +63,19 @@ class VideoChat extends React.Component {
       receivedData,
       getCallerInfo,
     } = this.props;
-    this.setvideoData();
 
+
+    window.addEventListener('beforeunload', this.componentCleanup);
     getCallerInfo(currentUser.profileId);
 
     if (this.room) initiateSocket(this.room);
 
-    // if(this.onCall === 123){
-    //     this.getCallerInfo(currentUser.profileId)
-
-    //       this.setState({onCall:''})
-
-    // }
 
     checkJoined((err, data) => {
       if (err) return;
       console.log("data", data);
-      console.log(this.state.videoData.videoId);
-      if (data == this.state.videoData.videoId) {
+      console.log(this.props.videoData.videoId);
+      if (data == this.props.videoData.videoId) {
         this.makeOffer();
       }
     });
@@ -246,20 +155,15 @@ class VideoChat extends React.Component {
       });
   };
 
-  setvideoData = () => {
-    const { currentUser, receiverInfo } = this.props;
-    this.setState({
-      videoData: {
-        videoId: (Math.random() * Math.random()) / Math.random(),
-        senderId: currentUser.profileId,
-        sender: currentUser.displayName,
-        receiverId: 1.1103407964620353,
-        receiver: "john",
-        receiverJoined: "no",
-      },
-    });
-  };
+  componentWillUnmount() {
+    this.componentCleanup();
+    window.removeEventListener('beforeunload', this.componentCleanup); // remove the event handler for normal unmounting
+    sendProfile(this.props.videoData.receiverId)
+    setMissedCall(this.props.videoData.videoId)
+    
+  }
 
+ 
   makeOffer = async () => {
     await this.createOffer();
     this.createOffer();
@@ -276,20 +180,19 @@ class VideoChat extends React.Component {
     this.pc.createOffer({ offerToReceiveVideo: 1 }).then((sdp) => {
       this.pc.setLocalDescription(sdp);
 
-      sendSDP(sdp, this.state.videoData.videoId);
+      sendSDP(sdp, this.props.videoData.videoId);
     });
   };
 
-  // https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/createAnswer
-  // creates an SDP answer to an offer received from remote peer
 
-  startCall = async () => {
-    await this.setvideoData();
 
-    await sendVideoData(this.state.videoData);
-    await this.setState({ room: this.state.videoData.videoId });
-    sendProfile(this.state.videoData.receiverId);
-  };
+  // startCall = async () => {
+  //   await this.setvideoData();
+
+  //   await sendVideoData(this.props.videoData);
+  //   await this.setState({ room: this.props.videoData.videoId });
+  //   sendProfile(this.props.videoData.receiverId);
+  // };
 
   answerCall = async (videoId) => {
     await this.setState({ room: videoId });
@@ -303,7 +206,7 @@ class VideoChat extends React.Component {
     this.pc.createAnswer({ offerToReceiveVideo: 1 }).then((sdp) => {
       this.pc.setLocalDescription(sdp);
 
-      sendSDP(sdp, this.state.room);
+      sendSDP(sdp);
     });
   };
 
@@ -323,27 +226,17 @@ class VideoChat extends React.Component {
     return (
       <div>
         <div>
-          {this.props.receivedData
-            ? this.props.receivedData.map((data) => (
-                <div key={data.videoid}>
-                  <span>{data.sender} is calling </span>
-                  <button onClick={() => this.answerCall(data.videoid)}>
-                    answer
-                  </button>
-                </div>
-              ))
-            : null}
+   
         </div>
 
         <VideoChatContent
           ref1={this.localVideoref}
           ref2={this.remoteVideoref}
           startCall={this.startCall}
+          videoData = {this.props.videoData}
+          sendProfile = {sendProfile}
         />
 
-        {/* <br />
-            <button onClick={this.setRemoteDescription}>Set Remote Desc</button>
-            <button onClick={this.addCandidate}>Add Candidate</button> */}
       </div>
     );
   }
