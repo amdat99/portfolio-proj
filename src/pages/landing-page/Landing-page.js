@@ -61,16 +61,17 @@ function LandingPage({ currentUser, changeStatus }) {
           {/* <span style={{color: 'red'}}>*Somebody seems to sending 1000's of requests to the firebase server in a few minutes which is exausting the free 50k daily limit. For now I've set read access to users only.To access all features please use the test account: john@gmail.com password: 123456 OR quickly register an account or signin. The DDOSer  may be exceeding the signin limits of the test john account. Sorry if the firebase limits are exceeded. The chatapp mostly still functions without firebase. See my github for code implementations. </span> */}
           <br></br>
           <br></br>I have created a featured store application where users can
-          buy and sell items aswell as a chatapp which allows users to send
+          buy and sell items as well as a chatapp which allows users to send
           messages and images. The chatapp also features direct messaging done
           through user profiles where users can also upload profile images.
-          There are also live chatroom utilisng Web Sockets achieved withthrough
+           Futhermore, the app also has live video calling achieved through webRTC with and a socket-io 
+          connection to send peer data. There are also call logs handled with a postgres backend and live chatrooms utilisng 
           socket-io. State management is handled throughout with redux and redux
           sagas for requests. The backend for the store is handled with
           firestore. The chatapp uses postgres with an express server providing
           connectivity with Knex. Stripe and accuweather Api's are also called
           in the server and implemented in the front-end. Some testing done with
-          jest and enzyme. Application is a Pogressive web-app. Redux-logger
+          jest and enzyme. The app is a Pogressive web-app. Redux-logger
           kept as a dependency to show state management.
         </p>
       </div>
