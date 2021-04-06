@@ -358,13 +358,15 @@ let today = new Date()
         >
           VideoChat{"  "}
         </Link> */}
-        <Link
+       {currentUser ? 
+       <Link
          className="chat-page-roomlink"
           onClick={onToggleCallLog}
           
         >
           Chat log{"  "}
         </Link>
+        : <Link  className="chat-page-roomlink" onClick={() =>alert('sign in to see logs')}>Chat Log</Link>}
         </div>
         <input
           aria-label="Search name"
@@ -378,6 +380,7 @@ let today = new Date()
       receivedData.map( data =>
         <div key = {data.videoid}>
           {toggleCallLog?
+          
           <VideoChatLog  data = {data} openVideoBox  ={openVideoBox} beginCall = {beginCall}/>
             :null}
           {data.senderstatus === 'calling'
@@ -391,7 +394,7 @@ let today = new Date()
           : null}
          </div>
       )
-      :<span>You haven't been called yet</span>}
+      :null}
     
         <form className="chat-page-scroller hide-scroll" onSubmit={sendMessage}>
           {pending ? <div className="loader"></div> : null}
@@ -453,7 +456,7 @@ let today = new Date()
                     placeholder="enter username"
                     id="chat-page-userinput"
                   />
-                  <button id="chat-page-inputbutton" onClick={onNameInput}>
+                  <button type="button" id="chat-page-inputbutton" onClick={onNameInput}>
                     Enter Name
                   </button>
                 </div>
