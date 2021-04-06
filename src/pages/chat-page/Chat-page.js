@@ -277,7 +277,7 @@ const  answerCall = async (videoId) => {
       if(videoData.receiverId === ''){
         await setVideoData({...videoData, receiverId: receiverInfo.recieverId, receiver: receiverInfo.recieverName})
       }
-      sendVideoData(videoData).catch(err =>console.log("error",err))
+      sendVideoData(videoData)
    
       setRoom(videoData.videoId)
        sendProfile(receiverInfo.recieverId);
@@ -351,13 +351,13 @@ let today = new Date()
           Chat Rooms{"  "}
         </Link>
 
-        <Link
+        {/* <Link
           onClick={toggleVideoBox}
           className="chat-page-roomlink"
           
         >
           VideoChat{"  "}
-        </Link>
+        </Link> */}
         <Link
          className="chat-page-roomlink"
           onClick={onToggleCallLog}

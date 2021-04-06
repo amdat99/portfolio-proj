@@ -11,7 +11,8 @@ export const sendVideoData = async (videoData) => {
   } = videoData;
 
   if(!receiverId){
-    return alert('connection error try again')
+    
+    return alert('connection error press video call again')
   }
   await fetch("https://aamirproject-api.herokuapp.com/addvideoinfo", {
 
