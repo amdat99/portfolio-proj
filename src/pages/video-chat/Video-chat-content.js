@@ -12,8 +12,8 @@ function VideoChatContent({ videoData, sendProfile, ref1, ref2 }) {
 
   return (
     <div className="video-chat-container">
-      <video className="video-chat-localstream" ref={ref1} autoPlay></video>
-      <video className="video-chat-remotestream" ref={ref2} autoPlay></video>
+      <video className="video-chat-localstream" ref={ref1} autoPlay controls ></video>
+      <video className="video-chat-remotestream" ref={ref2} autoPlay controls ></video>
       <br />
 
       {/* <button onClick={startCall}>start</button> */}

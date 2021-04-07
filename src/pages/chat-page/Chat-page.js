@@ -403,7 +403,7 @@ let today = new Date()
           { 
     
       receivedData?
-      receivedData.reverse().map( data =>
+      receivedData.map( data =>
         <div key = {data.videoid}>
           {toggleCallLog?
           
