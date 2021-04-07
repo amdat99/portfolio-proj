@@ -35,7 +35,7 @@ function VideoChatLog({data,openVideoBox, beginCall,getReceiverInfo}) {
  
 ?<div>
 <span>{data.sender} called at {data.date.slice(0, 10)} </span>
-<span>status is {data.senderstatus}</span>
+<span>call outgoing</span>
 {/* <button onClick={startVideoCall}>call</button> */}
 </div>
 

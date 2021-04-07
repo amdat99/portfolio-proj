@@ -162,13 +162,54 @@
   z-index: -1;
 }
 
+.chat-page-video-logs{
+
+  overflow-y: scroll;
+  max-height: 100px ;
+  background: white;
+  left: 25%;
+  position: fixed;
+  z-index: 555;
+  box-shadow: 2px 2px 2px 2px hsl(218, 60%, 92%);
+  top: 6%;
+
+  @media screen and (max-width: 1000px) {
+    max-width: 250px;
+    font-size: 13px;
+  }
+
+}
+
 .vid-container{
 display: flex;
 justify-content: center;
+position: fixed;
+z-index: 77;
+top: 6%;
+margin-left: 25%;
+
+@media screen and (max-width: 1200px) {
+  margin-left: 56%;
+  font-size: 15px;
+}
+
 
 
 
 }
+
+#vid-join-button{
+  margin-left: 5px;
+  @media screen and (max-width: 1200px) {
+    
+    font-size: 10px;
+    position: relative;
+    top: 60px;
+    left: -50px;
+    
+  }
+}
+
 
 .vid-animation{
   position: relative;
@@ -179,11 +220,19 @@ justify-content: center;
   max-height: 2px;
   background-color: rgb(9, 8, 8);
   position: relative;
-  animation: myfirst 5s linear 2s infinite
+  animation: myfirst 5s linear 2s infinite;
+  
+  @media screen and (max-width: 1200px) {
+    top: 40px;
+    right: 120px;
+  }
+  
 }
 
 @keyframes myfirst {
 
   50%  {background-color:rgba(72, 199, 125, 0.659);}
+
+  
 
 }

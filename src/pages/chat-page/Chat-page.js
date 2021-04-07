@@ -399,9 +399,11 @@ let today = new Date()
           placeholder="search name"
           onChange={onHandleSearch}
         />
-      { 
+        <div className="chat-page-video-logs">
+          { 
+    
       receivedData?
-      receivedData.map( data =>
+      receivedData.reverse().map( data =>
         <div key = {data.videoid}>
           {toggleCallLog?
           
@@ -411,7 +413,7 @@ let today = new Date()
           
           ?<div className="vid-container">
             <span>{data.sender} is connected </span>
-          <button onClick={()=>answerCall(data.videoid)}>Join Call</button>
+          <button id ='vid-join-button'onClick={()=>answerCall(data.videoid)}>Join Call</button>
           {/* <span onMouseEnter ={}>x</span> */}
           <div className="vid-animation"> {today.getHours() + ":" + today.getMinutes()}</div>
           </div>
@@ -419,6 +421,7 @@ let today = new Date()
          </div>
       )
       :null}
+      </div>
     
         <form className="chat-page-scroller hide-scroll" onSubmit={sendMessage}>
           {pending ? <div className="loader"></div> : null}
