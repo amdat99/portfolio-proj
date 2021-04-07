@@ -8,6 +8,7 @@ function MessageBox({
   incrementLikesPending,
   fetchMessage,
   scrollPosition,
+  sendMsgRequest
 }) {
   const { name, message, date, likes, image } = messageData;
   const [images, setImages] = useState(true);
@@ -16,6 +17,7 @@ function MessageBox({
   const incrementLikes = async () => {
     await incrementLikesPending(messageData);
     fetchMessage();
+    sendMsgRequest();
   };
   const imageToggle = () => {
     setImages(false);

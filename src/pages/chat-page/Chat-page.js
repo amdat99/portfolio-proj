@@ -184,7 +184,7 @@ function ChatPage({
     toggleShowImage();
     sendMessagePending(messageData);
     fetchMessagePending();
-    sendMsgRequest()
+    sendMsgRequest();
     if (currentUser) {
       setMessageData({
         userName: currentUser.displayName,
@@ -346,7 +346,7 @@ let today = new Date()
       <Suspense fallback={<div className="loader"></div>}>
         {/* <ChatRoom /> */}
         <div className={videoBox ? "chat-page-vidshow" : "chat-page-vidhide"}>
-          { currentUser && receivedData ? 
+         
           <div>
             {successMessage?
             <span>connection success</span>
@@ -362,7 +362,7 @@ let today = new Date()
             toggleVideoBox={toggleVideoBox}
           />
           </div>
-          : <span>sign in to video call </span>}
+         
     
        
         </div>
@@ -432,6 +432,7 @@ let today = new Date()
                   key={message.messageid}
                   fetchMessage={fetchMessagePending}
                   incrementLikesPending={incrementLikesPending}
+                  sendMsgRequest = {sendMsgRequest}
                 />
               ))
             : null}

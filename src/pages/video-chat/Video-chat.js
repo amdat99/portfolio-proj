@@ -64,10 +64,10 @@ class VideoChat extends React.Component {
       getCallerInfo,
     } = this.props;
 
-
+    if(this.props.currentUser){
     window.addEventListener('beforeunload', this.componentCleanup);
     getCallerInfo(currentUser.profileId);
-
+    }
     if (this.room) initiateSocket(this.room);
 
 
