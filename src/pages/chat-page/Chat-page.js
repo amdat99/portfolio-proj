@@ -107,7 +107,7 @@ function ChatPage({
   }, [currentUser]);
 
   useEffect(() => {
-    if(currentUser && receiverInfo)
+    if(currentUser && receiverInfo){
     setVideoData({
       videoId: (Math.random() * Math.random()) / Math.random(),
       senderId: currentUser.profileId,
@@ -116,17 +116,19 @@ function ChatPage({
       receiver: receiverInfo.recieverName,
       receiverJoined: "no",
     })
+  }
     
     },[currentUser,receiverInfo.recieverId,setVideoData])
 
   useEffect(() => {
     enterCall((err, data) => {
       if (err) return;
-
+      if(currentUser){
       if (data === currentUser.profileId) {
         getCallerInfo(currentUser.profileId);
         console.log("getting incoming call data");
       }
+    }
     
   });
       enterOnMessage((err, data) => {

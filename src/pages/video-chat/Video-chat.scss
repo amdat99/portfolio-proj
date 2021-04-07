@@ -2,9 +2,9 @@
   position: fixed;
   top: 30%;
   left: 30%;
-  z-index: 9;
-  @media screen and (max-width: 800px) {
-   left: 0px;
+  z-index: 999;
+  @media screen and (max-width: 1200px) {
+   left: -40px;
   }
 }
 
@@ -15,11 +15,21 @@
   position: relative;
   top: 50%;
   right: -100px;
+
+  @media screen and (max-width: 800px) {
+    width:100px;
+   }
 }
 
 video-chat-remotestream {
   width: 200px;
-  max-height: 200px;
+  
   position: relative;
   top: -200px;
-}
+
+  @media screen and (max-width: 800px) {
+    width: 100px;
+    max-height: 150px;
+   }
+
+  }
