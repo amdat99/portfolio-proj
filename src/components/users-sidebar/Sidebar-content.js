@@ -42,7 +42,7 @@ function SidebarContent({
 
     await getReceiverInfo(profileInfo);
     beginCall();
-    openVideoBox()
+    
 
   }
 

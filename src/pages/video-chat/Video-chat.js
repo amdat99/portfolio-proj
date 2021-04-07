@@ -166,7 +166,6 @@ class VideoChat extends React.Component {
  
   makeOffer = async () => {
     await this.createOffer();
-    this.createOffer();
   };
 
   /* ACTION METHODS FROM THE BUTTONS ON SCREEN */
@@ -194,12 +193,12 @@ class VideoChat extends React.Component {
   //   sendProfile(this.props.videoData.receiverId);
   // };
 
-  answerCall = async (videoId) => {
-    await this.setState({ room: videoId });
-    console.log("rrom", this.state.room);
+  // answerCall = async (videoId) => {
+  //   await this.setState({ room: videoId });
+  //   console.log("rrom", this.state.room);
 
-    sendId(videoId);
-  };
+  //   sendId(videoId);
+  // };
 
   createAnswer = () => {
     console.log("Answer");

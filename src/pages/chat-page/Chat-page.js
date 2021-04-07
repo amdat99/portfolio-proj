@@ -3,7 +3,9 @@ import React, { useEffect, useState, Suspense } from "react";
 import {
   enterCall,
   sendId,
-  sendProfile
+  sendProfile,
+  sendMsgRequest,
+  enterOnMessage
 
 } from "../../sockets/sockets";
 import { selectCurrentUser } from "../../redux/user/user.selectors";
@@ -125,11 +127,20 @@ function ChatPage({
         getCallerInfo(currentUser.profileId);
         console.log("getting incoming call data");
       }
-    });
-
-   
     
   });
+      enterOnMessage((err, data) => {
+        if (err) return;
+  
+        if (data === 'message') {
+         fetchMessagePending();
+          console.log("fetching messages");
+        }
+    });
+  })
+
+   
+
 
   useEffect(() => {
     setRender("render");
@@ -159,10 +170,10 @@ function ChatPage({
     }
   }, [currentUser, changeStatus]);
 
-  useEffect(() => {
-    const interval = setInterval(() => fetchMessagePending(), 4000);
-    return () => clearInterval(interval);
-  }, [fetchMessagePending]);
+  // useEffect(() => {
+  //   const interval = setInterval(() => fetchMessagePending(), 4000);
+  //   return () => clearInterval(interval);
+  // }, [fetchMessagePending]);
 
   const handleChange = (event) => {
     setMessageData({ ...messageData, message: event.target.value });
@@ -172,6 +183,8 @@ function ChatPage({
     event.preventDefault();
     toggleShowImage();
     sendMessagePending(messageData);
+    fetchMessagePending();
+    sendMsgRequest()
     if (currentUser) {
       setMessageData({
         userName: currentUser.displayName,
@@ -277,39 +290,50 @@ const  answerCall = async (videoId) => {
       if(videoData.receiverId === ''){
         await setVideoData({...videoData, receiverId: receiverInfo.recieverId, receiver: receiverInfo.recieverName})
       }
-      sendVideoData(videoData)
-   
+      sendVideoData(videoData).then((data) =>{
+        
+        if(data === 'error') {
+         return alert('call error')
+        }
+
+    openVideoBox();
+        
       setRoom(videoData.videoId)
        sendProfile(receiverInfo.recieverId);
+      })
       }catch(err){
       console.log("error",err)
     }
-   
-    }
-     
-    
   }
-   console.log(receiverInfo)
-  const uploadInfo = () => {
-    sendVideoData(videoData);
-    setRoom(videoData.videoId)
-     sendProfile(receiverInfo.recieverId);
   }
 
-  const putVideoData = () => {
-   
-    if(currentUser && receiverInfo){
-      setVideoData({
-        videoId: (Math.random() * Math.random()) / Math.random(),
-        senderId: currentUser.profileId,
-        sender: currentUser.displayName,
-        receiverId: receiverInfo.recieverId,
-        receiver: receiverInfo.recieverName,
-        receiverJoined: "no",
-      })
-    }
+  const onCallError =  () => {
+    beginCall()
+    setTimeout(function(){ beginCall()}, 1500);
+  }
+
   
-  };
+  //  console.log(receiverInfo)
+  // const uploadInfo = () => {
+  //   sendVideoData(videoData);
+  //   setRoom(videoData.videoId)
+  //    sendProfile(receiverInfo.recieverId);
+  // }
+
+  // const putVideoData = () => {
+   
+  //   if(currentUser && receiverInfo){
+  //     setVideoData({
+  //       videoId: (Math.random() * Math.random()) / Math.random(),
+  //       senderId: currentUser.profileId,
+  //       sender: currentUser.displayName,
+  //       receiverId: receiverInfo.recieverId,
+  //       receiver: receiverInfo.recieverName,
+  //       receiverJoined: "no",
+  //     })
+  //   }
+  
+  // };
 
   // const incrementTimer = (status) => {
   //   while (data === 'calling' )

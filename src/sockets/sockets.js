@@ -33,6 +33,23 @@ export const sendMessage = (room, message) => {
   if (socket) socket.emit("chat", { message, room });
 };
 
+
+export const enterOnMessage = (data) => {
+  if (!socket) return;
+  socket.on("onmessage", (message) => {
+    console.log("call started");
+    return data(null, message);
+  });
+};
+
+
+
+export const sendMsgRequest = () => {
+  console.log(" fetching messages");
+  if (socket) socket.emit("onmessage");
+}
+
+
 export const enterCall = (data) => {
   if (!socket) return;
   socket.on("begincall", (profileId) => {
@@ -40,6 +57,8 @@ export const enterCall = (data) => {
     return data(null, profileId);
   });
 };
+
+
 
 export const sendProfile = (profileId) => {
   console.log("works");
@@ -59,6 +78,8 @@ export const sendSDP = (sdp, videoId) => {
   console.log("offer sent");
 };
 
+
+
 export const enterCand = (data) => {
   if (!socket) return;
   socket.on("oncandidate", (candidate) => {
@@ -69,7 +90,7 @@ export const enterCand = (data) => {
 
 export const sendCand = (candidate, videoId) => {
   console.log("candidate sent");
-  if (socket) socket.emit("oncandidate", { candidate, videoId });
+  if (socket) socket.emit("oncandidate", { candidate });
 };
 
 export const checkJoined = (data) => {

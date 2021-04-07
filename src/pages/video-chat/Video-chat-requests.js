@@ -12,7 +12,7 @@ export const sendVideoData = async (videoData) => {
 
   if(!receiverId){
     
-    return alert('connection error press video call again')
+    return ('error')
   }
   await fetch("https://aamirproject-api.herokuapp.com/addvideoinfo", {
 
@@ -29,7 +29,7 @@ export const sendVideoData = async (videoData) => {
     }),
   })
     .then((res) => res.json())
-    .then((data) => {});
+    
 };
 
 export const setMissedCall = async (videoId) => {
