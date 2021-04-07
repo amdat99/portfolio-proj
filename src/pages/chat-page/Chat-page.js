@@ -293,7 +293,7 @@ const  answerCall = async (videoId) => {
       sendVideoData(videoData).then((data) =>{
         
         if(data === 'error') {
-         return alert('call error')
+         return alert('call error try again')
         }
 
     openVideoBox();
