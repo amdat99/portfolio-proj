@@ -28,3 +28,7 @@ export const selectUserName = createSelector(
   [selectCurrentUser],
   (currentUser) => currentUser.filter((userData) => userData.userName)
 );
+
+export const selectProfileName = createSelector([selectUser], (user) =>
+user.profileName ? user.profileName :[]
+);

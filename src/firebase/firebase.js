@@ -105,11 +105,12 @@ export const getProfileDoc = async (profileId) => {
 export const getProfileName = async (profileId) => {
   const collectionRef = firestore
     .collection("profile")
+   
     .where("profileId", "==", profileId);
   // get user collection data
   const collectionSnapShot = await collectionRef.get(); //
   return collectionSnapShot.docs.map((doc) => {
-    return { displayName: doc.data().displayName };
+    return  doc.data().displayName
   });
 };
 
@@ -340,6 +341,50 @@ export const getSearchFilteredDoc = async (collection, name) => {
     };
   });
 };
+
+
+export const setReviewsDoc = async (reviewData) => {
+  const reviewId = reviewData.productId + Math.random();
+  const collectionRef = firestore.doc(`reviews/${reviewId}}`);
+
+  console.log(reviewData.userName)
+  const {
+    review,
+    productId,
+    rating,
+    userName,
+    userId,
+    productName
+  } = reviewData;
+
+  const createdAt = new Date();
+
+  try {
+    await collectionRef.set({
+      userName,
+      rating,
+      productName,
+      review,
+      userId,
+      createdAt,
+      productId,
+    });
+  } catch (error) {
+    console.error("error creating new listing", error.message);
+  }
+};
+
+
+export const getReviewsDoc = async (collection) => {
+  if (!collection) return;
+  const collectionRef = firestore.collection(collection); // get user collection data
+  const collectionSnapShot = await collectionRef.get(); //
+  return collectionSnapShot.docs.map((doc) => {
+    return doc.data()
+  });
+};
+
+
 
 //profile picture functions:
 export const uploadImageToStorage = (profileimage, profileId) => {

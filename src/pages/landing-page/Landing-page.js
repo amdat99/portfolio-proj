@@ -4,13 +4,15 @@ import { changeStatus } from "../../redux/profile/profile.actions";
 import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "../../redux/user/user.selectors";
 import { connect } from "react-redux";
+import { fetchNamePending } from "../../redux/user/user.actions"
 
 import "./Landing-page.scss";
 
-function LandingPage({ currentUser, changeStatus }) {
+function LandingPage({ currentUser, changeStatus, fetchNamePending }) {
   useEffect(() => {
     if (currentUser !== null) {
       changeStatus(currentUser.profileId, "online");
+      fetchNamePending(currentUser.profileId)
     }
   }, [changeStatus, currentUser]);
 
@@ -81,6 +83,8 @@ function LandingPage({ currentUser, changeStatus }) {
 const mapDispatchToProps = (dispatch) => ({
   changeStatus: (profileId, status) =>
     dispatch(changeStatus({ profileId, status })),
+ fetchNamePending: (profileId) => dispatch(fetchNamePending(profileId))
+    
 });
 
 const mapStateToProps = createStructuredSelector({

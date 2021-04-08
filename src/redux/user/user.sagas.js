@@ -11,6 +11,8 @@ import {
   sendDirectMessageFailed,
   getRecievedMessageSuccess,
   getSentMessageSuccess,
+  fetchNameSuccess,
+  fetchNameFailed
 } from "./user.actions";
 
 import userActionTypes from "./user.types";
@@ -27,6 +29,7 @@ import {
   setMessageDoc,
   getRecievedMessageDoc,
   getSentMessageDoc,
+  getProfileName
 } from "../../firebase/firebase";
 
 export function* getSnapshotFromUserAuth(userData, additionalData) {
@@ -74,6 +77,16 @@ export function* sendDirectMessageAsync({
   }
 }
 
+export function* onGetProfileName({ payload:  profileId  }) {
+  console.log("dff", { payload: { profileId } });
+  try {
+    const profileName = yield getProfileName(profileId);
+    yield put(fetchNameSuccess(profileName));
+  } catch (error) {
+    yield put(fetchNameFailed(error));
+  }
+}
+
 export function* getSentMessageAsync({ payload: { userId } }) {
   try {
     const messagedata = yield getSentMessageDoc(userId);
@@ -84,7 +97,7 @@ export function* getSentMessageAsync({ payload: { userId } }) {
 }
 
 export function* getRecievedMessageAsync({ payload: { profileId } }) {
-  console.log("dff", { payload: { profileId } });
+
   try {
     const messagedata = yield getRecievedMessageDoc(profileId);
     yield put(getRecievedMessageSuccess(messagedata));
@@ -178,6 +191,13 @@ export function* onGetRecievedMessagePending() {
   );
 }
 
+export function* onGetProfileNamePending() {
+  yield takeLatest(
+    userActionTypes.FETCH_NAME_PENDING,
+    onGetProfileName
+  );
+}
+
 export function* userSagas() {
   yield all([
     call(onGoogleSignInPending),
@@ -189,5 +209,6 @@ export function* userSagas() {
     call(onSendMessagePending),
     call(onGetSentMessagePending),
     call(onGetRecievedMessagePending),
+    call(onGetProfileNamePending)
   ]);
 }

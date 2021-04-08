@@ -6,7 +6,7 @@ import {
 
 import "./Profile-messages.scss";
 
-function ProfileMessages({ currentUser }) {
+function ProfileMessages({ currentUser,profileName }) {
   const [recievedMessages, setRecievedMessages] = useState([]);
   const [sentMessages, setSentMessages] = useState([]);
 

@@ -7,6 +7,7 @@ const INITIAL_STATE = {
   profileId: null,
   sentMessage: null,
   recievedMessage: null,
+  profileName : null,
 };
 const userReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -14,6 +15,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
     case userActionTypes.EMAIL_SIGNIN_PENDING:
     case userActionTypes.GOOGLE_SIGNIN_PENDING:
     case userActionTypes.SIGNOUT_PENDING:
+    case userActionTypes.FETCH_NAME_PENDING:
       return {
         ...state,
         pending: true,
@@ -54,10 +56,18 @@ const userReducer = (state = INITIAL_STATE, action) => {
         error: null,
         recievedMessage: action.payload,
       };
+      case userActionTypes.FETCH_NAME_SUCCESS:
+      return {
+        ...state,
+        pending: false,
+        error: null,
+        profileName: action.payload,
+      };
 
     case userActionTypes.SIGNIN_FAILED:
     case userActionTypes.SIGNOUT_FAILED:
     case userActionTypes.SIGN_UP_FAILURE:
+    case userActionTypes.FETCH_NAME_FAILURE:
       return {
         ...state,
         pending: false,

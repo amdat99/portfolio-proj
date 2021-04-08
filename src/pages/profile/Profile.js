@@ -14,15 +14,18 @@ import {
   selectCurrentUser,
   selectRecievedMessages,
   selectSentMessages,
+  selectProfileName
 } from "../../redux/user/user.selectors";
 import {
   getRecievedMessagePending,
   getSentMessagePending,
+  fetchNamePending
 } from "../../redux/user/user.actions";
 import {
   selectCurrentImage,
   // selectReceiverInfo,
 } from "../../redux/profile/profile.selectors";
+import { fetchProfileInfoPending } from '../../redux/profile/profile.actions'
 import {
   uploadImageToStorage,
   getSentMessageDoc,
@@ -65,6 +68,8 @@ function Profile({
   fetchProductPending,
   toggleMessageBox,
   profileName,
+  fetchNamePending,
+  fetchProfileInfoPending
 }) {
   const [uploadDropdown, setUploadDropdown] = useState(false);
   const [shopToggle, setShopToggle] = useState(false);
@@ -94,7 +99,10 @@ function Profile({
   }, [getSentMessageDoc, currentUser, sentMessages]);
 
   useEffect(() => {
+    if(currentUser){
     fetchSellingItemsPending(currentUser.profileId);
+    fetchNamePending(currentUser.profileId)
+    }
     //eslint-disable-next-line
   }, [fetchSellingItemsPending, currentUser]);
 
@@ -102,7 +110,10 @@ function Profile({
     setUploadDropdown(!uploadDropdown);
   };
 
-  const fetchProfileName = async () => {
+  const fetchProfileName = async () => {  
+    const request = await getProfileName(currentUser.profileId);
+    setDisplayNameData(request);
+   };
     <span
       id="profile-update-name"
       type="button"
@@ -113,9 +124,8 @@ function Profile({
     >
       update name
     </span>;
-    const request = await getProfileName(currentUser.profileId);
-    setDisplayNameData(request);
-  };
+  
+ 
 
   const toggleShopFeatures = () => {
     setShopToggle(!shopToggle);
@@ -130,10 +140,18 @@ function Profile({
     setUserName(event.target.value);
   };
 
-  const onUpdateName = () => {
-    updateDisplayName(currentUser.profileId, userName);
-    updateDisplayNameforUsers(currentUser.id, userName);
-  };
+  const onUpdateName = async () => {
+   await  updateDisplayName(currentUser.profileId, userName);
+    await updateDisplayNameforUsers(currentUser.id, userName);
+     fetchNamePending()
+  
+};
+
+const refreshPage = () => {
+    
+    setTimeout(function(){ window.location.reload();}, 1000);
+    
+}
 
   return (
     <div className="profile-container">
@@ -170,6 +188,7 @@ function Profile({
                     toggleModal={toggleModal}
                     currentImag={currentImage}
                     getProfileImage={getProfileImage}
+                    profileName ={profileName}
                   />
                 </div>
               ) : null}
@@ -178,20 +197,23 @@ function Profile({
               onSubmit={() => {
                 onUpdateName();
                 toggleModal();
+                refreshPage();
+                
+                
               }}
             >
               {displayNameData
-                ? displayNameData.map((name) => (
+                ? 
                     <input
                       id="profile-greeting"
                       type="text"
-                      placeholder={"Hello " + name.displayName}
+                      placeholder={"Hello " + displayNameData.toString()}
                       onChange={onNameChange}
                       required
                       aria-label="change displa name"
                       label="name"
                     />
-                  ))
+                  
                 : null}
               <button id="profile-update-name" type="submit">
                 update name
@@ -223,7 +245,7 @@ function Profile({
               </div>
             ) : (
               <div>
-                {selectMessageBox ? <DirectMessagingBox /> : null}
+                {selectMessageBox ? <DirectMessagingBox profileName={profileName} /> : null}
                 <div className="profile-messagebox-container hide-scroll ">
                   {" "}
                   {currentUser ? (
@@ -235,6 +257,7 @@ function Profile({
                         sentMessages={sentMessages}
                         currentUser={currentUser}
                         recievedMessages={recievedMessages}
+                        profileName={profileName}
                       />
                     </div>
                   ) : (
@@ -274,6 +297,8 @@ const mapDispatchToProps = (dispatch) => ({
   getSentMessagePending: (userId) => dispatch(getSentMessagePending(userId)),
   fetchProductPending: (productId) => dispatch(fetchProductPending(productId)),
   toggleMessageBox: () => dispatch(toggleMessageBox()),
+  fetchNamePending: (profileId) => dispatch(fetchNamePending(profileId)),
+  fetchProfileInfoPending: () => dispatch(fetchProfileInfoPending())
 });
 
 const mapStateToProps = createStructuredSelector({
@@ -285,6 +310,8 @@ const mapStateToProps = createStructuredSelector({
   recievedMessages: selectRecievedMessages,
   sentMessages: selectSentMessages,
   selectMessageBox: selectMessageBox,
+  profileName: selectProfileName,
+  
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

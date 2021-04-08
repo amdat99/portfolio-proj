@@ -3,17 +3,27 @@ import React, { useEffect, useState } from "react";
 import StorePageDirectory from "../../components/store-page-directory/Store-page-directory";
 import SharedHeader from "../../components/shared-header/Shared-header";
 
+
 import { setHeaderRoute } from "../../redux/header/header.actions";
+
+import { selectCurrentUser } from "../../redux/user/user.selectors";
 
 import { connect } from "react-redux";
 
-function StorePage({ setHeaderRoute, match }) {
+function StorePage({ setHeaderRoute, match,currentUser,fetchNamePending }) {
   const [route] = useState("store");
 
   useEffect(() => {
     setHeaderRoute(route);
     // eslint-disable-next-line
   }, [setHeaderRoute]);
+
+  useEffect(() => {
+    if(currentUser){
+
+    }
+
+  },[currentUser])
 
   return (
     <div>
@@ -24,8 +34,12 @@ function StorePage({ setHeaderRoute, match }) {
   );
 }
 
+
+
 const mapDispatchToProps = (dispatch) => ({
   setHeaderRoute: (route) => dispatch(setHeaderRoute(route)),
+
+  
 });
 
 export default connect(null, mapDispatchToProps)(StorePage);

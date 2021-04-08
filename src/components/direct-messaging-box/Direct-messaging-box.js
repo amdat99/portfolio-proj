@@ -22,6 +22,7 @@ function DirectMessagingBox({
   profileId,
   displayName,
   sendDirectMessagePending,
+  profileName,
   openModal,
   recieverInfo,
 }) {
@@ -40,7 +41,7 @@ function DirectMessagingBox({
   useEffect(() => {
     if (currentUser && recieverInfo) {
       setMessageData({
-        senderName: currentUser.displayName,
+        senderName: profileName.toString(),
         senderId: currentUser.profileId,
         recieverId: recieverInfo.recieverId,
         recieverName: recieverInfo.recieverName,
@@ -57,7 +58,7 @@ function DirectMessagingBox({
     if (currentUser.profileId !== recieverInfo.recieverId) {
       setMessageDoc(messageData);
       setMessageData({
-        senderName: currentUser.displayName,
+        senderName: profileName.toString(),
         senderId: currentUser.profileId,
         recieverId: profileId,
         message: "",

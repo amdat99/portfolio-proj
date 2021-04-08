@@ -1,5 +1,6 @@
 import React, { useEffect, useState, Suspense } from "react";
 
+
 import {
   enterCall,
   sendId,
@@ -8,7 +9,8 @@ import {
   enterOnMessage
 
 } from "../../sockets/sockets";
-import { selectCurrentUser } from "../../redux/user/user.selectors";
+import { selectCurrentUser, selectProfileName } from "../../redux/user/user.selectors";
+import {fetchNamePending} from "../../redux/user/user.actions"
 import {
   selectMessagesData,
   selectMessagesPending,
@@ -20,6 +22,7 @@ import { createStructuredSelector } from "reselect";
 import {
   changeStatus,
   fetchProfileInfoPending,
+  
 } from "../../redux/profile/profile.actions";
 
 import { selectProfileInfo, selectReceiverInfo } from "../../redux/profile/profile.selectors";
@@ -71,7 +74,8 @@ function ChatPage({
   openVideoBox,
   receiverInfo,
   successMessage,
-  toggleSucBox
+  fetchNamePending,
+  profileName
 }) {
   const [searchField, setSearchField] = useState("");
   const [messageData, setMessageData] = useState({
@@ -103,15 +107,16 @@ function ChatPage({
   useEffect(() => {
     if(currentUser){
     getCallerInfo(currentUser.profileId);
+    fetchNamePending(currentUser.profileId)
     }
-  }, [currentUser]);
+  }, [currentUser,fetchNamePending]);
 
   useEffect(() => {
     if(currentUser && receiverInfo){
     setVideoData({
       videoId: (Math.random() * Math.random()) / Math.random(),
       senderId: currentUser.profileId,
-      sender: currentUser.displayName,
+      sender: profileName.toString(),
       receiverId: receiverInfo.recieverId,
       receiver: receiverInfo.recieverName,
       receiverJoined: "no",
@@ -153,7 +158,7 @@ function ChatPage({
   useEffect(() => {
     if (currentUser !== null) {
       setMessageData({
-        userName: currentUser.displayName,
+        userName: profileName.toString(),
         userId: currentUser.profileId,
         messageId: Math.random(),
       });
@@ -164,7 +169,7 @@ function ChatPage({
         messageId: Math.random(),
       });
     }
-  }, [currentUser, changeStatus, getProfileInfo]);
+  }, [currentUser, changeStatus, getProfileInfo,profileName]);
 
   useEffect(() => {
     if (currentUser) {
@@ -176,6 +181,8 @@ function ChatPage({
   //   const interval = setInterval(() => fetchMessagePending(), 4000);
   //   return () => clearInterval(interval);
   // }, [fetchMessagePending]);
+
+  console.log(profileName)
 
   const handleChange = (event) => {
     setMessageData({ ...messageData, message: event.target.value });
@@ -189,7 +196,7 @@ function ChatPage({
     sendMsgRequest();
     if (currentUser) {
       setMessageData({
-        userName: currentUser.displayName,
+        userName: profileName.toString(),
         userId: currentUser.id,
         messageId: Math.random(),
         message: "",
@@ -523,7 +530,8 @@ const mapStateToProps = createStructuredSelector({
   profileInfo: selectProfileInfo,
   videoBox: selectVideoBox,
   receiverInfo: selectReceiverInfo,
-  successMessage: selectSucBox
+  successMessage: selectSucBox,
+  profileName: selectProfileName
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -539,6 +547,7 @@ const mapDispatchToProps = (dispatch) => ({
   toggleVideoBox: () => dispatch(toggleVideoBox()),
   openVideoBox : () => dispatch(openVideoBox()),
   toggleSucBox: () => dispatch(toggleSucBox()),
+  fetchNamePending: (profileId) => dispatch(fetchNamePending(profileId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatPage);
