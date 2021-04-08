@@ -21,7 +21,8 @@
   padding-left: 100px;
   padding: 0;
   @media screen and (max-width: 800px) {
-    right: -20px;
+    right: -40px;
+    top: -6px;
     position: relative;
   }
 
@@ -30,6 +31,17 @@
     max-width: 500px;
   }
 }
+
+#message-box-profile {
+  border-radius: 20px;
+  position: relative;
+  right: 15px;
+  @media screen and (max-width: 800px) {
+    right: 50px;
+    position: relative;
+  }
+}
+
 
 #message-box-date {
   display: flex;

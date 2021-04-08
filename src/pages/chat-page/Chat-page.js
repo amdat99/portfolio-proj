@@ -442,6 +442,7 @@ let today = new Date()
                   fetchMessage={fetchMessagePending}
                   incrementLikesPending={incrementLikesPending}
                   sendMsgRequest = {sendMsgRequest}
+                  currentUser={currentUser}
                 />
               ))
             : null}
