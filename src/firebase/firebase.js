@@ -375,9 +375,10 @@ export const setReviewsDoc = async (reviewData) => {
 };
 
 
-export const getReviewsDoc = async (collection) => {
-  if (!collection) return;
-  const collectionRef = firestore.collection(collection); // get user collection data
+export const getReviewsDoc = async (productId) => {
+  if (!productId) return;
+  const collectionRef = firestore.collection('reviews')
+  .where("productId", "==", productId) // get user collection data
   const collectionSnapShot = await collectionRef.get(); //
   return collectionSnapShot.docs.map((doc) => {
     return doc.data()

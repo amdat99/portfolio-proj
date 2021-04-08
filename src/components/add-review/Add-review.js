@@ -3,16 +3,16 @@ import { connect } from 'react-redux'
 import { createStructuredSelector } from "reselect";
 import { fetchNamePending } from '../../redux/user/user.actions';
 import {  selectProfileName} from "../../redux/user/user.selectors";
-import { setReviewsDoc } from '../../firebase/firebase'
+import { setReviewsDoc,getReviewsDoc, } from '../../firebase/firebase'
 
 import './Add-review.scss'
 
-function AddReview({currentUser,profileName,item}) {
+function AddReview({currentUser,profileName,item,getReviewData}) {
 
    const [ratings, setRating] = useState([1,2,3,4,5]) 
     const [reviewData, setReviewData] = useState({userName: profileName.toString(), 
     productName: '', review: '',rating: '', userId: currentUser.profileId, productId: '' })
-   
+
  
 
     useEffect(()=>{
@@ -35,6 +35,7 @@ function AddReview({currentUser,profileName,item}) {
 
     useEffect(()=> {
       setReviewData({productName:item.name,productId: item.productId})
+      
     },[item])
     
     useEffect(()=>{
@@ -55,15 +56,14 @@ const onSendReview = async (event) => {
   try{
    
    await setReviewsDoc(reviewData) 
+   getReviewData()
     
   }catch(e){
     console.log('error setting review', e)
   }
 }
 
-// const onFailed = () => {
-//   setTimeout(function(){ se }, 1000);
-// }
+
    return (
         <div className = 'add-review-cont'>
         <form onSubmit ={onSendReview}>
