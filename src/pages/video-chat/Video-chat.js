@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import VideoChatContent from "./Video-chat-content";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
+import Draggable from 'react-draggable'; 
 import {
   sendVideoData,
   getCallerInfo,
@@ -227,7 +228,7 @@ class VideoChat extends React.Component {
         <div>
    
         </div>
-
+        
         <VideoChatContent
           ref1={this.localVideoref}
           ref2={this.remoteVideoref}

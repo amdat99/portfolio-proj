@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Suspense } from "react";
 import { Link } from "react-router-dom";
 
+import Draggable from 'react-draggable'
 import { connect } from "react-redux";
 import { toggleModal, toggleMessageBox } from "../../redux/modal/modal.actions";
 import { fetchProfileImagePending } from "../../redux/profile/profile.actions";
@@ -154,6 +155,8 @@ const refreshPage = () => {
 }
 
   return (
+    <div>
+    <Draggable>
     <div className="profile-container">
       {currentUser ? (
         <div>
@@ -284,7 +287,7 @@ const refreshPage = () => {
       >
         X
       </button>
-    </div>
+    </div></Draggable></div>
   );
 }
 
