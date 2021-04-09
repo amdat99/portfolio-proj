@@ -157,16 +157,16 @@ export const getRecievedMessageDoc = async (recieverId) => {
   if (!recieverId) return;
   const collectionRef = firestore
     .collection("message")
-    .orderBy("createdAt", "desc")
+    .orderBy("createdAt", "asc")
     .where("recieverId", "==", recieverId);
   const collectionSnapShot = await collectionRef.get(); //
   return collectionSnapShot.docs.map((doc) => {
     return {
-      senderName: doc.data().senderName,
-      recieverName: doc.data().recieverName,
       message: doc.data().message,
-      createdAt: doc.data().createdAt,
+      createdAt: doc.data().date,
       senderId: doc.data().senderId,
+      senderName: doc.data().senderName,
+      createdAt: doc.data().createdAt,
     };
   });
 };
@@ -175,7 +175,7 @@ export const getSentMessageDoc = async (senderId) => {
   if (!senderId) return;
   const collectionRef = firestore
     .collection("message")
-    .orderBy("createdAt", "desc")
+    .orderBy("createdAt", "asc")
     .where("senderId", "==", senderId);
   const collectionSnapShot = await collectionRef.get(); //
   return collectionSnapShot.docs.map((doc) => {

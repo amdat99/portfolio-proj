@@ -7,8 +7,8 @@ import {
 import "./Profile-messages.scss";
 
 function ProfileMessages({ currentUser,profileName }) {
-  const [recievedMessages, setRecievedMessages] = useState([]);
-  const [sentMessages, setSentMessages] = useState([]);
+  const [recievedMessages, setRecievedMessages] = useState(null);
+  const [sentMessages, setSentMessages] = useState(null);
 
   useEffect(() => {
     getSentMessages();
@@ -30,7 +30,7 @@ function ProfileMessages({ currentUser,profileName }) {
 
   const getRecievedMessages = async () => {
     const request = await getRecievedMessageDoc(currentUser.profileId);
-    setRecievedMessages(request);
+   setRecievedMessages(request);
   };
 
   const getSentMessages = async () => {
@@ -40,7 +40,8 @@ function ProfileMessages({ currentUser,profileName }) {
 
   return (
     <div className="profile-messages-container">
-      {recievedMessages.map((sentMessage, i) => (
+      {recievedMessages?
+      recievedMessages.map((sentMessage, i) => (
         <ul key={i} id="message-box-container">
           <span> {sentMessage.senderName}:</span>
           <span id="message-box-message"> {sentMessage.message} </span>
@@ -48,8 +49,9 @@ function ProfileMessages({ currentUser,profileName }) {
             {sentMessage.createdAt}
           </span>
         </ul>
-      ))}
-      {sentMessages.map((message, i) => (
+      )):null}
+      {sentMessages?
+        sentMessages.map((message, i) => (
         <ul key={i} id="message-box-container">
           <span id="profile-messages-sent"> {message.message} </span>
           <span id="profile-messages-sent-date">
@@ -57,7 +59,7 @@ function ProfileMessages({ currentUser,profileName }) {
           </span>
           <span></span>
         </ul>
-      ))}
+      )):null}
       )
     </div>
   );

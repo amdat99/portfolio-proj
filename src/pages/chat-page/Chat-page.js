@@ -408,13 +408,11 @@ let today = new Date()
           placeholder="search name"
           onChange={onHandleSearch}
         />
-        <div className="chat-page-video-logs">
-          { 
-    
+        <div className= {toggleCallLog?'chat-page-video-logs':null}>
+      {
       receivedData?
-      receivedData.map( data =>
-        <div key = {data.videoid}>
-          {toggleCallLog?
+      receivedData.map(data =>
+      <div key = {data.videoid}>{toggleCallLog?
           
           <VideoChatLog  data = {data} openVideoBox  ={openVideoBox} beginCall = {beginCall}/>
             :null}

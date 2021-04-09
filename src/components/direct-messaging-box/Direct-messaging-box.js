@@ -53,6 +53,8 @@ function DirectMessagingBox({
     setMessageData({ ...messageData, message: event.target.value });
   };
 
+  console.log(messageData)
+
   const onSend = async (event) => {
     event.preventDefault();
     if (currentUser.profileId !== recieverInfo.recieverId) {
@@ -60,9 +62,9 @@ function DirectMessagingBox({
       setMessageData({
         senderName: profileName.toString(),
         senderId: currentUser.profileId,
-        recieverId: profileId,
+        recieverId: recieverInfo.recieverId,
         message: "",
-        recieverName: displayName,
+        recieverName: recieverInfo.recieverName,
       });
     } else alert("dont send yourself a message please");
   };
