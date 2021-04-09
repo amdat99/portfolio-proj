@@ -4,19 +4,20 @@
   display: flex;
   flex-direction: column;
 
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 1000px) {
     left: -75px;
     margin-right: 50px;
     margin-left: 40px;
+    font-size:12px;
   }
 }
 .profile-messages-recieved {
   margin-bottom: 5px;
 }
 #profile-messages-sent {
-  right: -260px;
+  right: -215px;
   position: relative;
-  bottom: 520px;
+ 
   background: rgb(53, 160, 62);
   margin-left: 5%;
   border-radius: 20px;
@@ -27,17 +28,51 @@
   word-break: break-all;
   flex-direction: column;
   margin-bottom: 5px;
+  max-width: 120px;
+  padding: 5px;
 
   @media screen and (max-width: 1000px) {
-    right: -170px;
+    right: -160px;
+    max-width: 100px;
+  }
+}
+
+#profile-messages-sentcont{
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+
+}
+
+
+#profile-messages-recieved {
+  
+  background: rgb(205, 236, 255);
+  margin-left: 5%;
+  border-radius: 20px;
+  box-shadow: 2px 2px 2px 2px grey;
+  display: flex;
+  padding-right: 10px;
+  padding-left: 5px;
+  word-break: break-all;
+  flex-direction: column;
+  margin-bottom: 5px;
+  max-width: 120px;
+  padding: 5px;
+
+  @media screen and (max-width: 1000px) {
+    position: relative;
+  right: 10px;
+    max-width: 100px;
   }
 }
 
 #profile-messages-sent-date {
-  font-size: 12px;
-  right: -150px;
-  position: relative;
-  bottom: 495px;
+  font-size: 10px;
+  z-index: 888;
+  background: transparent;
+  color: whitesmoke;
+
 
   @media screen and (max-width: 1000px) {
     right: -80px;
@@ -45,12 +80,15 @@
 }
 
 #profile-messages-recieved-date {
-  font-size: 12px;
-  right: 50px;
-  position: relative;
-  top: 32px;
+  font-size: 11px;
+ display: flex;
+position: relative;
+margin-top: 10px;
+  background: transparent;
+  color: rgb(145, 32, 32);
 
   @media screen and (max-width: 1000px) {
-    right: 55px;
+    font-size:9px;
+    justify-content: flex-end;
   }
 }

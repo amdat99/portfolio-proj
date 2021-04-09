@@ -43,23 +43,25 @@ function ProfileMessages({ currentUser,profileName }) {
       {recievedMessages?
       recievedMessages.map((sentMessage, i) => (
         <ul key={i} id="message-box-container">
-          <span> {sentMessage.senderName}:</span>
-          <span id="message-box-message"> {sentMessage.message} </span>
-          <span id="profile-messages-recieved-date">
+          <span style={{maxWidth: '50px'}}> {sentMessage.senderName}:</span>
+          <span style={{maxWidth: '120px'}} id="profile-messages-recieved"> {sentMessage.message} <div id="profile-messages-recieved-date">
             {sentMessage.createdAt}
-          </span>
+          </div>  </span> 
+       
         </ul>
       )):null}
       {sentMessages?
-        sentMessages.map((message, i) => (
-        <ul key={i} id="message-box-container">
-          <span id="profile-messages-sent"> {message.message} </span>
-          <span id="profile-messages-sent-date">
+      <div id="profile-messages-sentcont">
+        {sentMessages.map((message, i) => (
+        <ul key={i} >
+          <span id="profile-messages-sent"> {message.message}    <span id="profile-messages-sent-date">
             to {message.recieverName} {message.createdAt}{" "}
-          </span>
+          </span></span>
+       
           <span></span>
         </ul>
-      )):null}
+      ))}
+      </div>:null}
       )
     </div>
   );

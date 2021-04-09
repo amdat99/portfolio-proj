@@ -92,6 +92,7 @@ input {
   padding-left: 10px;
   padding-top: 6px;
   height: fit-content;
+  max-width: 40%;
 
   word-break: break-all;
 
