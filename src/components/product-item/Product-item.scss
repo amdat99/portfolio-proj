@@ -92,13 +92,20 @@
 }
 
 .product-item-reviews{
-  position: relative;
-  top: 30px;
-  right: inherit;
+  position: absolute;
+  top: 120%;
+  box-shadow: 2px 2px 2px 2px whitesmoke;
   background: whitesmoke;
   border-radius: 24px;
   padding: 10px;
   width: fit-content;
+  max-width: 700px;
+  overflow-y: scroll;
+  max-height:400px;
+  @media screen and (max-width: 800px) {
+    max-height:300px;
+    top: 130%;
+  }
 }
 
 #product-item-price {
@@ -115,4 +122,11 @@
     position: relative;
     top: 50px;
   }
+}
+
+
+#review-rating {
+  position: relative;
+  left: -2%;
+ 
 }

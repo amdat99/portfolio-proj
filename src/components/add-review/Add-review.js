@@ -67,7 +67,7 @@ const onSendReview = async (event) => {
    return (
         <div className = 'add-review-cont'>
         <form onSubmit ={onSendReview}>
-        <input
+        <textarea
           className=""
           type="text"
           name="review"
@@ -81,11 +81,10 @@ const onSendReview = async (event) => {
 <p>Choose Rating</p>
         {
         ratings.map((rating, i) => (
-          <div className="additems-categories" key={i}>
+          <div className="review-cat" key={i}>
             {" "}
             {rating}
             <input
-              className=""
               type="radio"
               name="rating"
               value={rating}

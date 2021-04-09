@@ -6,6 +6,7 @@ function ProfileIconDropdown({
   currentImage,
   getProfileImage,
   toggleModal,
+  fetchProfileInfoPending
 }) {
   const [uploadProfileimage, setUploadprofileimage] = useState(null);
 
@@ -31,6 +32,8 @@ function ProfileIconDropdown({
     await getProfileImage(currentUser.profileId);
     setUploadprofileimage(null);
     toggleModal();
+    setTimeout(function(){ window.location.reload();}, 1000);
+    
   };
 
   return (

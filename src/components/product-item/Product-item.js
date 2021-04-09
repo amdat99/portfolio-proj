@@ -5,7 +5,9 @@ import "./Product-item.scss";
 
 function ProductItem({ item, incrementItem,currentUser }) {
   const { name, price, picture, description, soldBy,productId } = item;
+  const [toggleReviewBut, setToggleReviewBut] = useState(false)
   const [toggleReview, setToggleReview] = useState(false)
+
   const [fethedReviews, setFetchedReviews] = useState(null) 
 
   useEffect(() => {
@@ -18,7 +20,11 @@ function ProductItem({ item, incrementItem,currentUser }) {
     '"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."';
 
     const toggleButton = () => {
-      setToggleReview(!toggleReview)
+      setToggleReviewBut(!toggleReviewBut);
+    }
+    
+    const onToggleReview = () => {
+      setToggleReviewBut(!toggleReviewBut);
     }
 
     const getReviewData = async () => {
@@ -57,18 +63,19 @@ function ProductItem({ item, incrementItem,currentUser }) {
           {fethedReviews?
             fethedReviews.map(data =>
               <div key={data.productId}>
-                <img   src={`        https://firebasestorage.googleapis.com/v0/b/aamir-project-492ef.appspot.com/o/images%2Fprofile${data.userId}?alt=media&token=b54a3d9a-0bac-44b8-9035-717aa90cb4e6`}
-                alt='profile' width ='40'/>
-              <span>{data.userName}: {'  '}  </span>
-            <span>{  '  ', data.review}</span> {''}{'    rating: '}
-              <span>{data.rating}</span>
+                <img   src={`        https://firebasestorage.googleapis.com/v0/b/tada-proj.appspot.com/o/images%2Fprofile${data.userId}?alt=media&token=e4485410-0836-4e25-b5e0-754eed7aec02`}
+                alt='profile' width ='25'  style={{width:'6%', height:'35px', borderRadius:'70px'}} />
+              <span style={{width:'10%',marginLeft: '10px',fontWeight:'bold'}} >{data.userName}: {'  '}  </span>
+            <span style={{maxWidth:'100px' ,marginLeft: '20px'}}>{  '  ', data.review}</span> {''}
+              <span id='review-rating' style={{width:'10%', marginLeft: '20px',color:'green'}}>{'    rating: '}{data.rating}⭐</span>
+              <hr/>
                 </div>
             )
 
           : <h3>no reviews</h3>}</div>
         </div>     
       </div>
-    { toggleReview ?
+    { toggleReviewBut ?
     <AddReview item = {item} currentUser={currentUser} getReviewData = {getReviewData}/>  
 :null} 
     </div>

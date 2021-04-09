@@ -189,6 +189,7 @@ const refreshPage = () => {
                     currentImag={currentImage}
                     getProfileImage={getProfileImage}
                     profileName ={profileName}
+                    fetchProfileInfoPending={fetchProfileInfoPending}
                   />
                 </div>
               ) : null}
