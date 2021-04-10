@@ -96,7 +96,7 @@ export const AddItems = ({ currentUser, error, profileName }) => {
   return (
     <div>
       <form className="sign-on-container" onSubmit={handleSubmit}>
-        <h1 style={{ marginRight: "20px" }}>List your Item</h1>
+        <h1 style={{ marginRight: "65px" }}>List your Item</h1>
 
         <input
           className="sign-on-input"

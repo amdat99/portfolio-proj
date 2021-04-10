@@ -3,13 +3,14 @@ import { connect } from 'react-redux'
 import { createStructuredSelector } from "reselect";
 import { fetchNamePending } from '../../redux/user/user.actions';
 import {  selectProfileName} from "../../redux/user/user.selectors";
-import { setReviewsDoc,getReviewsDoc, } from '../../firebase/firebase'
+import { setReviewsDoc, } from '../../firebase/firebase'
+import Draggable from 'react-draggable'
 
 import './Add-review.scss'
 
 function AddReview({currentUser,profileName,item,getReviewData}) {
 
-   const [ratings, setRating] = useState([1,2,3,4,5]) 
+   const [ratings] = useState([1,2,3,4,5]) 
     const [reviewData, setReviewData] = useState({userName: profileName.toString(), 
     productName: '', review: '',rating: '', userId: currentUser.profileId, productId: '' })
 
@@ -25,7 +26,7 @@ function AddReview({currentUser,profileName,item,getReviewData}) {
       if(profileName){
         setReviewData({userName: currentUser.displayName})
       }
-    },[profileName,currentUser]) 
+    },[currentUser,profileName]) 
     
     useEffect(()=>{
     if(currentUser){
@@ -40,6 +41,7 @@ function AddReview({currentUser,profileName,item,getReviewData}) {
     
     useEffect(()=>{
       setReviewData({...reviewData,productName: item.name, productId: item.productId, userName: profileName.toString(), userId: currentUser.profileId})
+       //eslint-disable-next-line
     },[])
     const handleChange = (event) => {
      
@@ -47,7 +49,7 @@ function AddReview({currentUser,profileName,item,getReviewData}) {
         setReviewData({ ...reviewData, [name]: value });
       };
 
-      console.log(reviewData)
+      
 
 
 const onSendReview = async (event) => {
@@ -65,6 +67,8 @@ const onSendReview = async (event) => {
 
 
    return (
+     <div>
+       <Draggable>
         <div className = 'add-review-cont'>
         <form onSubmit ={onSendReview}>
         <textarea
@@ -100,7 +104,7 @@ const onSendReview = async (event) => {
         <button >submit</button>
         </form >
         
-      </div>
+      </div></Draggable></div>
     );
 }
 

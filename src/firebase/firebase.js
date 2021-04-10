@@ -4,13 +4,13 @@ import "firebase/auth";
 import "firebase/storage";
 
 const config = {
-  apiKey: "AIzaSyCV-jxf099VUNmHcvk7J5FR5rzWr1za-Gc",
-  authDomain: "tada-proj.firebaseapp.com",
-  projectId: "tada-proj",
-  storageBucket: "tada-proj.appspot.com",
-  messagingSenderId: "452910579347",
-  appId: "1:452910579347:web:8a8ab4e7a2856ce18a1766",
-  measurementId: "G-38WWV7HX7T"
+  apiKey: "AIzaSyCCUAnG030Pik83ErdX3DyHBqypx0qTM1A",
+  authDomain: "aamir-project-492ef.firebaseapp.com",
+  projectId: "aamir-project-492ef",
+  storageBucket: "aamir-project-492ef.appspot.com",
+  messagingSenderId: "926729331205",
+  appId: "1:926729331205:web:623421273d59ce346ff26c",
+  measurementId: "G-KGV9XG51P2"
 };
 
 //user functions:
@@ -163,7 +163,6 @@ export const getRecievedMessageDoc = async (recieverId) => {
   return collectionSnapShot.docs.map((doc) => {
     return {
       message: doc.data().message,
-      createdAt: doc.data().date,
       senderId: doc.data().senderId,
       senderName: doc.data().senderName,
       createdAt: doc.data().createdAt,
@@ -181,7 +180,7 @@ export const getSentMessageDoc = async (senderId) => {
   return collectionSnapShot.docs.map((doc) => {
     return {
       message: doc.data().message,
-      createdAt: doc.data().date,
+
       senderId: doc.data().senderId,
       recieverName: doc.data().recieverName,
       createdAt: doc.data().createdAt,

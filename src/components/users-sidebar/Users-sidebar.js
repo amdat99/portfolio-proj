@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import SidebarContent from "./Sidebar-content";
 
 import { connect } from "react-redux";

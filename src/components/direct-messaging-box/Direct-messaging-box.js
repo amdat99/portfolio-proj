@@ -47,13 +47,13 @@ function DirectMessagingBox({
         recieverName: recieverInfo.recieverName,
       });
     }
-  }, [currentUser, recieverInfo]);
+  }, [currentUser, recieverInfo,profileName]);
 
   const onMessage = (event) => {
     setMessageData({ ...messageData, message: event.target.value });
   };
 
-  console.log(messageData)
+
 
   const onSend = async (event) => {
     event.preventDefault();

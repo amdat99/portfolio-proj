@@ -16,15 +16,15 @@ function VideoChatLog({data,openVideoBox, beginCall,getReceiverInfo}) {
       recieverId: data.receiverid,
       recieverName: data.receiver,
     });
-  }, [setProfileInfo, data.receiverid,, data.receiver]);
+  }, [setProfileInfo, data.receiverid, data.receiver]);
 
-    const startVideoCall = async () => {
-      await getReceiverInfo(profileInfo);
-      beginCall();
-      openVideoBox()
-      setTimeout(function(){ beginCall() }, 1000);
+    // const startVideoCall = async () => {
+    //   await getReceiverInfo(profileInfo);
+    //   beginCall();
+    //   openVideoBox()
+    //   setTimeout(function(){ beginCall() }, 1000);
   
-    }
+    // }
   return (
   
   
