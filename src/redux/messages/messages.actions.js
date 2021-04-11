@@ -51,3 +51,8 @@ export const setSearchField = (event) => ({
   type: messagesActionTypes.FILTER_MESSAGES,
   payload: event,
 });
+
+export const setVideoData = (videoData) => ({
+  type: messagesActionTypes.SET_VIDEO_DATA,
+  payload: videoData,
+})

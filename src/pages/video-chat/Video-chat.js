@@ -23,7 +23,9 @@ import {
 
 import { initiateVidSocket } from "../../sockets/video-sockets";
 
-import { selectCurrentUser } from "../../redux/user/user.selectors";
+import { selectCurrentUser, selectProfileName } from "../../redux/user/user.selectors";
+import {setVideoData} from "../../redux/messages/messages.actions"
+import {selectVideoData} from "../../redux/messages/messages.selectors"
 import { selectReceiverInfo } from "../../redux/profile/profile.selectors";
 
 
@@ -37,39 +39,42 @@ class VideoChat extends React.Component {
     this.remoteVideoref = React.createRef();
     this.socket = null;
     this.candidates = [];
-    this.room = 555;
     this.sender = false;
-    this.videoData = {
-      videoId: "",
-      senderId: "",
-      receiverId: "",
-      sender: "",
-      receiver: "",
-      receiverJoined: "",
-    };
+    this.room = this.props.room
+
 
     this.onCall = "";
     this.remoteCandidate = [];
   }
 
-  componentCleanup() { // this will hold the cleanup code
   
-    sendProfile(this.props.videoData.receiverId)  
+
+  componentCleanup() { // this will hold the cleanup code
+    sendProfile(this.props.receiverInfo.recieverId)
     setMissedCall(this.props.videoData.videoId)
+      
+    
 }
+
+
   componentDidMount = () => {
     const {
       currentUser,
       receiverInfo,
       receivedData,
       getCallerInfo,
+      profileName,
+      room
     } = this.props;
 
-    if(this.props.currentUser){
     window.addEventListener('beforeunload', this.componentCleanup);
+    
+if(this.props.currentUser){
+    
     getCallerInfo(currentUser.profileId);
     }
-    if (this.room) initiateSocket(this.room);
+    
+    if (room) initiateSocket(room);
 
 
     checkJoined((err, data) => {
@@ -129,7 +134,14 @@ class VideoChat extends React.Component {
 
     this.pc.onaddstream = (e) => {
       this.remoteVideoref.current.srcObject = e.stream;
+
+
     };
+  
+  
+     
+
+      
 
     const constraints = {
       audio: false,
@@ -159,17 +171,42 @@ class VideoChat extends React.Component {
   componentWillUnmount() {
     this.componentCleanup();
     window.removeEventListener('beforeunload', this.componentCleanup); // remove the event handler for normal unmounting
-    sendProfile(this.props.videoData.receiverId)
+    sendProfile(this.props.receiverInfo.recieverId)
     setMissedCall(this.props.videoData.videoId)
     
   }
 
+  componentDidUpdate(prevProps){
+    const {
+      currentUser,
+      receiverInfo,
+      receivedData,
+      getCallerInfo,
+      profileName
+    } = this.props;
+    if(currentUser){
+    if (this.props.receiverInfo !== prevProps.receiverInfo) {
+          this.props.setVideoData({
+            videoId: (Math.random() * Math.random()) / Math.random(),
+            senderId: currentUser.profileId,
+            sender: profileName.toString(),
+            receiverId: receiverInfo.recieverId,
+            receiver: receiverInfo.recieverName,
+            receiverJoined: "no",
+          
+          })
+  
+        }
+        
+
+      }
+    }
  
   makeOffer = async () => {
     await this.createOffer();
   };
 
-  /* ACTION METHODS FROM THE BUTTONS ON SCREEN */
+
 
   createOffer = async () => {
     await this.setState({ sender: true });
@@ -233,7 +270,7 @@ class VideoChat extends React.Component {
           ref1={this.localVideoref}
           ref2={this.remoteVideoref}
           startCall={this.startCall}
-          videoData = {this.props.videoData}
+        
           sendProfile = {sendProfile}
         />
 
@@ -245,8 +282,14 @@ class VideoChat extends React.Component {
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
   receiverInfo: selectReceiverInfo,
+  profileName: selectProfileName,
+  videoData: selectVideoData
 });
-export default connect(mapStateToProps)(VideoChat);
+
+const mapDispatchToProps = (dispatch) => ({
+  setVideoData: (videoData) => dispatch(setVideoData(videoData))
+});
+export default connect(mapStateToProps,mapDispatchToProps)(VideoChat);
 
 
 export const closeVideoBox = () => {

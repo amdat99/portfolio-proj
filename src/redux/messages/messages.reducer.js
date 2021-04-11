@@ -6,6 +6,7 @@ const INITIAL_STATE = {
   pending: false,
   messagesData: null,
   searchField: null,
+  videoData : null
 };
 const messagesReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -34,6 +35,13 @@ const messagesReducer = (state = INITIAL_STATE, action) => {
         pending: false,
         messagesData: action.payload,
       };
+
+      case messagesActionTypes.SET_VIDEO_DATA:
+        return {
+          ...state,
+          pending: false,
+          videoData: action.payload
+        };
 
     case messagesActionTypes.SEND_MESSAGE_FAILED:
     case messagesActionTypes.FETCH_MESSAGE_FAILED:

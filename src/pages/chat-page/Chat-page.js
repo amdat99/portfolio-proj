@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Suspense } from "react";
+import React, { useEffect, useState, Suspense, userRef} from "react";
 
 
 import {
@@ -14,11 +14,12 @@ import {fetchNamePending} from "../../redux/user/user.actions"
 import {
   selectMessagesData,
   selectMessagesPending,
+  selectVideoData
 } from "../../redux/messages/messages.selectors";
 
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-
+import useWindowUnloadEffect from "./use-unload";
 import {
   changeStatus,
   fetchProfileInfoPending,
@@ -60,6 +61,8 @@ const WeatherBox = React.lazy(() =>
 
 
 function ChatPage({
+  
+ 
   currentUser,
   sendMessagePending,
   fetchMessagePending,
@@ -75,8 +78,17 @@ function ChatPage({
   receiverInfo,
   successMessage,
   fetchNamePending,
-  profileName
+  profileName,
+  videoInfo
 }) {
+
+  // useWindowUnloadEffect(() => {
+  
+  //   setMissedCall(videoData.videoId,)
+  //   sendProfile(videoData.receiverId)
+  // });
+
+
   const [searchField, setSearchField] = useState("");
   const [messageData, setMessageData] = useState({
     userName: "",
@@ -90,19 +102,18 @@ function ChatPage({
   const [render, setRender] = useState("");
   const [onName, setOnName] = useState("");
   const [receivedData, setReceivedData] = useState(null);
-  const [videoData, setVideoData] = useState({
-    videoId: "",
-    senderId: "",
-    receiverId: "",
-    sender: "",
-    receiver: "",
-    receiverJoined: "",
-  });
+
   const [room, setRoom] = useState(555);
   const [toggleCallLog, setToggleCallLog] = useState(false);
   const [timer, setTimer] = useState(0)
   const [onConnect, setOnConnect] = useState(false);
+const [videoData, setVideoData] = useState(null);
 
+useEffect(()=>{
+  if(videoInfo){
+  setVideoData(videoInfo)
+  }
+},[videoInfo])
 
   useEffect(() => {
     if(currentUser){
@@ -111,19 +122,8 @@ function ChatPage({
     }
   }, [currentUser,fetchNamePending]);
 
-  useEffect(() => {
-    if(currentUser && receiverInfo){
-    setVideoData({
-      videoId: (Math.random() * Math.random()) / Math.random(),
-      senderId: currentUser.profileId,
-      sender: profileName.toString(),
-      receiverId: receiverInfo.recieverId,
-      receiver: receiverInfo.recieverName,
-      receiverJoined: "no",
-    })
-  }
-    
-    },[currentUser,receiverInfo.recieverId,setVideoData])
+ 
+
 
   useEffect(() => {
     enterCall((err, data) => {
@@ -146,7 +146,6 @@ function ChatPage({
     });
   })
 
-   
 
 
   useEffect(() => {
@@ -293,13 +292,11 @@ const  answerCall = async (videoId) => {
 
   const beginCall = async () => {
   
-    if(receiverInfo){
+    if(receiverInfo && videoInfo ){
+
       try{
-    
-      if(videoData.receiverId === ''){
-        await setVideoData({...videoData, receiverId: receiverInfo.recieverId, receiver: receiverInfo.recieverName})
-      }
-      sendVideoData(videoData).then((data) =>{
+     
+      sendVideoData(videoInfo).then((data) =>{
         
         if(data === 'error') {
          return alert('call error try again')
@@ -307,7 +304,7 @@ const  answerCall = async (videoId) => {
 
     openVideoBox();
         
-      setRoom(videoData.videoId)
+      setRoom(videoInfo.videoId)
        sendProfile(receiverInfo.recieverId);
       })
       }catch(err){
@@ -316,37 +313,7 @@ const  answerCall = async (videoId) => {
   }
   }
 
-  const onCallError =  () => {
-    beginCall()
-    setTimeout(function(){ beginCall()}, 1500);
-  }
 
-  
-  //  console.log(receiverInfo)
-  // const uploadInfo = () => {
-  //   sendVideoData(videoData);
-  //   setRoom(videoData.videoId)
-  //    sendProfile(receiverInfo.recieverId);
-  // }
-
-  // const putVideoData = () => {
-   
-  //   if(currentUser && receiverInfo){
-  //     setVideoData({
-  //       videoId: (Math.random() * Math.random()) / Math.random(),
-  //       senderId: currentUser.profileId,
-  //       sender: currentUser.displayName,
-  //       receiverId: receiverInfo.recieverId,
-  //       receiver: receiverInfo.recieverName,
-  //       receiverJoined: "no",
-  //     })
-  //   }
-  
-  // };
-
-  // const incrementTimer = (status) => {
-  //   while (data === 'calling' )
-  // }
 
 let today = new Date()
  
@@ -366,7 +333,7 @@ let today = new Date()
             receivedData={receivedData}
             videoBox={videoBox}
             getCallerInfo={getCallerInfo}
-            videoData={videoData}
+              room={room}
             changeCallerStatus = {changeCallerStatus}
             toggleVideoBox={toggleVideoBox}
           />
@@ -530,7 +497,8 @@ const mapStateToProps = createStructuredSelector({
   videoBox: selectVideoBox,
   receiverInfo: selectReceiverInfo,
   successMessage: selectSucBox,
-  profileName: selectProfileName
+  profileName: selectProfileName,
+  videoInfo: selectVideoData
 });
 
 const mapDispatchToProps = (dispatch) => ({

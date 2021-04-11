@@ -1,5 +1,10 @@
 import React from "react";
 import { setMissedCall} from "./Video-chat-requests"
+import {selectVideoData} from "../../redux/messages/messages.selectors"
+import { connect} from "react-redux";
+import { createStructuredSelector} from "reselect";
+
+import Draggable from 'react-draggable'
 
 import "./Video-chat.scss";
 function VideoChatContent({ videoData, sendProfile, ref1, ref2 }) {
@@ -11,6 +16,8 @@ function VideoChatContent({ videoData, sendProfile, ref1, ref2 }) {
   };
 
   return (
+    <div>
+      <Draggable>
     <div className="video-chat-container">
       <video className="video-chat-localstream" ref={ref1} autoPlay controls ></video>
       <video className="video-chat-remotestream" ref={ref2} autoPlay controls ></video>
@@ -19,7 +26,13 @@ function VideoChatContent({ videoData, sendProfile, ref1, ref2 }) {
       {/* <button onClick={startCall}>start</button> */}
       <button style ={{position: 'relative' ,right: '46px'}} onClick={refreshPage}>end call </button>
     </div>
+    </Draggable>
+    </div>
   );
 }
 
-export default VideoChatContent;
+const mapStateToProps = createStructuredSelector({
+  videoData: selectVideoData
+
+});
+export default connect(mapStateToProps)(VideoChatContent);

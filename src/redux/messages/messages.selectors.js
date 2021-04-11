@@ -10,3 +10,8 @@ export const selectMessagesPending = createSelector(
   [selectMessages],
   (messages) => messages.pending
 );
+
+export const selectVideoData = createSelector(
+  [selectMessages],
+  messages => messages.videoData 
+)

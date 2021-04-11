@@ -1,6 +1,6 @@
 import { closeVideoBox } from './Video-chat'
 
-export const sendVideoData = async (videoData) => {
+export const sendVideoData = async (videoInfo) => {
   const {
     receiver,
     receiverId,
@@ -8,7 +8,7 @@ export const sendVideoData = async (videoData) => {
     sender,
     senderId,
     videoId,
-  } = videoData;
+  } = videoInfo;
 
   if(!receiverId){
     
