@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 
 import { deleteListing } from "../../firebase/firebase";
+import { fetchSellingItemsPending } from "../../redux/shop/shop.actions";
 
 import "./Listed-items.scss";
 function ListedItems({
@@ -10,6 +11,8 @@ function ListedItems({
   history,
   fetchProductPending,
   toggleModal,
+  currentUser,
+  fetchSellingItemsPending
 }) {
   const [delistDropdown, setDelistDropdown] = useState(false);
 
@@ -21,7 +24,7 @@ function ListedItems({
 
   const delistItem = () => {
     deleteListing(userId, productId);
-    toggleModal();
+    fetchSellingItemsPending(currentUser.profileId)
   };
   return (
     <div className="listed-items-container">

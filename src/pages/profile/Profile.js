@@ -105,7 +105,7 @@ function Profile({
     fetchNamePending(currentUser.profileId)
     }
     //eslint-disable-next-line
-  }, [fetchSellingItemsPending, currentUser]);
+  }, [fetchSellingItemsPending, currentUser,sellingItems]);
 
   const toggleDropdown = () => {
     setUploadDropdown(!uploadDropdown);
@@ -115,16 +115,7 @@ function Profile({
     const request = await getProfileName(currentUser.profileId);
     setDisplayNameData(request);
    };
-    <span
-      id="profile-update-name"
-      type="button"
-      onClick={() => {
-        onUpdateName();
-        toggleModal();
-      }}
-    >
-      update name
-    </span>;
+
   
  
 
@@ -144,7 +135,7 @@ function Profile({
   const onUpdateName = async () => {
    await  updateDisplayName(currentUser.profileId, userName);
     await updateDisplayNameforUsers(currentUser.id, userName);
-     fetchNamePending()
+     fetchNamePending(currentUser.profileId)
   
 };
 
@@ -200,8 +191,7 @@ const refreshPage = () => {
             <form
               onSubmit={() => {
                 onUpdateName();
-                toggleModal();
-                refreshPage();
+               
                 
                 
               }}
@@ -239,6 +229,8 @@ const refreshPage = () => {
                           key={sellingItem.userId}
                           fetchProductPending={fetchProductPending}
                           toggleModal={toggleModal}
+                          currentUser = {currentUser}
+                          fetchSellingItemsPending={fetchSellingItemsPending}
                         />
                       </div>
                     ))

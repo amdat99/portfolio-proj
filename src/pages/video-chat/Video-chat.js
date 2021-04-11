@@ -169,10 +169,12 @@ if(this.props.currentUser){
   };
 
   componentWillUnmount() {
+    if(this.props.currentUser){
     this.componentCleanup();
     window.removeEventListener('beforeunload', this.componentCleanup); // remove the event handler for normal unmounting
     sendProfile(this.props.receiverInfo.recieverId)
     setMissedCall(this.props.videoData.videoId)
+    }
     
   }
 
