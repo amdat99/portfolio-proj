@@ -44,7 +44,7 @@ class VideoChat extends React.Component {
 
 
     this.onCall = "";
-    this.remoteCandidate = [];
+    this.remoteCandidate = []
   }
 
   
@@ -73,38 +73,6 @@ if(this.props.currentUser){
     
     getCallerInfo(currentUser.profileId);
     }
-    
-    if (room) initiateSocket(room);
-
-
-    checkJoined((err, data) => {
-      if (err) return;
-      console.log("data", data);
-      console.log(this.props.videoData.videoId);
-      if (data == this.props.videoData.videoId) {
-        this.makeOffer();
-      }
-    });
-
-    enterSDP((err, data) => {
-      if (err) return;
-      this.pc.setRemoteDescription(new RTCSessionDescription(data));
-
-      // if(this.sender){
-      //     sendCand(this.state.remoteCandidate,this.state.videoData.videoId)
-      // }
-
-      if (this.sender === false) {
-        this.createAnswer();
-      }
-    });
-
-    enterCand((err, data) => {
-      if (err) return;
-      console.log("From Peer... ", JSON.stringify(data));
-      this.candidates = [...this.candidates, data];
-      this.pc.addIceCandidate(new RTCIceCandidate(data));
-    });
 
     const config = {
       iceServers: [
@@ -123,16 +91,56 @@ if(this.props.currentUser){
 
     this.pc.onicecandidate = (e) => {
       if (e.candidate) {
-        sendCand(e.candidate);
-        this.setState({ remoteCandidate: e.candidate });
+         sendCand(e.candidate);
+        this.remoteCandidates = [e.candidate];
+
       }
     };
+    
+    if (room) initiateSocket(room);
+
+    enterCand((err, data) => {
+      if (err) return;
+      console.log("From Peer... ", JSON.stringify(data));
+      this.candidates = [...this.candidates, data];
+      this.pc.addIceCandidate(new RTCIceCandidate(data));
+    });
+    checkJoined((err, data) => {
+      if (err) return;
+      console.log("data", data);
+      console.log(this.props.videoData.videoId);
+      if (data == this.props.videoData.videoId) {
+        sendCand(this.remoteCandidate)
+        this.createOffer();
+      }
+    });
+
+    enterSDP((err, data) => {
+      if (err) return;
+     
+      this.pc.setRemoteDescription(new RTCSessionDescription(data));
+
+      // if(this.sender){
+      //     sendCand(this.state.remoteCandidate,this.state.videoData.videoId)
+      // }
+
+      if (this.sender === false && this.candidates ) {
+        // sendCand(this.state.remoteCandidate)
+        
+        this.createAnswer();
+      }
+    });
+
+
+
+ 
 
     this.pc.oniceconnectionstatechange = (e) => {
       console.log(e);
     };
 
     this.pc.onaddstream = (e) => {
+    
       this.remoteVideoref.current.srcObject = e.stream;
 
 
@@ -204,10 +212,7 @@ if(this.props.currentUser){
       }
     }
  
-  makeOffer = async () => {
-    await this.createOffer();
-  };
-
+ 
 
 
   createOffer = async () => {
@@ -220,6 +225,7 @@ if(this.props.currentUser){
       this.pc.setLocalDescription(sdp);
 
       sendSDP(sdp, this.props.videoData.videoId);
+    
     });
   };
 
@@ -241,12 +247,16 @@ if(this.props.currentUser){
   // };
 
   createAnswer = () => {
+   
+      
     console.log("Answer");
     this.pc.createAnswer({ offerToReceiveVideo: 1 }).then((sdp) => {
       this.pc.setLocalDescription(sdp);
-
+     
       sendSDP(sdp);
+  
     });
+  
   };
 
   setRemoteDescription = () => {
@@ -262,6 +272,9 @@ if(this.props.currentUser){
   };
 
   render() {
+    // if(this.state.remoteCandidate){
+    // console.log('r',this.state.remoteCandidate)
+    // }
     return (
       <div>
         <div>

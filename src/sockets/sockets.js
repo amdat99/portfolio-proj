@@ -2,8 +2,8 @@ import io from "socket.io-client";
 let socket;
 
 export const initiateSocket = (room) => {
-  socket = io("https://aamirproject-api.herokuapp.com", {
-  // socket = io("http://localhost:4000/", {
+  // socket = io("https://aamirproject-api.herokuapp.com", {
+  socket = io("http://localhost:4000/", {
     transports: ["websocket"],
   });
   console.log(`Connecting`);
@@ -82,15 +82,15 @@ export const sendSDP = (sdp, videoId) => {
 
 export const enterCand = (data) => {
   if (!socket) return;
-  socket.on("oncandidate", (candidate) => {
+  socket.on("oncandidate", (candidate,videoId) => {
     console.log(" got candidate");
-    return data(null, candidate);
+    return data(null, candidate, videoId);
   });
 };
 
 export const sendCand = (candidate, videoId) => {
   console.log("candidate sent");
-  if (socket) socket.emit("oncandidate", { candidate });
+  if (socket) socket.emit("oncandidate", { candidate,videoId });
 };
 
 export const checkJoined = (data) => {

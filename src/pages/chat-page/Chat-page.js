@@ -282,8 +282,9 @@ useEffect(()=>{
   }
 
 const  answerCall = async (videoId) => {
-   setRoom(videoId)
+  await setRoom(videoId)
     console.log("rrom", room);
+    
     sendId(videoId);
     openVideoBox();
   };

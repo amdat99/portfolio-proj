@@ -183,7 +183,7 @@
 .vid-container{
 display: flex;
 justify-content: center;
-position: fixed;
+position: relative;
 z-index: 77;
 top: 6%;
 margin-left: 25%;
@@ -199,13 +199,12 @@ margin-left: 25%;
 }
 
 #vid-join-button{
-  margin-left: 5px;
+ 
   @media screen and (max-width: 1200px) {
     
     font-size: 10px;
     position: relative;
-    top: 60px;
-    left: -50px;
+
     
   }
 }
@@ -213,8 +212,7 @@ margin-left: 25%;
 
 .vid-animation{
   position: relative;
-  top: 30px;
-  right: 130px;
+
   min-width: 100px;
   max-width: 200px;
   max-height: 2px;
