@@ -2,8 +2,8 @@ import io from "socket.io-client";
 let socket;
 
 export const initiateSocket = (room) => {
-  socket = io("https://aamirproject-api.herokuapp.com", {
-  // socket = io("http://localhost:4000/", {
+  // socket = io("https://aamirproject-api.herokuapp.com", {
+  socket = io("http://localhost:4000/", {
     transports: ["websocket"],
   });
   console.log(`Connecting`);
@@ -84,7 +84,7 @@ export const enterCand = (data) => {
   if (!socket) return;
   socket.on("oncandidate", (candidate,videoId) => {
     console.log(" got candidate");
-    return data(null, candidate, videoId);
+    return data({candidate: candidate,id: videoId});
   });
 };
 

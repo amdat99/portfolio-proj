@@ -390,8 +390,8 @@ let today = new Date()
             <span>{data.sender} is connected </span>
           <button id ='vid-join-button'onClick={()=>answerCall(data.videoid)}>Join Call</button>
           {/* <span onMouseEnter ={}>x</span> */}
-          <div className="vid-animation"> {today.getHours() + ":" + today.getMinutes()}</div>
-          </div>
+          <div className="vid-animation">{data.date.slice(0, 10)}</div>
+          </div> 
           : null}
          </div>
       )

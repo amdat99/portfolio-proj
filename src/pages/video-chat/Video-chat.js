@@ -64,7 +64,8 @@ class VideoChat extends React.Component {
       receivedData,
       getCallerInfo,
       profileName,
-      room
+      room,
+      videoData
     } = this.props;
 
     window.addEventListener('beforeunload', this.componentCleanup);
@@ -90,7 +91,7 @@ if(this.props.currentUser){
     this.pc = new RTCPeerConnection(config);
 
     this.pc.onicecandidate = (e) => {
-      if (e.candidate) {
+      if (e.candidate ) {
          sendCand(e.candidate);
         this.remoteCandidates = [e.candidate];
 
@@ -99,11 +100,11 @@ if(this.props.currentUser){
     
     if (room) initiateSocket(room);
 
-    enterCand((err, data) => {
-      if (err) return;
-      console.log("From Peer... ", JSON.stringify(data));
-      this.candidates = [...this.candidates, data];
-      this.pc.addIceCandidate(new RTCIceCandidate(data));
+    enterCand((data) => {
+      console.log("From Peer... ", data.id);
+      this.candidates = [...this.candidates, data.candidate];
+      // this.pc.addIceCandidate(new RTCIceCandidate(data.candidate));
+      this.addCandidate()
     });
     checkJoined((err, data) => {
       if (err) return;
