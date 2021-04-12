@@ -2,8 +2,8 @@ import io from "socket.io-client";
 let socket;
 
 export const initiateSocket = (room) => {
-  // socket = io("https://aamirproject-api.herokuapp.com", {
-  socket = io("http://localhost:4000/", {
+   socket = io("https://aamirproject-api.herokuapp.com", {
+  // socket = io("http://localhost:4000/", {
     transports: ["websocket"],
   });
   console.log(`Connecting`);
