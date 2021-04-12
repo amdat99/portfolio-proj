@@ -102,9 +102,11 @@ if(this.props.currentUser){
 
     enterCand((data) => {
       console.log("From Peer... ", data);
+      if(data.candidate !== null){
       this.candidates = [...this.candidates, data.candidate];
       // this.pc.addIceCandidate(new RTCIceCandidate(data.candidate));
       this.addCandidate()
+      }
     });
     checkJoined((err, data) => {
       if (err) return;
@@ -197,17 +199,15 @@ if(this.props.currentUser){
     } = this.props;
     if(currentUser){
     if (this.props.receiverInfo !== prevProps.receiverInfo) {
-          this.props.setVideoData({
-            videoId: (Math.random() * Math.random()) / Math.random(),
-            senderId: currentUser.profileId,
-            sender: profileName.toString(),
-            receiverId: receiverInfo.recieverId,
-            receiver: receiverInfo.recieverName,
-            receiverJoined: "no",
-          
-          })
-  
-        }
+      this.props.setVideoData({
+        videoId: (Math.random() * Math.random()) / Math.random(),
+        senderId: currentUser.profileId,
+        sender: profileName.toString(),
+        receiverId: receiverInfo.recieverId,
+        receiver: receiverInfo.recieverName,
+        receiverJoined: "no",
+      });
+    }
         
 
       }
