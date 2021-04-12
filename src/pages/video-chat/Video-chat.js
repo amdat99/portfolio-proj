@@ -101,7 +101,7 @@ if(this.props.currentUser){
     if (room) initiateSocket(room);
 
     enterCand((data) => {
-      console.log("From Peer... ", data.id);
+      console.log("From Peer... ", data);
       this.candidates = [...this.candidates, data.candidate];
       // this.pc.addIceCandidate(new RTCIceCandidate(data.candidate));
       this.addCandidate()
@@ -111,7 +111,7 @@ if(this.props.currentUser){
       console.log("data", data);
       console.log(this.props.videoData.videoId);
       if (data == this.props.videoData.videoId) {
-        sendCand(this.remoteCandidate)
+        sendCand(this.remoteCandidates)
         this.createOffer();
       }
     });
