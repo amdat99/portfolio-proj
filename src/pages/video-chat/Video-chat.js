@@ -27,10 +27,11 @@ import { selectCurrentUser, selectProfileName } from "../../redux/user/user.sele
 import {setVideoData} from "../../redux/messages/messages.actions"
 import {selectVideoData} from "../../redux/messages/messages.selectors"
 import { selectReceiverInfo } from "../../redux/profile/profile.selectors";
-
+import {openVideoBox} from "../../redux/modal/modal.actions"
 
 
 class VideoChat extends React.Component {
+  
   constructor(props) {
     super(props);
 
@@ -58,6 +59,7 @@ class VideoChat extends React.Component {
 
 
   componentDidMount = () => {
+
     const {
       currentUser,
       receiverInfo,
@@ -88,15 +90,10 @@ if(this.props.currentUser){
       ],
     };
 
+  
     this.pc = new RTCPeerConnection(config);
 
-    this.pc.onicecandidate = (e) => {
-      if (e.candidate ) {
-         sendCand(e.candidate);
-        this.remoteCandidates = [e.candidate];
 
-      }
-    };
     
     if (room) initiateSocket(room);
 
@@ -120,8 +117,9 @@ if(this.props.currentUser){
 
     enterSDP((err, data) => {
       if (err) return;
-     
+      if(data !== null) {
       this.pc.setRemoteDescription(new RTCSessionDescription(data));
+      }
 
       // if(this.sender){
       //     sendCand(this.state.remoteCandidate,this.state.videoData.videoId)
@@ -129,13 +127,21 @@ if(this.props.currentUser){
 
       if (this.sender === false && this.candidates ) {
         // sendCand(this.state.remoteCandidate)
+        this.props.openVideoBox();
+        setTimeout(() =>this.createAnswer(), 2000);
+
         
-        this.createAnswer();
       }
     });
 
 
+    this.pc.onicecandidate = (e) => {
+      if (e.candidate ) {
+         sendCand(e.candidate);
+        this.remoteCandidates = [e.candidate];
 
+      }
+    };
  
 
     this.pc.oniceconnectionstatechange = (e) => {
@@ -143,8 +149,11 @@ if(this.props.currentUser){
     };
 
     this.pc.onaddstream = (e) => {
-    
+    window.location.reload();
+      if(this.remoteVideoref.current){
+        console.log(this.remoteVideoref)
       this.remoteVideoref.current.srcObject = e.stream;
+      }
 
 
     };
@@ -208,8 +217,7 @@ if(this.props.currentUser){
         receiverJoined: "no",
       });
     }
-        
-
+   
       }
     }
  
@@ -224,7 +232,7 @@ if(this.props.currentUser){
 
     this.pc.createOffer({ offerToReceiveVideo: 1 }).then((sdp) => {
       this.pc.setLocalDescription(sdp);
-
+    
       sendSDP(sdp, this.props.videoData.videoId);
     
     });
@@ -255,6 +263,7 @@ if(this.props.currentUser){
       this.pc.setLocalDescription(sdp);
      
       sendSDP(sdp);
+      this.props.openVideoBox();
   
     });
   
@@ -272,6 +281,16 @@ if(this.props.currentUser){
     });
   };
 
+   refreshPage = async () => {
+
+    if(this.props.videoData){
+    await setMissedCall(this.props.videoData.videoId,)
+    await sendProfile(this.props.videoData.receiverId)
+    }
+    window.location.reload();
+  };
+
+
   render() {
     // if(this.state.remoteCandidate){
     // console.log('r',this.state.remoteCandidate)
@@ -282,14 +301,22 @@ if(this.props.currentUser){
    
         </div>
         
-        <VideoChatContent
-          ref1={this.localVideoref}
-          ref2={this.remoteVideoref}
-          startCall={this.startCall}
-        
-          sendProfile = {sendProfile}
-        />
+        return (
+    <div>
+      <Draggable>
+    <div className="video-chat-container">
+      <video className="video-chat-localstream" ref={this.localVideoref} autoPlay controls ></video> 
+      <video className="video-chat-remotestream" ref={this.remoteVideoref} autoPlay controls ></video>
 
+    
+      <br />
+
+      {/* <button onClick={startCall}>start</button> */}
+      <button style ={{position: 'relative' ,right: '46px'}} onClick={this.refreshPage}>end call </button>
+    </div>
+    </Draggable>
+    </div>
+         
       </div>
     );
   }
@@ -303,9 +330,11 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setVideoData: (videoData) => dispatch(setVideoData(videoData))
-});
-export default connect(mapStateToProps,mapDispatchToProps)(VideoChat);
+  setVideoData: (videoData) => dispatch(setVideoData(videoData)),
+  openVideoBox:() => dispatch(openVideoBox())
+})
+
+  export default connect(mapStateToProps,mapDispatchToProps)(VideoChat);
 
 
 export const closeVideoBox = () => {

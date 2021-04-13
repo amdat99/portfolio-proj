@@ -39,7 +39,6 @@ const messagesReducer = (state = INITIAL_STATE, action) => {
       case messagesActionTypes.SET_VIDEO_DATA:
         return {
           ...state,
-          pending: false,
           videoData: action.payload
         };
 

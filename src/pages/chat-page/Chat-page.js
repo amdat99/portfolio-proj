@@ -173,6 +173,7 @@ useEffect(()=>{
   useEffect(() => {
     if (currentUser) {
       changeStatus(currentUser.profileId, "online");
+     
     }
   }, [currentUser, changeStatus]);
 
@@ -286,10 +287,13 @@ const  answerCall = async (videoId) => {
     console.log("rrom", room);
     
     sendId(videoId);
-    openVideoBox();
+    openVideoBox()
+
   };
 
-
+const r = () => {
+  window.location.reload()
+}
 
   const beginCall = async () => {
   
