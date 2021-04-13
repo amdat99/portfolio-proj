@@ -291,9 +291,6 @@ const  answerCall = async (videoId) => {
 
   };
 
-const r = () => {
-  window.location.reload()
-}
 
   const beginCall = async () => {
   

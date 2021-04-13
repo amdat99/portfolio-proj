@@ -128,7 +128,7 @@ if(this.props.currentUser){
       if (this.sender === false && this.candidates ) {
         // sendCand(this.state.remoteCandidate)
         this.props.openVideoBox();
-        setTimeout(() =>this.createAnswer(), 2000);
+        setTimeout(() =>this.createAnswer(), 1000);
 
         
       }
@@ -149,11 +149,9 @@ if(this.props.currentUser){
     };
 
     this.pc.onaddstream = (e) => {
-    window.location.reload();
-      if(this.remoteVideoref.current){
         console.log(this.remoteVideoref)
       this.remoteVideoref.current.srcObject = e.stream;
-      }
+      
 
 
     };
@@ -221,7 +219,7 @@ if(this.props.currentUser){
       }
     }
  
- 
+   
 
 
   createOffer = async () => {

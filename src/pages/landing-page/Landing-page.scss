@@ -23,7 +23,7 @@
     right: -50px;
   }
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 800px) {
     height: 180px;
     width: 60%;
   }
@@ -59,7 +59,7 @@
   background-repeat: no-repeat;
   opacity: 0;
   margin-bottom: 150px;
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 800px) {
     height: 160px;
   }
 
@@ -88,7 +88,7 @@
 .landing-page-text {
   position: absolute;
   left: 65%;
-  top: 75px;
+  top: 60px;
   max-width: 300px;
   text-align: justify;
   height: fit-content;
@@ -96,12 +96,9 @@
   border-bottom: 1px solid black;
   border-top: 1px solid black;
 
-  @media screen and (max-width: 800px) {
-    font-size: 15px;
-    top: 100px;
-  }
 
-  @media screen and (max-width: 600px) {
+
+  @media screen and (max-width: 800px) {
     text-align: justify;
     font-size: 14px;
     top: 500px;
