@@ -252,7 +252,7 @@ useEffect(()=>{
 
   const onNameInput = async () => {
     await setNameInput(onName);
-    setMessageData({ ...messageData, userName: nameInput });
+    setMessageData({ ...messageData, userName: onName });
   };
 
   const getCallerInfo = async (userId) => {
