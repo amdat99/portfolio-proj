@@ -105,7 +105,7 @@ function Profile({
     fetchNamePending(currentUser.profileId)
     }
     //eslint-disable-next-line
-  }, [fetchSellingItemsPending, currentUser,sellingItems]);
+  }, [fetchSellingItemsPending, currentUser]);
 
   const toggleDropdown = () => {
     setUploadDropdown(!uploadDropdown);
