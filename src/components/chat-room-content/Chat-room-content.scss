@@ -25,11 +25,11 @@
 #chat-content-room {
   position: relative;
   top: -80px;
-  left: -15%;
+  left: -180px;
 
   @media screen and (max-width: 1300px) {
     top: -100px;
-    left: 0%;
+    left: 20px;
   }
 }
 #chat-content-title {

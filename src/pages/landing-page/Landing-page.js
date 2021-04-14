@@ -8,7 +8,16 @@ import { fetchNamePending } from "../../redux/user/user.actions"
 
 import "./Landing-page.scss";
 
+import {
+  initiateSocket,
+  sendProfileChange,
+  disconnectSocket
+} from "../../sockets/sockets";
+
 function LandingPage({ currentUser, changeStatus, fetchNamePending }) {
+
+
+
   useEffect(() => {
     if (currentUser !== null) {
       changeStatus(currentUser.profileId, "online");
@@ -16,6 +25,10 @@ function LandingPage({ currentUser, changeStatus, fetchNamePending }) {
     }
   }, [changeStatus, currentUser]);
 
+  // useEffect(() => {
+  //     sendProfileChange('profilechange')
+    
+  // },[currentUser])
   const shop =
     "https://cdn.pixabay.com/photo/2017/06/21/20/51/tshirt-2428521_960_720.jpg";
   const chat =

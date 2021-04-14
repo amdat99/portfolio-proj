@@ -44,6 +44,10 @@ import {
 } from "../../redux/shop/shop.actions";
 
 import DirectMessagingBox from "../../components/direct-messaging-box/Direct-messaging-box";
+import {
+
+  sendProfileChange
+} from "../../sockets/sockets";
 
 import "./Profile.scss";
 
@@ -105,7 +109,7 @@ function Profile({
     fetchNamePending(currentUser.profileId)
     }
     //eslint-disable-next-line
-  }, [fetchSellingItemsPending, currentUser,sellingItems]);
+  }, [fetchSellingItemsPending, currentUser]);
 
   const toggleDropdown = () => {
     setUploadDropdown(!uploadDropdown);
@@ -136,14 +140,12 @@ function Profile({
    await  updateDisplayName(currentUser.profileId, userName);
     await updateDisplayNameforUsers(currentUser.id, userName);
      fetchNamePending(currentUser.profileId)
+     setTimeout(function(){     sendProfileChange('profilechange')}, 1000);
+     
   
 };
 
-const refreshPage = () => {
-    
-    setTimeout(function(){ window.location.reload();}, 1000);
-    
-}
+
 
   return (
     <div>
@@ -189,12 +191,8 @@ const refreshPage = () => {
               ) : null}
             </Suspense>
             <form
-              onSubmit={() => {
-                onUpdateName();
-               
-                
-                
-              }}
+              onSubmit={
+                onUpdateName}
             >
               {displayNameData
                 ? 

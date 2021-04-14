@@ -1,4 +1,6 @@
 import React from "react";
+import {connect} from "react-redux"
+import { setRoom } from "../../redux/messages/messages.actions";
 
 import "./Chat-room-content.scss";
 
@@ -12,6 +14,7 @@ function ChatRoomContent({
   setRoom,
   room,
   sendMessage,
+  stateRoom
 }) {
   return (
     <div className="chat-content-container">
@@ -21,7 +24,7 @@ function ChatRoomContent({
             <button
               id="chat-content-room"
               onClick={() => {
-                setRoom(room);
+                setRoom(room);stateRoom(room)
               }}
               key={i}
             >
@@ -36,10 +39,13 @@ function ChatRoomContent({
       </div>
 
       <div className="chat-content-messages">
-        {chat
+        {chat 
           ? chat.map((messages, i) => (
               <span id="chat-content-message" key={i}>
-                {messages}
+                {messages.message}
+                { messages.room !== undefined
+                ?`(${messages.room})`
+                : null}
               </span>
             ))
           : null}
@@ -52,4 +58,9 @@ function ChatRoomContent({
   );
 }
 
-export default ChatRoomContent;
+const mapDispatchToProps = (dispatch) => ({
+  setRoom: (room) => dispatch(setRoom(room))
+});
+
+
+export default connect(null,mapDispatchToProps)(ChatRoomContent);

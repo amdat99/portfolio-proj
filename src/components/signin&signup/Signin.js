@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {
   googleSignInPending,
   emailSignInPending,
@@ -11,6 +11,12 @@ import {
   selectCurrentUser,
 } from "../../redux/user/user.selectors";
 
+import {
+  initiateSocket,
+  sendProfileChange,
+  disconnectSocket
+} from "../../sockets/sockets";
+
 import "./signin-and-signup.scss";
 
 function SignIn({
@@ -21,10 +27,12 @@ function SignIn({
 }) {
   const [signInInfo, setSignInInfo] = useState({ email: "", password: "" });
 
+
   const { email, password } = signInInfo;
   const handleSubmit = async (event) => {
     event.preventDefault();
     emailSignInPending(email, password);
+    setTimeout(function(){     sendProfileChange('profile')}, 2000);
     // if(error !== null){
     //     alert(error)
     // }

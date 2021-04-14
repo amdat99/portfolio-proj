@@ -10,6 +10,13 @@ import {
   changeStatus,
 } from "../../redux/profile/profile.actions";
 import { createStructuredSelector } from "reselect";
+
+import {
+  initiateSocket,
+  sendProfileChange,
+  disconnectSocket
+} from "../../sockets/sockets";
+
 import "./Profile-icon.scss";
 
 function ProfileIcon({
@@ -21,6 +28,8 @@ function ProfileIcon({
   changeStatus,
 }) {
   const [profileToggle, setProfileToggle] = useState(false);
+
+
 
   useEffect(() => {
     if (currentUser) {
@@ -41,10 +50,15 @@ function ProfileIcon({
 
     setTimeout(function () {
       signOutPending();
-    }, 1200);
+    }, 1200);    
+    
     setTimeout(function () {
-      refreshPage();
-    }, 2000);
+  sendProfileChange('profile')
+    }, 2000); 
+   
+    // setTimeout(function () {
+    //   refreshPage();
+    // }, 2000);
 
     function refreshPage() {
       window.location.reload(false);

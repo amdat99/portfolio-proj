@@ -2,8 +2,8 @@ import io from "socket.io-client";
 let socket;
 
 export const initiateSocket = (room) => {
-  socket = io("https://aamirproject-api.herokuapp.com", {
-  // socket = io("http://localhost:4000/", {
+  // socket = io("https://aamirproject-api.herokuapp.com", {
+  socket = io("http://localhost:4000/", {
     transports: ["websocket"],
   });
   console.log(`Connecting`);
@@ -31,6 +31,33 @@ export const enterChat = (data) => {
 export const sendMessage = (room, message) => {
   console.log("message sent");
   if (socket) socket.emit("chat", { message, room });
+};
+
+
+export const enterRoom = (data) => {
+  if (!socket) return;
+  socket.on("room", (room) => {
+    console.log("room set");
+    return data(null, room);
+  });
+};
+
+export const sendNewRoom = (room) => {
+  console.log("room created");
+  if (socket) socket.emit("room", {room });
+};
+
+export const enterProfilesChange = (data) => {
+  if (!socket) return;
+  socket.on("profilechange", (profile) => {
+    console.log("profiles change set");
+    return data(null, profile);
+  });
+};
+
+export const sendProfileChange = (profile) => {
+  console.log("profile changed");
+  if (socket) socket.emit("profilechange", {profile });
 };
 
 

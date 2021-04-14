@@ -1,5 +1,9 @@
 import { takeLatest, put, all, call } from "redux-saga/effects";
-
+import {
+  initiateSocket,
+  sendProfileChange,
+  disconnectSocket
+} from "../../sockets/sockets";
 import {
   signInSuccess,
   signInFailure,
@@ -46,6 +50,7 @@ export function* signInWithGoogle() {
   try {
     const { user } = yield auth.signInWithPopup(googleHandler);
     yield getSnapshotFromUserAuth(user);
+    yield sendProfileChange('profilechange')
   } catch (error) {
     yield put(signInFailure(error));
   }
@@ -144,6 +149,7 @@ export function* signUp({ payload: { email, password, displayName } }) {
 
 export function* signInAfterSignUp({ payload: { user, additionalData } }) {
   yield getSnapshotFromUserAuth(user, additionalData);
+  yield sendProfileChange('profilechnage')
 }
 
 export function* onGoogleSignInPending() {

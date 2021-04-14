@@ -6,7 +6,9 @@ import {
   sendId,
   sendProfile,
   sendMsgRequest,
-  enterOnMessage
+  enterOnMessage,
+  enterProfilesChange,
+  sendProfileChange
 
 } from "../../sockets/sockets";
 import { selectCurrentUser, selectProfileName } from "../../redux/user/user.selectors";
@@ -144,6 +146,16 @@ useEffect(()=>{
           console.log("fetching messages");
         }
     });
+
+    enterProfilesChange((err, data) => {
+     
+    console.log(data.profile);
+      if (data.profile === 'profile') {
+    
+       getProfileInfo();
+        console.log("fetching profiles");
+      }
+  });
   })
 
 
@@ -252,7 +264,7 @@ useEffect(()=>{
 
   const onNameInput = async () => {
     await setNameInput(onName);
-    setMessageData({ ...messageData, userName: nameInput });
+    setMessageData({ ...messageData, userName: onName });
   };
 
   const getCallerInfo = async (userId) => {
@@ -314,6 +326,8 @@ const  answerCall = async (videoId) => {
     }
   }
   }
+
+  console.log(messageData.userName)
 
 
 
@@ -441,7 +455,7 @@ let today = new Date()
                 <div>
                   <button
                     id="chat-page-changename"
-                    onClick={() => setNameInput("")}
+                    // onClick={() => setNameInput("")}
                   >
                     Change Name
                   </button>
@@ -474,7 +488,7 @@ let today = new Date()
           )}
         </form>
 
-        <UsersSidebar searchField={searchField} render={render} beginCall = {beginCall} />
+        <UsersSidebar searchField={searchField} render={render} beginCall = {beginCall}/>
 
         <WeatherBox />
         {imageToggle ? (

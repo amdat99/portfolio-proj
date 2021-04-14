@@ -11,6 +11,7 @@ const messagesActionTypes = {
   FILTER_MESSAGES: "FILTER_MESSAGES",
   SEND_IMAGE_PENDING: "SEND_IMAGE_PENDING",
   SET_VIDEO_DATA: "SET_VIDEO_DATA",
+  SET_ROOM: "SET_ROOM",
 };
 
 export default messagesActionTypes;

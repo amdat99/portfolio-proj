@@ -9,6 +9,7 @@ import { selectProfileInfo } from "../../redux/profile/profile.selectors";
 import { getReceiverInfo } from "../../redux/profile/profile.actions";
 import { openMessageBox, openModal, openVideoBox } from "../../redux/modal/modal.actions";
 
+
 import "./Users-sidebar.scss";
 
 function UsersSidebar({
@@ -26,7 +27,7 @@ function UsersSidebar({
   // const [profiles] = useState(profilesInfo);
 
   const filteredName = () => {
-    console.log("p", profilesInfo);
+ 
     return profilesInfo.filter((profile) => {
       return profile.displayName
         .toLowerCase()

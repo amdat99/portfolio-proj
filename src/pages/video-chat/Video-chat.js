@@ -95,7 +95,7 @@ if(this.props.currentUser){
 
 
     
-    if (room) initiateSocket(room);
+    // if (room) initiateSocket(room);
 
     enterCand((data) => {
       console.log("From Peer... ", data);

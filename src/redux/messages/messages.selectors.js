@@ -15,3 +15,8 @@ export const selectVideoData = createSelector(
   [selectMessages],
   messages => messages.videoData 
 )
+
+export const selectRoom = createSelector(
+  [selectMessages],
+  messages => messages.room 
+)

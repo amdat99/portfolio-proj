@@ -6,7 +6,11 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { signUpPending } from "../../redux/user/user.actions";
 import { selectErrorMessage } from "../../redux/user/user.selectors";
-
+import {
+  initiateSocket,
+  sendProfileChange,
+  disconnectSocket
+} from "../../sockets/sockets";
 import "./signin-and-signup.scss";
 
 class SignUp extends React.Component {
@@ -19,6 +23,9 @@ class SignUp extends React.Component {
       confirmPassword: "",
     };
   }
+
+
+
 
   handleSubmit = async (event) => {
     event.preventDefault();
@@ -44,10 +51,13 @@ class SignUp extends React.Component {
     //     } catch (error){
     //         console.log(error)
     //     }
-    signUpPending({ displayName, email, password });
+    signUpPending({ displayName, email, password });  
+    setTimeout(function(){     sendProfileChange('profileChange')}, 2000);
+
     if (error !== null) {
       alert(error);
     }
+  
   };
 
   handleChange = (event) => {

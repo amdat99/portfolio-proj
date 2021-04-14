@@ -56,3 +56,8 @@ export const setVideoData = (videoData) => ({
   type: messagesActionTypes.SET_VIDEO_DATA,
   payload: videoData,
 })
+
+export const setRoom = (room) => ({
+  type: messagesActionTypes.SET_ROOM,
+  payload: room,
+})

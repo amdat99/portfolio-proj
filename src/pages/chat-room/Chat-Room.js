@@ -7,6 +7,8 @@ import {
   enterSDP,
   sendMessage,
   sendSDP,
+  enterRoom,
+  sendNewRoom
 } from "../../sockets/sockets";
 
 import { Link } from "react-router-dom";
@@ -37,10 +39,10 @@ function ChatRoom({ currentUser }) {
   }, [currentUser, room, name, onName]);
 
   useEffect(() => {
-    if (room) initiateSocket(room);
-    if (room === undefined) {
-      setRoom(rooms[0]);
-    }
+    // if (room) initiateSocket(room);
+    // if (room === undefined) {
+    //   setRoom(rooms[0]);
+    // }
 
     enterChat((err, data) => {
       if (err) return;
@@ -51,9 +53,14 @@ function ChatRoom({ currentUser }) {
       if (err) return;
       setTest(data);
     });
-    return () => {
-      disconnectSocket();
-    };
+
+    enterRoom((err, data) =>{
+      if (err) return;
+      if(data){
+        fetchRooms();
+      }
+    })
+ 
   }, [rooms, room, test]);
 
   const fetchRooms = () => {
@@ -69,7 +76,7 @@ function ChatRoom({ currentUser }) {
         }
       });
   };
-  console.log(test);
+
 
   const addName = () => {
     setName(onName);
@@ -78,11 +85,10 @@ function ChatRoom({ currentUser }) {
   const addRoom = async () => {
     if (createRoom) {
       await sendRoom();
-      await fetchRooms();
-      await setCreateRoom("");
-      setTimeout(function () {
-        window.location.reload();
-      }, 1000);
+      await sendNewRoom('newroom');
+       fetchRooms();
+       setCreateRoom("");
+      
     }
   };
   const sendRoom = async () => {
@@ -131,9 +137,9 @@ function ChatRoom({ currentUser }) {
             getRoomInput={getRoomInput}
             handleInput={handleInput}
             message={name + ":   " + message}
-            setRoom={setRoom}
             room={room}
             sendMessage={sendMessage}
+            stateRoom={setRoom}
           />
         </div>
       )}
