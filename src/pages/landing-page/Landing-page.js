@@ -5,6 +5,7 @@ import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "../../redux/user/user.selectors";
 import { connect } from "react-redux";
 import { fetchNamePending } from "../../redux/user/user.actions"
+import {sendProfileChange } from "../../sockets/sockets"
 
 import "./Landing-page.scss";
 
@@ -13,6 +14,7 @@ function LandingPage({ currentUser, changeStatus, fetchNamePending }) {
     if (currentUser !== null) {
       changeStatus(currentUser.profileId, "online");
       fetchNamePending(currentUser.profileId)
+      setTimeout(function(){ sendProfileChange() }, 2000);
     }
   }, [changeStatus, currentUser]);
 

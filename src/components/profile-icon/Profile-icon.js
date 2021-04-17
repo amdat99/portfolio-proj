@@ -9,6 +9,8 @@ import {
   fetchProfileImagePending,
   changeStatus,
 } from "../../redux/profile/profile.actions";
+
+import {sendProfileChange } from "../../sockets/sockets"
 import { createStructuredSelector } from "reselect";
 import "./Profile-icon.scss";
 
@@ -43,8 +45,10 @@ function ProfileIcon({
       signOutPending();
     }, 1200);
     setTimeout(function () {
-      refreshPage();
-    }, 2000);
+      sendProfileChange()
+    }, 2200);
+    
+  
 
     function refreshPage() {
       window.location.reload(false);

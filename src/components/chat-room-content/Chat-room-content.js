@@ -12,7 +12,16 @@ function ChatRoomContent({
   setRoom,
   room,
   sendMessage,
+  setCurrentRoom,
+  messageRoom
 }) {
+
+  const sendCurrentMessage = () => {
+    if(room === undefined){
+      alert('select room')
+    }
+    sendMessage(room, message)
+  }
   return (
     <div className="chat-content-container">
       <h4 id="chat-content-title">Select Room : </h4>
@@ -20,8 +29,11 @@ function ChatRoomContent({
         ? rooms.map((room, i) => (
             <button
               id="chat-content-room"
-              onClick={() => {
+              onClick={() => { 
+                setCurrentRoom(room);
                 setRoom(room);
+                
+               
               }}
               key={i}
             >
@@ -39,13 +51,13 @@ function ChatRoomContent({
         {chat
           ? chat.map((messages, i) => (
               <span id="chat-content-message" key={i}>
-                {messages}
+                {messages}{messageRoom}
               </span>
             ))
           : null}
       </div>
       <textarea type="text" onChange={handleInput} />
-      <button id="chat-content-send" onClick={() => sendMessage(room, message)}>
+      <button id="chat-content-send" onClick={sendCurrentMessage }>
         Send
       </button>
     </div>

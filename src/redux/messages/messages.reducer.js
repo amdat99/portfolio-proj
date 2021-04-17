@@ -6,7 +6,8 @@ const INITIAL_STATE = {
   pending: false,
   messagesData: null,
   searchField: null,
-  videoData : null
+  videoData : null,
+  room: null,
 };
 const messagesReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -41,6 +42,11 @@ const messagesReducer = (state = INITIAL_STATE, action) => {
           ...state,
           videoData: action.payload
         };
+        case messagesActionTypes.SET_ROOM:
+          return {
+            ...state,
+            room: action.payload
+          };
 
     case messagesActionTypes.SEND_MESSAGE_FAILED:
     case messagesActionTypes.FETCH_MESSAGE_FAILED:

@@ -23,7 +23,7 @@ export const testSocket = (data) => {
 export const enterChat = (data) => {
   if (!socket) return;
   socket.on("chat", (message) => {
-    console.log("message reieved");
+    console.log("message received");
     return data(null, message);
   });
 };
@@ -31,6 +31,19 @@ export const enterChat = (data) => {
 export const sendMessage = (room, message) => {
   console.log("message sent");
   if (socket) socket.emit("chat", { message, room });
+};
+
+export const enterProfileChange = (data) => {
+  if (!socket) return;
+  socket.on("profilechange", (message) => {
+    console.log("profile req received");
+    return data(null, message);
+  });
+};
+
+export const sendProfileChange = () => {
+  console.log("profile req sent");
+  if (socket) socket.emit("profilechange");
 };
 
 
@@ -49,6 +62,21 @@ export const sendMsgRequest = () => {
   if (socket) socket.emit("onmessage");
 }
 
+
+export const enterCreateRoom = (data) => {
+  if (!socket) return;
+  socket.on("onroom", (room) => {
+    console.log("room request");
+    return data(null, room);
+  });
+};
+
+
+
+export const sendRoomRequest = () => {
+  console.log(" sending room request");
+  if (socket) socket.emit("onroom");
+}
 
 export const enterCall = (data) => {
   if (!socket) return;

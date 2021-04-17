@@ -6,7 +6,8 @@ import {
   sendId,
   sendProfile,
   sendMsgRequest,
-  enterOnMessage
+  enterOnMessage,
+  enterProfileChange
 
 } from "../../sockets/sockets";
 import { selectCurrentUser, selectProfileName } from "../../redux/user/user.selectors";
@@ -144,6 +145,15 @@ useEffect(()=>{
           console.log("fetching messages");
         }
     });
+
+    enterProfileChange((err, data) => {
+      if (err) return;
+
+      if (data === 'profile') {
+       getProfileInfo();
+        console.log("fetching messages");
+      }
+  });
   })
 
 

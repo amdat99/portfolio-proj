@@ -6,18 +6,20 @@ import {
   enterChat,
   enterSDP,
   sendMessage,
-  sendSDP,
+  enterCreateRoom,
+  sendRoomRequest
 } from "../../sockets/sockets";
 
 import { Link } from "react-router-dom";
 
 import { selectCurrentUser } from "../../redux/user/user.selectors";
+import { setCurrentRoom} from '../../redux/messages/messages.actions'
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
 import "./Chat-room.scss";
 
-function ChatRoom({ currentUser }) {
+function ChatRoom({ currentUser, setCurrentRoom }) {
   const [createRoom, setCreateRoom] = useState("");
   const [rooms, setRooms] = useState([]);
   const [room, setRoom] = useState(rooms[0]);
@@ -26,7 +28,8 @@ function ChatRoom({ currentUser }) {
   const [chatHistory, setChatHistory] = useState([]);
   const [name, setName] = useState("");
   const [onName, setOnName] = useState("");
-  const [test, setTest] = useState(null);
+  const [messageRoom, setMessageRoom] = useState(null);
+
 
   useEffect(() => {
     fetchRooms();
@@ -37,24 +40,30 @@ function ChatRoom({ currentUser }) {
   }, [currentUser, room, name, onName]);
 
   useEffect(() => {
-    if (room) initiateSocket(room);
-    if (room === undefined) {
-      setRoom(rooms[0]);
-    }
+    // if (room) initiateSocket(room);
+    // if (room === undefined) {
+    //   setRoom(rooms[0]);
+   
+    // }
+
 
     enterChat((err, data) => {
       if (err) return;
-      setChat((existingdata) => [data, ...existingdata]);
+      setChat((existingdata) => [data.message +('('+data.room+')'), ...existingdata]);
+  
+    });
+  
+ 
+
+    enterCreateRoom((err, data) => {
+      if (err) return;
+      if(data){
+        fetchRooms();
+      }
+     
     });
 
-    enterSDP((err, data) => {
-      if (err) return;
-      setTest(data);
-    });
-    return () => {
-      disconnectSocket();
-    };
-  }, [rooms, room, test]);
+  }, [rooms, room,]);
 
   const fetchRooms = () => {
     fetch("https://aamirproject-api.herokuapp.com/fetchrooms", {
@@ -64,12 +73,13 @@ function ChatRoom({ currentUser }) {
       .then((res) => res.json())
       .then((data) => {
         setRooms(data);
-        if (room === undefined) {
-          setRoom(rooms[0]);
-        }
+        // if (room === undefined) {
+        //   setRoom(rooms[0]);
+         
+        // }
       });
   };
-  console.log(test);
+
 
   const addName = () => {
     setName(onName);
@@ -80,9 +90,7 @@ function ChatRoom({ currentUser }) {
       await sendRoom();
       await fetchRooms();
       await setCreateRoom("");
-      setTimeout(function () {
-        window.location.reload();
-      }, 1000);
+      sendRoomRequest();
     }
   };
   const sendRoom = async () => {
@@ -94,6 +102,7 @@ function ChatRoom({ currentUser }) {
       }),
     });
     fetchRooms();
+   
     setChatHistory(chat);
     setChat([...chat, chatHistory]);
   };
@@ -134,6 +143,8 @@ function ChatRoom({ currentUser }) {
             setRoom={setRoom}
             room={room}
             sendMessage={sendMessage}
+            setCurrentRoom = {setCurrentRoom}
+            messageRoom={messageRoom}
           />
         </div>
       )}
@@ -145,4 +156,7 @@ const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
 });
 
-export default connect(mapStateToProps)(ChatRoom);
+const mapDispatchToProps = (dispatch) => ({
+  setCurrentRoom: (room) => dispatch(setCurrentRoom(room))
+})
+export default connect(mapStateToProps, mapDispatchToProps)(ChatRoom);

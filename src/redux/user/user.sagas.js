@@ -32,6 +32,8 @@ import {
   getProfileName
 } from "../../firebase/firebase";
 
+import {sendProfileChange } from "../../sockets/sockets"
+
 export function* getSnapshotFromUserAuth(userData, additionalData) {
   try {
     const userRef = yield call(createUserProfileDoc, userData, additionalData);
@@ -46,18 +48,22 @@ export function* signInWithGoogle() {
   try {
     const { user } = yield auth.signInWithPopup(googleHandler);
     yield getSnapshotFromUserAuth(user);
+ 
   } catch (error) {
     yield put(signInFailure(error));
-  }
+  }   
+
 }
 
 export function* signInWithEmail({ payload: { email, password } }) {
   try {
     const { user } = yield auth.signInWithEmailAndPassword(email, password);
     yield getSnapshotFromUserAuth(user);
+  
   } catch (error) {
     yield put(signInFailure(error));
-  }
+  }  
+
 }
 
 export function* sendDirectMessageAsync({
@@ -120,6 +126,7 @@ export function* isUserAuthenticated() {
 export function* onUpdateStatus() {
   const userData = yield getCurrentUser();
   yield call(updateStatus, userData.profileId);
+
 }
 
 export function* signOut() {
