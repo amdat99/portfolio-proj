@@ -7,7 +7,7 @@ const INITIAL_STATE = {
   messagesData: null,
   searchField: null,
   videoData : null,
-  room: null,
+  room: 555,
 };
 const messagesReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {

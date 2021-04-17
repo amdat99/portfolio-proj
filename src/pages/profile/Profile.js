@@ -44,7 +44,7 @@ import {
 } from "../../redux/shop/shop.actions";
 
 import DirectMessagingBox from "../../components/direct-messaging-box/Direct-messaging-box";
-
+import {sendProfileChange } from "../../sockets/sockets"
 import "./Profile.scss";
 
 const CartDropdown = React.lazy(() =>
@@ -132,18 +132,20 @@ function Profile({
     setUserName(event.target.value);
   };
 
-  const onUpdateName = async () => {
+  const onUpdateName = async (e) => {
+    e.preventDefault();
    await  updateDisplayName(currentUser.profileId, userName);
-    await updateDisplayNameforUsers(currentUser.id, userName);
-     fetchNamePending(currentUser.profileId)
+    // await updateDisplayNameforUsers(currentUser.id, userName);
+     await fetchProfileName()
+     fetchProfileInfoPending()
+     setTimeout(function(){  sendProfileChange() }, 2000);
+
+   
   
 };
 
-const refreshPage = () => {
-    
-    setTimeout(function(){ window.location.reload();}, 1000);
-    
-}
+
+
 
   return (
     <div>
@@ -189,12 +191,8 @@ const refreshPage = () => {
               ) : null}
             </Suspense>
             <form
-              onSubmit={() => {
-                onUpdateName();
-               
-                
-                
-              }}
+              onSubmit={
+                onUpdateName}
             >
               {displayNameData
                 ? 

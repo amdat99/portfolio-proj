@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import {sendProfileChange } from "../../sockets/sockets"
 function ProfileIconDropdown({
   uploadImageToStorage,
   currentUser,
@@ -32,7 +32,8 @@ function ProfileIconDropdown({
     await getProfileImage(currentUser.profileId);
     setUploadprofileimage(null);
     toggleModal();
-    setTimeout(function(){ window.location.reload();}, 1000);
+    fetchProfileInfoPending()
+    setTimeout(function(){ sendProfileChange() }, 2000);
     
   };
 

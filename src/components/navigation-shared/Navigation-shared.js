@@ -25,9 +25,9 @@ function NavigationShared({room}) {
  useEffect(() => {
    if (room) initiateSocket(room)
 
-   return(()=>{
-     disconnectSocket()
-   })
+  //  return(()=>{
+  //    disconnectSocket()
+  //  })
  })
 
   return (

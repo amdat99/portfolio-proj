@@ -111,7 +111,7 @@ function ChatPage({
 const [videoData, setVideoData] = useState(null);
 
 useEffect(()=>{
-  if(videoInfo){
+  if(videoInfo && receiverInfo){
   setVideoData(videoInfo)
   }
 },[videoInfo])
@@ -151,18 +151,20 @@ useEffect(()=>{
 
       if (data === 'profile') {
        getProfileInfo();
-        console.log("fetching messages");
+        console.log("fetching profiles");
       }
   });
   })
 
+  useEffect(() => {
+    getProfileInfo();
+  },[])
 
 
   useEffect(() => {
-    setRender("render");
-    getProfileInfo();
+    setRender("render")
     fetchMessagePending();
-  }, [fetchMessagePending, getProfileInfo, render]);
+  }, [fetchMessagePending, render]);
 
   useEffect(() => {
     if (currentUser !== null) {
