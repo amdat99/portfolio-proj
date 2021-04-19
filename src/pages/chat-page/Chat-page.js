@@ -332,7 +332,7 @@ const  answerCall = async (videoId) => {
 let today = new Date()
  
   return (
-    <div>
+    <div className ='chat-back'>
       <Suspense fallback={<div className="loader"></div>}>
         {/* <ChatRoom /> */}
         <div className={videoBox ? "chat-page-vidshow" : "chat-page-vidhide"}>

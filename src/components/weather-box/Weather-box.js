@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 
 import "./Weather-box.scss";
 
@@ -6,7 +6,17 @@ function WeatherBox(props) {
   const [location, setLocation] = useState("");
   const [locationData, setLocationData] = useState(null);
   const [weatherToggle, setWeatherToggle] = useState(false);
+  const [geolocation, setGeolocation] = useState(null)
 
+  useEffect(() => {
+    getLocation()
+  },[])
+
+  // useEffect(() => {
+  //   if(geolocation){
+  //     getReverseGeo()
+  //   }
+  // },[geolocation])
   const onSendLocation = async () => {
     await setLocationData(null);
     await fetch("https://aamirproject-api.herokuapp.com/weathering", {
@@ -56,11 +66,24 @@ function WeatherBox(props) {
   const toggleWeather = () => {
     setWeatherToggle(!weatherToggle);
   };
+  
+  function getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(setGeolocation);
+      console.log('g',geolocation)
+    } else {
+      console.log('geo location not supported')
+    }
+  }
 
+//   const getReverseGeo = async () => {
+// fetch(`http://api.positionstack.com/v1/reverse?access_key=d13256a82b2b54396769b47c9dc17db4&query=${geolocation.latitude},${geolocation}`)
+//   } 
+  
   return (
     <div>
       <h4 id="weather-title" onClick={toggleWeather}>
-        Get current weather
+      ⛅current weather
       </h4>
 
       {weatherToggle ? (
