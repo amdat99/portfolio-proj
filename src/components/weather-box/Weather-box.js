@@ -6,17 +6,34 @@ function WeatherBox(props) {
   const [location, setLocation] = useState("");
   const [locationData, setLocationData] = useState(null);
   const [weatherToggle, setWeatherToggle] = useState(false);
-  const [geolocation, setGeolocation] = useState(null)
+  const [geoLocation, setGeolocation] = useState(null)
+  const [geoData, setGeoData] = useState(null)
 
   useEffect(() => {
     getLocation()
   },[])
 
-  // useEffect(() => {
-  //   if(geolocation){
-  //     getReverseGeo()
-  //   }
-  // },[geolocation])
+  useEffect(() => {
+    if(geoLocation){
+     fetchGeoData(geoLocation.longitude,geoLocation.latitude)
+    }
+  },[geoLocation])
+
+  useEffect(() => {
+    if(geoData){
+      geoData.data.map(data =>{ 
+      setLocation(data.locality)
+      })
+    }
+  },[geoData,])
+
+
+
+  const options = {
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0
+  };
   const onSendLocation = async () => {
     await setLocationData(null);
     await fetch("https://aamirproject-api.herokuapp.com/weathering", {
@@ -54,6 +71,24 @@ function WeatherBox(props) {
       });
   };
 
+  const fetchGeoData = async (longitude,latitude) => {
+ 
+
+    await fetch("https://aamirproject-api.herokuapp.com/geodata", {
+      // fetch('http://localhost:4000/geodata',{
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        longitude: longitude,
+        latitude: latitude
+      }),
+    })
+      .then((res) => res.json())
+      .then(data => setGeoData(data))
+      
+  };
+
+
   const onChange = (event) => {
     setLocation(event.target.value);
   };
@@ -66,20 +101,31 @@ function WeatherBox(props) {
   const toggleWeather = () => {
     setWeatherToggle(!weatherToggle);
   };
-  
+  const success = (position) => {
+    setGeolocation(position.coords)
+  }
+  function error(err) {
+    console.warn(`ERROR(${err.code}): ${err.message}`);
+  }
+
   function getLocation() {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(setGeolocation);
-      console.log('g',geolocation)
+      navigator.geolocation.getCurrentPosition(success, error, options);
+     
+    
     } else {
       console.log('geo location not supported')
     }
   }
+ if(geoLocation){
+  console.log(geoLocation.longitude,geoLocation.latitude)
+ }
+  const getReverseGeo = async () => {
+fetch(`http://api.positionstack.com/v1/reverse?access_key=d13256a82b2b54396769b47c9dc17db4&query=${geoLocation.latitude},${geoLocation.longitude}`)
+.then(response => response.json())
+.then(data => setGeoData(data))
+  } 
 
-//   const getReverseGeo = async () => {
-// fetch(`http://api.positionstack.com/v1/reverse?access_key=d13256a82b2b54396769b47c9dc17db4&query=${geolocation.latitude},${geolocation}`)
-//   } 
-  
   return (
     <div>
       <h4 id="weather-title" onClick={toggleWeather}>
