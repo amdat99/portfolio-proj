@@ -24,6 +24,10 @@ function WeatherBox(props) {
       geoData.data.map(data =>{ 
       setLocation(data.locality)
       })
+
+      
+        toggleWeather();
+      
     }
   },[geoData,])
 
