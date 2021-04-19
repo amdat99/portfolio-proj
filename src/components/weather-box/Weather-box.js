@@ -120,11 +120,7 @@ function WeatherBox(props) {
  if(geoLocation){
   console.log(geoLocation.longitude,geoLocation.latitude)
  }
-  const getReverseGeo = async () => {
-fetch(`http://api.positionstack.com/v1/reverse?access_key=d13256a82b2b54396769b47c9dc17db4&query=${geoLocation.latitude},${geoLocation.longitude}`)
-.then(response => response.json())
-.then(data => setGeoData(data))
-  } 
+
 
   return (
     <div>
