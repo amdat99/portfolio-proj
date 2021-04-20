@@ -11,7 +11,7 @@ import {
 } from "./messages.actions";
 
 export function* sendMessageAsync({
-  payload: { message, userName, messageId, userId, image },
+  payload: { message, userName, messageId, userId, image,video },
 }) {
   try {
     const response = yield fetch(
@@ -26,6 +26,7 @@ export function* sendMessageAsync({
           messageId: messageId,
           userId: userId,
           image: image,
+          video: video,
         }),
       }
     );
@@ -33,7 +34,7 @@ export function* sendMessageAsync({
     if (data.messageid) {
       yield put(
         sendMessageSuccess({
-          payload: { message, userName, messageId, userId, image },
+          payload: { message, userName, messageId, userId, image,video },
         })
       );
     }

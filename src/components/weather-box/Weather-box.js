@@ -1,5 +1,6 @@
 import React, { useState,useEffect } from "react";
 
+
 import "./Weather-box.scss";
 
 function WeatherBox(props) {

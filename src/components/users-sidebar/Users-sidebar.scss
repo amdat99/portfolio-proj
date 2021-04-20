@@ -2,16 +2,30 @@
   position: absolute;
   display: flex;
   flex-direction: column;
-  right: 17%;
+  right: 14%;
   top: 180px;
   height: 690px;
   overflow: scroll;
   z-index: 999;
 
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 1200px) {
+    right: 11%;
+    z-index: 999;
+  }
+  @media screen and (max-width: 1000px) {
+    right: 9%;
+    z-index: 999;
+  }
+  @media screen and (max-width: 900px) {
+    right: 2%;
+    z-index: 999;
+  }
+  @media screen and (max-width: 700px) {
     right: -5%;
     z-index: 999;
   }
+
+
   @media screen and (max-width: 490px) {
     right: -22%;
   }

@@ -32,6 +32,26 @@
   }
 }
 
+#message-box-image-s {
+  max-width: 30px;
+  max-height: 25px;
+  top: -20px;
+  position: relative;
+  left: 240px;
+  padding: 0;
+  @media screen and (max-width: 1200px) {
+  left: 50px;
+    top: -6px;
+    position: relative;
+  }
+
+  &:hover {
+    max-height: 200px;
+    max-width: 500px;
+  }
+}
+
+
 #message-box-profile {
   border-radius: 20px;
   position: relative;
@@ -56,6 +76,20 @@
     position: relative;
   }
 }
+
+#message-box-date-s {
+  display: flex;
+  justify-content: flex-end;
+  max-width: 50px;
+  font-size: 10px;
+  color: grey;
+
+
+  @media screen and (max-width: 800px) {
+    
+    position: relative;
+  }
+}
 #message-box-button {
   display: flex;
   justify-content: flex-start;
@@ -67,4 +101,11 @@
   position: relative;
   font-size: 12px;
   top: 22px;
+}
+.message-box-novid{
+  display: none
+}
+
+.message-box-green{
+  color:green
 }

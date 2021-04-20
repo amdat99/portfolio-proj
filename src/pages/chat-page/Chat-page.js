@@ -97,6 +97,7 @@ function ChatPage({
     messageId: "",
     userId: "",
     image: "",
+    video: ""
   });
   const [imageToggle, setImageToggle] = useState(false);
   const [nameInput, setNameInput] = useState("");
@@ -107,8 +108,9 @@ function ChatPage({
   const [room, setRoom] = useState(555);
   const [toggleCallLog, setToggleCallLog] = useState(false);
   const [timer, setTimer] = useState(0)
-  const [onConnect, setOnConnect] = useState(false);
 const [videoData, setVideoData] = useState(null);
+const [mediaInput, setMediaInput] = useState(false);
+const [mediaType, setMediaType] = useState('');
 
 useEffect(()=>{
   if(videoInfo && receiverInfo){
@@ -213,6 +215,7 @@ useEffect(()=>{
         messageId: Math.random(),
         message: "",
         image: "",
+        video:''
       });
     } else {
       setMessageData({
@@ -221,6 +224,7 @@ useEffect(()=>{
         messageId: Math.random(),
         message: "",
         image: "",
+        video: ""
       });
     }
     setImageToggle(false);
@@ -229,6 +233,19 @@ useEffect(()=>{
   const addImageUrl = (event) => {
     setMessageData({ ...messageData, image: event.target.value });
   };
+
+  const addVideoUrl = (event) => {
+    setMessageData({ ...messageData, video: event.target.value });
+  }
+
+  const onMediaInput = (media) => {
+    setMediaType(media)
+    setMediaInput(true)
+}
+
+const closeMediaInput = () => {
+  setMediaInput(false)
+}
 
   const onHandleSearch = (event) => {
     setSearchField(event.target.value);
@@ -327,7 +344,7 @@ const  answerCall = async (videoId) => {
   }
   }
 
-
+console.log(mediaType)
 
 let today = new Date()
  
@@ -410,6 +427,7 @@ let today = new Date()
       )
       :null}
       </div>
+  
     
         <form className="chat-page-scroller hide-scroll" onSubmit={sendMessage}>
           {pending ? <div className="loader"></div> : null}
@@ -421,7 +439,7 @@ let today = new Date()
                   fetchMessage={fetchMessagePending}
                   incrementLikesPending={incrementLikesPending}
                   sendMsgRequest = {sendMsgRequest}
-                  currentUser={currentUser}
+                  
                 />
               ))
             : null}
@@ -431,18 +449,29 @@ let today = new Date()
             aria-label="add message"
             type="text-area"
             placeholder="Enter Message"
+            
             onChange={handleChange}
             required
           />
-
+       
+         
+        
+        { mediaInput?
+        <div>
           <input
             type="url"
-            placeholder="addImageUrl"
-            onChange={addImageUrl}
+            placeholder={"add "+ mediaType + ' url'}
+            onChange={mediaType === "image" ? addImageUrl: addVideoUrl}
             id="chat-page-image"
-            value={messageData.image}
-            aria-label="Add Image URl"
+            // value={messageData.image}
+            aria-label="Add Media URl"
+           
           />
+          <button   id="chat-page-imagebutt" onClick={closeMediaInput}>X</button>
+          <span style={{marginBottom: '23px' ,marginLeft: '24%',color: 'red'}}
+          id="chat-page-imagebutt" >{mediaType === "image" ? 'Image': 'Video'}</span>
+          </div>
+        :null}
           {currentUser ? (
             <button id="chat-page-button" type="submit">
               send
@@ -485,7 +514,11 @@ let today = new Date()
             // </Link>
           )}
         </form>
+    <div onClick={()=> {onMediaInput('image'); setMediaInput(true)}}
+           id="" style={{cursor: "pointer",marginLeft: '-80px'}}>📷  Image</div>
 
+<div  onClick={()=> {onMediaInput('video'); setMediaInput(true)}}
+          style={{ marginLeft: '100px', marginTop: '-20px' ,cursor: 'pointer' }} >🎥  Vid</div>
         <UsersSidebar searchField={searchField} render={render} beginCall = {beginCall} />
 
         <WeatherBox />

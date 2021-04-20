@@ -56,18 +56,19 @@
 
 #chat-page-send {
   position: absolute;
-  bottom: 40px;
+  bottom: 180px;
   z-index: 5;
-  width: 55%;
-  height: 70px;
+  width: 65%;
+  
+  height: 90px;
   @media screen and (max-width: 1000px) {
     width: 55%;
-    bottom: 50px;
+    bottom: 90px;
   }
 }
 #chat-page-button {
-  margin-left: 10%;
-  bottom: 10px;
+  margin-left: 7%;
+  bottom: 140px;
   z-index: 5;
   width: 15%;
   height: 30px;
@@ -75,7 +76,7 @@
   background: black;
   @media screen and (max-width: 800px) {
     width: 19%;
-    bottom: 20px;
+    bottom: 50px;
     margin-left: 0%;
   }
 
@@ -100,17 +101,29 @@
 }
 
 #chat-page-image {
-  margin-left: 35%;
-  bottom: 12px;
+  margin-left: 5%;
+  bottom: 280px;
   z-index: 5;
   width: 20%;
   height: 20px;
   position: absolute;
   @media screen and (max-width: 800px) {
-    width: 25%;
-    bottom: 20px;
-    margin-left: 30%;
+    width: 40%;
+    margin-left:-16%;
+
   }
+}
+
+#chat-page-imagebutt{
+margin-left: 25.5%;
+bottom: 280px;
+z-index: 5;
+height: 25px;
+position: absolute;
+@media screen and (max-width: 800px) {
+ 
+  margin-left: 25%;
+}
 }
 
 .hide-div {
