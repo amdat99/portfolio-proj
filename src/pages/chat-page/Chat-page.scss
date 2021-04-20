@@ -56,14 +56,14 @@
 
 #chat-page-send {
   position: absolute;
-  bottom: 140px;
+  bottom: 90px;
   z-index: 5;
   width: 65%;
   
   height: 90px;
   @media screen and (max-width: 1000px) {
     width: 55%;
-    bottom: 90px;
+    bottom: 80px;
   }
 }
 #chat-page-button {
@@ -147,7 +147,7 @@ position: absolute;
 }
 #chat-page-userinput {
   left: 148px;
-  bottom: 100px;
+  bottom: 60px;
   z-index: 5;
   width: 200px;
   height: 23px;
@@ -161,7 +161,7 @@ position: absolute;
 }
 #chat-page-inputbutton {
   position: absolute;
-  bottom: 100px;
+  bottom: 60px;
   left: 350px;
   height: 27px;
 
