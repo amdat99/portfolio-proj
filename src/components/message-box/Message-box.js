@@ -97,6 +97,8 @@ function MessageBox({
 
           {images ? (
             image ? (
+              currentUser?
+              userid !== currentUser.profileId.toString()?
               <LazyLoadImage
               id={"message-box-image"}
                 onError={imageToggle}
@@ -105,14 +107,37 @@ function MessageBox({
                 scrollPosition={scrollPosition}
                 effect="blur"
               />
-            ) : //eslint-disable
+              :      <LazyLoadImage
+              id={"message-box-image-s"}
+                onError={imageToggle}
+                src={image}
+                alt="upload"
+                scrollPosition={scrollPosition}
+                effect="blur"
+              />
+              :<LazyLoadImage
+              id={"message-box-image"}
+                onError={imageToggle}
+                src={image}
+                alt="upload"
+                scrollPosition={scrollPosition}
+                effect="blur"
+              />
+              ) : //eslint-disable
             null
           ) : null}
-          {onVid ? 
-  
+          {currentUser?
+          onVid && userid === currentUser.profileId.toString()  ? 
+
+    
           <ReactPlayer url={video} controls width={vidReady?"200px": '0px'} height={vidReady?"150px": '0px'} 
-              onError={vidToggle} onReady={toggleVideoReady} />
+              onError={vidToggle} onReady={toggleVideoReady} id= 'message-box-vid' />
      
+        :      <ReactPlayer url={video} controls width={vidReady?"200px": '0px'} height={vidReady?"150px": '0px'} 
+        onError={vidToggle} onReady={toggleVideoReady} />
+        : onVid?
+        <ReactPlayer url={video} controls width={vidReady?"200px": '0px'} height={vidReady?"150px": '0px'} 
+        onError={vidToggle} onReady={toggleVideoReady} />
         : null}
         </div>
       ) : null}

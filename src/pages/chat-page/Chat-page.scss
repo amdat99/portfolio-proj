@@ -56,7 +56,7 @@
 
 #chat-page-send {
   position: absolute;
-  bottom: 180px;
+  bottom: 140px;
   z-index: 5;
   width: 65%;
   
@@ -68,7 +68,7 @@
 }
 #chat-page-button {
   margin-left: 24%;
-  bottom: 140px;
+  bottom: 110px;
   z-index: 5;
   width: 15%;
   height: 30px;
@@ -102,7 +102,7 @@
 
 #chat-page-image {
   margin-left: 5%;
-  bottom: 280px;
+  bottom: 245px;
   z-index: 5;
   width: 20%;
   height: 20px;
@@ -110,18 +110,19 @@
   @media screen and (max-width: 800px) {
     width: 40%;
     margin-left:-16%;
+    bottom: 220px;
 
   }
 }
 
 #chat-page-imagebutt{
 margin-left: 25.5%;
-bottom: 280px;
+bottom: 245px;
 z-index: 5;
-height: 25px;
+height: 24px;
 position: absolute;
 @media screen and (max-width: 800px) {
- 
+ bottom: 220px;
   margin-left: 25%;
 }
 }
@@ -145,8 +146,8 @@ position: absolute;
   display: none;
 }
 #chat-page-userinput {
-  left: 135px;
-  bottom: 13px;
+  left: 148px;
+  bottom: 100px;
   z-index: 5;
   width: 200px;
   height: 23px;
@@ -160,8 +161,8 @@ position: absolute;
 }
 #chat-page-inputbutton {
   position: absolute;
-  bottom: 15px;
-  left: 340px;
+  bottom: 100px;
+  left: 350px;
   height: 27px;
 
   @media screen and (max-width: 1000px) {
