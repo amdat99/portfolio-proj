@@ -452,7 +452,7 @@ let today = new Date()
             value={messageData.message}
             aria-label="add message"
             type="text-area"
-            placeholder="Enter Message"
+            placeholder="Enter Messages"
             
             onChange={handleChange}
             required
