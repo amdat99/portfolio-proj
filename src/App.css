@@ -59,6 +59,14 @@ input {
     transform: rotate(360deg);
   }
 }
+/* 
+.dark{
+  background:rgb(41, 38, 38);
+  color: white;
+  text-decoration: white;
+  height: fit-content;
+  w
+} */
 
 .test {
   z-index: 99;

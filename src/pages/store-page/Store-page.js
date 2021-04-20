@@ -6,7 +6,7 @@ import SharedHeader from "../../components/shared-header/Shared-header";
 
 import { setHeaderRoute } from "../../redux/header/header.actions";
 
-import { selectCurrentUser } from "../../redux/user/user.selectors";
+
 
 import { connect } from "react-redux";
 
@@ -18,12 +18,7 @@ function StorePage({ setHeaderRoute, match,currentUser,fetchNamePending }) {
     // eslint-disable-next-line
   }, [setHeaderRoute]);
 
-  useEffect(() => {
-    if(currentUser){
 
-    }
-
-  },[currentUser])
 
   return (
     <div>

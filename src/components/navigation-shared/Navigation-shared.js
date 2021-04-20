@@ -6,7 +6,7 @@ import { createStructuredSelector } from "reselect";
 
 import {
   initiateSocket,
-  disconnectSocket
+  // disconnectSocket
 } from "../../sockets/sockets";
 // import {ReactComponent as Logo } from '../../assets/logo.png'
 import ProfileIcon from "../profile-icon/Profile-icon";

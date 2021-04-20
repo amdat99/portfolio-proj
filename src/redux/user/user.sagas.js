@@ -32,7 +32,7 @@ import {
   getProfileName
 } from "../../firebase/firebase";
 
-import {sendProfileChange } from "../../sockets/sockets"
+// import {sendProfileChange } from "../../sockets/sockets"
 
 export function* getSnapshotFromUserAuth(userData, additionalData) {
   try {
@@ -84,7 +84,7 @@ export function* sendDirectMessageAsync({
 }
 
 export function* onGetProfileName({ payload:  profileId  }) {
-  console.log("dff", { payload: { profileId } });
+
   try {
     const profileName = yield getProfileName(profileId);
     yield put(fetchNameSuccess(profileName));

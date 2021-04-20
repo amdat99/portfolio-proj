@@ -3,7 +3,7 @@
   position: fixed;
   top: 0;
   padding-top: 10px;
-  background: white;
+
 
   @media screen and (max-width: 800px) {
     padding-top: 0px;
@@ -17,7 +17,7 @@
   right: -15px;
   z-index: 5;
   bottom: 0px;
-  background: white;
+  background: transparent;
   height: 60px;
 }
 .nav-shared-profileicon {

@@ -31,7 +31,7 @@ import {
   uploadImageToStorage,
   getSentMessageDoc,
   updateDisplayName,
-  updateDisplayNameforUsers,
+  // updateDisplayNameforUsers,
   getProfileName,
 } from "../../firebase/firebase";
 import {

@@ -49,10 +49,6 @@ function ProfileIcon({
     }, 2200);
     
   
-
-    function refreshPage() {
-      window.location.reload(false);
-    }
   };
   return (
     <div>

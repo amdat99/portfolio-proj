@@ -86,7 +86,7 @@ function ProductItem({ item, incrementItem,currentUser }) {
                 }} />
 
               <span style={{width:'10%',marginLeft:'10px',fontWeight:'bold'}} >{data.userName}:   </span>
-            <span style={{maxWidth:'100px' ,marginLeft: '20px'}}>{  '  ', data.review}</span> {''}
+            <span style={{maxWidth:'100px' ,marginLeft: '20px'}}>{  data.review}</span> {''}
               <span id={data.rating >= 3 ?'review-rating-green': 'review-rating-red'} 
               style={{width:'10%', marginLeft: '20px'}}>
                 {' rating: '}{data.rating}⭐</span>

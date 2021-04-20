@@ -15,7 +15,8 @@ import { useRef, useEffect } from 'react';
           
             window.removeEventListener('beforeunload', handler)
           }
-        }, [cb])
+          //eslint-disable-next-line
+        }, [cb,callOnCleanup])
       }
 
 export default useWindowUnloadEffect;

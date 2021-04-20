@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 
 import { deleteListing } from "../../firebase/firebase";
+//eslint-disable-next-line
 import { fetchSellingItemsPending } from "../../redux/shop/shop.actions";
 
 import "./Listed-items.scss";

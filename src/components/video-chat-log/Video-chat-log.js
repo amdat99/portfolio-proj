@@ -6,7 +6,7 @@ import { getReceiverInfo } from "../../redux/profile/profile.actions"
 
 function VideoChatLog({data,openVideoBox, beginCall,getReceiverInfo}) {
 
-  const [profileInfo, setProfileInfo] = useState({
+  const [, setProfileInfo] = useState({
     recieverId: "",
     recieverName: "",
   });

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Suspense, userRef} from "react";
+import React, { useEffect, useState, Suspense,} from "react";
 
 
 import {
@@ -20,7 +20,7 @@ import {
 
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import useWindowUnloadEffect from "./use-unload";
+// import useWindowUnloadEffect from "./use-unload";
 import {
   changeStatus,
   fetchProfileInfoPending,
@@ -108,15 +108,18 @@ function ChatPage({
   const [room, setRoom] = useState(555);
   const [toggleCallLog, setToggleCallLog] = useState(false);
 
-  const [timer, setTimer] = useState(0)
-const [videoData, setVideoData] = useState(null);
+  // const [timer, setTimer] = useState(0)
+  //eslint-disable-next-line
+const [videoData,setVideoData] = useState(null);
 const [mediaInput, setMediaInput] = useState(false);
 const [mediaType, setMediaType] = useState('');
+const [showSidebar, setShowSidebar] = useState(false)
 
 useEffect(()=>{
   if(videoInfo && receiverInfo){
   setVideoData(videoInfo)
   }
+  //eslint-disable-next-line
 },[videoInfo])
 
   useEffect(() => {
@@ -160,7 +163,9 @@ useEffect(()=>{
   })
 
   useEffect(() => {
+    
     getProfileInfo();
+    //eslint-disable-next-line
   },[])
 
 
@@ -184,7 +189,7 @@ useEffect(()=>{
       });
 
     }
-  }, [currentUser, changeStatus, getProfileInfo,profileName]);
+  }, [currentUser, changeStatus,profileName]);
 
   useEffect(() => {
     if (currentUser) {
@@ -198,7 +203,6 @@ useEffect(()=>{
   //   return () => clearInterval(interval);
   // }, [fetchMessagePending]);
 
-  console.log(profileName)
 
   const handleChange = (event) => {
     setMessageData({ ...messageData, message: event.target.value });
@@ -250,6 +254,9 @@ const closeMediaInput = () => {
   setMediaInput(false)
 }
 
+const toggleSideBar = () => {
+  setShowSidebar(!showSidebar)
+}
   const onHandleSearch = (event) => {
     setSearchField(event.target.value);
   };
@@ -347,12 +354,12 @@ const  answerCall = async (videoId) => {
   }
   }
 
-console.log(mediaType)
 
-let today = new Date()
+
+// let today = new Date()
  
   return (
-    <div className ='chat-back'>
+    <div className ='chat-back chat-page-dark'>
       <Suspense fallback={<div className="loader"></div>}>
         {/* <ChatRoom /> */}
         <div className={videoBox ? "chat-page-vidshow" : "chat-page-vidhide"}>
@@ -472,7 +479,7 @@ let today = new Date()
            
           />
           <button   id="chat-page-imagebutt" onClick={closeMediaInput}>X</button>
-          <span style={{marginBottom: '23px' ,marginLeft: '24%',color: 'red'}}
+          <span style={{marginBottom: '23px' ,marginLeft: '24%',color: '#2CA4AB'}}
           id="chat-page-imagebutt" >{mediaType === "image" ? 'Image': 'Video'}</span>
           </div>
         :null}
@@ -500,15 +507,14 @@ let today = new Date()
                 </div>
               ) : (
                 <div>
+                
                   <input
                     type="text"
                     onChange={(e) => setOnName(e.target.value)}
                     placeholder="enter username"
                     id="chat-page-userinput"
                   />
-                  <button type="button" id="chat-page-inputbutton" onClick={onNameInput}>
-                    Enter Name
-                  </button>
+                  
                 </div>
               )}
             </div>
@@ -517,14 +523,20 @@ let today = new Date()
             //   sign in to message and see users
             // </Link>
           )}
-        </form>
+        </form>  
+        {!nameInput && !currentUser?
+        <button type="button" id="chat-page-inputbutton" onClick={onNameInput}>
+                    Enter Name
+                  </button>
+          : null}
     <div onClick={()=> {onMediaInput('image'); setMediaInput(true)}}
            id="" style={{cursor: "pointer",marginLeft: '-80px'}}>📷  Image</div>
 
 <div  onClick={()=> {onMediaInput('video'); setMediaInput(true)}}
           style={{ marginLeft: '100px', marginTop: '-20px' ,cursor: 'pointer' }} >🎥  Vid</div>
-        <UsersSidebar searchField={searchField} render={render} beginCall = {beginCall} />
-
+       <div id ={ showSidebar? 'chat-side-bar-show': 'chat-side-bar-hide' } >
+        <UsersSidebar showSidebar ={showSidebar} searchField={searchField} render={render} beginCall = {beginCall} />
+       </div> <button id='chat-page-side-butt'onClick={toggleSideBar}>sidebar</button>
         <WeatherBox />
         {imageToggle ? (
           <img

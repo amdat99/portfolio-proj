@@ -1,27 +1,27 @@
-import React, { useRef, useState, useEffect } from "react";
-import VideoChatContent from "./Video-chat-content";
+import React from "react";
+// import VideoChatContent from "./Video-chat-content";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import Draggable from 'react-draggable'; 
 import {
-  sendVideoData,
-  getCallerInfo,
-  fetchcallinfo,
+  // sendVideoData,
+  // getCallerInfo,
+  // fetchcallinfo,
   setMissedCall
 } from "./Video-chat-requests";
 import {
   initiateSocket,
-  enterCall,
+  // enterCall,
   sendProfile,
   enterSDP,
   sendSDP,
   enterCand,
   sendCand,
-  sendId,
+  // sendId,
   checkJoined,
 } from "../../sockets/sockets";
 
-import { initiateVidSocket } from "../../sockets/video-sockets";
+// import { initiateVidSocket } from "../../sockets/video-sockets";
 
 import { selectCurrentUser, selectProfileName } from "../../redux/user/user.selectors";
 import {setVideoData} from "../../redux/messages/messages.actions"
@@ -62,12 +62,11 @@ class VideoChat extends React.Component {
 
     const {
       currentUser,
-      receiverInfo,
-      receivedData,
+
       getCallerInfo,
-      profileName,
+
       room,
-      videoData
+
     } = this.props;
 
     window.addEventListener('beforeunload', this.componentCleanup);
@@ -107,8 +106,8 @@ if(this.props.currentUser){
     });
     checkJoined((err, data) => {
       if (err) return;
-      console.log("data", data);
-      console.log(this.props.videoData.videoId);
+
+      // es-lint-disable-next-line
       if (data == this.props.videoData.videoId) {
         sendCand(this.remoteCandidates)
         this.createOffer();
@@ -200,8 +199,6 @@ if(this.props.currentUser){
     const {
       currentUser,
       receiverInfo,
-      receivedData,
-      getCallerInfo,
       profileName
     } = this.props;
     if(currentUser){

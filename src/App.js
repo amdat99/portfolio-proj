@@ -30,7 +30,7 @@ const ChatPage = React.lazy(() => import("./pages/chat-page/Chat-page"));
 
 function App({ currentUser, selectToggledModal }) {
   return (
-    <div className="App">
+    <div className="App dark">
       <NavigationShared />
       {selectToggledModal ? (
         <Modal>

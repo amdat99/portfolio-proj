@@ -13,7 +13,7 @@ import {
 } from "../../redux/shop/shop.selectors";
 import { selectCurrentUser } from "../../redux/user/user.selectors";
 import { fetchNamePending}  from '../../redux/user/user.actions'
-import { fetchMessagePending } from "../../redux/messages/messages.actions";
+// import { fetchMessagePending } from "../../redux/messages/messages.actions";
 
 const ProductItem = React.lazy(() =>
   import("../../components/product-item/Product-item")
@@ -25,7 +25,7 @@ export function ProductPage({ isLoaded, product, incrementItem, currentUser}) {
     if(currentUser){
     fetchNamePending(currentUser.profileId)
     }
-  },[currentUser,fetchNamePending])
+  },[currentUser])
   return (
     <div className="product-page-container">
       <ShopHeader />

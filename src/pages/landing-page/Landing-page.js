@@ -16,7 +16,7 @@ function LandingPage({ currentUser, changeStatus, fetchNamePending }) {
       fetchNamePending(currentUser.profileId)
       setTimeout(function(){ sendProfileChange() }, 2000);
     }
-  }, [changeStatus, currentUser]);
+  }, [changeStatus, currentUser,fetchNamePending]);
 
   const shop =
     "https://cdn.pixabay.com/photo/2017/06/21/20/51/tshirt-2428521_960_720.jpg";

@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import ChatRoomContent from "../../components/chat-room-content/Chat-room-content";
 import {
-  initiateSocket,
-  disconnectSocket,
+  // initiateSocket,
+  // disconnectSocket,
   enterChat,
-  enterSDP,
   sendMessage,
   enterCreateRoom,
   sendRoomRequest
@@ -28,7 +27,7 @@ function ChatRoom({ currentUser, setCurrentRoom }) {
   const [chatHistory, setChatHistory] = useState([]);
   const [name, setName] = useState("");
   const [onName, setOnName] = useState("");
-  const [messageRoom, setMessageRoom] = useState(null);
+  const [messageRoom] = useState(null);
 
 
   useEffect(() => {

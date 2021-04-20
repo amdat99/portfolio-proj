@@ -12,6 +12,7 @@ function WeatherBox(props) {
 
   useEffect(() => {
     getLocation()
+    //eslint-disable-next-line
   },[])
 
   useEffect(() => {
@@ -22,14 +23,15 @@ function WeatherBox(props) {
 
   useEffect(() => {
     if(geoData){
-      geoData.data.map(data =>{ 
-      setLocation(data.locality)
+      geoData.data.map(data => { 
+      return setLocation(data.locality)
       })
 
       
         toggleWeather();
       
     }
+    //eslint-disable-next-line
   },[geoData,])
 
 
@@ -112,7 +114,7 @@ function WeatherBox(props) {
   function error(err) {
     console.warn(`ERROR(${err.code}): ${err.message}`);
   }
-
+//eslint-disable-next-line
   function getLocation() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(success, error, options);

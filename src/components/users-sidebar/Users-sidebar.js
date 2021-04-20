@@ -21,12 +21,12 @@ function UsersSidebar({
   openMessageBox,
   openVideoBox,
   beginCall,
+  showSidebar
 
 }) {
   // const [profiles] = useState(profilesInfo);
 
   const filteredName = () => {
-    console.log("p", profilesInfo);
     return profilesInfo.filter((profile) => {
       return profile.displayName
         .toLowerCase()
@@ -35,8 +35,9 @@ function UsersSidebar({
   };
 
   return (
-    <div className="sidebar-container hide-scroll">
-      <div className="sidebar-test-profile">
+    <div className="sidebar-container hide-scroll   ">
+      <div className=''   id = {showSidebar?'sidebar-hide':null}>
+      <div className="sidebar-test-profile  ">
         <h4>Test Profiles:</h4>
         <span id="sidebar-test"> john@gmail.com password: 123456  john1@gmail.com password: 123456</span>
       </div>
@@ -56,7 +57,7 @@ function UsersSidebar({
             />
           ))
         : null}
-    </div>
+    </div></div>
   );
 }
 const mapDispatchToProps = (dispatch) => ({
