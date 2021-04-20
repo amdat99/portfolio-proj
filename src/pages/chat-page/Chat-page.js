@@ -107,6 +107,7 @@ function ChatPage({
 
   const [room, setRoom] = useState(555);
   const [toggleCallLog, setToggleCallLog] = useState(false);
+
   const [timer, setTimer] = useState(0)
 const [videoData, setVideoData] = useState(null);
 const [mediaInput, setMediaInput] = useState(false);
@@ -181,6 +182,7 @@ useEffect(()=>{
         userId: Math.random(),
         messageId: Math.random(),
       });
+
     }
   }, [currentUser, changeStatus, getProfileInfo,profileName]);
 
@@ -227,6 +229,7 @@ useEffect(()=>{
         video: ""
       });
     }
+  
     setImageToggle(false);
   };
 
@@ -439,6 +442,7 @@ let today = new Date()
                   fetchMessage={fetchMessagePending}
                   incrementLikesPending={incrementLikesPending}
                   sendMsgRequest = {sendMsgRequest}
+
                   
                 />
               ))

@@ -122,9 +122,7 @@ function WeatherBox(props) {
       console.log('geo location not supported')
     }
   }
- if(geoLocation){
-  console.log(geoLocation.longitude,geoLocation.latitude)
- }
+
 
 
   return (
