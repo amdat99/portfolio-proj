@@ -6,7 +6,7 @@
 .chat-page-scroller {
   margin-top: 50px;
   width: 65%;
-  height: 600px;
+  height: 720px;
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -24,6 +24,7 @@
   }
 
   @media screen and (max-width: 490px) {
+    height: 400px;
     width: 61%;
   }
 }
@@ -57,16 +58,22 @@
 
 #chat-page-send {
   position: absolute;
-  bottom: 40px;
-  z-index: 5;
+  bottom: 30px;
+  margin-left: 0.9%;
   width: 65%;
   box-shadow: 2px 2px 2px 2px hsl(218, 60%, 92%);
   border: none;
-  
-  height: 90px;
+
+
+  height: 76px;
+  @media screen and (max-width: 1300px) {
+    margin-left: 1.1%;
+  }
+  @media screen and (max-width: 1200px) {
+    margin-left: 1.4%;
+  }
   @media screen and (max-width: 1000px) {
-    width: 55%;
-    bottom: 40px;
+    margin-left: 1.6%;
   }
 }
 #chat-page-button {
@@ -74,7 +81,7 @@
   bottom: 10px;
   z-index: 5;
   width: 15%;
-  height: 30px;
+  height: 20px;
   position: absolute;
   background:#2CA4AB;
   @media screen and (max-width: 800px) {
@@ -104,13 +111,22 @@
 }
 
 #chat-page-image {
-  margin-left: 5%;
-  bottom: 140px;
+  margin-left: 10%;
+  bottom: 114px;
   z-index: 5;
   width: 20%;
   height: 20px;
   position: absolute;
+
+  @media screen and (max-width: 1480px) {
+    width: 30%;
+    margin-left: 1%;
+  bottom: 130px;
+   
+
+  }
   @media screen and (max-width: 800px) {
+    
     width: 40%;
     margin-left:-16%;
    
@@ -119,11 +135,19 @@
 }
 
 #chat-page-imagebutt{
-margin-left: 25.5%;
-bottom: 140px;
+margin-left: 29.5%;
+bottom: 114px;
 z-index: 5;
 height: 24px;
 position: absolute;
+z-index: 10;
+
+@media screen and (max-width: 1480px) {
+   
+  bottom: 130px;
+   
+
+  }
 @media screen and (max-width: 800px) {
 
   margin-left: 25%;
@@ -150,7 +174,7 @@ position: absolute;
 }
 #chat-page-userinput {
   left: 148px;
-  bottom: 10px;
+  bottom: 3px;
   z-index: 5;
   width: 200px;
   height: 23px;
@@ -164,7 +188,7 @@ position: absolute;
 }
 #chat-page-inputbutton {
   position: absolute;
-  bottom: 10px;
+  bottom: 3px;
   left: 360px;
   height: 27px;
   background:#2CA4AB;
@@ -178,6 +202,14 @@ position: absolute;
   &:hover {
     color:rgb(220, 220, 161);
   }
+}
+
+.chat-page-icons{
+ position: absolute;
+ z-index: 999;
+bottom: 90px;
+margin-left: 40%;
+ 
 }
 
 #chat-page-changename {

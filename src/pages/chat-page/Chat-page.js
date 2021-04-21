@@ -210,9 +210,9 @@ useEffect(()=>{
 
   const sendMessage = async (event) => {
     event.preventDefault();
-    toggleShowImage();
-    sendMessagePending(messageData);
-    fetchMessagePending();
+    await toggleShowImage();
+    await sendMessagePending(messageData);
+   
     sendMsgRequest();
     if (currentUser) {
       setMessageData({
@@ -231,9 +231,11 @@ useEffect(()=>{
         message: "",
         image: "",
         video: ""
-      });
+      }); 
     }
-  
+    setTimeout(function(){ fetchMessagePending();}, 1500);
+
+ 
     setImageToggle(false);
   };
 
@@ -529,12 +531,15 @@ const  answerCall = async (videoId) => {
                     Enter Name
                   </button>
           : null}
+
+          <div className= 'chat-page-icons'>
     <div onClick={()=> {onMediaInput('image'); setMediaInput(true)}}
-           id="" style={{cursor: "pointer",marginLeft: '-80px'}}>📷  Image</div>
+          style={{cursor: "pointer",marginLeft: '-80px',zIndex:'-1',position:'relative'}}>📷  Image</div>
 
 <div  onClick={()=> {onMediaInput('video'); setMediaInput(true)}}
-          style={{ marginLeft: '100px', marginTop: '-20px' ,cursor: 'pointer' }} >🎥  Vid</div>
-       <div id ={ showSidebar? 'chat-side-bar-show': 'chat-side-bar-hide' } >
+                   style={{ marginLeft: '100px',position: 'relative',top: '-20px' ,cursor: 'pointer',zIndex:'-1' }} >🎥  Vid</div>
+      </div> 
+      <div id ={ showSidebar? 'chat-side-bar-show': 'chat-side-bar-hide' } >
         <UsersSidebar showSidebar ={showSidebar} searchField={searchField} render={render} beginCall = {beginCall} />
        </div> <button id='chat-page-side-butt'onClick={toggleSideBar}>sidebar</button>
         <WeatherBox />

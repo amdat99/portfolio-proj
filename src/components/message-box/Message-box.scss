@@ -117,8 +117,13 @@ left: -100px;
 #message-box-vid{
   margin-left: 80%;
 
-  @media screen and (max-width: 1000px) {
+  @media screen and (max-width: 1300px) {
     
-margin-left: 30%;
+margin-left: 50%;
   }
+
+  @media screen and (max-width: 900px) {
+    
+    margin-left: 30%;
+      }
 }
