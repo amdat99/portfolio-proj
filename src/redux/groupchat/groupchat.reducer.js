@@ -12,7 +12,7 @@ const groupChatReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case groupchatActionTypes.FETCH_MESSAGE_PENDING:
       case  groupchatActionTypes.SEND_MESSAGE_PENDING:
-    case groupchatActionTypes. CREATE_GROUP_PENDING:
+    case groupchatActionTypes.CREATE_GROUP_PENDING:
     case groupchatActionTypes.GET_GROUPS_PENDING:
 
       return {

@@ -45,7 +45,7 @@ import { Link } from "react-router-dom";
 import VideoChat from "../video-chat/Video-chat";
 import VideoChatLog from "../../components/video-chat-log/Video-chat-log"
 import { setMissedCall, sendVideoData } from "../video-chat/Video-chat-requests"
-
+import GroupchatDropdown   from "../../components/groupchat-dropdown/Groupchat-dropdown"
 import "./Chat-page.scss";
 
 
@@ -114,6 +114,7 @@ const [videoData,setVideoData] = useState(null);
 const [mediaInput, setMediaInput] = useState(false);
 const [mediaType, setMediaType] = useState('');
 const [showSidebar, setShowSidebar] = useState(false)
+const [toggleGroupchat , setToggleGroupchat] = useState(false)
 
 useEffect(()=>{
   if(videoInfo && receiverInfo){
@@ -258,6 +259,9 @@ const closeMediaInput = () => {
 
 const toggleSideBar = () => {
   setShowSidebar(!showSidebar)
+}
+const ontoggleGroupchat = () => {
+  setToggleGroupchat(!toggleGroupchat)
 }
   const onHandleSearch = (event) => {
     setSearchField(event.target.value);
@@ -409,7 +413,8 @@ const  answerCall = async (videoId) => {
         >
           Chat log{"  "}
         </Link>
-        : <Link  className="chat-page-roomlink" onClick={() =>alert('sign in to see logs')}>Chat Log</Link>}
+        : <Link  onClick={() =>alert('sign in to see logs')}>Chat Log</Link>}
+        {/* <Link className="chat-page-roomlink" onClick={ontoggleGroupchat}> group chats</Link> */}
         </div>
         <input
           aria-label="Search name"
@@ -439,7 +444,11 @@ const  answerCall = async (videoId) => {
       )
       :null}
       </div>
-  
+       { toggleGroupchat?
+       currentUser?
+      <GroupchatDropdown currentUser = {currentUser} />
+      : <span>signin to see groupchats</span>
+       : null}
     
         <form className="chat-page-scroller hide-scroll" onSubmit={sendMessage}>
           {pending ? <div className="loader"></div> : null}
@@ -461,7 +470,7 @@ const  answerCall = async (videoId) => {
             value={messageData.message}
             aria-label="add message"
             type="text-area"
-            placeholder="Enter Messages"
+            placeholder="Enter Message"
             
             onChange={handleChange}
             required

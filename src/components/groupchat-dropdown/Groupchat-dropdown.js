@@ -1,7 +1,7 @@
 import React,{ useState, useEffect} from 'react';
 
-function GroupchatDropdown(props) {
-    const [groupChatData, setGroupChatData] = useState({creatorId: '',groupId:'',groupName: '',userId, name:''})
+function GroupchatDropdown({currentUser}) {
+    const [groupChatData, setGroupChatData] = useState({creatorId: '',groupId:'',groupName: '',userId:'', name:''})
    const [group, setGroup] = useState('')
     useEffect(() => {
        setGroupChatData({creatorId: currentUser.id, userId: currentUser.profileId, name: currentUser.displayName, 
@@ -10,7 +10,7 @@ function GroupchatDropdown(props) {
 
    const setGroupName = async () => {
       await setGroupChatData({...groupChatData, groupName: group})
-      
+
    }
    
     return (
@@ -27,7 +27,6 @@ function GroupchatDropdown(props) {
           type="text"
           name="name"
           placeholder=" Group name:"
-          value={name}
           onChange={(e)=> setGroup(e.target.value)}
           label="name"
           required
