@@ -65,7 +65,7 @@ function SidebarContent({
           }}
         />
         {data.status === "online" ? (
-          <span className="sidebar-online">Signed in</span>
+          <span className="sidebar-online">online</span>
         ) : (
           <span className="sidebar-offline">offline</span>
         )}
@@ -87,6 +87,7 @@ function SidebarContent({
                         Send Message
                       </span>
                       <span
+                      id="send-message-span"
                           style={{cursor: "pointer"}}
                         onClick={startVideoCall}
                       > video call

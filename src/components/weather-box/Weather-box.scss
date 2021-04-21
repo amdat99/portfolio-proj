@@ -2,29 +2,38 @@
   position: absolute;
   display: flex;
   flex-direction: column;
-  right: 17%;
+  right: 31%;
   top: 50px;
   background:transparent;
   box-shadow: 2px ,2px,2px solid#2ca5ab65;
-  max-width: 180px;
+  max-width: 150px;
   max-height: 180px;
   z-index: 10;
   
 
-  @media screen and (max-width: 490px) {
+  @media screen and (max-width: 1200px) {
     font-size: 13px;
-    right: 25%;
+    right: 30%; 
+    max-width: 38%;
+    top: 35px;
+  }
+
+  @media screen and (max-width: 950px) {
+
+    right: 20%; 
+
   }
 }
 
 #weather-title {
-  right: 17%;
+  right: 31%;
   position: absolute;
   top: 0px;
   cursor: pointer;
 
-  @media screen and (max-width: 490px) {
+  @media screen and (max-width: 1200px) {
     font-size: 13px;
+    right: 25%;
   }
 }
 
@@ -33,6 +42,10 @@
   font-size: 12px;
   position: absolute;
   top: 40px;
+  
+  @media screen and (max-width: 1000px) {
+   
+  }
 }
 #weather-button {
   width: 50px;

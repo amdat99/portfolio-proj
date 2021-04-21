@@ -9,6 +9,7 @@ import cartReducer from "./cart/cart.reducer";
 import messagesReducer from "./messages/messages.reducer";
 import modalReducer from "./modal/modal.reducer";
 import profileReducer from "./profile/profile.reducer";
+import groupChatReducer from "./groupchat/groupchat.reducer";
 
 const persistConfig = {
   key: "root",
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   messages: messagesReducer,
   modal: modalReducer,
   profile: profileReducer,
+  groupchat: groupChatReducer,
 });
 
 export default persistReducer(persistConfig, rootReducer);

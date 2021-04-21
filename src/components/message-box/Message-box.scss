@@ -32,13 +32,34 @@ left: -100px;
   }
 }
 
+#message-box-message-s {
+  background: rgb(60, 138, 34);
+  margin-left: 80%;
+  border-radius: 20px;
+  box-shadow: 2px 2px 2px 2px grey;
+  display: flex;
+  padding-right: 10px;
+  padding-left: 10px;
+  padding-top: 6px;
+  height: fit-content;
+  max-width: 40%;
+  min-width: 40px;
+  
+
+  word-break: break-all;
+
+  @media screen and (max-width: 800px) {
+    margin-left: 60%;
+  }
+}
+
 #message-box-image-s {
   max-width: 30px;
   max-height: 25px;
   
   top: 0px;
   position: relative;
-  left: 320px;
+  left: 370px;
   padding: 0;
   @media screen and (max-width: 1200px) {
   left: 50px;

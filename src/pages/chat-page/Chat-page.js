@@ -528,7 +528,7 @@ const  answerCall = async (videoId) => {
         </form>  
         {!nameInput && !currentUser?
         <button type="button" id="chat-page-inputbutton" onClick={onNameInput}>
-                    Enter Name
+                    Enter
                   </button>
           : null}
 

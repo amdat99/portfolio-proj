@@ -4,9 +4,9 @@
   z-index: 999;
 }
 .chat-page-scroller {
-  margin-top: 50px;
-  width: 65%;
-  height: 720px;
+  margin-top: 25px;
+  width: 68%;
+  height: 50em;
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -16,23 +16,44 @@
   overflow-y: scroll;
   overflow-x: hidden;
   box-shadow: 2px 2px 2px 2px hsl(218, 60%, 92%);
+  margin-top:14px;
+
+  
+  @media screen and (max-height: 900px) {
+    height: 600px;
+
+  }
+
+  @media screen and (max-height: 800px) {
+    height: 500px;
+ 
+  }
+
+  @media screen and (max-height: 700px) {
+    height: 350px;
+ 
+  }
 
   @media screen and (max-width: 800px) {
-    height: 580px;
-    margin-top: 60px;
-    width: 65%;
+    width:80%;
+    
+   
   }
 
   @media screen and (max-width: 490px) {
     height: 400px;
-    width: 61%;
+   
   }
 }
 
 .chat-page-searchbox {
-  @media screen and (max-width: 800px) {
+  z-index: 99;
+
+
+  @media screen and (max-width: 1250px) {
     position: relative;
-    bottom: -50px;
+    bottom: -35px;
+    left: -120px;
   }
 }
 
@@ -58,9 +79,9 @@
 
 #chat-page-send {
   position: absolute;
-  bottom: 30px;
-  margin-left: 0.9%;
-  width: 65%;
+  bottom: 59px;
+  margin-left: -1%;
+  width: 70%;
   box-shadow: 2px 2px 2px 2px hsl(218, 60%, 92%);
   border: none;
 
@@ -73,12 +94,15 @@
     margin-left: 1.4%;
   }
   @media screen and (max-width: 1000px) {
-    margin-left: 1.6%;
+    width: 90%;
+    height: 50px;
+    bottom: 23px;
+    margin-left: -5%;
   }
 }
 #chat-page-button {
   margin-left: 24%;
-  bottom: 10px;
+  bottom: 40px;
   z-index: 5;
   width: 15%;
   height: 20px;
@@ -86,7 +110,7 @@
   background:#2CA4AB;
   @media screen and (max-width: 800px) {
     width: 19%;
-    bottom: 10px;
+    bottom: 5px;
     margin-left: 20%;
   }
 
@@ -111,46 +135,52 @@
 }
 
 #chat-page-image {
-  margin-left: 10%;
-  bottom: 114px;
+  margin-left: 15%;
+  bottom: 120px;
   z-index: 5;
-  width: 20%;
+  width: 15%;
   height: 20px;
   position: absolute;
 
   @media screen and (max-width: 1480px) {
     width: 30%;
     margin-left: 1%;
-  bottom: 130px;
+  bottom: 90px;
    
 
   }
   @media screen and (max-width: 800px) {
-    
+    bottom: 120px;
     width: 40%;
-    margin-left:-16%;
+    margin-left:5%;
    
 
   }
 }
 
 #chat-page-imagebutt{
-margin-left: 29.5%;
-bottom: 114px;
+margin-left: 14%;
+bottom: 120px;
 z-index: 5;
 height: 24px;
 position: absolute;
 z-index: 10;
+text-shadow: 1px 1px 1px  white;
+font-weight: bold;
+
+
+color: white;
 
 @media screen and (max-width: 1480px) {
    
-  bottom: 130px;
+  bottom: 90px;
+  margin-left: -1%;
    
 
   }
 @media screen and (max-width: 800px) {
-
-  margin-left: 25%;
+bottom: 120px;
+margin-left: 1.5%;
 }
 }
 
@@ -174,29 +204,30 @@ z-index: 10;
 }
 #chat-page-userinput {
   left: 148px;
-  bottom: 3px;
+  bottom: 20px;
   z-index: 5;
   width: 200px;
   height: 23px;
   position: absolute;
 
   @media screen and (max-width: 1000px) {
-    bottom: 10px;
+    bottom: 80px;
     width: 120px;
-    left: 70px;
+    left: 60px;
   }
 }
 #chat-page-inputbutton {
   position: absolute;
-  bottom: 3px;
+  bottom: 20px;
   left: 360px;
   height: 27px;
   background:#2CA4AB;
 
   @media screen and (max-width: 1000px) {
-    height: 19px;
-    bottom: -10px;
-    left: 90px;
+    height: 27px;
+    bottom: 80px;
+    left: 190px;
+    width: 40px;
     
   }
   &:hover {
@@ -207,9 +238,24 @@ z-index: 10;
 .chat-page-icons{
  position: absolute;
  z-index: 999;
-bottom: 90px;
-margin-left: 40%;
+
+margin-left: 45%;
+background:#2CA4AB;
+border-radius: 40px;
+
+padding: 2px;
+color: white;
+height: 23PX;
+
+bottom: 141px;
  
+
+@media screen and (max-width: 800px) {
+  height: 23PX;
+  margin-left: 45%;
+  bottom: 80px;
+  
+}
 }
 
 #chat-page-changename {
@@ -294,14 +340,18 @@ margin-left: 25%;
 
 }
 #chat-page-side-butt{
- display: none;
-  background:#2CA4AB;
+  display: none;
   @media screen and (max-width: 800px) {
-    display:inline;
+  position: absolute;
+  top: 60px;
+  right: 25%;
+ color: white;
+  background:#2CA4AB;    
+  display:inline;
     position: absolute;
-    top: 120px;
-    right: 40px;
-    color: white;
+    top:20px;
+    right: 20px;
+    
   }
 }
 #chat-side-bar-show{

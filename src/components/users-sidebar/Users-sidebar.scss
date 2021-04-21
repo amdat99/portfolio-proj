@@ -2,27 +2,44 @@
   position: absolute;
   display: flex;
   flex-direction: column;
-  right: 14%;
-  top: 180px;
-  height: 690px;
+  right: 17%;
+  top: 58px;
+  height: 89%;
   overflow: scroll;
-  z-index: 999;
+  z-index: 1;
+  background:rgb(174, 208, 208);
+  box-shadow: 2px 2px 2px 2px hsl(218, 60%, 92%);
+
+
+  color: rgb(0, 0, 0);
+
+  width: 150px;
+  
+  @media screen and (max-width: 1400px) {
+    right: 12%;
+    z-index: 2;
+  }
 
   @media screen and (max-width: 1200px) {
-    right: 11%;
-    z-index: 999;
+  right: 10%;
+  
   }
   @media screen and (max-width: 1000px) {
     right: 9%;
-    z-index: 999;
+    height: 82%;
+ 
   }
-  @media screen and (max-width: 900px) {
-    right: 2%;
-    z-index: 999;
+  @media screen and (max-width: 800px) {
+    right: 6%;
+    height: 83.5%;
+    width: 128px;
+    top: 57px;
+   
+ 
   }
   @media screen and (max-width: 700px) {
-    right: -5%;
-    z-index: 999;
+    right: -1%;
+   
   }
 
 
@@ -31,7 +48,7 @@
   }
 }
 #sidebar-hide{
-  display: none;
+
   @media screen and (max-width: 800px) {
     display: contents;
      }
@@ -52,7 +69,7 @@ display: none;
   max-width: 150px;
   position: relative;
   z-index: -1;
-
+ 
   @media screen and (max-width: 800px) {
     margin-right: 30px;
     font-size: 13px;
@@ -63,10 +80,11 @@ display: none;
   cursor: pointer;
   margin-bottom: 20px;
   border-radius: 30px;
-  @media screen and (max-width: 490px) {
-    margin-bottom: 25px;
-    height: 40px;
-    width: 40px;
+
+  @media screen and (max-width: 800px) {
+    margin-bottom: 30px;
+    height: 50px;
+    width: 50px;
   }
 
   &:hover {
@@ -77,43 +95,48 @@ display: none;
 
 .sidebar-name {
   position: relative;
+  color: rgb(26, 23, 23);
+  font-weight: bold;
+  font-size: 13px;
+  border-radius: 30px;
+  padding: 2px;
   right: 50px;
   top: -7px;
   @media screen and (max-width: 800px) {
-    top: -15px;
-    right: 30%;
+    top: -40px;
+    right: 20px;  
+     font-size: 13px;
   }
 
   @media screen and (max-width: 490px) {
-    font-size: 13px;
+    
     left: -80px;
   }
 }
 
 .sidebar-online {
   font-size: 11px;
-  color: green;
-  margin-top: 2px;
+  color: rgb(65, 128, 86);
+
   position: relative;
   right: 10px;
-  top: 3px;
-
-  @media screen and (max-width: 490px) {
-    top: -6px;
-    left: -40px;
+  top: 5px;
+  @media screen and (max-width: 800px) {
+    left: -23px;
+    top: -20px;
   }
 }
 
 .sidebar-offline {
   font-size: 11px;
   color: red;
-  margin-top: 2px;
+  
   position: relative;
   right: 10px;
-  top: 3px;
-  @media screen and (max-width: 490px) {
-    left: -40px;
-    top: -6px;
+  top: 5px;
+  @media screen and (max-width: 800px) {
+    left: -23px;
+    top: -20px;
   }
 }
 .sidebar-notice {
@@ -143,5 +166,10 @@ display: none;
  display: flex;
  flex-direction: column;
  cursor: pointer;
- font-size: 15px;
+ font-size: 13px;
+ @media screen and (max-width: 800px) {
+  top: -20px;
+  position: relative;
+}
+
 }
