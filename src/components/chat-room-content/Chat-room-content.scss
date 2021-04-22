@@ -20,6 +20,8 @@
     width: 80%;
     margin-left: 10%;
   }
+
+  
 }
 
 #chat-content-room {
@@ -31,6 +33,11 @@
     top: -100px;
     left: 0%;
   }
+  @media screen and (max-width: 490px) {
+   
+    top: -60px;
+       
+      }
 }
 #chat-content-title {
   position: relative;
@@ -42,8 +49,21 @@
     top: -60px;
     left: -120px;
   }
+  @media screen and (max-width: 490px) {
+   
+    top: -20px;
+       
+      }
 }
 
+#chat-content-input{
+
+  
+  @media screen and (max-width: 490px) {
+   position: relative;
+    left: 30px;
+      }
+}
 #chat-content-createroom {
   position: relative;
   top: -70px;
@@ -54,6 +74,11 @@
     top: -90px;
     left: -10%;
   }
+  @media screen and (max-width: 490px) {
+   
+top: -50px;
+   
+  }
 }
 
 #chat-content-message {
@@ -61,6 +86,7 @@
   display: flex;
   margin-left: 20px;
   margin-bottom: 5px;
+
 }
 
 #chat-content-send {
@@ -68,4 +94,9 @@
   bottom: -15px;
   left: -130px;
   min-width: 100px;
+
+  @media screen and (max-width: 490px) {
+   
+    left: -100px;
+      }
 }

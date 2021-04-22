@@ -56,7 +56,7 @@ function ChatRoomContent({
             ))
           : null}
       </div>
-      <textarea type="text" onChange={handleInput} />
+      <textarea type="text" onChange={handleInput} id ='chat-content-input' />
       <button id="chat-content-send" onClick={sendCurrentMessage }>
         Send
       </button>

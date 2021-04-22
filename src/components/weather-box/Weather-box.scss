@@ -23,6 +23,22 @@
     right: 20%; 
 
   }
+
+  @media screen and (max-width: 490px) {
+    top: 45px;
+    
+     
+    }
+
+
+
+}
+
+#weather-input{
+    @media screen and (max-width: 490px) {
+  width: 100px;
+   
+  }
 }
 
 #weather-title {
@@ -35,6 +51,13 @@
     font-size: 13px;
     right: 25%;
   }
+
+  
+  @media screen and (max-width: 490px) {
+    top: 10px;
+    
+     
+    }
 }
 
 #weather-subtitle {

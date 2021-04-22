@@ -141,6 +141,7 @@ function WeatherBox(props) {
               placeholder="type location"
               onChange={onChange}
               value={location}
+              id ='weather-input'
             />
             <button id="weather-button" type="submit">
               Send

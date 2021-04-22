@@ -10,6 +10,10 @@
     margin-left: 40px;
     font-size:12px;
   }
+
+  @media screen and (max-width: 490px) {
+ width:  120px;
+  }
 }
 .profile-messages-recieved {
   margin-bottom: 5px;

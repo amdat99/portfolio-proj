@@ -24,23 +24,29 @@
   }
 
   @media screen and (max-height: 800px) {
-    height: 500px;
+    height: 400px;
  
   }
 
   @media screen and (max-height: 700px) {
-    height: 350px;
+    height: 360px;
+ 
+  }
+
+  @media screen and (max-height: 600px) {
+    height: 300px;
  
   }
 
   @media screen and (max-width: 800px) {
-    width:80%;
+   
     
    
   }
 
   @media screen and (max-width: 490px) {
-    height: 400px;
+   
+    margin-top: 30px;
    
   }
 }
@@ -53,6 +59,13 @@
     position: relative;
     bottom: -35px;
     left: -120px;
+  }
+
+  @media screen and (max-width: 490px) {
+    width: 120px;
+    bottom: -50px;
+    left: -50px;
+   
   }
 }
 
@@ -69,6 +82,13 @@
     font-size: 13px;
     left: -100px;
   }
+
+  @media screen and (max-width: 490px) {
+   bottom: -25px;
+   margin-left: 5px;
+    
+     
+    }
 
   &:hover {
     transform: scale(1.1);
@@ -98,6 +118,13 @@
     bottom: 23px;
     margin-left: -5%;
   }
+
+  @media screen and (max-width: 490px) {
+    width: 95%;
+    margin-left: -9%;
+    bottom: 20px;
+    
+  }
 }
 #chat-page-button {
   margin-left: 24%;
@@ -109,7 +136,7 @@
   background:#2CA4AB;
   @media screen and (max-width: 800px) {
     width: 19%;
-    bottom: 5px;
+    bottom: 1px;
     margin-left: 20%;
   }
   
@@ -262,6 +289,11 @@ bottom: 141px;
   bottom: 80px;
   
 }
+@media screen and (max-width: 490px) {
+left: 150px;
+  
+}
+
 }
 
 #chat-page-changename {
@@ -358,13 +390,19 @@ margin-left: 25%;
     top:20px;
     right: 20px;
     
-  }
+  }  
+  @media screen and (max-width: 490px) {
+    top: 25px;
+     
+      
+     }
 }
 #chat-side-bar-show{
   display: contents;
   z-index: 999;
   position: fixed;
   top: 0em;
+
 }
 #chat-side-bar-hide{
 
