@@ -521,7 +521,7 @@ const  answerCall = async (videoId) => {
                   </button>
           : null}
        
-            <div className={!videoBox ? "chat-page-vidshow" : "chat-page-vidhide"}>
+            <div className={videoBox ? "chat-page-vidshow" : "chat-page-vidhide"}>
          
          <div>
            {successMessage?

@@ -1,7 +1,7 @@
 
 
 .chat-page-scroller {
-
+  margin-top: 15px;
   width: 68%;
   height: 52em;
   display: flex;
@@ -13,6 +13,7 @@
   overflow-y: scroll;
   overflow-x: hidden;
   box-shadow: 2px 2px 2px 2px hsl(218, 60%, 92%);
+
  
  
 
@@ -204,6 +205,8 @@ margin-left: 1.5%;
 .chat-page-vidshow {
   position: absolute;
   left: 30%;
+  top: 30%;
+  
 }
 #chat-page-userinput {
   left: 148px;
