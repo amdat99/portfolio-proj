@@ -543,7 +543,7 @@ const  answerCall = async (videoId) => {
 
           <div className= 'chat-page-icons'>
     <div onClick={()=> {onMediaInput('image'); setMediaInput(true)}}
-          style={{cursor: "pointer",marginLeft: '-80px',zIndex:'-1',position:'relative'}}>📷  Image</div>
+          style={{cursor: "pointer",marginRight: '100px',zIndex:'-1',position:'relative'}}>📷  Image</div>
 
 <div  onClick={()=> {onMediaInput('video'); setMediaInput(true)}}
                    style={{ marginLeft: '100px',position: 'relative',top: '-20px' ,cursor: 'pointer',zIndex:'-1' }} >🎥  Vid</div>
