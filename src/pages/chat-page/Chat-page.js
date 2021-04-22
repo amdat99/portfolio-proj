@@ -393,7 +393,7 @@ const  answerCall = async (videoId) => {
         >
           Chat log{"  "}
         </Link>
-        : <Link  onClick={() =>alert('sign in to see logs')}>Chat Log</Link>}
+        : <Link  className="chat-page-roomlink" onClick={() =>alert('sign in to see logs')}>Chat Log</Link>}
         {/* <Link className="chat-page-roomlink" onClick={ontoggleGroupchat}> group chats</Link> */}
         </div>
         <input
@@ -451,7 +451,7 @@ const  answerCall = async (videoId) => {
             value={messageData.message}
             aria-label="add message"
             type="text-area"
-            placeholder="Enter Message"
+            placeholder="Enter Messages"
             
             onChange={handleChange}
             required
