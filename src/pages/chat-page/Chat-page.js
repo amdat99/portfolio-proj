@@ -368,27 +368,7 @@ const  answerCall = async (videoId) => {
     <div className ='chat-back chat-page-dark'>
       <Suspense fallback={<div className="loader"></div>}>
         {/* <ChatRoom /> */}
-        <div className={videoBox ? "chat-page-vidshow" : "chat-page-vidhide"}>
-         
-          <div>
-            {successMessage?
-            <span>connection success</span>
-            : null}
-          <VideoChat
-            currentUser={currentUser}
-            profileInfo={profileInfo}
-            receivedData={receivedData}
-            videoBox={videoBox}
-            getCallerInfo={getCallerInfo}
-              room={room}
-            changeCallerStatus = {changeCallerStatus}
-            toggleVideoBox={toggleVideoBox}
-          />
-          </div>
-         
-    
-       
-        </div>
+ 
         <div>
         <Link
           to="/chatroom"
@@ -465,6 +445,7 @@ const  answerCall = async (videoId) => {
                 />
               ))
             : null}
+                
           <textarea
             id="chat-page-send"
             value={messageData.message}
@@ -475,8 +456,7 @@ const  answerCall = async (videoId) => {
             onChange={handleChange}
             required
           />
-       
-         
+
         
         { mediaInput?
         <div>
@@ -540,7 +520,28 @@ const  answerCall = async (videoId) => {
                     Enter
                   </button>
           : null}
-
+       
+            <div className={!videoBox ? "chat-page-vidshow" : "chat-page-vidhide"}>
+         
+         <div>
+           {successMessage?
+           <span>connection success</span>
+           : null}
+         <VideoChat
+           currentUser={currentUser}
+           profileInfo={profileInfo}
+           receivedData={receivedData}
+           videoBox={videoBox}
+           getCallerInfo={getCallerInfo}
+             room={room}
+           changeCallerStatus = {changeCallerStatus}
+           toggleVideoBox={toggleVideoBox}
+         />
+         </div>
+        
+   
+      
+       </div>
           <div className= 'chat-page-icons'>
     <div onClick={()=> {onMediaInput('image'); setMediaInput(true)}}
           style={{cursor: "pointer",marginRight: '100px',zIndex:'-1',position:'relative'}}>📷  Image</div>

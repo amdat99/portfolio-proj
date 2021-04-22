@@ -175,6 +175,7 @@ if(this.props.currentUser){
       window.localStream = stream;
       this.localVideoref.current.srcObject = stream;
       this.pc.addStream(stream);
+      console.log(stream)
     };
 
     navigator.mediaDevices
@@ -296,12 +297,12 @@ if(this.props.currentUser){
    
         </div>
         
-        return (
+       
     <div>
       <Draggable>
     <div className="video-chat-container">
-      <video className="video-chat-localstream" ref={this.localVideoref} autoPlay controls ></video> 
-      <video className="video-chat-remotestream" ref={this.remoteVideoref} autoPlay controls ></video>
+      <video className="video-chat-localstream" ref={this.localVideoref} autoPlay controls  ></video> 
+      <video className="video-chat-remotestream" ref={this.remoteVideoref} autoPlay controls >  </video>
 
     
       <br />

@@ -1,12 +1,9 @@
 
-.chat-back{
 
-  z-index: 999;
-}
 .chat-page-scroller {
-  margin-top: 25px;
+
   width: 68%;
-  height: 45em;
+  height: 52em;
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -16,7 +13,8 @@
   overflow-y: scroll;
   overflow-x: hidden;
   box-shadow: 2px 2px 2px 2px hsl(218, 60%, 92%);
-  margin-top:14px;
+ 
+ 
 
   
   @media screen and (max-height: 900px) {
@@ -113,7 +111,7 @@
     bottom: 5px;
     margin-left: 20%;
   }
-
+  
   &:hover {
     box-shadow: 3px 3px 3px #cdecff;
     color:rgb(220, 220, 161);
@@ -201,6 +199,11 @@ margin-left: 1.5%;
 
 .chat-page-vidhide {
   display: none;
+}
+
+.chat-page-vidshow {
+  position: absolute;
+  left: 30%;
 }
 #chat-page-userinput {
   left: 148px;
@@ -355,7 +358,10 @@ margin-left: 25%;
   }
 }
 #chat-side-bar-show{
-  display: flex;
+  display: contents;
+  z-index: 999;
+  position: fixed;
+  top: 0em;
 }
 #chat-side-bar-hide{
 
