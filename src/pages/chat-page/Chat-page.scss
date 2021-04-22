@@ -248,6 +248,11 @@ margin-left: 1.5%;
     width: 120px;
     left: 35px;
   }
+
+  @media screen and (max-width: 490px) {
+    left: 10px;
+    width: 100px;
+  }
 }
 #chat-page-inputbutton {
   position: absolute;
@@ -261,7 +266,12 @@ margin-left: 1.5%;
     bottom: 80px;
     left: 162px;
     width: 40px;
-    
+    @media screen and (max-width: 490px) {
+      bottom: 80px;
+      left: 110px;
+      width: 30px;
+      font-size: 9px;
+    }
   }
   &:hover {
     color:rgb(220, 220, 161);

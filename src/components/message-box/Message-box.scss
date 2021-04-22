@@ -26,6 +26,10 @@ left: -100px;
     position: relative;
   }
 
+  @media screen and (max-width: 490px) {
+    margin-left: 35%;
+  }
+
   &:hover {
     max-height: 200px;
     max-width: 500px;
@@ -51,6 +55,10 @@ left: -100px;
   @media screen and (max-width: 800px) {
     margin-left: 60%;
   }
+
+  @media screen and (max-width: 490px) {
+    margin-left: 50%;
+  }
 }
 
 #message-box-image-s {
@@ -66,8 +74,13 @@ left: -100px;
     top: -6px;
     position: relative;
     max-width: 20px;
+
+    @media screen and (max-width: 490px) {
+      top: 20px;
+    }
   }
 
+ 
   &:hover {
     max-height: 200px;
     max-width: 500px;
@@ -98,6 +111,33 @@ left: -100px;
     left: -20px;
     position: relative;
   }
+}
+
+#message-box-message {
+  background: rgb(205, 236, 255);
+  margin-left: 5%;
+  border-radius: 20px;
+  box-shadow: 2px 2px 2px 2px grey;
+  display: flex;
+  padding-right: 10px;
+  padding-left: 10px;
+  padding-top: 6px;
+  height: fit-content;
+  max-width: 40%;
+
+  word-break: break-all;
+
+  @media screen and (max-width: 800px) {
+    margin-left: 0%;
+    
+  }
+}
+
+
+
+#message-box-message:hover {
+  transform: scale(1.1);
+  box-shadow: 4px 4px 8px 0;
 }
 
 #message-box-date-s {
@@ -136,7 +176,7 @@ left: -100px;
   color:green
 }
 #message-box-vid{
-  margin-left: 80%;
+  margin-left: 70%;
 
   @media screen and (max-width: 1300px) {
     
@@ -145,6 +185,10 @@ margin-left: 50%;
 
   @media screen and (max-width: 900px) {
     
-    margin-left: 30%;
+    margin-left: 20%;
+   position: relative;
+   top: 22px;
+   margin-bottom: 5%;
+   
       }
 }

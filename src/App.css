@@ -111,7 +111,7 @@ input {
 
 #message-box-message {
   background: rgb(205, 236, 255);
-  margin-left: 5%;
+  margin-left: 4%;
   border-radius: 20px;
   box-shadow: 2px 2px 2px 2px grey;
   display: flex;
@@ -124,6 +124,8 @@ input {
   word-break: break-all;
 
   @media screen and (max-width: 800px) {
+
+    
   }
 }
 
