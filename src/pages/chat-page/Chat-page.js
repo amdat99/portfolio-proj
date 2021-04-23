@@ -1,5 +1,5 @@
 import React, { useEffect, useState, Suspense,} from "react";
-
+import {Route } from "react-router-dom";
 
 import {
   enterCall,
@@ -12,6 +12,8 @@ import {
 } from "../../sockets/sockets";
 import { selectCurrentUser, selectProfileName } from "../../redux/user/user.selectors";
 import {fetchNamePending} from "../../redux/user/user.actions"
+import {createGroupPending, getGroupsPending, setCurrentGroup } from "../../redux/groupchat/groupchat.actions"
+import {selectGroupChats} from "../../redux/groupchat/groupchat.selectors"
 import {
   selectMessagesData,
   selectMessagesPending,
@@ -48,7 +50,7 @@ import { setMissedCall, sendVideoData } from "../video-chat/Video-chat-requests"
 import GroupchatDropdown   from "../../components/groupchat-dropdown/Groupchat-dropdown"
 import "./Chat-page.scss";
 
-
+import Groupchat from  "../groupchat/Group-chat"
 
 const MessageBox = React.lazy(() =>
   import("../../components/message-box/Message-box")
@@ -59,6 +61,9 @@ const UsersSidebar = React.lazy(() =>
 const WeatherBox = React.lazy(() =>
   import("../../components/weather-box/Weather-box")
 );
+
+
+
 
 
 function ChatPage({
@@ -80,7 +85,11 @@ function ChatPage({
   successMessage,
   fetchNamePending,
   profileName,
-  videoInfo
+  videoInfo,
+  createGroupPending,
+  getGroupsPending,
+  groupChats,
+  setCurrentGroup
 }) {
 
   // useWindowUnloadEffect(() => {
@@ -130,10 +139,14 @@ useEffect(()=>{
     }
   }, [currentUser,fetchNamePending]);
 
- 
+ useEffect(() => {
+   if(currentUser){
+   getGroupsPending(currentUser.profileId)
+   }
+ },[currentUser])
 
 
-  useEffect(() => {
+  useEffect(() => {  // sockets 
     enterCall((err, data) => {
       if (err) return;
       if(currentUser){
@@ -369,7 +382,8 @@ const  answerCall = async (videoId) => {
       <Suspense fallback={<div className="loader"></div>}>
         {/* <ChatRoom /> */}
  
-        <div>
+          {/* //header links :*/}
+        <div>                  
         <Link
           to="/chatroom"
           className="chat-page-roomlink"
@@ -385,7 +399,7 @@ const  answerCall = async (videoId) => {
         >
           VideoChat{"  "}
         </Link> */}
-       {currentUser ? 
+       {currentUser ?    
        <Link
          className="chat-page-roomlink"
           onClick={onToggleCallLog}
@@ -394,8 +408,10 @@ const  answerCall = async (videoId) => {
           Chat log{"  "}
         </Link>
         : <Link  className="chat-page-roomlink" onClick={() =>alert('sign in to see logs')}>Chat Log</Link>}
-        {/* <Link className="chat-page-roomlink" onClick={ontoggleGroupchat}> group chats</Link> */}
+         <Link className="chat-page-roomlink" onClick={ontoggleGroupchat}> group chats</Link>
         </div>
+        
+        {/* // searchcbox */}
         <input
           aria-label="Search name"
           className="chat-page-searchbox"
@@ -403,14 +419,20 @@ const  answerCall = async (videoId) => {
           placeholder="search name"
           onChange={onHandleSearch}
         />
-        <div className= {toggleCallLog?'chat-page-video-logs':null}>
+
+
+         {/* //chat log: */}
+      <div className= {toggleCallLog?'chat-page-video-logs':null}>
       {
       receivedData?
       receivedData.map(data =>
-      <div key = {data.videoid}>{toggleCallLog?
+      <div key = {data.videoid}>{toggleCallLog? 
           
-          <VideoChatLog  data = {data} openVideoBox  ={openVideoBox} beginCall = {beginCall}/>
-            :null}
+         
+      <VideoChatLog  data = {data} openVideoBox  ={openVideoBox} beginCall = {beginCall} />
+      :null}
+          
+          {/* // answer video call component */}
           {data.senderstatus === 'calling'
           
           ?<div className="vid-container">
@@ -421,15 +443,11 @@ const  answerCall = async (videoId) => {
           </div> 
           : null}
          </div>
-      )
-      :null}
-      </div>
-       { toggleGroupchat?
-       currentUser?
-      <GroupchatDropdown currentUser = {currentUser} />
-      : <span>signin to see groupchats</span>
-       : null}
-    
+          )
+         :null}
+         </div>
+  
+  {/* //messages components */}
         <form className="chat-page-scroller hide-scroll" onSubmit={sendMessage}>
           {pending ? <div className="loader"></div> : null}
           {messages
@@ -446,7 +464,7 @@ const  answerCall = async (videoId) => {
               ))
             : null}
                 
-          <textarea
+          <textarea        // component for message data input below
             id="chat-page-send"
             value={messageData.message}
             aria-label="add message"
@@ -474,6 +492,7 @@ const  answerCall = async (videoId) => {
           id="chat-page-imagebutt" >{mediaType === "image" ? 'Image': 'Video'}</span>
           </div>
         :null}
+         
           {currentUser ? (
             <button id="chat-page-button" type="submit">
               send
@@ -499,7 +518,7 @@ const  answerCall = async (videoId) => {
               ) : (
                 <div>
                 
-                  <input
+                  <input           //set guest uername
                     type="text"
                     onChange={(e) => setOnName(e.target.value)}
                     placeholder="enter username"
@@ -520,13 +539,27 @@ const  answerCall = async (videoId) => {
                     Enter
                   </button>
           : null}
-       
+
+          {/* //groupchat dropdown header */}
+         { toggleGroupchat?
+       currentUser?
+       <div >
+      <GroupchatDropdown currentUser = {currentUser} createGroupPending={createGroupPending} setCurrentGroup = {setCurrentGroup}
+      groupChats = {groupChats} getGroupsPending = {getGroupsPending} />
+      </div>
+      : alert(' signin to see groupchats')
+       : null}
             <div className={videoBox ? "chat-page-vidshow" : "chat-page-vidhide"}>
          
          <div>
            {successMessage?
            <span>connection success</span>
            : null}
+
+           {/* //groupchat page */}
+         
+{/* 
+           //video chatbox component */}
          <VideoChat
            currentUser={currentUser}
            profileInfo={profileInfo}
@@ -539,17 +572,19 @@ const  answerCall = async (videoId) => {
          />
          </div>
         
-   
-      
+    
+      {/* // image and video buttons for messages */}
        </div>
-          <div className= 'chat-page-icons'>
-    <div onClick={()=> {onMediaInput('image'); setMediaInput(true)}}
-          style={{cursor: "pointer",marginRight: '100px',zIndex:'-1',position:'relative'}}>📷  Image</div>
+        <div className= 'chat-page-icons'>  
+        <div onClick={()=> {onMediaInput('image'); setMediaInput(true)}}
+          style={{cursor: "pointer",marginRight: '100px',zIndex:'-1',position:'relative'}}>📷  Image</div>  
 
-<div  onClick={()=> {onMediaInput('video'); setMediaInput(true)}}
+         <div  onClick={()=> {onMediaInput('video'); setMediaInput(true)}}
                    style={{ marginLeft: '100px',position: 'relative',top: '-20px' ,cursor: 'pointer',zIndex:'-1' }} >🎥  Vid</div>
       </div> 
       <div id ={ showSidebar? 'chat-side-bar-show': 'chat-side-bar-hide' } >
+     
+     
         <UsersSidebar showSidebar ={showSidebar} searchField={searchField} render={render} beginCall = {beginCall} />
        </div> <button id='chat-page-side-butt'onClick={toggleSideBar}>sidebar</button>
         <WeatherBox />
@@ -561,7 +596,10 @@ const  answerCall = async (videoId) => {
             width="5"
             height="5"
           />
-        ) : null}
+        ) : null}    
+        
+     
+    
       </Suspense>
     </div>
   );
@@ -576,7 +614,8 @@ const mapStateToProps = createStructuredSelector({
   receiverInfo: selectReceiverInfo,
   successMessage: selectSucBox,
   profileName: selectProfileName,
-  videoInfo: selectVideoData
+  videoInfo: selectVideoData,
+  groupChats: selectGroupChats
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -592,14 +631,17 @@ const mapDispatchToProps = (dispatch) => ({
   toggleVideoBox: () => dispatch(toggleVideoBox()),
   openVideoBox : () => dispatch(openVideoBox()),
   toggleSucBox: () => dispatch(toggleSucBox()),
-  fetchNamePending: (profileId) => dispatch(fetchNamePending(profileId))
+  fetchNamePending: (profileId) => dispatch(fetchNamePending(profileId)),
+  createGroupPending: (groupData) => dispatch(createGroupPending(groupData)),
+  getGroupsPending : (userId) => dispatch(getGroupsPending(userId)),
+  setCurrentGroup : (groupData) => dispatch(setCurrentGroup(groupData))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatPage);
 
 
-export const onVidConnet = () => {
-  toggleSucBox();
-  setTimeout(function(){  toggleSucBox()}, 3000);
+// export const onVidConnet = () => {
+//   toggleSucBox();
+//   setTimeout(function(){  toggleSucBox()}, 3000);
 
-}
+// }

@@ -4,40 +4,31 @@
   flex-direction: column;
   right: 31%;
   top: 50px;
-  background:transparent;
-  box-shadow: 2px ,2px,2px solid#2ca5ab65;
+  background: transparent;
+  box-shadow: 2px, 2px, 2px solid#2ca5ab65;
   max-width: 150px;
   max-height: 180px;
   z-index: 10;
-  
 
   @media screen and (max-width: 1200px) {
     font-size: 13px;
-    right: 30%; 
+    right: 30%;
     max-width: 38%;
     top: 35px;
   }
 
   @media screen and (max-width: 950px) {
-
-    right: 20%; 
-
+    right: 20%;
   }
 
   @media screen and (max-width: 490px) {
     top: 45px;
-    
-     
-    }
-
-
-
+  }
 }
 
-#weather-input{
-    @media screen and (max-width: 490px) {
-  width: 100px;
-   
+#weather-input {
+  @media screen and (max-width: 490px) {
+    width: 100px;
   }
 }
 
@@ -52,12 +43,9 @@
     right: 25%;
   }
 
-  
   @media screen and (max-width: 490px) {
     top: 10px;
-    
-     
-    }
+  }
 }
 
 #weather-subtitle {
@@ -65,16 +53,15 @@
   font-size: 12px;
   position: absolute;
   top: 40px;
-  
+
   @media screen and (max-width: 1000px) {
-   
   }
 }
 #weather-button {
   width: 50px;
   height: 18px;
   background: #2ca5abce;
-  &:hover{
+  &:hover {
     color: rgba(202, 208, 150, 0.768);
   }
 }

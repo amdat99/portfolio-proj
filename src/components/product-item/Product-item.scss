@@ -47,10 +47,8 @@
   }
 
   @media screen and (max-width: 490px) {
-   
-    min-width:  300px;
-       
-      }
+    min-width: 300px;
+  }
 }
 
 #product-item-name {
@@ -97,13 +95,11 @@
   }
 
   @media screen and (max-width: 490px) {
-   
     right: 45px;
-       
-      }
+  }
 }
 
-.product-item-reviews{
+.product-item-reviews {
   position: absolute;
   top: 120%;
   box-shadow: 2px 2px 2px 2px whitesmoke;
@@ -113,9 +109,9 @@
   width: fit-content;
   max-width: 700px;
   overflow-y: scroll;
-  max-height:400px;
+  max-height: 400px;
   @media screen and (max-width: 800px) {
-    max-height:300px;
+    max-height: 300px;
     top: 130%;
   }
 }
@@ -136,17 +132,14 @@
   }
 }
 
-
 #review-rating-green {
   position: relative;
   left: -2%;
   color: green;
- 
 }
-
 
 #review-rating-red {
   position: relative;
   left: -2%;
- color: red;
+  color: red;
 }

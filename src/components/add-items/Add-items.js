@@ -5,7 +5,10 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { setItemsDoc } from "../../firebase/firebase";
 import { createStructuredSelector } from "reselect";
-import { selectCurrentUser, selectProfileName} from "../../redux/user/user.selectors";
+import {
+  selectCurrentUser,
+  selectProfileName,
+} from "../../redux/user/user.selectors";
 import { selectErrorMessage } from "../../redux/shop/shop.selectors";
 
 import "./add-items.scss";
@@ -32,7 +35,7 @@ export const AddItems = ({ currentUser, error, profileName }) => {
         productId: Math.random(),
       });
     }
-  }, [currentUser,profileName]);
+  }, [currentUser, profileName]);
 
   const { name, price, description, picture } = itemData;
 
@@ -199,7 +202,7 @@ export const AddItems = ({ currentUser, error, profileName }) => {
 const mapStateToProps = createStructuredSelector({
   error: selectErrorMessage,
   currentUser: selectCurrentUser,
-  profileName: selectProfileName
+  profileName: selectProfileName,
 });
 
 export default connect(mapStateToProps)(AddItems);

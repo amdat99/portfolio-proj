@@ -3,7 +3,7 @@ let socket;
 
 export const initiateSocket = (room) => {
   socket = io("https://aamirproject-api.herokuapp.com", {
-  // socket = io("http://localhost:4000/", {
+    // socket = io("http://localhost:4000/", {
     transports: ["websocket"],
   });
   console.log(`Connecting`);
@@ -46,7 +46,6 @@ export const sendProfileChange = () => {
   if (socket) socket.emit("profilechange");
 };
 
-
 export const enterOnMessage = (data) => {
   if (!socket) return;
   socket.on("onmessage", (message) => {
@@ -55,13 +54,10 @@ export const enterOnMessage = (data) => {
   });
 };
 
-
-
 export const sendMsgRequest = () => {
   console.log(" fetching messages");
   if (socket) socket.emit("onmessage");
-}
-
+};
 
 export const enterCreateRoom = (data) => {
   if (!socket) return;
@@ -71,12 +67,10 @@ export const enterCreateRoom = (data) => {
   });
 };
 
-
-
 export const sendRoomRequest = () => {
   console.log(" sending room request");
   if (socket) socket.emit("onroom");
-}
+};
 
 export const enterCall = (data) => {
   if (!socket) return;
@@ -85,8 +79,6 @@ export const enterCall = (data) => {
     return data(null, profileId);
   });
 };
-
-
 
 export const sendProfile = (profileId) => {
   console.log("works");
@@ -106,19 +98,17 @@ export const sendSDP = (sdp, videoId) => {
   console.log("offer sent");
 };
 
-
-
 export const enterCand = (data) => {
   if (!socket) return;
-  socket.on("oncandidate", (candidate,videoId) => {
+  socket.on("oncandidate", (candidate, videoId) => {
     console.log(" got candidate");
-    return data({candidate: candidate,id: videoId});
+    return data({ candidate: candidate, id: videoId });
   });
 };
 
 export const sendCand = (candidate, videoId) => {
   console.log("candidate sent");
-  if (socket) socket.emit("oncandidate", { candidate,videoId });
+  if (socket) socket.emit("oncandidate", { candidate, videoId });
 };
 
 export const checkJoined = (data) => {

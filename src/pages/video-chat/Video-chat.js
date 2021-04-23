@@ -2,12 +2,12 @@ import React from "react";
 // import VideoChatContent from "./Video-chat-content";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import Draggable from 'react-draggable'; 
+import Draggable from "react-draggable";
 import {
   // sendVideoData,
   // getCallerInfo,
   // fetchcallinfo,
-  setMissedCall
+  setMissedCall,
 } from "./Video-chat-requests";
 import {
   initiateSocket,
@@ -23,15 +23,16 @@ import {
 
 // import { initiateVidSocket } from "../../sockets/video-sockets";
 
-import { selectCurrentUser, selectProfileName } from "../../redux/user/user.selectors";
-import {setVideoData} from "../../redux/messages/messages.actions"
-import {selectVideoData} from "../../redux/messages/messages.selectors"
+import {
+  selectCurrentUser,
+  selectProfileName,
+} from "../../redux/user/user.selectors";
+import { setVideoData } from "../../redux/messages/messages.actions";
+import { selectVideoData } from "../../redux/messages/messages.selectors";
 import { selectReceiverInfo } from "../../redux/profile/profile.selectors";
-import {openVideoBox} from "../../redux/modal/modal.actions"
-
+import { openVideoBox } from "../../redux/modal/modal.actions";
 
 class VideoChat extends React.Component {
-  
   constructor(props) {
     super(props);
 
@@ -41,39 +42,31 @@ class VideoChat extends React.Component {
     this.socket = null;
     this.candidates = [];
     this.sender = false;
-    this.room = this.props.room
-
+    this.room = this.props.room;
 
     this.onCall = "";
-    this.remoteCandidate = []
+    this.remoteCandidate = [];
   }
 
-  
-
-  componentCleanup() { // this will hold the cleanup code
-    sendProfile(this.props.receiverInfo.recieverId)
-    setMissedCall(this.props.videoData.videoId)
-      
-    
-}
-
+  componentCleanup() {
+    // this will hold the cleanup code
+    sendProfile(this.props.receiverInfo.recieverId);
+    setMissedCall(this.props.videoData.videoId);
+  }
 
   componentDidMount = () => {
-
     const {
       currentUser,
 
       getCallerInfo,
 
       room,
-
     } = this.props;
 
-    window.addEventListener('beforeunload', this.componentCleanup);
-    
-if(this.props.currentUser){
-    
-    getCallerInfo(currentUser.profileId);
+    window.addEventListener("beforeunload", this.componentCleanup);
+
+    if (this.props.currentUser) {
+      getCallerInfo(currentUser.profileId);
     }
 
     const config = {
@@ -89,19 +82,16 @@ if(this.props.currentUser){
       ],
     };
 
-  
     this.pc = new RTCPeerConnection(config);
 
-
-    
     if (room) initiateSocket(room);
 
     enterCand((data) => {
       console.log("From Peer... ", data);
-      if(data.candidate !== null){
-      this.candidates = [...this.candidates, data.candidate];
-      // this.pc.addIceCandidate(new RTCIceCandidate(data.candidate));
-      this.addCandidate()
+      if (data.candidate !== null) {
+        this.candidates = [...this.candidates, data.candidate];
+        // this.pc.addIceCandidate(new RTCIceCandidate(data.candidate));
+        this.addCandidate();
       }
     });
     checkJoined((err, data) => {
@@ -109,56 +99,43 @@ if(this.props.currentUser){
 
       // es-lint-disable-next-line
       if (data == this.props.videoData.videoId) {
-        sendCand(this.remoteCandidates)
+        sendCand(this.remoteCandidates);
         this.createOffer();
       }
     });
 
     enterSDP((err, data) => {
       if (err) return;
-      if(data !== null) {
-      this.pc.setRemoteDescription(new RTCSessionDescription(data));
+      if (data !== null) {
+        this.pc.setRemoteDescription(new RTCSessionDescription(data));
       }
 
       // if(this.sender){
       //     sendCand(this.state.remoteCandidate,this.state.videoData.videoId)
       // }
 
-      if (this.sender === false && this.candidates ) {
+      if (this.sender === false && this.candidates) {
         // sendCand(this.state.remoteCandidate)
         this.props.openVideoBox();
-        setTimeout(() =>this.createAnswer(), 1000);
-
-        
+        setTimeout(() => this.createAnswer(), 1000);
       }
     });
 
-
     this.pc.onicecandidate = (e) => {
-      if (e.candidate ) {
-         sendCand(e.candidate);
+      if (e.candidate) {
+        sendCand(e.candidate);
         this.remoteCandidates = [e.candidate];
-
       }
     };
- 
 
     this.pc.oniceconnectionstatechange = (e) => {
       console.log(e);
     };
 
     this.pc.onaddstream = (e) => {
-        console.log(this.remoteVideoref)
+      console.log(this.remoteVideoref);
       this.remoteVideoref.current.srcObject = e.stream;
-      
-
-
     };
-  
-  
-     
-
-      
 
     const constraints = {
       audio: false,
@@ -175,7 +152,7 @@ if(this.props.currentUser){
       window.localStream = stream;
       this.localVideoref.current.srcObject = stream;
       this.pc.addStream(stream);
-      console.log(stream)
+      console.log(stream);
     };
 
     navigator.mediaDevices
@@ -187,38 +164,29 @@ if(this.props.currentUser){
   };
 
   componentWillUnmount() {
-    if(this.props.currentUser){
-    this.componentCleanup();
-    window.removeEventListener('beforeunload', this.componentCleanup); // remove the event handler for normal unmounting
-    sendProfile(this.props.receiverInfo.recieverId)
-    setMissedCall(this.props.videoData.videoId)
+    if (this.props.currentUser) {
+      this.componentCleanup();
+      window.removeEventListener("beforeunload", this.componentCleanup); // remove the event handler for normal unmounting
+      sendProfile(this.props.receiverInfo.recieverId);
+      setMissedCall(this.props.videoData.videoId);
     }
-    
   }
 
-  componentDidUpdate(prevProps){
-    const {
-      currentUser,
-      receiverInfo,
-      profileName
-    } = this.props;
-    if(currentUser){
-    if (this.props.receiverInfo !== prevProps.receiverInfo) {
-      this.props.setVideoData({
-        videoId: (Math.random() * Math.random()) / Math.random(),
-        senderId: currentUser.profileId,
-        sender: profileName.toString(),
-        receiverId: receiverInfo.recieverId,
-        receiver: receiverInfo.recieverName,
-        receiverJoined: "no",
-      });
-    }
-   
+  componentDidUpdate(prevProps) {
+    const { currentUser, receiverInfo, profileName } = this.props;
+    if (currentUser) {
+      if (this.props.receiverInfo !== prevProps.receiverInfo) {
+        this.props.setVideoData({
+          videoId: (Math.random() * Math.random()) / Math.random(),
+          senderId: currentUser.profileId,
+          sender: profileName.toString(),
+          receiverId: receiverInfo.recieverId,
+          receiver: receiverInfo.recieverName,
+          receiverJoined: "no",
+        });
       }
     }
- 
-   
-
+  }
 
   createOffer = async () => {
     await this.setState({ sender: true });
@@ -228,13 +196,10 @@ if(this.props.currentUser){
 
     this.pc.createOffer({ offerToReceiveVideo: 1 }).then((sdp) => {
       this.pc.setLocalDescription(sdp);
-    
+
       sendSDP(sdp, this.props.videoData.videoId);
-    
     });
   };
-
-
 
   // startCall = async () => {
   //   await this.setvideoData();
@@ -252,17 +217,13 @@ if(this.props.currentUser){
   // };
 
   createAnswer = () => {
-   
-      
     console.log("Answer");
     this.pc.createAnswer({ offerToReceiveVideo: 1 }).then((sdp) => {
       this.pc.setLocalDescription(sdp);
-     
+
       sendSDP(sdp);
       this.props.openVideoBox();
-  
     });
-  
   };
 
   setRemoteDescription = () => {
@@ -277,15 +238,13 @@ if(this.props.currentUser){
     });
   };
 
-   refreshPage = async () => {
-
-    if(this.props.videoData){
-    await setMissedCall(this.props.videoData.videoId,)
-    await sendProfile(this.props.videoData.receiverId)
+  refreshPage = async () => {
+    if (this.props.videoData) {
+      await setMissedCall(this.props.videoData.videoId);
+      await sendProfile(this.props.videoData.receiverId);
     }
     window.location.reload();
   };
-
 
   render() {
     // if(this.state.remoteCandidate){
@@ -293,26 +252,38 @@ if(this.props.currentUser){
     // }
     return (
       <div>
+        <div></div>
+
         <div>
-   
+          <Draggable>
+            <div className="video-chat-container">
+              <video
+                className="video-chat-localstream"
+                ref={this.localVideoref}
+                autoPlay
+                controls
+              ></video>
+              <video
+                className="video-chat-remotestream"
+                ref={this.remoteVideoref}
+                autoPlay
+                controls
+              >
+                {" "}
+              </video>
+
+              <br />
+
+              {/* <button onClick={startCall}>start</button> */}
+              <button
+                style={{ position: "relative", right: "46px" }}
+                onClick={this.refreshPage}
+              >
+                end call{" "}
+              </button>
+            </div>
+          </Draggable>
         </div>
-        
-       
-    <div>
-      <Draggable>
-    <div className="video-chat-container">
-      <video className="video-chat-localstream" ref={this.localVideoref} autoPlay controls  ></video> 
-      <video className="video-chat-remotestream" ref={this.remoteVideoref} autoPlay controls >  </video>
-
-    
-      <br />
-
-      {/* <button onClick={startCall}>start</button> */}
-      <button style ={{position: 'relative' ,right: '46px'}} onClick={this.refreshPage}>end call </button>
-    </div>
-    </Draggable>
-    </div>
-         
       </div>
     );
   }
@@ -322,17 +293,16 @@ const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
   receiverInfo: selectReceiverInfo,
   profileName: selectProfileName,
-  videoData: selectVideoData
+  videoData: selectVideoData,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   setVideoData: (videoData) => dispatch(setVideoData(videoData)),
-  openVideoBox:() => dispatch(openVideoBox())
-})
+  openVideoBox: () => dispatch(openVideoBox()),
+});
 
-  export default connect(mapStateToProps,mapDispatchToProps)(VideoChat);
-
+export default connect(mapStateToProps, mapDispatchToProps)(VideoChat);
 
 export const closeVideoBox = () => {
-  this.props.toggleVideoBox()
-}
+  this.props.toggleVideoBox();
+};

@@ -12,7 +12,7 @@ import {
   getRecievedMessageSuccess,
   getSentMessageSuccess,
   fetchNameSuccess,
-  fetchNameFailed
+  fetchNameFailed,
 } from "./user.actions";
 
 import userActionTypes from "./user.types";
@@ -29,7 +29,7 @@ import {
   setMessageDoc,
   getRecievedMessageDoc,
   getSentMessageDoc,
-  getProfileName
+  getProfileName,
 } from "../../firebase/firebase";
 
 // import {sendProfileChange } from "../../sockets/sockets"
@@ -48,22 +48,18 @@ export function* signInWithGoogle() {
   try {
     const { user } = yield auth.signInWithPopup(googleHandler);
     yield getSnapshotFromUserAuth(user);
- 
   } catch (error) {
     yield put(signInFailure(error));
-  }   
-
+  }
 }
 
 export function* signInWithEmail({ payload: { email, password } }) {
   try {
     const { user } = yield auth.signInWithEmailAndPassword(email, password);
     yield getSnapshotFromUserAuth(user);
-  
   } catch (error) {
     yield put(signInFailure(error));
-  }  
-
+  }
 }
 
 export function* sendDirectMessageAsync({
@@ -83,8 +79,7 @@ export function* sendDirectMessageAsync({
   }
 }
 
-export function* onGetProfileName({ payload:  profileId  }) {
-
+export function* onGetProfileName({ payload: profileId }) {
   try {
     const profileName = yield getProfileName(profileId);
     yield put(fetchNameSuccess(profileName));
@@ -103,7 +98,6 @@ export function* getSentMessageAsync({ payload: { userId } }) {
 }
 
 export function* getRecievedMessageAsync({ payload: { profileId } }) {
-
   try {
     const messagedata = yield getRecievedMessageDoc(profileId);
     yield put(getRecievedMessageSuccess(messagedata));
@@ -126,7 +120,6 @@ export function* isUserAuthenticated() {
 export function* onUpdateStatus() {
   const userData = yield getCurrentUser();
   yield call(updateStatus, userData.profileId);
-
 }
 
 export function* signOut() {
@@ -199,10 +192,7 @@ export function* onGetRecievedMessagePending() {
 }
 
 export function* onGetProfileNamePending() {
-  yield takeLatest(
-    userActionTypes.FETCH_NAME_PENDING,
-    onGetProfileName
-  );
+  yield takeLatest(userActionTypes.FETCH_NAME_PENDING, onGetProfileName);
 }
 
 export function* userSagas() {
@@ -216,6 +206,6 @@ export function* userSagas() {
     call(onSendMessagePending),
     call(onGetSentMessagePending),
     call(onGetRecievedMessagePending),
-    call(onGetProfileNamePending)
+    call(onGetProfileNamePending),
   ]);
 }

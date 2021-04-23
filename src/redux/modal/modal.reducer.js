@@ -49,11 +49,11 @@ const modalReducer = (state = INITIAL_STATE, action) => {
         ...state,
         showVideoBox: !state.showVideoBox,
       };
-      case modalActionTypes.TOGGLE_SUCCESS_BOX:
-        return {
-          ...state,
-          showVideoBox: !state.successMessage,
-        };
+    case modalActionTypes.TOGGLE_SUCCESS_BOX:
+      return {
+        ...state,
+        showVideoBox: !state.successMessage,
+      };
     default:
       return state;
   }

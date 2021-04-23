@@ -6,7 +6,7 @@ import {
 
 import "./Profile-messages.scss";
 
-function ProfileMessages({ currentUser,profileName }) {
+function ProfileMessages({ currentUser, profileName }) {
   const [recievedMessages, setRecievedMessages] = useState(null);
   const [sentMessages, setSentMessages] = useState(null);
 
@@ -30,7 +30,7 @@ function ProfileMessages({ currentUser,profileName }) {
 
   const getRecievedMessages = async () => {
     const request = await getRecievedMessageDoc(currentUser.profileId);
-   setRecievedMessages(request);
+    setRecievedMessages(request);
   };
 
   const getSentMessages = async () => {
@@ -40,28 +40,43 @@ function ProfileMessages({ currentUser,profileName }) {
 
   return (
     <div className="profile-messages-container">
-      {recievedMessages?
-      recievedMessages.map((sentMessage, i) => (
-        <ul key={i} id="message-box-container">
-          <span style={{maxWidth: '50px'}}> {sentMessage.senderName}:</span>
-          <span style={{maxWidth: '120px'}} id="profile-messages-recieved"> {sentMessage.message} <div id="profile-messages-recieved-date">
-            {sentMessage.createdAt}
-          </div>  </span> 
-       
-        </ul>
-      )):null}
-      {sentMessages?
-      <div id="profile-messages-sentcont">
-        {sentMessages.map((message, i) => (
-        <ul key={i} >
-          <span id="profile-messages-sent"> {message.message}    <span id="profile-messages-sent-date">
-            to {message.recieverName} {message.createdAt}{" "}
-          </span></span>
-       
-          <span></span>
-        </ul>
-      ))}
-      </div>:null}
+      {recievedMessages
+        ? recievedMessages.map((sentMessage, i) => (
+            <ul key={i} id="message-box-container">
+              <span style={{ maxWidth: "50px" }}>
+                {" "}
+                {sentMessage.senderName}:
+              </span>
+              <span
+                style={{ maxWidth: "120px" }}
+                id="profile-messages-recieved"
+              >
+                {" "}
+                {sentMessage.message}{" "}
+                <div id="profile-messages-recieved-date">
+                  {sentMessage.createdAt}
+                </div>{" "}
+              </span>
+            </ul>
+          ))
+        : null}
+      {sentMessages ? (
+        <div id="profile-messages-sentcont">
+          {sentMessages.map((message, i) => (
+            <ul key={i}>
+              <span id="profile-messages-sent">
+                {" "}
+                {message.message}{" "}
+                <span id="profile-messages-sent-date">
+                  to {message.recieverName} {message.createdAt}{" "}
+                </span>
+              </span>
+
+              <span></span>
+            </ul>
+          ))}
+        </div>
+      ) : null}
       )
     </div>
   );

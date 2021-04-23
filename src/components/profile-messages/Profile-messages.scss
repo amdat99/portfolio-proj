@@ -8,11 +8,11 @@
     left: -75px;
     margin-right: 50px;
     margin-left: 40px;
-    font-size:12px;
+    font-size: 12px;
   }
 
   @media screen and (max-width: 490px) {
- width:  120px;
+    width: 120px;
   }
 }
 .profile-messages-recieved {
@@ -21,7 +21,7 @@
 #profile-messages-sent {
   right: -215px;
   position: relative;
- 
+
   background: rgb(53, 160, 62);
   margin-left: 5%;
   border-radius: 20px;
@@ -41,16 +41,13 @@
   }
 }
 
-#profile-messages-sentcont{
+#profile-messages-sentcont {
   position: absolute;
   display: flex;
   flex-direction: column;
-
 }
 
-
 #profile-messages-recieved {
-  
   background: rgb(205, 236, 255);
   margin-left: 5%;
   border-radius: 20px;
@@ -66,7 +63,7 @@
 
   @media screen and (max-width: 1000px) {
     position: relative;
-  right: 10px;
+    right: 10px;
     max-width: 100px;
   }
 }
@@ -77,7 +74,6 @@
   background: transparent;
   color: whitesmoke;
 
-
   @media screen and (max-width: 1000px) {
     right: -80px;
   }
@@ -85,14 +81,14 @@
 
 #profile-messages-recieved-date {
   font-size: 11px;
- display: flex;
-position: relative;
-margin-top: 10px;
+  display: flex;
+  position: relative;
+  margin-top: 10px;
   background: transparent;
   color: rgb(145, 32, 32);
 
   @media screen and (max-width: 1000px) {
-    font-size:9px;
+    font-size: 9px;
     justify-content: flex-end;
   }
 }

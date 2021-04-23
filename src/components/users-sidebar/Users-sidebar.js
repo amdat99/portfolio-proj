@@ -7,7 +7,11 @@ import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "../../redux/user/user.selectors";
 import { selectProfileInfo } from "../../redux/profile/profile.selectors";
 import { getReceiverInfo } from "../../redux/profile/profile.actions";
-import { openMessageBox, openModal, openVideoBox } from "../../redux/modal/modal.actions";
+import {
+  openMessageBox,
+  openModal,
+  openVideoBox,
+} from "../../redux/modal/modal.actions";
 
 import "./Users-sidebar.scss";
 
@@ -21,8 +25,7 @@ function UsersSidebar({
   openMessageBox,
   openVideoBox,
   beginCall,
-  showSidebar
-
+  showSidebar,
 }) {
   // const [profiles] = useState(profilesInfo);
 
@@ -36,28 +39,31 @@ function UsersSidebar({
 
   return (
     <div className="sidebar-container hide-scroll   ">
-      <div className=''   id = {showSidebar?'sidebar-hide':null}>
-      <div className="sidebar-test-profile  ">
-        <h4>Test Profiles:</h4>
-        <span id="sidebar-test"> john@gmail.com password: 123456  john1@gmail.com password: 123456</span>
-      </div>
+      <div className="" id={showSidebar ? "sidebar-hide" : null}>
+        <div className="sidebar-test-profile  ">
+          <h4>Test Profiles:</h4>
+          <span id="sidebar-test">
+            {" "}
+            john@gmail.com password: 123456 john1@gmail.com password: 123456
+          </span>
+        </div>
 
-      {profilesInfo
-        ? filteredName().map((data, i) => (
-            <SidebarContent
-              key={i}
-              data={data}
-              openModal={openModal}
-              currentUser={currentUser}
-              getReceiverInfo={getReceiverInfo}
-              openMessageBox={openMessageBox}
-              openVideoBox={openVideoBox}
-              beginCall={beginCall}
-             
-            />
-          ))
-        : null}
-    </div></div>
+        {profilesInfo
+          ? filteredName().map((data, i) => (
+              <SidebarContent
+                key={i}
+                data={data}
+                openModal={openModal}
+                currentUser={currentUser}
+                getReceiverInfo={getReceiverInfo}
+                openMessageBox={openMessageBox}
+                openVideoBox={openVideoBox}
+                beginCall={beginCall}
+              />
+            ))
+          : null}
+      </div>
+    </div>
   );
 }
 const mapDispatchToProps = (dispatch) => ({

@@ -10,7 +10,7 @@ import {
   changeStatus,
 } from "../../redux/profile/profile.actions";
 
-import {sendProfileChange } from "../../sockets/sockets"
+import { sendProfileChange } from "../../sockets/sockets";
 import { createStructuredSelector } from "reselect";
 import "./Profile-icon.scss";
 
@@ -45,10 +45,8 @@ function ProfileIcon({
       signOutPending();
     }, 1200);
     setTimeout(function () {
-      sendProfileChange()
+      sendProfileChange();
     }, 2200);
-    
-  
   };
   return (
     <div>

@@ -7,7 +7,7 @@ const INITIAL_STATE = {
   profileId: null,
   sentMessage: null,
   recievedMessage: null,
-  profileName : null,
+  profileName: null,
 };
 const userReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -56,7 +56,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
         error: null,
         recievedMessage: action.payload,
       };
-      case userActionTypes.FETCH_NAME_SUCCESS:
+    case userActionTypes.FETCH_NAME_SUCCESS:
       return {
         ...state,
         pending: false,

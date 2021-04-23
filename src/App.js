@@ -1,6 +1,7 @@
 import React, { Suspense } from "react";
 
 import "./App.css";
+import "./app.scss"
 
 import { Switch, Route, Redirect } from "react-router-dom";
 import Modal from "./modal/Modal";

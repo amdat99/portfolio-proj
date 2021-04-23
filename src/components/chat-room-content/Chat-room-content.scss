@@ -20,8 +20,6 @@
     width: 80%;
     margin-left: 10%;
   }
-
-  
 }
 
 #chat-content-room {
@@ -34,10 +32,8 @@
     left: 0%;
   }
   @media screen and (max-width: 490px) {
-   
     top: -60px;
-       
-      }
+  }
 }
 #chat-content-title {
   position: relative;
@@ -50,19 +46,15 @@
     left: -120px;
   }
   @media screen and (max-width: 490px) {
-   
     top: -20px;
-       
-      }
+  }
 }
 
-#chat-content-input{
-
-  
+#chat-content-input {
   @media screen and (max-width: 490px) {
-   position: relative;
+    position: relative;
     left: 30px;
-      }
+  }
 }
 #chat-content-createroom {
   position: relative;
@@ -75,9 +67,7 @@
     left: -10%;
   }
   @media screen and (max-width: 490px) {
-   
-top: -50px;
-   
+    top: -50px;
   }
 }
 
@@ -86,7 +76,6 @@ top: -50px;
   display: flex;
   margin-left: 20px;
   margin-bottom: 5px;
-
 }
 
 #chat-content-send {
@@ -96,7 +85,6 @@ top: -50px;
   min-width: 100px;
 
   @media screen and (max-width: 490px) {
-   
     left: -100px;
-      }
+  }
 }

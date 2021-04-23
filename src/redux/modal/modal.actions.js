@@ -35,4 +35,3 @@ export const toggleVideoBox = () => ({
 export const toggleSucBox = () => ({
   type: modalActionTypes.TOGGLE_SUCCESS_BOX,
 });
-

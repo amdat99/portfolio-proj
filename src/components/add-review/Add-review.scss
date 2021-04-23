@@ -1,23 +1,21 @@
-.add-review-cont{
-    position: absolute;
-    background: white;
-    border-radius: 50px;
-    padding: 20px;
-    left: 40%;
+.add-review-cont {
+  position: absolute;
+  background: white;
+  border-radius: 50px;
+  padding: 20px;
+  left: 40%;
 
-    border: 2px solid whitesmoke;
-    display:inline;
-  ;
+  border: 2px solid whitesmoke;
+  display: inline;
   z-index: 55;
 
-
-    @media screen and (max-width: 800px) {
-        position: absolute;     
-        left: 60%;    
-        top:140%;
-      }
+  @media screen and (max-width: 800px) {
+    position: absolute;
+    left: 60%;
+    top: 140%;
+  }
 }
 
-.review-cat{
-    display: inline;
+.review-cat {
+  display: inline;
 }

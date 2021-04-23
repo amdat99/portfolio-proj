@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Suspense } from "react";
 import { Link } from "react-router-dom";
 
-import Draggable from 'react-draggable'
+import Draggable from "react-draggable";
 import { connect } from "react-redux";
 import { toggleModal, toggleMessageBox } from "../../redux/modal/modal.actions";
 import { fetchProfileImagePending } from "../../redux/profile/profile.actions";
@@ -15,18 +15,18 @@ import {
   selectCurrentUser,
   selectRecievedMessages,
   selectSentMessages,
-  selectProfileName
+  selectProfileName,
 } from "../../redux/user/user.selectors";
 import {
   getRecievedMessagePending,
   getSentMessagePending,
-  fetchNamePending
+  fetchNamePending,
 } from "../../redux/user/user.actions";
 import {
   selectCurrentImage,
   // selectReceiverInfo,
 } from "../../redux/profile/profile.selectors";
-import { fetchProfileInfoPending } from '../../redux/profile/profile.actions'
+import { fetchProfileInfoPending } from "../../redux/profile/profile.actions";
 import {
   uploadImageToStorage,
   getSentMessageDoc,
@@ -44,7 +44,7 @@ import {
 } from "../../redux/shop/shop.actions";
 
 import DirectMessagingBox from "../../components/direct-messaging-box/Direct-messaging-box";
-import {sendProfileChange } from "../../sockets/sockets"
+import { sendProfileChange } from "../../sockets/sockets";
 import "./Profile.scss";
 
 const CartDropdown = React.lazy(() =>
@@ -70,7 +70,7 @@ function Profile({
   toggleMessageBox,
   profileName,
   fetchNamePending,
-  fetchProfileInfoPending
+  fetchProfileInfoPending,
 }) {
   const [uploadDropdown, setUploadDropdown] = useState(false);
   const [shopToggle, setShopToggle] = useState(false);
@@ -100,9 +100,9 @@ function Profile({
   }, [getSentMessageDoc, currentUser, sentMessages]);
 
   useEffect(() => {
-    if(currentUser){
-    fetchSellingItemsPending(currentUser.profileId);
-    fetchNamePending(currentUser.profileId)
+    if (currentUser) {
+      fetchSellingItemsPending(currentUser.profileId);
+      fetchNamePending(currentUser.profileId);
     }
     //eslint-disable-next-line
   }, [fetchSellingItemsPending, currentUser]);
@@ -111,13 +111,10 @@ function Profile({
     setUploadDropdown(!uploadDropdown);
   };
 
-  const fetchProfileName = async () => {  
+  const fetchProfileName = async () => {
     const request = await getProfileName(currentUser.profileId);
     setDisplayNameData(request);
-   };
-
-  
- 
+  };
 
   const toggleShopFeatures = () => {
     setShopToggle(!shopToggle);
@@ -134,68 +131,60 @@ function Profile({
 
   const onUpdateName = async (e) => {
     e.preventDefault();
-   await  updateDisplayName(currentUser.profileId, userName);
+    await updateDisplayName(currentUser.profileId, userName);
     // await updateDisplayNameforUsers(currentUser.id, userName);
-     await fetchProfileName()
-     fetchProfileInfoPending()
-     setTimeout(function(){  sendProfileChange() }, 2000);
-
-   
-  
-};
-
-
-
+    await fetchProfileName();
+    fetchProfileInfoPending();
+    setTimeout(function () {
+      sendProfileChange();
+    }, 2000);
+  };
 
   return (
     <div>
-    <Draggable>
-    <div className="profile-container">
-      {currentUser ? (
-        <div>
-          <button id="profile-shop-button" onClick={toggleShopFeatures}>
-            Toggle Profile
-          </button>
-          <div>
-            <div id="profile-image-container">
-              <a href={currentImage}>
-                <img
-                  src={`${currentImage}size=60x60`}
-                  alt="profile"
-                  width="60"
-                  height="60"
-                  onError={(e) => {
-                    e.target.onerror = null;
-                    e.target.src =
-                      "https://cdn.pixabay.com/photo/2016/08/25/07/30/orange-1618917_960_720.png";
-                  }}
-                />
-              </a>
-            </div>
-            <span onClick={toggleDropdown} id="profile-image-update">
-              update Image
-            </span>
-            <Suspense fallback={<div className="loader"></div>}>
-              {uploadDropdown ? (
-                <div id="profile-image-update-dropdown">
-                  <ProfileIconDropdown
-                    uploadImageToStorage={uploadImageToStorage}
-                    currentUser={currentUser}
-                    toggleModal={toggleModal}
-                    currentImag={currentImage}
-                    getProfileImage={getProfileImage}
-                    profileName ={profileName}
-                    fetchProfileInfoPending={fetchProfileInfoPending}
-                  />
+      <Draggable>
+        <div className="profile-container">
+          {currentUser ? (
+            <div>
+              <button id="profile-shop-button" onClick={toggleShopFeatures}>
+                Toggle Profile
+              </button>
+              <div>
+                <div id="profile-image-container">
+                  <a href={currentImage}>
+                    <img
+                      src={`${currentImage}size=60x60`}
+                      alt="profile"
+                      width="60"
+                      height="60"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src =
+                          "https://cdn.pixabay.com/photo/2016/08/25/07/30/orange-1618917_960_720.png";
+                      }}
+                    />
+                  </a>
                 </div>
-              ) : null}
-            </Suspense>
-            <form
-              onSubmit={
-                onUpdateName}
-            >
-              {displayNameData
-                ? 
+                <span onClick={toggleDropdown} id="profile-image-update">
+                  update Image
+                </span>
+                <Suspense fallback={<div className="loader"></div>}>
+                  {uploadDropdown ? (
+                    <div id="profile-image-update-dropdown">
+                      <ProfileIconDropdown
+                        uploadImageToStorage={uploadImageToStorage}
+                        currentUser={currentUser}
+                        toggleModal={toggleModal}
+                        currentImag={currentImage}
+                        getProfileImage={getProfileImage}
+                        profileName={profileName}
+                        fetchProfileInfoPending={fetchProfileInfoPending}
+                      />
+                    </div>
+                  ) : null}
+                </Suspense>
+                <form onSubmit={onUpdateName}>
+                  {displayNameData ? (
                     <input
                       id="profile-greeting"
                       type="text"
@@ -205,79 +194,86 @@ function Profile({
                       aria-label="change displa name"
                       label="name"
                     />
-                  
-                : null}
-              <button id="profile-update-name" type="submit">
-                update name
-              </button>
-            </form>
-          </div>
-          <Suspense fallback={<div className="loader"></div>}>
-            {shopToggle ? (
-              <div>
-                <div id="profile-cart">
-                  <CartDropdown />
-                </div>{" "}
-                <div className="profile-selling-items hide-scroll">
-                  {sellingItems.length ? (
-                    sellingItems.map((sellingItem) => (
-                      <div>
-                        <ListedItems
-                          sellingItem={sellingItem}
-                          key={sellingItem.userId}
-                          fetchProductPending={fetchProductPending}
-                          toggleModal={toggleModal}
-                          currentUser = {currentUser}
-                          fetchSellingItemsPending={fetchSellingItemsPending}
-                        />
-                      </div>
-                    ))
-                  ) : (
-                    <h1 id="profile-nosell">you are selling no items</h1>
-                  )}
-                </div>
+                  ) : null}
+                  <button id="profile-update-name" type="submit">
+                    update name
+                  </button>
+                </form>
               </div>
-            ) : (
-              <div>
-                {selectMessageBox ? <DirectMessagingBox profileName={profileName} /> : null}
-                <div className="profile-messagebox-container hide-scroll ">
-                  {" "}
-                  {currentUser ? (
-                    <div>
-                      <span style={{ position: "relative", right: "-10px" }}>
-                        messages:
-                      </span>
-                      <ProfileMessages
-                        sentMessages={sentMessages}
-                        currentUser={currentUser}
-                        recievedMessages={recievedMessages}
-                        profileName={profileName}
-                      />
+              <Suspense fallback={<div className="loader"></div>}>
+                {shopToggle ? (
+                  <div>
+                    <div id="profile-cart">
+                      <CartDropdown />
+                    </div>{" "}
+                    <div className="profile-selling-items hide-scroll">
+                      {sellingItems.length ? (
+                        sellingItems.map((sellingItem) => (
+                          <div>
+                            <ListedItems
+                              sellingItem={sellingItem}
+                              key={sellingItem.userId}
+                              fetchProductPending={fetchProductPending}
+                              toggleModal={toggleModal}
+                              currentUser={currentUser}
+                              fetchSellingItemsPending={
+                                fetchSellingItemsPending
+                              }
+                            />
+                          </div>
+                        ))
+                      ) : (
+                        <h1 id="profile-nosell">you are selling no items</h1>
+                      )}
                     </div>
-                  ) : (
-                    <h1>no messages...</h1>
-                  )}{" "}
-                </div>
-              </div>
-            )}
-            <div></div>
-          </Suspense>
+                  </div>
+                ) : (
+                  <div>
+                    {selectMessageBox ? (
+                      <DirectMessagingBox profileName={profileName} />
+                    ) : null}
+                    <div className="profile-messagebox-container hide-scroll ">
+                      {" "}
+                      {currentUser ? (
+                        <div>
+                          <span
+                            style={{ position: "relative", right: "-10px" }}
+                          >
+                            messages:
+                          </span>
+                          <ProfileMessages
+                            sentMessages={sentMessages}
+                            currentUser={currentUser}
+                            recievedMessages={recievedMessages}
+                            profileName={profileName}
+                          />
+                        </div>
+                      ) : (
+                        <h1>no messages...</h1>
+                      )}{" "}
+                    </div>
+                  </div>
+                )}
+                <div></div>
+              </Suspense>
+            </div>
+          ) : (
+            <Link to="/signon" onClick={toggleModal}>
+              sign in to view profile
+            </Link>
+          )}
+          <button
+            id="profile-modal-button"
+            onClick={() => {
+              toggleModal();
+              toggleMessageBox();
+            }}
+          >
+            X
+          </button>
         </div>
-      ) : (
-        <Link to="/signon" onClick={toggleModal}>
-          sign in to view profile
-        </Link>
-      )}
-      <button
-        id="profile-modal-button"
-        onClick={() => {
-          toggleModal();
-          toggleMessageBox();
-        }}
-      >
-        X
-      </button>
-    </div></Draggable></div>
+      </Draggable>
+    </div>
   );
 }
 
@@ -292,7 +288,7 @@ const mapDispatchToProps = (dispatch) => ({
   fetchProductPending: (productId) => dispatch(fetchProductPending(productId)),
   toggleMessageBox: () => dispatch(toggleMessageBox()),
   fetchNamePending: (profileId) => dispatch(fetchNamePending(profileId)),
-  fetchProfileInfoPending: () => dispatch(fetchProfileInfoPending())
+  fetchProfileInfoPending: () => dispatch(fetchProfileInfoPending()),
 });
 
 const mapStateToProps = createStructuredSelector({
@@ -305,7 +301,6 @@ const mapStateToProps = createStructuredSelector({
   sentMessages: selectSentMessages,
   selectMessageBox: selectMessageBox,
   profileName: selectProfileName,
-  
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

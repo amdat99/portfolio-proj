@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import {sendProfileChange } from "../../sockets/sockets"
+import { sendProfileChange } from "../../sockets/sockets";
 function ProfileIconDropdown({
   uploadImageToStorage,
   currentUser,
   currentImage,
   getProfileImage,
   toggleModal,
-  fetchProfileInfoPending
+  fetchProfileInfoPending,
 }) {
   const [uploadProfileimage, setUploadprofileimage] = useState(null);
 
@@ -32,9 +32,10 @@ function ProfileIconDropdown({
     await getProfileImage(currentUser.profileId);
     setUploadprofileimage(null);
     toggleModal();
-    fetchProfileInfoPending()
-    setTimeout(function(){ sendProfileChange() }, 2000);
-    
+    fetchProfileInfoPending();
+    setTimeout(function () {
+      sendProfileChange();
+    }, 2000);
   };
 
   return (

@@ -1,7 +1,7 @@
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
 import {
@@ -14,26 +14,25 @@ import ProfileIcon from "../profile-icon/Profile-icon";
 import { selectRoom } from "../../redux/messages/messages.selectors";
 
 import ChatRoom from "../../pages/chat-room/Chat-Room";
-
+import Groupchat from "../../pages/groupchat/Group-chat";
 
 import { Route } from "react-router-dom";
 
 import "./Navigation-shared.scss";
 
-function NavigationShared({room}) {
+function NavigationShared({ room }) {
+  useEffect(() => {
+    if (room) initiateSocket(room);
 
- useEffect(() => {
-   if (room) initiateSocket(room)
-
-  //  return(()=>{
-  //    disconnectSocket()
-  //  })
- })
+    //  return(()=>{
+    //    disconnectSocket()
+    //  })
+  });
 
   return (
     <div>
       <Route path="/chatroom" component={ChatRoom} />
-  
+      <Route path="/groupchat" component={Groupchat} />
 
       <div className="nav-shared-container">
         <div className="nav-shared-logo">
@@ -55,7 +54,7 @@ function NavigationShared({room}) {
 }
 
 const mapStateToProps = createStructuredSelector({
-  room: selectRoom
-})
+  room: selectRoom,
+});
 
 export default connect(mapStateToProps)(NavigationShared);

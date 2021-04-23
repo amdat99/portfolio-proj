@@ -98,14 +98,14 @@ export const getMessageFailed = (error) => ({
 export const fetchNamePending = (profileId) => ({
   type: userActionTypes.FETCH_NAME_PENDING,
   payload: profileId,
-})
+});
 
-export const fetchNameSuccess = (profileName) =>({
+export const fetchNameSuccess = (profileName) => ({
   type: userActionTypes.FETCH_NAME_SUCCESS,
   payload: profileName,
-})
+});
 
 export const fetchNameFailed = (e) => ({
   type: userActionTypes.FETCH_NAME_FAILURE,
-  payload: e
-})
+  payload: e,
+});

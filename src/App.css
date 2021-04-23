@@ -83,8 +83,6 @@ input {
   display: flex;
   justify-content: flex-start;
   word-break: all;
- 
- 
 
   @media screen and (max-width: 800px) {
     position: relative;
@@ -92,46 +90,16 @@ input {
   }
 }
 
-#message-box-containeruser{
+#message-box-containeruser {
   width: 100%;
   display: flex;
   justify-content: flex-end;
   word-break: all;
-  position:relative;
+  position: relative;
   left: -30px;
-
 
   @media screen and (max-width: 800px) {
     position: relative;
     left: -50px;
   }
-
-
-}
-
-#message-box-message {
-  background: rgb(205, 236, 255);
-  margin-left: 4%;
-  border-radius: 20px;
-  box-shadow: 2px 2px 2px 2px grey;
-  display: flex;
-  padding-right: 10px;
-  padding-left: 10px;
-  padding-top: 6px;
-  height: fit-content;
-  max-width: 40%;
-
-  word-break: break-all;
-
-  @media screen and (max-width: 800px) {
-
-    
-  }
-}
-
-
-
-#message-box-message:hover {
-  transform: scale(1.1);
-  box-shadow: 4px 4px 8px 0;
 }

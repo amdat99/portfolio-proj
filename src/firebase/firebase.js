@@ -10,7 +10,7 @@ const config = {
   storageBucket: "aamir-project-492ef.appspot.com",
   messagingSenderId: "926729331205",
   appId: "1:926729331205:web:623421273d59ce346ff26c",
-  measurementId: "G-KGV9XG51P2"
+  measurementId: "G-KGV9XG51P2",
 };
 
 //user functions:
@@ -105,12 +105,12 @@ export const getProfileDoc = async (profileId) => {
 export const getProfileName = async (profileId) => {
   const collectionRef = firestore
     .collection("profile")
-   
+
     .where("profileId", "==", profileId);
   // get user collection data
   const collectionSnapShot = await collectionRef.get(); //
   return collectionSnapShot.docs.map((doc) => {
-    return  doc.data().displayName
+    return doc.data().displayName;
   });
 };
 
@@ -341,19 +341,18 @@ export const getSearchFilteredDoc = async (collection, name) => {
   });
 };
 
-
 export const setReviewsDoc = async (reviewData) => {
   const reviewId = reviewData.productId + Math.random();
   const collectionRef = firestore.doc(`reviews/${reviewId}}`);
 
-  console.log(reviewData.userName)
+  console.log(reviewData.userName);
   const {
     review,
     productId,
     rating,
     userName,
     userId,
-    productName
+    productName,
   } = reviewData;
 
   const createdAt = new Date();
@@ -373,18 +372,16 @@ export const setReviewsDoc = async (reviewData) => {
   }
 };
 
-
 export const getReviewsDoc = async (productId) => {
   if (!productId) return;
-  const collectionRef = firestore.collection('reviews')
-  .where("productId", "==", productId) // get user collection data
+  const collectionRef = firestore
+    .collection("reviews")
+    .where("productId", "==", productId); // get user collection data
   const collectionSnapShot = await collectionRef.get(); //
   return collectionSnapShot.docs.map((doc) => {
-    return doc.data()
+    return doc.data();
   });
 };
-
-
 
 //profile picture functions:
 export const uploadImageToStorage = (profileimage, profileId) => {

@@ -13,7 +13,7 @@ function ListedItems({
   fetchProductPending,
   toggleModal,
   currentUser,
-  fetchSellingItemsPending
+  fetchSellingItemsPending,
 }) {
   const [delistDropdown, setDelistDropdown] = useState(false);
 
@@ -25,7 +25,7 @@ function ListedItems({
 
   const delistItem = () => {
     deleteListing(userId, productId);
-    fetchSellingItemsPending(currentUser.profileId)
+    fetchSellingItemsPending(currentUser.profileId);
   };
   return (
     <div className="listed-items-container">

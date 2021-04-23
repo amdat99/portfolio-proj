@@ -6,13 +6,13 @@ import {
   enterChat,
   sendMessage,
   enterCreateRoom,
-  sendRoomRequest
+  sendRoomRequest,
 } from "../../sockets/sockets";
 
 import { Link } from "react-router-dom";
 
 import { selectCurrentUser } from "../../redux/user/user.selectors";
-import { setCurrentRoom} from '../../redux/messages/messages.actions'
+import { setCurrentRoom } from "../../redux/messages/messages.actions";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
@@ -29,7 +29,6 @@ function ChatRoom({ currentUser, setCurrentRoom }) {
   const [onName, setOnName] = useState("");
   const [messageRoom] = useState(null);
 
-
   useEffect(() => {
     fetchRooms();
 
@@ -42,27 +41,24 @@ function ChatRoom({ currentUser, setCurrentRoom }) {
     // if (room) initiateSocket(room);
     // if (room === undefined) {
     //   setRoom(rooms[0]);
-   
-    // }
 
+    // }
 
     enterChat((err, data) => {
       if (err) return;
-      setChat((existingdata) => [data.message +('('+data.room+')'), ...existingdata]);
-  
+      setChat((existingdata) => [
+        data.message + ("(" + data.room + ")"),
+        ...existingdata,
+      ]);
     });
-  
- 
 
     enterCreateRoom((err, data) => {
       if (err) return;
-      if(data){
+      if (data) {
         fetchRooms();
       }
-     
     });
-
-  }, [rooms, room,]);
+  }, [rooms, room]);
 
   const fetchRooms = () => {
     fetch("https://aamirproject-api.herokuapp.com/fetchrooms", {
@@ -74,11 +70,10 @@ function ChatRoom({ currentUser, setCurrentRoom }) {
         setRooms(data);
         // if (room === undefined) {
         //   setRoom(rooms[0]);
-         
+
         // }
       });
   };
-
 
   const addName = () => {
     setName(onName);
@@ -101,7 +96,7 @@ function ChatRoom({ currentUser, setCurrentRoom }) {
       }),
     });
     fetchRooms();
-   
+
     setChatHistory(chat);
     setChat([...chat, chatHistory]);
   };
@@ -130,7 +125,6 @@ function ChatRoom({ currentUser, setCurrentRoom }) {
         </div>
       ) : (
         <div>
-         
           <span>room: {room}</span>
           <ChatRoomContent
             rooms={rooms}
@@ -142,7 +136,7 @@ function ChatRoom({ currentUser, setCurrentRoom }) {
             setRoom={setRoom}
             room={room}
             sendMessage={sendMessage}
-            setCurrentRoom = {setCurrentRoom}
+            setCurrentRoom={setCurrentRoom}
             messageRoom={messageRoom}
           />
         </div>
@@ -156,6 +150,6 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setCurrentRoom: (room) => dispatch(setCurrentRoom(room))
-})
+  setCurrentRoom: (room) => dispatch(setCurrentRoom(room)),
+});
 export default connect(mapStateToProps, mapDispatchToProps)(ChatRoom);

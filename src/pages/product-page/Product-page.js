@@ -9,23 +9,21 @@ import { connect } from "react-redux";
 import {
   selectProduct,
   isProductDataLoaded,
-  
 } from "../../redux/shop/shop.selectors";
 import { selectCurrentUser } from "../../redux/user/user.selectors";
-import { fetchNamePending}  from '../../redux/user/user.actions'
+import { fetchNamePending } from "../../redux/user/user.actions";
 // import { fetchMessagePending } from "../../redux/messages/messages.actions";
 
 const ProductItem = React.lazy(() =>
   import("../../components/product-item/Product-item")
 );
 
-export function ProductPage({ isLoaded, product, incrementItem, currentUser}) {
-
-  useEffect(()=> {
-    if(currentUser){
-    fetchNamePending(currentUser.profileId)
+export function ProductPage({ isLoaded, product, incrementItem, currentUser }) {
+  useEffect(() => {
+    if (currentUser) {
+      fetchNamePending(currentUser.profileId);
     }
-  },[currentUser])
+  }, [currentUser]);
   return (
     <div className="product-page-container">
       <ShopHeader />
@@ -36,7 +34,7 @@ export function ProductPage({ isLoaded, product, incrementItem, currentUser}) {
               item={item}
               key={item.name}
               incrementItem={incrementItem}
-              currentUser = {currentUser}
+              currentUser={currentUser}
             />
           ))
         ) : (
@@ -50,13 +48,11 @@ export function ProductPage({ isLoaded, product, incrementItem, currentUser}) {
 const mapStateToProps = createStructuredSelector({
   product: selectProduct,
   isLoaded: isProductDataLoaded,
-  currentUser: selectCurrentUser
+  currentUser: selectCurrentUser,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  incrementItem: (item) => dispatch(addItem(item)),  
+  incrementItem: (item) => dispatch(addItem(item)),
 });
-
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductPage);

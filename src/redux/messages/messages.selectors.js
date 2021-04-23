@@ -13,11 +13,10 @@ export const selectMessagesPending = createSelector(
 
 export const selectVideoData = createSelector(
   [selectMessages],
-  messages => messages.videoData 
-)
-
+  (messages) => messages.videoData
+);
 
 export const selectRoom = createSelector(
   [selectMessages],
-  messages => messages.room 
-)
+  (messages) => messages.room
+);

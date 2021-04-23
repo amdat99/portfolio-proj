@@ -4,8 +4,8 @@ import { changeStatus } from "../../redux/profile/profile.actions";
 import { createStructuredSelector } from "reselect";
 import { selectCurrentUser } from "../../redux/user/user.selectors";
 import { connect } from "react-redux";
-import { fetchNamePending } from "../../redux/user/user.actions"
-import {sendProfileChange } from "../../sockets/sockets"
+import { fetchNamePending } from "../../redux/user/user.actions";
+import { sendProfileChange } from "../../sockets/sockets";
 
 import "./Landing-page.scss";
 
@@ -13,10 +13,12 @@ function LandingPage({ currentUser, changeStatus, fetchNamePending }) {
   useEffect(() => {
     if (currentUser !== null) {
       changeStatus(currentUser.profileId, "online");
-      fetchNamePending(currentUser.profileId)
-      setTimeout(function(){ sendProfileChange() }, 2000);
+      fetchNamePending(currentUser.profileId);
+      setTimeout(function () {
+        sendProfileChange();
+      }, 2000);
     }
-  }, [changeStatus, currentUser,fetchNamePending]);
+  }, [changeStatus, currentUser, fetchNamePending]);
 
   const shop =
     "https://cdn.pixabay.com/photo/2017/06/21/20/51/tshirt-2428521_960_720.jpg";
@@ -62,8 +64,7 @@ function LandingPage({ currentUser, changeStatus, fetchNamePending }) {
             Github
           </a>
           <br></br>
-          Test Profile:
-         john@gmail.com
+          Test Profile: john@gmail.com
           <br></br>
           password: 123456
           {/* <span style={{color: 'red'}}>*Somebody seems to sending 1000's of requests to the firebase server in a few minutes which is exausting the free 50k daily limit. For now I've set read access to users only.To access all features please use the test account: john@gmail.com password: 123456 OR quickly register an account or signin. The DDOSer  may be exceeding the signin limits of the test john account. Sorry if the firebase limits are exceeded. The chatapp mostly still functions without firebase. See my github for code implementations. </span> */}
@@ -72,15 +73,16 @@ function LandingPage({ currentUser, changeStatus, fetchNamePending }) {
           buy and sell items as well as a chatapp which allows users to send
           messages and images. The chatapp also features direct messaging done
           through user profiles where users can also upload profile images.
-           Futhermore, the app also has live video calling achieved through webRTC with and a socket-io 
-          connection to send peer data. There are also call logs handled with a postgres backend and live chatrooms utilisng 
-          socket-io. State management is handled throughout with redux and redux
-          sagas for requests. The backend for the store is handled with
-          firestore. The chatapp uses postgres with an express server providing
-          connectivity with Knex. Stripe and accuweather Api's are also called
-          in the server and implemented in the front-end. Some testing done with
-          jest and enzyme. The app is a Pogressive web-app. Redux-logger
-          kept as a dependency to show state management.
+          Futhermore, the app also has live video calling achieved through
+          webRTC with and a socket-io connection to send peer data. There are
+          also call logs handled with a postgres backend and live chatrooms
+          utilisng socket-io. State management is handled throughout with redux
+          and redux sagas for requests. The backend for the store is handled
+          with firestore. The chatapp uses postgres with an express server
+          providing connectivity with Knex. Stripe and accuweather Api's are
+          also called in the server and implemented in the front-end. Some
+          testing done with jest and enzyme. The app is a Pogressive web-app.
+          Redux-logger kept as a dependency to show state management.
         </p>
       </div>
     </div>
@@ -89,8 +91,7 @@ function LandingPage({ currentUser, changeStatus, fetchNamePending }) {
 const mapDispatchToProps = (dispatch) => ({
   changeStatus: (profileId, status) =>
     dispatch(changeStatus({ profileId, status })),
- fetchNamePending: (profileId) => dispatch(fetchNamePending(profileId))
-    
+  fetchNamePending: (profileId) => dispatch(fetchNamePending(profileId)),
 });
 
 const mapStateToProps = createStructuredSelector({

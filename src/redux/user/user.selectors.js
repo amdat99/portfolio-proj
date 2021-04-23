@@ -30,5 +30,5 @@ export const selectUserName = createSelector(
 );
 
 export const selectProfileName = createSelector([selectUser], (user) =>
-user.profileName ? user.profileName :[]
+  user.profileName ? user.profileName : []
 );

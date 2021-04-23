@@ -14,7 +14,7 @@ import groupChatReducer from "./groupchat/groupchat.reducer";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["user", "shop", "cart", "profiles"],
+  whitelist: ["user", "shop", "cart", "profiles","groupchat"],
 };
 
 const rootReducer = combineReducers({

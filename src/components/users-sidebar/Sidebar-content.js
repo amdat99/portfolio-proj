@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 
-
 function SidebarContent({
   data,
   openModal,
@@ -9,7 +8,6 @@ function SidebarContent({
   openMessageBox,
   openVideoBox,
   beginCall,
-  
 }) {
   const [messageDropdown, setMessageDropdown] = useState(false);
   const [profileInfo, setProfileInfo] = useState({
@@ -31,29 +29,24 @@ function SidebarContent({
   const sendProfileInfo = async () => {
     await getReceiverInfo(profileInfo);
     openMessageBox();
-
   };
 
   const startVideoCall = async () => {
-
-    if(profileInfo.recieverId === currentUser.profileId ){
-      return alert('dont call yourself please')
+    if (profileInfo.recieverId === currentUser.profileId) {
+      return alert("dont call yourself please");
     }
 
     await getReceiverInfo(profileInfo);
     beginCall();
-    
+  };
 
-  }
-
-  
   // https://firebasestorage.googleapis.com/v0/b/tada-proj.appspot.com/o/images%2Fprofile${data.profileId}?alt=media&token=e4485410-0836-4e25-b5e0-754eed7aec02
 
   return (
     <div onMouseEnter={toggleDropdown} onMouseLeave={toggleDropdown}>
       <div>
         <img
-         src={`  https://firebasestorage.googleapis.com/v0/b/aamir-project-492ef.appspot.com/o/images%2Fprofile${data.profileId}?alt=media&token=b54a3d9a-0bac-44b8-9035-717aa90cb4e6`}
+          src={`  https://firebasestorage.googleapis.com/v0/b/aamir-project-492ef.appspot.com/o/images%2Fprofile${data.profileId}?alt=media&token=b54a3d9a-0bac-44b8-9035-717aa90cb4e6`}
           alt="profile icon"
           width="60"
           height="60"
@@ -87,16 +80,17 @@ function SidebarContent({
                         Send Message
                       </span>
                       <span
-                      id="send-message-span"
-                          style={{cursor: "pointer"}}
+                        id="send-message-span"
+                        style={{ cursor: "pointer" }}
                         onClick={startVideoCall}
-                      > video call
+                      >
+                        {" "}
+                        video call
                       </span>
                     </div>
                   ) : (
                     <span
-                
-                      style={{cursor: "pointer"}}
+                      style={{ cursor: "pointer" }}
                       onClick={() =>
                         alert("sign in to send a message or videocall")
                       }
