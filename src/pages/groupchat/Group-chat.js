@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import {Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { selectCurrentGroup,selectPending , selectGroupMessages} from "../../redux/groupchat/groupchat.selectors";
@@ -12,6 +13,13 @@ import { fetchProfileInfoPending } from "../../redux/profile/profile.actions";
 import {createGroupPending, getGroupsPending, setCurrentGroup, fetchGroupDataPending } from "../../redux/groupchat/groupchat.actions"
 import {selectGroupChats, selectGroupData} from "../../redux/groupchat/groupchat.selectors"
 
+import {
+ 
+  sendGroupMsgRequest,
+  enterOnGroupMessage,
+ 
+} from "../../sockets/sockets";
+
 import GroupchatDropdown from "../../components/groupchat-dropdown/Groupchat-dropdown"
 
 import './Group-chat.scss'
@@ -19,6 +27,7 @@ import './Group-chat.scss'
 function GroupChat({ currentGroup, currentUser, profileName, pending,fetchProfileInfoPending, groupChats,
   fetchNamePending,sendGroupMessagePending, fetchGroupMessagesPending, groupMessages, profileInfo,createGroupPending, groupData, fetchGroupDataPending}) {
   
+  const [confirmUser, setConfirmUser] = useState(false)
   const [toggleGroupchat, setToggleGroupchat] = useState(false)
   const [searchField, setSearchField] = useState("");
   const [messageData, setMessageData] = useState({
@@ -61,12 +70,33 @@ const [group, setGroup] = useState("");
 //   getGroupsPending(currentUser.profileId);
 // }, [createGroupPending]);
 
+useEffect(() => {  // sockets 
+
+    enterOnGroupMessage((err, data) => {
+      if (err) return;
+
+      if (data === 'message') {
+        if(currentGroup){
+          fetchGroupMessagesPending(currentGroup.id);
+          }
+        
+      }
+  });
+
+})
 
 
 const setGroupName = async () => {
- 
+ try{
    createGroupPending(groupChatData);
-  //  await getGroupsPending(currentUser.profileId)
+   alert("user added")
+   setTimeout(function(){ fetchGroupDataPending(currentGroup.id) }, 1500);
+
+ }catch(e){
+     console.log('error',e)
+  
+ }
+  
 };
 
 useEffect(() => {
@@ -162,7 +192,7 @@ useEffect(() => {
         image: "",
         video:''
       });
-
+      sendGroupMsgRequest()
     setTimeout(function(){   fetchGroupMessagesPending(currentGroup.id);}, 1500);
 
  
@@ -218,8 +248,9 @@ useEffect(() => {
         messageid: messageid
       }),
     })
-      .then((res) => res.json())
-        fetchGroupMessagesPending(currentGroup.id)
+
+   
+        setTimeout(function(){ fetchGroupMessagesPending(currentGroup.id)}, 1000);
       
       
   };
@@ -236,7 +267,7 @@ useEffect(() => {
   return (
     <div>
 {/* <span style={{position: 'relative' ,right: '100px', cursor: "pointer"}} onClick={()=> setToggleGroupchat(!toggleGroupchat)}>group chats</span> */}
-
+<Link style={{position:'relative',left:'8%' ,bottom: '-80px' , cursor: "pointer"}} to='./chatapp'>Chat App</Link>
 { toggleGroupchat?
        currentUser?
        <div >
@@ -250,11 +281,14 @@ useEffect(() => {
     {groupData.map((data,i) =>
     <div key ={i} >
       <span>{data.name}</span>
+      
       </div>
       )}
 </div>
       {/* <button onClick={remeoveDuplicateIds}>teset</button> */}
-<div style={{position:'relative',marginLeft: '-50%' ,bottom: '-60px' , cursor: "pointer"}} onClick={()=>setToggleAddUser(!toggleAddUser)}>Add user</div>
+<Link style={{position:'relative',marginLeft: '-60%' ,bottom: '-80px' , cursor: "pointer"}} onClick={()=>setToggleAddUser(!toggleAddUser)}>Add user</Link>
+
+
 {toggleAddUser && profileName && groupMessages
 
  
@@ -264,13 +298,20 @@ useEffect(() => {
 <hr style = {{width:'200px'}}></hr>
     <div>
     <span id = ''>{profile.displayName}</span>
-    <button style ={{marginLeft: '10px', background: '#2ca4ab'}} onClick={()=>{ setGroupChatData({...groupChatData, groupId: currentGroup.id, groupName: currentGroup.name, name: profile.displayName, userId: profile.profileId}); setGroupName(); }}>
+    <button style ={{marginLeft: '10px', background: '#2ca4ab'}} onClick={()=>{ setGroupChatData({...groupChatData, groupId: currentGroup.id, groupName: currentGroup.name, name: profile.displayName, userId: profile.profileId});  setConfirmUser(true); }}>
       Add to chat</button>
-      {/* <button onClick={setGroupName}>add user </button> */}
+     
       </div>
 
     </div>
-  ))}
+  ))} 
+  { confirmUser
+       ?<div className='groupchat-adduser-button'> 
+       <button style ={{marginLeft: '10px', marginTop: '10px',background: '#2ca4ab'}} onClick={()=>{ setGroupName();  setConfirmUser(false); }} >confirm</button>
+        <button onClick={()=>setConfirmUser(false)}>X</button>
+        </div>
+       : null}
+
   </div>
   
  
@@ -287,7 +328,7 @@ useEffect(() => {
                 key={message.messageid}
                 fetchMessage={fetchGroupMessagesPending}
                 incrementLikesPending={incrementLikes}
-                sendMsgRequest={test2}
+                sendMsgRequest={sendGroupMsgRequest}
               />
             ))
           : null}

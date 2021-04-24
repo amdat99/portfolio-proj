@@ -16,7 +16,7 @@ function MessageBox({
   sendMsgRequest,
   currentUser,
 }) {
-  const { name, message, date, likes, image, userid, video } = messageData;
+  const { name, message, date, likes, image, userid, video, messageid } = messageData;
   const [images, setImages] = useState(true);
   const [canLike, setCanLike] = useState(true);
   const [onProfileImage, setOnProfileImage] = useState(true);
@@ -24,7 +24,7 @@ function MessageBox({
   const [vidReady, setVidReady] = useState(false);
 
   const incrementLikes = async () => {
-    await incrementLikesPending(messageData);
+    await incrementLikesPending(messageid);
     // fetchMessage();
     sendMsgRequest();
   };

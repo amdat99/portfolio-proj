@@ -33,6 +33,9 @@ export const sendMessage = (room, message) => {
   if (socket) socket.emit("chat", { message, room });
 };
 
+
+
+
 export const enterProfileChange = (data) => {
   if (!socket) return;
   socket.on("profilechange", (message) => {
@@ -49,15 +52,30 @@ export const sendProfileChange = () => {
 export const enterOnMessage = (data) => {
   if (!socket) return;
   socket.on("onmessage", (message) => {
-    console.log("call started");
+    console.log("fetching messages");
     return data(null, message);
   });
 };
 
 export const sendMsgRequest = () => {
-  console.log(" fetching messages");
+  console.log("  sending message fetch req");
   if (socket) socket.emit("onmessage");
 };
+
+
+export const enterOnGroupMessage = (data) => {
+  if (!socket) return;
+  socket.on("ongroupmessage", (message) => {
+    console.log("fetching messages");
+    return data(null, message);
+  });
+};
+
+export const sendGroupMsgRequest = () => {
+  console.log(" sending message fetch req" );
+  if (socket) socket.emit("ongroupmessage");
+};
+
 
 export const enterCreateRoom = (data) => {
   if (!socket) return;

@@ -373,6 +373,13 @@ const  answerCall = async (videoId) => {
   }
   }
 
+  const incrementLikes = (id) =>{
+    incrementLikesPending(id)
+    
+    setTimeout(function(){ fetchMessagePending()}, 1000);
+
+  }
+
 
 
 // let today = new Date()
@@ -425,6 +432,7 @@ const  answerCall = async (videoId) => {
         />
 
 
+
          {/* //chat log: */}
       <div className= {toggleCallLog?'chat-page-video-logs':null}>
       {
@@ -460,7 +468,7 @@ const  answerCall = async (videoId) => {
                   messageData={message}
                   key={message.messageid}
                   fetchMessage={fetchMessagePending}
-                  incrementLikesPending={incrementLikesPending}
+                  incrementLikesPending={incrementLikes}
                   sendMsgRequest = {sendMsgRequest}
 
                   
@@ -628,8 +636,8 @@ const mapDispatchToProps = (dispatch) => ({
   fetchMessagePending: () => dispatch(fetchMessagePending()),
   changeStatus: (profileId, status) =>
     dispatch(changeStatus({ profileId, status })),
-  incrementLikesPending: (messageData) =>
-    dispatch(incrementLikesPending(messageData)),
+  incrementLikesPending: (messageid) =>
+    dispatch(incrementLikesPending(messageid)),
   getProfileInfo: () => dispatch(fetchProfileInfoPending()),
   toggleChatModal: () => dispatch(toggleChatModal()),
   toggleVideoBox: () => dispatch(toggleVideoBox()),

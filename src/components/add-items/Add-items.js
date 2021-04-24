@@ -134,11 +134,11 @@ export const AddItems = ({ currentUser, error, profileName }) => {
           required
         />
 
-        <p>Choose category</p>
+        <p>Choose Category</p>
         {categories.map((category, i) => (
           <div className="additems-categories" key={i}>
             {" "}
-            {category}
+            <span style={{position: 'relative',bottom:'13px'}}>{category}</span>
             <input
               className=""
               type="radio"
@@ -147,6 +147,7 @@ export const AddItems = ({ currentUser, error, profileName }) => {
               onChange={handleChange}
               label="category"
               required
+              style={{position: 'relative',bottom:'13px'}}
             ></input>{" "}
           </div>
         ))}
@@ -155,7 +156,7 @@ export const AddItems = ({ currentUser, error, profileName }) => {
           className="sign-on-input"
           type="url"
           name="picture"
-          placeholder="enter a imageUrl"
+          placeholder="enter a image Url"
           value={picture}
           onChange={handleChange}
           label="picture"

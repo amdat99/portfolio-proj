@@ -60,7 +60,9 @@ export function* fetchMessageAsync() {
   }
 }
 
-export function* incrementLikesAsync({ payload: { messageid } }) {
+
+
+export function* incrementLikesAsync({ payload:  messageid  }) {
   try {
     const response = yield fetch(
       "https://aamirproject-api.herokuapp.com/incrementlikes",

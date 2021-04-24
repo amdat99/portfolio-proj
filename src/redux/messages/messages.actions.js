@@ -34,9 +34,9 @@ export const fetchMessageFailed = (error) => ({
   payload: error,
 });
 
-export const incrementLikesPending = (messageData) => ({
+export const incrementLikesPending = (messageid) => ({
   type: messagesActionTypes.INCREMENT_LIKES_PENDING,
-  payload: messageData,
+  payload: messageid,
 });
 
 export const incrementLikesSuccess = () => ({
