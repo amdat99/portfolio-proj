@@ -3,6 +3,7 @@
   left: -20px;
   display: flex;
   flex-direction: column;
+  min-height: 300px;
 
   @media screen and (max-width: 1000px) {
     left: -75px;

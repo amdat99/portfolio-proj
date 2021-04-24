@@ -37,12 +37,12 @@
 }
 
 .chat-page-searchbox {
-  z-index: 99;
+  z-index: 4;
 
   @media screen and (max-width: 1250px) {
     position: relative;
     bottom: -35px;
-    left: -120px;
+    left: -100px;
   }
 
   @media screen and (max-width: 490px) {

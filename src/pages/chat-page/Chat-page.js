@@ -408,7 +408,11 @@ const  answerCall = async (videoId) => {
           Chat log{"  "}
         </Link>
         : <Link  className="chat-page-roomlink" onClick={() =>alert('sign in to see logs')}>Chat Log</Link>}
-         <Link className="chat-page-roomlink" onClick={ontoggleGroupchat}> group chats</Link>
+        
+         { currentUser?
+            <Link className="chat-page-roomlink" onClick={ontoggleGroupchat}> group chats</Link>
+        :<Link  className="chat-page-roomlink" onClick ={()=> alert('sign in to view groupchats')}>group chats</Link> }
+        
         </div>
         
         {/* // searchcbox */}
@@ -542,12 +546,12 @@ const  answerCall = async (videoId) => {
 
           {/* //groupchat dropdown header */}
          { toggleGroupchat?
-       currentUser?
+       
        <div >
       <GroupchatDropdown currentUser = {currentUser} createGroupPending={createGroupPending} setCurrentGroup = {setCurrentGroup}
       groupChats = {groupChats} getGroupsPending = {getGroupsPending} />
       </div>
-      : alert(' signin to see groupchats')
+     
        : null}
             <div className={videoBox ? "chat-page-vidshow" : "chat-page-vidhide"}>
          
