@@ -8,7 +8,7 @@ import {selectCurrentUser } from "../../redux/user/user.selectors";
 import { selectProfileName  } from "../../redux/user/user.selectors";
 import {fetchNamePending} from "../../redux/user/user.actions"
 import MessageBox from "../../components/message-box/Message-box"
-import { selectProfileInfo, selectReceiverInfo } from "../../redux/profile/profile.selectors";
+import { selectProfileInfo } from "../../redux/profile/profile.selectors";
 import { fetchProfileInfoPending } from "../../redux/profile/profile.actions";
 import {createGroupPending, getGroupsPending, setCurrentGroup, fetchGroupDataPending } from "../../redux/groupchat/groupchat.actions"
 import {selectGroupChats, selectGroupData} from "../../redux/groupchat/groupchat.selectors"
@@ -28,8 +28,9 @@ function GroupChat({ currentGroup, currentUser, profileName, pending,fetchProfil
   fetchNamePending,sendGroupMessagePending, fetchGroupMessagesPending, groupMessages, profileInfo,createGroupPending, groupData, fetchGroupDataPending}) {
   
   const [confirmUser, setConfirmUser] = useState(false)
+  //eslint-disable-next-line
   const [toggleGroupchat, setToggleGroupchat] = useState(false)
-  const [searchField, setSearchField] = useState("");
+  // const [searchField, setSearchField] = useState("");
   const [messageData, setMessageData] = useState({
     userName: "",
     message: "",
@@ -43,7 +44,7 @@ function GroupChat({ currentGroup, currentUser, profileName, pending,fetchProfil
   const [mediaInput, setMediaInput] = useState(false);
 const [mediaType, setMediaType] = useState('');
 const [toggleAddUser , setToggleAddUser] = useState(false)
-const [toggleCreate, setToggleCreate] = useState(false);
+// const [toggleCreate, setToggleCreate] = useState(false);
 const [groupChatData, setGroupChatData] = useState({
  
   groupId: "",
@@ -55,20 +56,8 @@ const [groupChatData, setGroupChatData] = useState({
 const [uniqueId , setUniqueId] = useState([])
 
 const [messageIds,setMessageIds] = useState([])
-const [filteredProfiles, setFilteredProfiles] = useState(null)
 
-const [group, setGroup] = useState("");
-// useEffect(() => {
-//   setGroupChatData({
-//     userId: currentUser.profileId,
-//     name: currentUser.displayName,
-//     groupId: (Math.random() * Math.random()) / Math.random(),
-//   });
-// }, [currentUser]);
 
-// useEffect(() => {
-//   getGroupsPending(currentUser.profileId);
-// }, [createGroupPending]);
 
 useEffect(() => {  // sockets 
 
@@ -112,19 +101,19 @@ useEffect(() => {
   if(currentGroup){
     fetchGroupDataPending(currentGroup.id)
   }
-},[currentGroup])
+},[currentGroup, fetchGroupDataPending])
 
-useEffect(() => {
-  if(messageIds){
-    remeoveDuplicateIds()
-  }
-},[messageIds])
+// useEffect(() => {
+//   if(messageIds){
+//     remeoveDuplicateIds()
+//   }
+// },[messageIds])
 
   useEffect(() => {
     if(currentGroup){
     fetchGroupMessagesPending(currentGroup.id);
     }
-  }, [fetchGroupMessagesPending,]);
+  }, [fetchGroupMessagesPending,currentGroup]);
 
   useEffect(() => {
       if (currentUser && profileName){
@@ -149,11 +138,11 @@ useEffect(() => {
     //eslint-disable-next-line
   },[])
 
-  const filteredMessages = () => {
-    return groupMessages.filter((message) => {
-      return message.name.toLowerCase().includes(searchField.toLowerCase());
-    });
-  };
+  // const filteredMessages = () => {
+  //   return groupMessages.filter((message) => {
+  //     return message.name.toLowerCase().includes(searchField.toLowerCase());
+  //   });
+  // };
 
   const handleChange = (event) => {
   
@@ -162,15 +151,6 @@ useEffect(() => {
     //   fetchNamePending(currentUser.profileId)
     //   }
     setMessageData({ ...messageData, message: event.target.value });
-
-    const onMediaInput = (media) => {
-        setMediaType(media)
-        setMediaInput(true)
-    }
-    
-    const closeMediaInput = () => {
-      setMediaInput(false)
-    }
 
 
   };
@@ -220,13 +200,7 @@ useEffect(() => {
     };
     xhr.send(null);
   };
-  const test1 = () => {
-    console.log('test1')
-  }
 
-  const test2 = () => {
-    console.log('test2')
-  }
 
   function onlyUnique(value, index, self) {
     return self.indexOf(value) === index;
@@ -235,7 +209,7 @@ useEffect(() => {
     
     let unique = messageIds.filter(onlyUnique);
     setUniqueId(unique)
-    console.log(unique)
+   
     
   }
 
@@ -276,23 +250,22 @@ useEffect(() => {
       </div>
       : alert(' signin to see groupchats')
        : null}
-  <div className="groupchat-invited">
-    <h3> Invited users</h3>
+  <div className="groupchat-invited hide-scroll">
+    <p style ={{fontWeight:'bold' ,position:'relative' ,right: '5px'}}> Invited users</p>
     {groupData.map((data,i) =>
     <div key ={i} >
-      <span>{data.name}</span>
+      <span style ={{position:'relative' ,right: '5px'}}>{data.name}</span>
       
       </div>
       )}
 </div>
-      {/* <button onClick={remeoveDuplicateIds}>teset</button> */}
 <Link style={{position:'relative',marginLeft: '-60%' ,bottom: '-80px' , cursor: "pointer"}} onClick={()=>setToggleAddUser(!toggleAddUser)}>Add user</Link>
 
 
 {toggleAddUser && profileName && groupMessages
 
  
- ? <div className="groupchat-adduser">
+ ? <div className="groupchat-adduser hide-scroll">
  {profileInfo.map(profile => (
   <div key={profileInfo.profileId}>
 <hr style = {{width:'200px'}}></hr>
@@ -318,7 +291,7 @@ useEffect(() => {
   : null}
 
 
-        <h1>group: {currentGroup.name}</h1>
+        <h1 style={{color: '#2ca4ab'}}>group: {currentGroup.name}</h1>
       <form className="chat-page-scroller hide-scroll" onSubmit={sendMessage}>
         {pending ? <div className="loader"></div> : null}
         {groupMessages
@@ -377,7 +350,7 @@ useEffect(() => {
         null)}
       </form>
 
-      <div className= 'chat-page-icons'>  
+      <div className= 'chat-page-icons-g'>  
         <div onClick={()=> {setMediaType('image'); setMediaInput(true)}}
           style={{cursor: "pointer",marginRight: '150px',zIndex:'-1',position:'relative'}}>📷  Image</div>  
 

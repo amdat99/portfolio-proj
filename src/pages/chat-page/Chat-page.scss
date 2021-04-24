@@ -5,13 +5,13 @@
   display: flex;
   flex-direction: column;
   padding: 20px;
-  background: whitesmoke;
+ 
   margin-left: 6%;
   outline: none;
   overflow-y: scroll;
   overflow-x: hidden;
   box-shadow: 2px 2px 2px 2px hsl(218, 60%, 92%);
-
+ background: whitesmoke;
   @media screen and (max-height: 900px) {
     height: 600px;
   }
@@ -38,9 +38,13 @@
 
 .chat-page-searchbox {
   z-index: 4;
+  position: relative;
+  bottom: -35px;
+  width: 200px;
+  left: -220px;
 
   @media screen and (max-width: 1250px) {
-    position: relative;
+    width: 150px;
     bottom: -35px;
     left: -100px;
   }
@@ -67,8 +71,9 @@
   }
 
   @media screen and (max-width: 490px) {
-    bottom: -25px;
+    bottom: 5px;
     margin-left: 5px;
+    left: -20px;
   }
 
   &:hover {

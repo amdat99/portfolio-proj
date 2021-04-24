@@ -1,5 +1,5 @@
 import React, { useEffect, useState, Suspense,} from "react";
-import {Route } from "react-router-dom";
+
 
 import {
   enterCall,
@@ -50,7 +50,6 @@ import { setMissedCall, sendVideoData } from "../video-chat/Video-chat-requests"
 import GroupchatDropdown   from "../../components/groupchat-dropdown/Groupchat-dropdown"
 import "./Chat-page.scss";
 
-import Groupchat from  "../groupchat/Group-chat"
 
 const MessageBox = React.lazy(() =>
   import("../../components/message-box/Message-box")
@@ -143,7 +142,7 @@ useEffect(()=>{
    if(currentUser){
    getGroupsPending(currentUser.profileId)
    }
- },[currentUser])
+ },[currentUser,getGroupsPending]);
 
 
   useEffect(() => {  // sockets 

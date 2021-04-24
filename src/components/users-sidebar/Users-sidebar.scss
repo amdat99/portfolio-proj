@@ -143,6 +143,10 @@
 #sidebar-test {
   position: relative;
   bottom: 25px;
+
+  @media screen and (max-width: 800px) {
+font-size: 10px;
+  }
 }
 
 #send-message-span {

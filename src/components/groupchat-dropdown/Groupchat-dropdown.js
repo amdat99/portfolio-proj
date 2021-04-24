@@ -15,7 +15,7 @@ function GroupchatDropdown({
     userId: "",
     name: "",
   });
-  const [group, setGroup] = useState("");
+
   useEffect(() => {
     setGroupChatData({
       creatorId: currentUser.id,
@@ -23,11 +23,11 @@ function GroupchatDropdown({
       name: currentUser.displayName,
       groupId: (Math.random() * Math.random()) / Math.random(),
     });
-  }, [currentUser]);
+  }, [currentUser, ]);
 
   useEffect(() => {
     getGroupsPending(currentUser.profileId);
-  }, [createGroupPending]);
+  }, [createGroupPending, getGroupsPending,currentUser]);
 
   const [toggleCreate, setToggleCreate] = useState(false);
 
@@ -36,8 +36,7 @@ function GroupchatDropdown({
     //  await getGroupsPending(currentUser.profileId)
   };
 
-  console.log(groupChatData);
-  console.log(groupChats);
+
 
   return (
     <div className="groupc-dropdown-container">
