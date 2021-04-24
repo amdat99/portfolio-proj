@@ -532,7 +532,7 @@ const  answerCall = async (videoId) => {
                   <input           //set guest uername
                     type="text"
                     onChange={(e) => setOnName(e.target.value)}
-                    placeholder="enter username"
+                    placeholder="enter guest username"
                     id="chat-page-userinput"
                   />
                   
