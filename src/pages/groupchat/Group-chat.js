@@ -235,7 +235,7 @@ useEffect(() => {
 
   return (
     <div>
-<span style={{position: 'relative' ,right: '100px', cursor: "pointer"}} onClick={()=> setToggleGroupchat(!toggleGroupchat)}>group chats</span>
+{/* <span style={{position: 'relative' ,right: '100px', cursor: "pointer"}} onClick={()=> setToggleGroupchat(!toggleGroupchat)}>group chats</span> */}
 
 { toggleGroupchat?
        currentUser?
