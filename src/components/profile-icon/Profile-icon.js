@@ -83,7 +83,9 @@ function ProfileIcon({
               <Link onClick={toggleModal} id="profile-icon-title">
                 PROFILE
               </Link>
-            ) : null}
+            ) :   <Link onClick={()=>alert("sign in to view profile")} id="profile-icon-title">
+            PROFILE
+          </Link>}
             <Link to="/store" id="profile-icon-title">
               STORE
             </Link>
