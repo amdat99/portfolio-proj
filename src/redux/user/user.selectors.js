@@ -4,7 +4,7 @@ const selectUser = (state) => state.user;
 
 export const selectCurrentUser = createSelector(
   [selectUser],
-  (user) => user.currentUser
+  (user) => user.currentUser ? user.currentUser : null
 );
 
 export const selectCurrentProfileId = createSelector(
@@ -19,16 +19,12 @@ export const selectRecievedMessages = createSelector([selectUser], (user) =>
   user.recievedMessage ? user.recievedMessage : []
 );
 
+export const selectProfileName = createSelector([selectUser], (user) =>
+  user.profileName ? user.profileName : []
+);
 export const selectErrorMessage = createSelector(
   [selectUser],
   (user) => user.error
 );
 
-export const selectUserName = createSelector(
-  [selectCurrentUser],
-  (currentUser) => currentUser.filter((userData) => userData.userName)
-);
 
-export const selectProfileName = createSelector([selectUser], (user) =>
-  user.profileName ? user.profileName : []
-);

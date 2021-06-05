@@ -5,7 +5,7 @@ import Draggable from "react-draggable";
 import { connect } from "react-redux";
 import { toggleModal, toggleMessageBox } from "../../redux/modal/modal.actions";
 import { fetchProfileImagePending } from "../../redux/profile/profile.actions";
-// import { selectProfileName } from '../../redux/profile/profile.selectors'
+import { selectProfileName } from '../../redux/profile/profile.selectors'
 import { createStructuredSelector } from "reselect";
 import {
   selectToggledModal,
@@ -15,7 +15,6 @@ import {
   selectCurrentUser,
   selectRecievedMessages,
   selectSentMessages,
-  selectProfileName,
 } from "../../redux/user/user.selectors";
 import {
   getRecievedMessagePending,

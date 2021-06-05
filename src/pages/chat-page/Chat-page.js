@@ -416,8 +416,8 @@ const  answerCall = async (videoId) => {
         : <Link  className="chat-page-roomlink" onClick={() =>alert('sign in to see logs')}>Chat Log</Link>}
         
          { currentUser?
-            <Link className="chat-page-roomlink" onClick={ontoggleGroupchat}> group chats</Link>
-        :<Link  className="chat-page-roomlink" onClick ={()=> alert('sign in to view groupchats')}>group chats</Link> }
+            <Link className="chat-page-roomlink" onClick={ontoggleGroupchat}> Group chats</Link>
+        :<Link  className="chat-page-roomlink" onClick ={()=> alert('sign in to view groupchats')}>Group chats</Link> }
         
         </div>
         
