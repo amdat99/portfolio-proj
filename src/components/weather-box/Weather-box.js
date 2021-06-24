@@ -136,7 +136,7 @@ function WeatherBox(props) {
           </form>
           {locationData ? (
             <div>
-              <div>
+              <div className="weather Data">
                 <div>{locationData.WeatherText}</div>
                 <span>{locationData.Temperature.Metric.Value} °C</span>
               </div>
