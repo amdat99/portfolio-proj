@@ -13,12 +13,17 @@
 
     .cartitem-remove-span {
       left: 5px;
+    
+       cursor: pointer;
+
       @media screen and (max-width: 1000px) {
         left: 10px;
       }
 
       .cartitem-add-span {
         position: relative;
+        cursor: pointer;
+
         margin-left: 5px;
 
         @media screen and (max-width: 1000px) {

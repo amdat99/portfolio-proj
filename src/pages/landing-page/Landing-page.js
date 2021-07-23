@@ -69,7 +69,7 @@ function LandingPage({ currentUser, changeStatus, fetchNamePending }) {
           password: 123456
           {/* <span style={{color: 'red'}}>*Somebody seems to sending 1000's of requests to the firebase server in a few minutes which is exausting the free 50k daily limit. For now I've set read access to users only.To access all features please use the test account: john@gmail.com password: 123456 OR quickly register an account or signin. The DDOSer  may be exceeding the signin limits of the test john account. Sorry if the firebase limits are exceeded. The chatapp mostly still functions without firebase. See my github for code implementations. </span> */}
           <br></br>
-          <br></br>I have created a featured store application where users can
+          <br></br>I've made a featured store application where users can
           buy and sell items as well as a chatapp which allows users to send
           messages and images. The chatapp also features direct messaging done
           through user profiles where users can also upload profile images.

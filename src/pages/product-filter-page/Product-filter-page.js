@@ -132,7 +132,7 @@ function ProductsFilterPage({ collections, setHeaderRoute, isloaded }) {
       </h1>
       <div id="products-filter-spacing">
         {!isloaded ? (
-          <h1 className="product-filter-searchtitle">Seacrh listed items</h1>
+          <h1 className="product-filter-searchtitle">Search listed items</h1>
         ) : (
           <div className="products-filter-spacing">
             {filteredCollections.map((item, i) => (

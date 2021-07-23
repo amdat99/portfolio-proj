@@ -40,7 +40,7 @@ function CartContent({
           <span
             className="cartitem-add-span"
             onClick={() => incrementItem(item)}
-            style={{ position: "relative", left: "5px" }}
+            style={{ position: "relative", left: "5px",cursor: "pointer" }}
           >
             add
           </span>
