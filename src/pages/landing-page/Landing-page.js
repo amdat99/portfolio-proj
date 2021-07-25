@@ -53,7 +53,7 @@ function LandingPage({ currentUser, changeStatus, fetchNamePending }) {
         <p className="landing-page-text">
           <a
             className="landing-page-cv"
-            href="https://drive.google.com/file/d/1z_376bSQJU7L9ihEX8qMxCzHvRnbbtNc/view?usp=sharing"
+            href="https://drive.google.com/file/d/1_GoiR3k2TaPBg0fzeeLYB3lDCMyoSS80/view?usp=sharing"
           >
             CV
           </a>
