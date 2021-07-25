@@ -28,6 +28,7 @@ function ChatRoom({ currentUser, setCurrentRoom }) {
   const [name, setName] = useState("");
   const [onName, setOnName] = useState("");
   const [messageRoom] = useState(null);
+  const [chatHandler, setChatHandler] = useState(null)
 
   useEffect(() => {
     fetchRooms();
@@ -37,7 +38,16 @@ function ChatRoom({ currentUser, setCurrentRoom }) {
     } //eslint-disable-next-line
   }, [currentUser, room, name, onName]);
 
-  useEffect(() => {
+
+   useEffect(()=> {
+     if(chatHandler){
+    setChat((existingdata) => [
+      chatHandler.message + ("(" + chatHandler.room + ")"),
+      ...existingdata,
+    ]);
+  }
+   },[chatHandler])
+  useEffect (() => {
     // if (room) initiateSocket(room);
     // if (room === undefined) {
     //   setRoom(rooms[0]);
@@ -46,10 +56,7 @@ function ChatRoom({ currentUser, setCurrentRoom }) {
 
     enterChat((err, data) => {
       if (err) return;
-      setChat((existingdata) => [
-        data.message + ("(" + data.room + ")"),
-        ...existingdata,
-      ]);
+      setChatHandler(data)
     });
 
     enterCreateRoom((err, data) => {
