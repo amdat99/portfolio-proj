@@ -94,6 +94,8 @@ function MessageBox({
             ) : (
               <span id="message-box-message"> {message}</span>
             )}
+          {/* {onreply ? <span >show replies</span>
+          : null} */}
             <span id="message-box-likes">{likes}</span>
             {canLike ? (
               <span

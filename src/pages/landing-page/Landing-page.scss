@@ -17,7 +17,7 @@
   top: 80px;
   right: -100px;
   width: 50%;
-  border: 1px solid hsla(191, 46%, 43%, 0.802);
+  border: 1px solid hsla(0, 0%, 75%, 0.802);
 
   @media screen and (max-width: 800px) {
     right: -50px;
@@ -31,6 +31,7 @@
   &:hover {
     transition: transform 1s cubic-bezier(0.25, 0.45, 0.45, 0.95);
     transform: scale(1.1);
+
     .landing-page-links {
       opacity: 1;
       transition: transform 1s cubic-bezier(0.25, 0.45, 0.45, 0.95);
@@ -95,12 +96,20 @@
   margin-right: 20px;
   border-bottom: 1px solid black;
   border-top: 1px solid black;
+  cursor: pointer;
 
   @media screen and (max-width: 800px) {
     text-align: justify;
     font-size: 14px;
     top: 500px;
     left: 12%;
+
+  }
+  &:hover {
+    transform: scale(1.1);
+    transition: transform 1s cubic-bezier(0.25, 0.45, 0.45, 0.95);
+    border-top: 1px solid rgba(177, 100, 28, 0.7);
+  border-bottom: 1px solid rgb(27, 108, 138);
   }
 }
 

@@ -28,7 +28,7 @@ function LandingPage({ currentUser, changeStatus, fetchNamePending }) {
   return (
     <div>
       <div className="Landing-page-container">
-        <div className="landing-page-box">
+        <div style ={{ background:'rgba(177, 100, 28, 0.7)'}} className="landing-page-box">
           <Link to="/store">
             <h1 className="landing-page-title">Enter The Store</h1>
             <div
